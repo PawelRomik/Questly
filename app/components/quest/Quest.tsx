@@ -13,7 +13,7 @@ export default function Quest() {
 
 	return (
 		<div
-			className={`w-full max-w-xl flex items-center gap-4 p-4 rounded-xl border transition-all
+			className={`w-full max-w-xl cursor-pointer flex items-center gap-4 p-4 rounded-xl border transition-all
 			${completed ? "bg-zinc-900 border-green-600 opacity-80" : "bg-zinc-800 border-zinc-700 hover:border-red-600"}
 			`}
 		>
@@ -25,7 +25,7 @@ export default function Quest() {
 				<span className='absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full'>13</span>
 			</div>
 
-			<div className='flex flex-col flex-1'>
+			<div className='flex flex-col items-start flex-1'>
 				<h2 className={`text-lg font-semibold ${completed ? "line-through text-zinc-400" : "text-white"}`}>TITLE</h2>
 
 				<p className='text-sm text-zinc-400'>SHORT DESC</p>

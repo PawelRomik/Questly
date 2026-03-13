@@ -1,13 +1,13 @@
 "use client";
 
-import Quest from "@/app/components/quest/Quest";
+import Modal from "@/app/components/quest-modal/Modal";
 
 export default function QuestList() {
 	return (
 		<div className='w-full px-3 gap-5 flex-col items-center flex justify-center'>
-			<Quest />
-			<Quest />
-			<Quest />
+			<Modal />
+			<Modal />
+			<Modal />
 		</div>
 	);
 }
