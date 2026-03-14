@@ -1,0 +1,227 @@
+[
+	{
+		"title": "Destination: Skellige",
+		"type": "Main Quest",
+		"short_desc": "Unlocked after completing 'Imperial Audience'.",
+		"desc": "Geralt travels from Novigrad to the Skellige Isles in search of Ciri. To reach the islands he must hire a ship and deal with pirates during the voyage. After arriving in Skellige, Geralt attends King Bran's funeral and begins investigating Ciri's presence in the region.",
+		"rewards": {
+			"xp": 1000,
+			"money": 0,
+			"items": []
+		},
+		"character": "Yennefer",
+		"location": "Skellige",
+		"level": 16,
+		"tags": ["Main Quest", "Skellige", "Yennefer"]
+	},
+	{
+		"title": "The King is Dead – Long Live the King",
+		"type": "Main Quest",
+		"short_desc": "Starts after arriving in Skellige.",
+		"desc": "Geralt attends the wake of King Bran at Kaer Trolde and reunites with Yennefer. During the feast the two sneak into Ermion's laboratory to investigate a magical artifact connected to Ciri.",
+		"rewards": {
+			"xp": 1000,
+			"money": 0,
+			"items": []
+		},
+		"character": "Yennefer",
+		"location": "Skellige",
+		"level": 16,
+		"tags": ["Main Quest", "Skellige", "Yennefer"]
+	},
+	{
+		"title": "Echoes of the Past",
+		"type": "Main Quest",
+		"short_desc": "Part of the investigation into Ciri's activities in Skellige.",
+		"desc": "Geralt and Yennefer travel to the druid grove to investigate the magical explosion caused by Ciri. Using necromancy, Yennefer attempts to reconstruct past events while Geralt protects her from danger.",
+		"rewards": {
+			"xp": 500,
+			"money": 0,
+			"items": []
+		},
+		"character": "Yennefer",
+		"location": "Skellige",
+		"level": 17,
+		"tags": ["Main Quest", "Skellige", "Yennefer"]
+	},
+	{
+		"title": "Nameless",
+		"type": "Main Quest",
+		"short_desc": "Follows 'Echoes of the Past'.",
+		"desc": "Geralt searches the sacred garden of Freya on Hindarsfjall to find clues about Ciri. Investigating the destruction left behind by the Wild Hunt reveals how Ciri escaped their pursuit.",
+		"rewards": {
+			"xp": 1000,
+			"money": 0,
+			"items": []
+		},
+		"character": "Yennefer",
+		"location": "Skellige",
+		"level": 17,
+		"tags": ["Main Quest", "Skellige"]
+	},
+	{
+		"title": "The Last Wish",
+		"type": "Side Quest",
+		"short_desc": "Requires completing several Skellige main quests.",
+		"desc": "Yennefer asks Geralt to help capture a djinn so she can break the magical bond created by Geralt's last wish. The quest determines whether Geralt and Yennefer stay together.",
+		"rewards": {
+			"xp": 500,
+			"money": 0,
+			"items": []
+		},
+		"character": "Yennefer",
+		"location": "Skellige",
+		"level": 15,
+		"tags": ["Side Quest", "Skellige", "Yennefer"]
+	},
+	{
+		"title": "The Lord of Undvik",
+		"type": "Side Quest",
+		"short_desc": "Available after meeting Crach an Craite.",
+		"desc": "Geralt travels to the island of Undvik to find Hjalmar an Craite and help him defeat the ice giant terrorizing the island.",
+		"rewards": {
+			"xp": 500,
+			"money": 200,
+			"items": ["Hjalmar's reward sword"]
+		},
+		"character": "Crach an Craite",
+		"location": "Skellige",
+		"level": 17,
+		"tags": ["Side Quest", "Skellige", "Hjalmar"]
+	},
+	{
+		"title": "Possession",
+		"type": "Side Quest",
+		"short_desc": "Cerys asks Geralt to investigate a cursed jarl.",
+		"desc": "Geralt investigates strange behavior from Udalryk and discovers a hym feeding on his guilt. The witcher must find a way to defeat the spirit.",
+		"rewards": {
+			"xp": 500,
+			"money": 150,
+			"items": []
+		},
+		"character": "Cerys an Craite",
+		"location": "Skellige",
+		"level": 17,
+		"tags": ["Side Quest", "Skellige", "Cerys"]
+	},
+	{
+		"title": "King's Gambit",
+		"type": "Side Quest",
+		"short_desc": "Requires completing 'Possession' or 'The Lord of Undvik'.",
+		"desc": "Geralt investigates a massacre during the feast where Skellige's new ruler is to be chosen. The investigation uncovers a political conspiracy.",
+		"rewards": {
+			"xp": 1000,
+			"money": 0,
+			"items": []
+		},
+		"character": "Cerys an Craite",
+		"location": "Skellige",
+		"level": 18,
+		"tags": ["Side Quest", "Skellige", "Politics"]
+	},
+	{
+		"title": "Coronation",
+		"type": "Side Quest",
+		"short_desc": "Final quest of the Skellige ruler storyline.",
+		"desc": "Depending on Geralt's choices, either Cerys or Hjalmar becomes ruler of Skellige and Geralt attends the coronation ceremony.",
+		"rewards": {
+			"xp": 200,
+			"money": 0,
+			"items": []
+		},
+		"character": "Crach an Craite",
+		"location": "Skellige",
+		"level": 18,
+		"tags": ["Side Quest", "Skellige", "Politics"]
+	},
+	{
+		"title": "In the Heart of the Woods",
+		"type": "Side Quest",
+		"short_desc": "Started from a notice board in Fayrlund.",
+		"desc": "Geralt investigates killings in a nearby forest and discovers a powerful leshen worshipped by villagers.",
+		"rewards": {
+			"xp": 110,
+			"money": 60,
+			"items": []
+		},
+		"character": "Sven",
+		"location": "Skellige",
+		"level": 22,
+		"tags": ["Side Quest", "Skellige", "Monster"]
+	},
+	{
+		"title": "The Path of Warriors",
+		"type": "Side Quest",
+		"short_desc": "Trial of strength in Skellige tradition.",
+		"desc": "Geralt climbs a dangerous mountain path used in Skellige warrior trials while fighting harpies and surviving harsh conditions.",
+		"rewards": {
+			"xp": 200,
+			"money": 100,
+			"items": []
+		},
+		"character": "Gunnar",
+		"location": "Skellige",
+		"level": 16,
+		"tags": ["Side Quest", "Skellige", "Trial"]
+	},
+	{
+		"title": "Fists of Fury: Skellige",
+		"type": "Side Quest",
+		"short_desc": "Part of the fistfighting quest chain.",
+		"desc": "Geralt challenges several fighters across the Skellige Isles to become the regional champion of bare-knuckle combat.",
+		"rewards": {
+			"xp": 250,
+			"money": 100,
+			"items": []
+		},
+		"character": null,
+		"location": "Skellige",
+		"level": 18,
+		"tags": ["Side Quest", "Skellige", "Combat"]
+	},
+	{
+		"title": "Contract: Skellige's Most Wanted",
+		"type": "Contract",
+		"short_desc": "A witcher contract involving several monsters.",
+		"desc": "Geralt investigates reports of a dangerous monster only to discover a group of intelligent creatures plotting revenge against witchers.",
+		"rewards": {
+			"xp": 300,
+			"money": 300,
+			"items": ["Monster trophy"]
+		},
+		"character": null,
+		"location": "Skellige",
+		"level": 29,
+		"tags": ["Contract", "Skellige", "Monster"]
+	},
+	{
+		"title": "From a Land Far, Far Away",
+		"type": "Side Quest",
+		"short_desc": "Started by finding a mysterious journal.",
+		"desc": "Geralt finds a wrecked ship and a journal describing a journey from a distant land. Following the clues reveals the fate of the expedition.",
+		"rewards": {
+			"xp": 50,
+			"money": 50,
+			"items": []
+		},
+		"character": null,
+		"location": "Skellige",
+		"level": 13,
+		"tags": ["Side Quest", "Skellige", "Exploration"]
+	},
+	{
+		"title": "Scavenger Hunt: Bear School Gear",
+		"type": "Treasure Hunt",
+		"short_desc": "Triggered by finding Bear School diagrams.",
+		"desc": "Geralt follows clues to locate diagrams of the legendary Bear School witcher equipment hidden across Skellige.",
+		"rewards": {
+			"xp": 100,
+			"money": 0,
+			"items": ["Bear School Gear Diagrams"]
+		},
+		"character": null,
+		"location": "Skellige",
+		"level": 20,
+		"tags": ["Treasure Hunt", "Skellige", "Witcher Gear"]
+	}
+]

@@ -1,17 +1,32 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Dialog } from "radix-ui";
-import dandelion from "../../../public/assets/dandelion.webp";
-import skellige from "../../../public/assets/skellige.png";
-import skellige_mini from "../../../public/assets/skellige_mini.webp";
 import Quest from "@/app/components/quest/Quest";
 
-export default function Modal() {
+type Rewards = {
+	xp: number;
+	money: number;
+	items: string[];
+};
+
+type ModalProps = {
+	title: string;
+	type: string;
+	desc: string;
+	level: number;
+	tags: string[];
+	locationImage: StaticImageData;
+	mapImage: StaticImageData;
+	characterImage: StaticImageData;
+	rewards: Rewards;
+};
+
+export default function Modal({ title, type, desc, level, tags, locationImage, mapImage, characterImage, rewards }: ModalProps) {
 	return (
 		<Dialog.Root>
 			<Dialog.Trigger className='w-full flex items-center justify-center'>
-				<Quest />
+				<Quest title={title} shortDesc={desc.slice(0, 60) + "..."} level={level} tags={tags} locationImage={locationImage} />
 			</Dialog.Trigger>
 
 			<Dialog.Portal>
@@ -34,36 +49,23 @@ export default function Modal() {
         text-gray-200
         '
 				>
-					<div
-						className='
-          border-r border-zinc-700
-          flex items-center justify-center
-          bg-zinc-900 h-full
-          '
-					>
-						<div className='text-center h-full'>
-							<Image src={dandelion} alt='portrait' className='w-full object-cover h-full ' />
-						</div>
+					<div className='border-r border-zinc-700 flex items-center justify-center bg-zinc-900 h-full'>
+						<Image src={characterImage} alt='portrait' className='w-full object-cover h-full' />
 					</div>
 
-					<div className='relative '>
-						<Dialog.Title className='text-2xl px-6 py-4 bg-red-700 font-bold tracking-wide text-white'>TITLE</Dialog.Title>
+					<div className='relative'>
+						<Dialog.Title className='text-2xl px-6 py-4 bg-red-700 font-bold tracking-wide text-white'>{title}</Dialog.Title>
 
 						<div className='flex gap-3 items-center px-3 pt-3 bg-zinc-900'>
-							<p className='text-sm border-r border-gray-400 pr-3 text-yellow-400 mb-4'>Main quest</p>
-							<div className='flex gap-2'>
-								<p className='text-sm text-gray-400 mb-4'>Skellige</p>
-								<Image src={skellige} className='w-6.25 h-6.25 object-contain' alt='location' />
+							<p className='text-sm border-r border-gray-400 pr-3 text-yellow-400 mb-4'>{type}</p>
+
+							<div className='flex gap-2 items-center'>
+								<p className='text-sm text-gray-400 mb-4'>{tags.find((t) => t !== type) || "Skellige"}</p>
+								<Image src={locationImage} className='w-6.25 h-6.25 object-contain' alt='location' />
 							</div>
 						</div>
 
-						<Dialog.Description className='text-sm leading-relaxed p-3 text-gray-300'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum viverra massa ut turpis bibendum, vitae convallis velit luctus. Curabitur tristique sem sit amet
-							augue tempor, non malesuada justo dictum.
-							<br />
-							<br />
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis luctus ipsum. Suspendisse potenti.
-						</Dialog.Description>
+						<Dialog.Description className='text-sm leading-relaxed p-3 text-gray-300'>{desc}</Dialog.Description>
 
 						<Dialog.Close asChild>
 							<button
@@ -83,34 +85,24 @@ export default function Modal() {
 						</Dialog.Close>
 					</div>
 
-					<div
-						className='
-          border-t border-zinc-700
-
-          bg-zinc-950 overflow-hidden
-          '
-					>
-						<div className='text-gray-500 text-sm  opacity-60 h-full p-1 bg-zinc-800 hover:opacity-100 cursor-pointer transition'>
-							<Image src={skellige_mini} className='h-full w-full' alt='map' />
+					<div className='border-t border-zinc-700 bg-zinc-950 overflow-hidden'>
+						<div className='text-gray-500 text-sm opacity-60 h-full p-1 bg-zinc-800 hover:opacity-100 cursor-pointer transition'>
+							<Image src={mapImage} className='h-full w-full object-cover' alt='map' />
 						</div>
 					</div>
 
-					<div
-						className='
-          border-t border-r border-zinc-700
-          p-5 bg-zinc-900
-          '
-					>
+					<div className='border-t border-r border-zinc-700 p-5 bg-zinc-900'>
 						<h3 className='font-semibold text-gray-300 mb-2'>REWARDS</h3>
 
 						<div className='flex gap-2 mt-4'>
 							<div className='flex items-center justify-center'>
 								<span className='px-2 py-1 text-xs bg-zinc-700 rounded-l'>XP</span>
-								<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>100</span>
+								<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>{rewards.xp}</span>
 							</div>
+
 							<div className='flex items-center justify-center'>
 								<span className='px-2 py-1 text-xs bg-zinc-700 rounded-l'>Gold</span>
-								<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>100</span>
+								<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>{rewards.money}</span>
 							</div>
 						</div>
 					</div>

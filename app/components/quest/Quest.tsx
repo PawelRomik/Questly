@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import skellige from "../../../public/assets/skellige.png";
+import Image, { StaticImageData } from "next/image";
 
-export default function Quest() {
+type QuestProps = {
+	title: string;
+	shortDesc: string;
+	level: number;
+	tags: string[];
+	locationImage: StaticImageData;
+};
+
+export default function Quest({ title, shortDesc, level, tags, locationImage }: QuestProps) {
 	const [completed, setCompleted] = useState(false);
 
 	const toggleComplete = () => {
@@ -19,20 +26,23 @@ export default function Quest() {
 		>
 			<div className='relative flex items-center justify-center'>
 				<div className='p-2 rounded-lg bg-zinc-900 border border-zinc-700'>
-					<Image src={skellige} className='h-12.5 w-12.5 object-contain' alt='flag' />
+					<Image src={locationImage} className='h-12.5 w-12.5 object-contain' alt='location flag' />
 				</div>
 
-				<span className='absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full'>13</span>
+				<span className='absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full'>{level}</span>
 			</div>
 
 			<div className='flex flex-col items-start flex-1'>
-				<h2 className={`text-lg font-semibold ${completed ? "line-through text-zinc-400" : "text-white"}`}>TITLE</h2>
+				<h2 className={`text-lg font-semibold ${completed ? "line-through text-zinc-400" : "text-white"}`}>{title}</h2>
 
-				<p className='text-sm text-zinc-400'>SHORT DESC</p>
+				<p className='text-sm text-left text-zinc-400'>{shortDesc}</p>
 
-				<div className='flex gap-2 mt-2'>
-					<span className='text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300'>Main Quest</span>
-					<span className='text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300'>Skellige</span>
+				<div className='flex gap-2 mt-2 flex-wrap'>
+					{tags.map((tag) => (
+						<span key={tag} className='text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300'>
+							{tag}
+						</span>
+					))}
 
 					{completed && <span className='text-xs px-2 py-1 rounded bg-green-600 text-white'>✔ Completed</span>}
 				</div>

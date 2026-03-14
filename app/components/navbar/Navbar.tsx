@@ -8,7 +8,7 @@ export default function Navbar() {
 	const [active, setActive] = useState<"left" | "right" | null>(null);
 
 	return (
-		<nav className='w-full sticky top-0 left-0 flex shadow-2xl text-2xl font-bold h-24'>
+		<nav className='w-full sticky z-10 top-0 left-0 flex shadow-2xl text-2xl font-bold h-24'>
 			<div className='w-32 h-full overflow-hidden'>
 				<div
 					className={`w-full h-full border-b-4 rotate-30 scale-x-150 origin-bottom-right bg-[linear-gradient(180deg,rgba(153,27,27,1)_1%,rgba(79,14,14,1)_100%)] transition-colors ${active === "left" && "brightness-150"}`}
