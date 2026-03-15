@@ -11,15 +11,15 @@ type Rewards = {
 };
 
 type ModalProps = {
-	title: string;
+	title: React.ReactNode;
 	type: string;
 	desc: string;
 	level: number;
-	tags: string[];
+	tags: React.ReactNode[];
+	rewards: Rewards;
 	locationImage: StaticImageData;
 	mapImage: StaticImageData;
 	characterImage: StaticImageData;
-	rewards: Rewards;
 };
 
 export default function Modal({ title, type, desc, level, tags, locationImage, mapImage, characterImage, rewards }: ModalProps) {

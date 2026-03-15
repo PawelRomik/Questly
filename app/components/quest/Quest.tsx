@@ -4,10 +4,10 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 type QuestProps = {
-	title: string;
+	title: React.ReactNode;
 	shortDesc: string;
 	level: number;
-	tags: string[];
+	tags: React.ReactNode[];
 	locationImage: StaticImageData;
 };
 
@@ -38,8 +38,8 @@ export default function Quest({ title, shortDesc, level, tags, locationImage }: 
 				<p className='text-sm text-left text-zinc-400'>{shortDesc}</p>
 
 				<div className='flex gap-2 mt-2 flex-wrap'>
-					{tags.map((tag) => (
-						<span key={tag} className='text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300'>
+					{tags.map((tag, i) => (
+						<span key={i} className='text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300'>
 							{tag}
 						</span>
 					))}
