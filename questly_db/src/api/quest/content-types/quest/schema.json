@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quests",
+  "info": {
+    "singularName": "quest",
+    "pluralName": "quests",
+    "displayName": "quest"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "ShortDesc": {
+      "type": "string"
+    },
+    "Desc": {
+      "type": "text"
+    },
+    "Map": {
+      "type": "json"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::location.location",
+      "inversedBy": "quests"
+    },
+    "character": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::character.character",
+      "inversedBy": "quests"
+    },
+    "rewards": {
+      "type": "json"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
+    },
+    "quest_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::quest-type.quest-type",
+      "inversedBy": "quests"
+    }
+  }
+}

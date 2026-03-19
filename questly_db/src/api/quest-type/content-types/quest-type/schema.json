@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quest_types",
+  "info": {
+    "singularName": "quest-type",
+    "pluralName": "quest-types",
+    "displayName": "quest-type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game",
+      "inversedBy": "quest_types"
+    },
+    "quests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest.quest",
+      "mappedBy": "quest_type"
+    }
+  }
+}
