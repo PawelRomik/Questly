@@ -1,30 +1,14 @@
 "use client";
 
-import quests from "@/app/data/witcher3_quests.json";
-import Modal from "@/app/components/quest-modal/Modal";
-
+import { GET_QUESTS } from "@/app/lib/queries";
 import dandelion from "../../../public/assets/dandelion.webp";
 import skellige from "../../../public/assets/skellige.png";
 import skellige_mini from "../../../public/assets/skellige_mini.webp";
 
 import { StaticImageData } from "next/image";
-
-type Rewards = {
-	xp: number;
-	money: number;
-	items: string[];
-};
-
-type Quest = {
-	title: string;
-	type: string;
-	desc: string;
-	level: number;
-	tags: string[];
-	location: string;
-	character: string | null;
-	rewards: Rewards;
-};
+import { GetQuestsData, GetQuestsVars, Quest } from "@/app/types/quest";
+import { useQuery } from "@apollo/client/react";
+import Modal from "@/app/components/quest-modal/Modal";
 
 type QuestListProps = {
 	search: string;
@@ -37,130 +21,68 @@ const locationImages: Record<string, StaticImageData> = {
 	Skellige: skellige
 };
 
-export default function QuestList({ search, groupByType, sort, searchTags }: QuestListProps) {
-	const typedQuests = quests as Quest[];
-	const normalizedSearch = search.toLowerCase();
+export default function QuestList({ search, groupByType, sort }: QuestListProps) {
+	const { data, loading } = useQuery<GetQuestsData, GetQuestsVars>(GET_QUESTS, {
+		variables: { search }
+	});
 
-	const sortQuests = (list: Quest[]) => {
+	if (loading) return <p>Loading...</p>;
+
+	const quests = data?.quests ?? [];
+
+	const sortQuests = (list: Quest[]): Quest[] => {
 		switch (sort) {
 			case "az":
-				return list.sort((a, b) => a.title.localeCompare(b.title));
-
+				return list.sort((a, b) => a.Title.localeCompare(b.Title));
 			case "za":
-				return list.sort((a, b) => b.title.localeCompare(a.title));
-
+				return list.sort((a, b) => b.Title.localeCompare(a.Title));
 			case "levelAsc":
 				return list.sort((a, b) => a.level - b.level);
-
 			case "levelDesc":
 				return list.sort((a, b) => b.level - a.level);
-
 			default:
 				return list;
 		}
 	};
 
-	const matched = typedQuests.filter((q) => {
-		const titleMatch = q.title.toLowerCase().includes(normalizedSearch);
+	const groupedQuests = quests.reduce<Record<string, Quest[]>>((acc, quest) => {
+		const type = quest.quest_type?.name ?? "Other";
 
-		if (!searchTags) return titleMatch;
+		if (!acc[type]) acc[type] = [];
+		acc[type].push(quest);
 
-		const tagMatch = q.tags.some((tag) => tag.toLowerCase().includes(normalizedSearch));
+		return acc;
+	}, {});
 
-		return titleMatch || tagMatch;
-	});
+	const renderModal = (quest: Quest, key: string | number) => {
+		const locationName = quest.location?.Name ?? "";
 
-	const unmatched = typedQuests.filter((q) => {
-		const titleMatch = q.title.toLowerCase().includes(normalizedSearch);
-
-		const tagMatch = q.tags.some((tag) => tag.toLowerCase().includes(normalizedSearch));
-
-		return searchTags ? !(titleMatch || tagMatch) : !titleMatch;
-	});
-
-	const sortedMatched = sortQuests([...matched]);
-	const sortedUnmatched = sortQuests([...unmatched]);
-
-	const groupedQuests = typedQuests.reduce(
-		(acc, quest) => {
-			if (!acc[quest.type]) acc[quest.type] = [];
-			acc[quest.type].push(quest);
-			return acc;
-		},
-		{} as Record<string, Quest[]>
-	);
-
-	const highlight = (text: string): React.ReactNode => {
-		if (!search.trim()) return text;
-
-		const regex = new RegExp(`(${search})`, "gi");
-		const parts = text.split(regex);
-
-		return parts.map((part, i) =>
-			part.toLowerCase() === search.toLowerCase() ? (
-				<span key={i} className='text-red-600 font-semibold'>
-					{part}
-				</span>
-			) : (
-				part
-			)
+		return (
+			<Modal
+				key={key}
+				title={quest.Title}
+				type={quest.quest_type?.name ?? "Unknown"}
+				desc={quest.Desc}
+				level={quest.level}
+				tags={quest.tags.map((t) => t.name)}
+				rewards={quest.rewards}
+				locationImage={locationImages[locationName]}
+				mapImage={skellige_mini}
+				characterImage={dandelion}
+			/>
 		);
 	};
-
-	const highlightTags = (tags: string[]) => {
-		if (!searchTags) return tags;
-		return tags.map((tag) => highlight(tag));
-	};
-
-	const renderModal = (quest: Quest, key: string | number) => (
-		<Modal
-			key={key}
-			title={highlight(quest.title)}
-			type={quest.type}
-			desc={quest.desc}
-			level={quest.level}
-			tags={highlightTags(quest.tags)}
-			rewards={quest.rewards}
-			locationImage={locationImages[quest.location]}
-			mapImage={skellige_mini}
-			characterImage={dandelion}
-		/>
-	);
 
 	if (!groupByType) {
-		return (
-			<div className='w-full px-3 flex flex-col items-center gap-5'>
-				{sortedMatched.map((quest, i) => renderModal(quest, `match-${i}`))}
+		const sorted = sortQuests([...quests]);
 
-				{search && sortedUnmatched.length > 0 && (
-					<div className='w-full max-w-xl flex items-center gap-3 py-4'>
-						<div className='flex-1 h-px bg-zinc-700' />
-						<span className='text-xs text-zinc-500'>Other quests</span>
-						<div className='flex-1 h-px bg-zinc-700' />
-					</div>
-				)}
-
-				{sortedUnmatched.map((quest, i) => renderModal(quest, `unmatch-${i}`))}
-			</div>
-		);
+		return <div className='w-full px-3 flex flex-col items-center gap-5'>{sorted.map((quest, i) => renderModal(quest, i))}</div>;
 	}
 
 	return (
 		<div className='w-full px-3 flex flex-col items-center gap-8'>
-			{search && sortedMatched.length > 0 && (
-				<div className='w-full max-w-xl flex flex-col gap-4'>
-					<h2 className='text-lg font-semibold text-yellow-400 border-b border-zinc-700 pb-1'>Search Results</h2>
-
-					{sortedMatched.map((quest, i) => renderModal(quest, `search-${i}`))}
-				</div>
-			)}
-
 			{Object.entries(groupedQuests).map(([type, quests]) => {
-				const filtered = quests.filter((q) => !search || !matched.some((m) => m.title === q.title));
-
-				if (filtered.length === 0) return null;
-
-				const sorted = sortQuests([...filtered]);
+				const sorted = sortQuests([...quests]);
 
 				return (
 					<div key={type} className='w-full max-w-xl flex flex-col gap-4'>
