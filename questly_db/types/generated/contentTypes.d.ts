@@ -571,6 +571,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -580,6 +581,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       'api::location.location'
     > &
       Schema.Attribute.Private;
+    minimap: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     Name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;

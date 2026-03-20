@@ -1,11 +1,6 @@
 "use client";
 
 import { GET_QUESTS } from "@/app/lib/queries";
-import dandelion from "../../../public/assets/dandelion.webp";
-import skellige from "../../../public/assets/skellige.png";
-import skellige_mini from "../../../public/assets/skellige_mini.webp";
-
-import { StaticImageData } from "next/image";
 import { GetQuestsData, GetQuestsVars, Quest } from "@/app/types/quest";
 import { useQuery } from "@apollo/client/react";
 import Modal from "@/app/components/quest-modal/Modal";
@@ -15,10 +10,6 @@ type QuestListProps = {
 	groupByType: boolean;
 	sort: string;
 	searchTags: boolean;
-};
-
-const locationImages: Record<string, StaticImageData> = {
-	Skellige: skellige
 };
 
 export default function QuestList({ search, groupByType, sort }: QuestListProps) {
@@ -55,8 +46,6 @@ export default function QuestList({ search, groupByType, sort }: QuestListProps)
 	}, {});
 
 	const renderModal = (quest: Quest, key: string | number) => {
-		const locationName = quest.location?.Name ?? "";
-
 		return (
 			<Modal
 				key={key}
@@ -66,9 +55,9 @@ export default function QuestList({ search, groupByType, sort }: QuestListProps)
 				level={quest.level}
 				tags={quest.tags.map((t) => t.name)}
 				rewards={quest.rewards}
-				locationImage={locationImages[locationName]}
-				mapImage={skellige_mini}
-				characterImage={dandelion}
+				locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
+				mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
+				characterImage={`http://localhost:1337${quest.character?.Image?.url}`}
 			/>
 		);
 	};

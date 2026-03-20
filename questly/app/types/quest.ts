@@ -14,6 +14,12 @@ export type QuestType = {
 
 export type Location = {
 	Name: string;
+	minimap: {
+		url: string;
+	};
+	banner: {
+		url: string;
+	};
 };
 
 export type CharacterImage = {

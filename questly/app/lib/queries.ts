@@ -12,6 +12,12 @@ export const GET_QUESTS = gql`
 			ShortDesc
 			location {
 				Name
+				minimap {
+					url
+				}
+				banner {
+					url
+				}
 			}
 			character {
 				Name
