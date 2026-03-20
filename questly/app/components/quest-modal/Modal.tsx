@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Dialog } from "radix-ui";
 import Quest from "@/app/components/quest/Quest";
 
@@ -17,9 +17,9 @@ type ModalProps = {
 	level: number;
 	tags: React.ReactNode[];
 	rewards: Rewards;
-	locationImage: StaticImageData;
-	mapImage: StaticImageData;
-	characterImage: StaticImageData;
+	locationImage: string;
+	mapImage: string;
+	characterImage: string;
 };
 
 export default function Modal({ title, type, desc, level, tags, locationImage, mapImage, characterImage, rewards }: ModalProps) {
@@ -50,7 +50,7 @@ export default function Modal({ title, type, desc, level, tags, locationImage, m
         '
 				>
 					<div className='border-r border-zinc-700 flex items-center justify-center bg-zinc-900 h-full'>
-						<Image src={characterImage} alt='portrait' className='w-full object-cover h-full' />
+						<Image unoptimized width={1000} height={1000} src={characterImage} alt='portrait' className='w-full object-cover h-full' />
 					</div>
 
 					<div className='relative'>
@@ -61,7 +61,7 @@ export default function Modal({ title, type, desc, level, tags, locationImage, m
 
 							<div className='flex gap-2 items-center'>
 								<p className='text-sm text-gray-400 mb-4'>{tags.find((t) => t !== type) || "Skellige"}</p>
-								<Image src={locationImage} className='w-6.25 h-6.25 object-contain' alt='location' />
+								<Image unoptimized width={1000} height={1000} src={locationImage} className='w-6.25 h-6.25 object-contain' alt='location' />
 							</div>
 						</div>
 
@@ -87,7 +87,7 @@ export default function Modal({ title, type, desc, level, tags, locationImage, m
 
 					<div className='border-t border-zinc-700 bg-zinc-950 overflow-hidden'>
 						<div className='text-gray-500 text-sm opacity-60 h-full p-1 bg-zinc-800 hover:opacity-100 cursor-pointer transition'>
-							<Image src={mapImage} className='h-full w-full object-cover' alt='map' />
+							<Image unoptimized width={1000} height={1000} src={mapImage} className='h-full w-full object-cover' alt='map' />
 						</div>
 					</div>
 

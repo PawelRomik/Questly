@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 type QuestProps = {
 	title: React.ReactNode;
 	shortDesc: string;
 	level: number;
 	tags: React.ReactNode[];
-	locationImage: StaticImageData;
+	locationImage: string;
 };
 
 export default function Quest({ title, shortDesc, level, tags, locationImage }: QuestProps) {
@@ -26,7 +26,7 @@ export default function Quest({ title, shortDesc, level, tags, locationImage }: 
 		>
 			<div className='relative flex items-center justify-center'>
 				<div className='p-2 rounded-lg bg-zinc-900 border border-zinc-700'>
-					<Image src={locationImage} className='h-12.5 w-12.5 object-contain' alt='location flag' />
+					<Image unoptimized width={1000} height={1000} src={locationImage} className='h-12.5 w-12.5 object-contain' alt='location flag' />
 				</div>
 
 				<span className='absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full'>{level}</span>

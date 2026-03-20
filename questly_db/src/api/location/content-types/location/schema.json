@@ -19,6 +19,26 @@
       "relation": "oneToMany",
       "target": "api::quest.quest",
       "mappedBy": "location"
+    },
+    "minimap": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
