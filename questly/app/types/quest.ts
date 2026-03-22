@@ -32,6 +32,7 @@ export type Character = {
 } | null;
 
 export type Quest = {
+	id: string;
 	Title: string;
 	level: number;
 	Desc: string;
@@ -50,4 +51,5 @@ export type GetQuestsData = {
 
 export type GetQuestsVars = {
 	search?: string;
+	searchTags?: boolean;
 };
