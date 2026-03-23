@@ -4,8 +4,9 @@ import { GET_QUESTS_NO_TAGS, GET_QUESTS_WITH_TAGS } from "@/app/lib/queries";
 import { GetQuestsData, GetQuestsVars, Quest } from "@/app/types/quest";
 import { useQuery } from "@apollo/client/react";
 import Modal from "@/app/components/quest-modal/Modal";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { QuestListProps } from "@/app/components/quest/types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function QuestList({ search, groupByType, sort, searchTags }: QuestListProps) {
 	const query = searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
@@ -14,6 +15,25 @@ export default function QuestList({ search, groupByType, sort, searchTags }: Que
 		variables: { search },
 		notifyOnNetworkStatusChange: true
 	});
+
+	const router = useRouter();
+	const searchParams = useSearchParams();
+
+	const activeQuestId = searchParams.get("activeQuest");
+	const setActiveQuestId = useCallback(
+		(uuid: string | null) => {
+			const params = new URLSearchParams(searchParams.toString());
+
+			if (uuid) {
+				params.set("activeQuest", uuid);
+			} else {
+				params.delete("activeQuest");
+			}
+
+			router.replace(`?${params.toString()}`);
+		},
+		[router, searchParams]
+	);
 
 	const quests = useMemo(() => {
 		return data?.quests ?? previousData?.quests ?? [];
@@ -49,15 +69,18 @@ export default function QuestList({ search, groupByType, sort, searchTags }: Que
 
 	const renderQuest = (quest: Quest) => (
 		<Modal
-			key={quest.id}
+			key={quest.uuid}
+			uuid={quest.uuid}
+			activeQuestId={activeQuestId}
+			setActiveQuestId={setActiveQuestId}
 			title={quest.Title}
 			type={quest.quest_type?.name ?? "Unknown"}
 			desc={quest.Desc}
 			level={quest.level}
 			tags={quest.tags.map((t) => t.name)}
 			search={search}
-			rewards={quest.rewards}
 			searchTags={searchTags}
+			rewards={quest.rewards}
 			locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
 			mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
 			characterImage={`http://localhost:1337${quest.character?.Image?.url}`}

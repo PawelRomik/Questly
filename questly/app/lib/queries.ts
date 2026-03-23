@@ -7,6 +7,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 			quest_type {
 				name
 			}
+			uuid
 			level
 			Desc
 			ShortDesc
@@ -41,6 +42,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				name
 			}
 			level
+			uuid
 			Desc
 			ShortDesc
 			location {
