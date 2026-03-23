@@ -20,9 +20,11 @@ export default function Game() {
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			const params = new URLSearchParams();
+			const params = new URLSearchParams(searchParams.toString()); // 👈 KLUCZ
 
 			if (filters.search) params.set("search", filters.search);
+			else params.delete("search");
+
 			params.set("groupByType", String(filters.groupByType));
 			params.set("sort", filters.sort);
 			params.set("searchTags", String(filters.searchTags));
@@ -31,7 +33,7 @@ export default function Game() {
 		}, 300);
 
 		return () => clearTimeout(timeout);
-	}, [filters, router]);
+	}, [filters, router, searchParams]);
 
 	const handleFiltersChange = useCallback((next: Filters) => {
 		setFilters(next);

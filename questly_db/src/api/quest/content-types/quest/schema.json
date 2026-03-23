@@ -51,6 +51,9 @@
       "relation": "manyToOne",
       "target": "api::quest-type.quest-type",
       "inversedBy": "quests"
+    },
+    "uuid": {
+      "type": "uid"
     }
   }
 }

@@ -32,7 +32,7 @@ export type Character = {
 } | null;
 
 export type Quest = {
-	id: string;
+	uuid: string;
 	Title: string;
 	level: number;
 	Desc: string;

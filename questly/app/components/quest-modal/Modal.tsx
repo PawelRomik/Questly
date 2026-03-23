@@ -27,13 +27,41 @@ type ModalProps = {
 	characterImage: string;
 	search: string;
 	searchTags: boolean;
+	uuid: string;
+	activeQuestId: string | null;
+	setActiveQuestId: (id: string | null) => void;
 };
 
-export default function Modal({ title, type, desc, level, search, tags, searchTags, locationImage, mapImage, characterImage, rewards }: ModalProps) {
+export default function Modal({
+	uuid,
+	setActiveQuestId,
+	activeQuestId,
+	title,
+	type,
+	desc,
+	level,
+	search,
+	tags,
+	searchTags,
+	locationImage,
+	mapImage,
+	characterImage,
+	rewards
+}: ModalProps) {
+	const isOpen = activeQuestId === uuid && uuid !== null;
+	console.log(activeQuestId, uuid);
+
 	return (
-		<Dialog.Root>
-			<Dialog.Trigger className='w-full flex items-center justify-center'>
-				<Quest title={title} searchTags={searchTags} search={search} shortDesc={desc.slice(0, 60) + "..."} level={level} tags={tags} locationImage={locationImage} />
+		<Dialog.Root
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (!open) setActiveQuestId(null);
+			}}
+		>
+			<Dialog.Trigger asChild>
+				<div onClick={() => setActiveQuestId(uuid)} className='w-full'>
+					<Quest title={title} search={search} searchTags={searchTags} shortDesc={desc.slice(0, 60) + "..."} level={level} tags={tags} locationImage={locationImage} />
+				</div>
 			</Dialog.Trigger>
 
 			<Dialog.Portal>
