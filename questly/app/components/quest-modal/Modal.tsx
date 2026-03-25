@@ -49,7 +49,6 @@ export default function Modal({
 	rewards
 }: ModalProps) {
 	const isOpen = activeQuestId === uuid && uuid !== null;
-	console.log(activeQuestId, uuid);
 
 	return (
 		<Dialog.Root

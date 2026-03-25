@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { NavDecor } from "./NavDecor";
 import { NavMenu } from "./NavMenu";
-import NavLogo from "@/app/components/navbar/NavLogo";
+import GameSwitcher from "@/app/components/game-switcher/GameSwitcher";
 
 export const NAV_BG = "bg-[linear-gradient(180deg,rgba(153,27,27,1)_1%,rgba(79,14,14,1)_100%)]";
 
@@ -15,10 +15,10 @@ export default function Navbar() {
 			<NavDecor side='left' active={active} />
 
 			<div className={`flex-1 flex items-center border-b-4 border-white ${NAV_BG}`}>
-				<div className='flex w-full h-full'>
+				<div className='flex w-full h-full overflow-hidden'>
 					<NavMenu side='left' active={active} setActive={setActive} />
 
-					<NavLogo />
+					<GameSwitcher />
 
 					<NavMenu side='right' active={active} setActive={setActive} />
 				</div>
