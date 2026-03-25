@@ -18,12 +18,15 @@ export default function Game() {
 		searchTags: searchParams.get("searchTags") === "true"
 	});
 
+	const handleFiltersChange = useCallback((next: Filters) => {
+		setFilters(next);
+	}, []);
+
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			const params = new URLSearchParams(searchParams.toString()); // 👈 KLUCZ
+			const params = new URLSearchParams();
 
 			if (filters.search) params.set("search", filters.search);
-			else params.delete("search");
 
 			params.set("groupByType", String(filters.groupByType));
 			params.set("sort", filters.sort);
@@ -33,11 +36,7 @@ export default function Game() {
 		}, 300);
 
 		return () => clearTimeout(timeout);
-	}, [filters, router, searchParams]);
-
-	const handleFiltersChange = useCallback((next: Filters) => {
-		setFilters(next);
-	}, []);
+	}, [filters, router]);
 
 	return (
 		<div className='flex flex-col gap-5 h-screen overflow-y-scroll bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)]'>
