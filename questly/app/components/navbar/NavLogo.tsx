@@ -8,7 +8,7 @@ export default function NavLogo() {
 	const params = useParams();
 	const game = params.game as keyof typeof GAME_THEME;
 
-	const theme = GAME_THEME[game] ?? GAME_THEME.witcher3;
+	const theme = GAME_THEME[game] ?? GAME_THEME.default;
 
 	return (
 		<div

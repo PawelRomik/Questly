@@ -22,15 +22,17 @@ export default function GameSwitcher() {
 					<Dialog.Title className='text-xl font-semibold text-white mb-6 text-center tracking-wide'>Select Game</Dialog.Title>
 
 					<div className='grid grid-cols-2 sm:grid-cols-3 gap-6'>
-						{games.map((game) => (
-							<Link key={game.slug} href={`/${game.slug}/quests`} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
-								<div className='relative w-16 h-16'>
-									<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
-								</div>
+						{games
+							.filter((game) => game.slug !== "questly")
+							.map((game) => (
+								<Link key={game.slug} href={`/${game.slug}/quests`} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
+									<div className='relative w-16 h-16'>
+										<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
+									</div>
 
-								<span className={`text-sm text-white group-hover:brightness-125 text-center`}>{game.name}</span>
-							</Link>
-						))}
+									<span className='text-sm text-white group-hover:brightness-125 text-center'>{game.name}</span>
+								</Link>
+							))}
 					</div>
 
 					<Dialog.Close asChild>

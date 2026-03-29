@@ -1,5 +1,6 @@
 import witcher from "../../public/assets/witcher.png";
 import cyberpunk from "../../public/assets/cyberpunk.png";
+import questly from "../../public/assets/questly.png";
 
 export const GAME_THEME = {
 	witcher3: {
@@ -17,5 +18,13 @@ export const GAME_THEME = {
 		text: "text-yellow-400",
 		name: "Cyberpunk 2077",
 		slug: "cyberpunk2077"
+	},
+	default: {
+		bg: "bg-[linear-gradient(180deg,#18181b_0%,#09090b_100%)]",
+		border: "border-white",
+		logo: questly,
+		text: "text-white",
+		name: "Questly",
+		slug: "questly"
 	}
 } as const;
