@@ -525,6 +525,8 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::quest-type.quest-type'
     >;
+    quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
+    slug: Schema.Attribute.String;
     tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -640,6 +642,7 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Desc: Schema.Attribute.Text;
+    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'> &

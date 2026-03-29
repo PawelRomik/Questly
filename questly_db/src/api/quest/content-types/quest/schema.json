@@ -54,6 +54,12 @@
     },
     "uuid": {
       "type": "uid"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game",
+      "inversedBy": "quests"
     }
   }
 }

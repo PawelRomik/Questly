@@ -52,4 +52,5 @@ export type GetQuestsData = {
 export type GetQuestsVars = {
 	search?: string;
 	searchTags?: boolean;
+	game?: string;
 };
