@@ -4,23 +4,11 @@ import { Dialog } from "radix-ui";
 import Link from "next/link";
 import Image from "next/image";
 import NavLogo from "@/app/components/navbar/NavLogo";
-import witcher from "../../../public/assets/witcher.png";
-import cyberpunk from "../../../public/assets/cyberpunk.png";
-
-const games = [
-	{
-		name: "Witcher 3",
-		slug: "witcher3",
-		icon: witcher
-	},
-	{
-		name: "Cyberpunk 2077",
-		slug: "cyberpunk2077",
-		icon: cyberpunk
-	}
-];
+import { GAME_THEME } from "@/app/data/games";
 
 export default function GameSwitcher() {
+	const games = Object.values(GAME_THEME);
+
 	return (
 		<Dialog.Root>
 			<Dialog.Trigger className='flex'>
@@ -37,10 +25,10 @@ export default function GameSwitcher() {
 						{games.map((game) => (
 							<Link key={game.slug} href={`/${game.slug}/quests`} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
 								<div className='relative w-16 h-16'>
-									<Image src={game.icon} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
+									<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
 								</div>
 
-								<span className='text-sm text-neutral-300 group-hover:text-white text-center'>{game.name}</span>
+								<span className={`text-sm text-white group-hover:brightness-125 text-center`}>{game.name}</span>
 							</Link>
 						))}
 					</div>

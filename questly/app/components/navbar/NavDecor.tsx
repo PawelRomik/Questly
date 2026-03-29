@@ -1,11 +1,12 @@
-import { NAV_BG } from "@/app/components/navbar/Navbar";
+import { themeProps } from "@/app/components/navbar/types";
 
 type Props = {
 	side: "left" | "right";
 	active: "left" | "right" | null;
+	theme: themeProps;
 };
 
-export function NavDecor({ side, active }: Props) {
+export function NavDecor({ side, active, theme }: Props) {
 	const isLeft = side === "left";
 
 	return (
@@ -14,7 +15,8 @@ export function NavDecor({ side, active }: Props) {
 				className={`
 					w-full h-full border-b-4 scale-x-150
 					${isLeft ? "rotate-30 origin-bottom-right" : "-rotate-30 origin-bottom-left"}
-					${NAV_BG}
+					${theme.bg}
+					${theme.border}
 					transition
 					${active === side ? "brightness-150" : ""}
 				`}

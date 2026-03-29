@@ -1,4 +1,4 @@
-import { NAV_BG } from "@/app/components/navbar/Navbar";
+import { themeProps } from "@/app/components/navbar/types";
 
 type Props = {
 	children: React.ReactNode;
@@ -6,15 +6,17 @@ type Props = {
 	activeSide?: "left" | "right" | null;
 	setActive: (v: "left" | "right" | null) => void;
 	border?: "left" | "right";
+	theme: themeProps;
 };
 
-export function NavButton({ children, side, activeSide, setActive, border }: Props) {
+export function NavButton({ children, side, activeSide, setActive, border, theme }: Props) {
 	return (
 		<button
 			onMouseEnter={() => side && setActive(side)}
 			onMouseLeave={() => side && setActive(null)}
 			className={`
-				${NAV_BG}
+				${theme.bg}
+				${theme.text}
 				uppercase px-5 w-full h-full cursor-pointer
 				transition
 				${border === "left" ? "border-l-4" : ""}

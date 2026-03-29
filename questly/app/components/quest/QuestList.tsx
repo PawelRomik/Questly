@@ -6,13 +6,16 @@ import { useQuery } from "@apollo/client/react";
 import Modal from "@/app/components/quest-modal/Modal";
 import { useCallback, useMemo } from "react";
 import { QuestListProps } from "@/app/components/quest/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export default function QuestList({ search, groupByType, sort, searchTags }: QuestListProps) {
 	const query = searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 
+	const params = useParams();
+	const game = params.game as string;
+
 	const { data, previousData } = useQuery<GetQuestsData, GetQuestsVars>(query, {
-		variables: { search },
+		variables: { search, game },
 		notifyOnNetworkStatusChange: true
 	});
 

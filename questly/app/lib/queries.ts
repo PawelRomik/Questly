@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_QUESTS_NO_TAGS = gql`
-	query GetQuests($search: String) {
-		quests(filters: { Title: { containsi: $search } }) {
+	query GetQuests($search: String, $game: String!) {
+		quests(filters: { game: { slug: { eq: $game } }, Title: { containsi: $search } }) {
 			Title
 			quest_type {
 				name
@@ -35,8 +35,8 @@ export const GET_QUESTS_NO_TAGS = gql`
 `;
 
 export const GET_QUESTS_WITH_TAGS = gql`
-	query GetQuests($search: String) {
-		quests(filters: { or: [{ Title: { containsi: $search } }, { tags: { name: { containsi: $search } } }] }) {
+	query GetQuests($search: String, $game: String!) {
+		quests(filters: { game: { slug: { eq: $game } }, or: [{ Title: { containsi: $search } }, { tags: { name: { containsi: $search } } }] }) {
 			Title
 			quest_type {
 				name
