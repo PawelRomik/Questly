@@ -15,7 +15,8 @@ export default function GameClient() {
 		search: searchParams.get("search") ?? "",
 		groupByType: searchParams.get("groupByType") === "true",
 		sort: (searchParams.get("sort") as SortOption) ?? SortOption.AZ,
-		searchTags: searchParams.get("searchTags") === "true"
+		searchTags: searchParams.get("searchTags") === "true",
+		groupByLocation: searchParams.get("groupByLocation") === "true"
 	});
 
 	const handleFiltersChange = useCallback((next: Filters) => {
@@ -28,9 +29,18 @@ export default function GameClient() {
 
 			if (filters.search) params.set("search", filters.search);
 
-			params.set("groupByType", String(filters.groupByType));
-			params.set("sort", filters.sort);
-			params.set("searchTags", String(filters.searchTags));
+			if (filters.groupByType) {
+				params.set("groupByType", String(filters.groupByType));
+			}
+			if (filters.groupByLocation) {
+				params.set("groupByLocation", "true");
+			}
+			if (filters.sort) {
+				params.set("sort", filters.sort);
+			}
+			if (filters.searchTags) {
+				params.set("searchTags", String(filters.searchTags));
+			}
 
 			router.replace(`?${params.toString()}`);
 		}, 300);

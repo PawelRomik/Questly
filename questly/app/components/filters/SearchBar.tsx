@@ -18,13 +18,14 @@ export function SearchBar({ onFiltersChange, initialFilters }: Props) {
 			search: "",
 			groupByType: false,
 			sort: SortOption.AZ,
-			searchTags: false
+			searchTags: false,
+			groupByLocation: false
 		}
 	);
 
 	const debouncedSearch = useDebounce(filters.search, 300);
 
-	const { groupByType, sort, searchTags } = filters;
+	const { groupByType, sort, searchTags, groupByLocation } = filters;
 
 	useEffect(() => {
 		if (!onFiltersChange) return;
@@ -33,9 +34,10 @@ export function SearchBar({ onFiltersChange, initialFilters }: Props) {
 			groupByType,
 			sort,
 			searchTags,
+			groupByLocation,
 			search: debouncedSearch
 		});
-	}, [debouncedSearch, groupByType, sort, searchTags, onFiltersChange]);
+	}, [debouncedSearch, groupByType, groupByLocation, sort, searchTags, onFiltersChange]);
 
 	const update = <K extends keyof Filters>(key: K, value: Filters[K]) => {
 		setFilters((prev) => ({ ...prev, [key]: value }));
@@ -49,7 +51,7 @@ export function SearchBar({ onFiltersChange, initialFilters }: Props) {
 				<Checkbox label='Group by type' checked={filters.groupByType} onChange={(v) => update("groupByType", v)} />
 
 				<Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />
-
+				<Checkbox label='Group by location' checked={filters.groupByLocation} onChange={(v) => update("groupByLocation", v)} />
 				<SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />
 			</div>
 		</div>

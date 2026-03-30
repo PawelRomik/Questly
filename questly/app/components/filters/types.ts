@@ -10,4 +10,5 @@ export type Filters = {
 	groupByType: boolean;
 	sort: SortOption;
 	searchTags: boolean;
+	groupByLocation: boolean;
 };

@@ -7,8 +7,21 @@ import Modal from "@/app/components/quest-modal/Modal";
 import { useCallback, useMemo } from "react";
 import { QuestListProps } from "@/app/components/quest/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import Section from "@/app/components/quest/Section";
 
-export default function QuestList({ search, groupByType, sort, searchTags }: QuestListProps) {
+type GroupedByType = Record<string, Quest[]>;
+
+type GroupedByLocation = Record<
+	string,
+	{
+		_list?: Quest[];
+		[type: string]: Quest[] | undefined;
+	}
+>;
+
+type GroupedData = GroupedByType | GroupedByLocation | null;
+
+export default function QuestList({ search, groupByType, sort, searchTags, groupByLocation }: QuestListProps) {
 	const query = searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 
 	const params = useParams();
@@ -59,16 +72,41 @@ export default function QuestList({ search, groupByType, sort, searchTags }: Que
 		}
 	}, [quests, sort]);
 
-	const groupedQuests = useMemo(() => {
-		return sortedQuests.reduce<Record<string, Quest[]>>((acc, quest) => {
+	const groupedData = useMemo<GroupedData>(() => {
+		if (!groupByLocation && !groupByType) return null;
+
+		if (groupByLocation) {
+			const result: GroupedByLocation = {};
+
+			sortedQuests.forEach((quest) => {
+				const location = quest.location?.Name ?? "Unknown location";
+				const type = quest.quest_type?.name ?? "Other";
+
+				if (!result[location]) result[location] = {};
+
+				if (groupByType) {
+					if (!result[location][type]) result[location][type] = [];
+					result[location][type]!.push(quest);
+				} else {
+					if (!result[location]._list) result[location]._list = [];
+					result[location]._list!.push(quest);
+				}
+			});
+
+			return result;
+		}
+
+		const result: GroupedByType = {};
+
+		sortedQuests.forEach((quest) => {
 			const type = quest.quest_type?.name ?? "Other";
 
-			if (!acc[type]) acc[type] = [];
-			acc[type].push(quest);
+			if (!result[type]) result[type] = [];
+			result[type].push(quest);
+		});
 
-			return acc;
-		}, {});
-	}, [sortedQuests]);
+		return result;
+	}, [sortedQuests, groupByLocation, groupByType]);
 
 	const renderQuest = (quest: Quest) => (
 		<Modal
@@ -92,16 +130,58 @@ export default function QuestList({ search, groupByType, sort, searchTags }: Que
 
 	return (
 		<div className='w-full px-3 flex flex-col items-center gap-6'>
-			{!groupByType && <div className='w-full max-w-xl flex flex-col gap-5'>{sortedQuests.map(renderQuest)}</div>}
+			{!groupByLocation && !groupByType && <div className='w-full max-w-xl flex flex-col gap-5'>{sortedQuests.map(renderQuest)}</div>}
 
-			{groupByType &&
-				Object.entries(groupedQuests).map(([type, list]) => (
-					<div key={type} className='w-full max-w-xl flex flex-col gap-4'>
-						<h2 className='text-lg font-semibold text-red-500 border-b border-zinc-700 pb-1'>{type}</h2>
-
-						{list.map(renderQuest)}
+			{!groupByLocation &&
+				groupByType &&
+				groupedData &&
+				Object.entries(groupedData as GroupedByType).map(([type, list]) => (
+					<div key={type} className='w-full max-w-xl'>
+						<Section title={type} count={list.length}>
+							{list.map(renderQuest)}
+						</Section>
 					</div>
 				))}
+
+			{groupByLocation &&
+				!groupByType &&
+				groupedData &&
+				Object.entries(groupedData as GroupedByLocation).map(([location, data]) => {
+					const list = data._list ?? [];
+
+					return (
+						<div key={location} className='w-full max-w-xl'>
+							<Section title={location} count={list.length}>
+								{list.map(renderQuest)}
+							</Section>
+						</div>
+					);
+				})}
+
+			{groupByLocation &&
+				groupByType &&
+				groupedData &&
+				Object.entries(groupedData as GroupedByLocation).map(([location, types]) => {
+					const all = Object.values(types)
+						.filter((v): v is Quest[] => Array.isArray(v))
+						.flat();
+
+					return (
+						<div key={location} className='w-full max-w-xl flex flex-col gap-3'>
+							<Section title={location} count={all.length}>
+								{Object.entries(types).map(([type, list]) => {
+									if (type === "_list" || !list) return null;
+
+									return (
+										<Section key={type} title={type} count={list.length}>
+											{list.map(renderQuest)}
+										</Section>
+									);
+								})}
+							</Section>
+						</div>
+					);
+				})}
 		</div>
 	);
 }

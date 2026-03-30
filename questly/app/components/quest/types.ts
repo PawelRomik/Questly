@@ -15,4 +15,5 @@ export type QuestListProps = {
 	groupByType: boolean;
 	sort: SortOption;
 	searchTags: boolean;
+	groupByLocation: boolean;
 };
