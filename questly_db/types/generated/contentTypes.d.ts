@@ -649,6 +649,8 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'>;
     Map: Schema.Attribute.JSON;
+    next_quest: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
+    previous_quest: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     publishedAt: Schema.Attribute.DateTime;
     quest_type: Schema.Attribute.Relation<
       'manyToOne',

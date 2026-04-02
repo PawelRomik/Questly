@@ -60,6 +60,16 @@
       "relation": "manyToOne",
       "target": "api::game.game",
       "inversedBy": "quests"
+    },
+    "previous_quest": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest.quest"
+    },
+    "next_quest": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest.quest"
     }
   }
 }
