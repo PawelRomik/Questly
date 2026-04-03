@@ -60,9 +60,9 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 
 		switch (sort) {
 			case "az":
-				return list.sort((a, b) => a.Title.localeCompare(b.Title));
+				return list.sort((a, b) => a.title.localeCompare(b.title));
 			case "za":
-				return list.sort((a, b) => b.Title.localeCompare(a.Title));
+				return list.sort((a, b) => b.title.localeCompare(a.title));
 			case "levelAsc":
 				return list.sort((a, b) => a.level - b.level);
 			case "levelDesc":
@@ -79,7 +79,7 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 			const result: GroupedByLocation = {};
 
 			sortedQuests.forEach((quest) => {
-				const location = quest.location?.Name ?? "Unknown location";
+				const location = quest.location?.name ?? "Unknown location";
 				const type = quest.quest_type?.name ?? "Other";
 
 				if (!result[location]) result[location] = {};
@@ -114,9 +114,9 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 			uuid={quest.uuid}
 			activeQuestId={activeQuestId}
 			setActiveQuestId={setActiveQuestId}
-			title={quest.Title}
+			title={quest.title}
 			type={quest.quest_type?.name ?? "Unknown"}
-			desc={quest.Desc}
+			desc={quest.description}
 			level={quest.level}
 			tags={quest.tags.map((t) => t.name)}
 			search={search}
@@ -124,7 +124,7 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 			rewards={quest.rewards}
 			locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
 			mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
-			characterImage={`http://localhost:1337${quest.character?.Image?.url}`}
+			characterImage={`http://localhost:1337${quest.character?.image?.url}`}
 		/>
 	);
 

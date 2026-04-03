@@ -11,65 +11,60 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "uuid": {
+      "type": "uid"
+    },
+    "title": {
       "type": "string"
-    },
-    "ShortDesc": {
-      "type": "string"
-    },
-    "Desc": {
-      "type": "text"
-    },
-    "Map": {
-      "type": "json"
-    },
-    "location": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::location.location",
-      "inversedBy": "quests"
-    },
-    "character": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::character.character",
-      "inversedBy": "quests"
-    },
-    "rewards": {
-      "type": "json"
     },
     "level": {
       "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "short_desc": {
+      "type": "string"
+    },
+    "map": {
+      "type": "component",
+      "component": "map.map",
+      "repeatable": false
     },
     "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag"
     },
-    "quest_type": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::quest-type.quest-type",
-      "inversedBy": "quests"
+    "rewards": {
+      "type": "component",
+      "component": "reward.reward",
+      "repeatable": false
     },
-    "uuid": {
-      "type": "uid"
+    "requirement": {
+      "type": "component",
+      "component": "requirement.requirement",
+      "repeatable": true
     },
     "game": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::game.game",
-      "inversedBy": "quests"
+      "relation": "oneToOne",
+      "target": "api::game.game"
     },
-    "previous_quest": {
+    "character": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest.quest"
+      "relation": "oneToOne",
+      "target": "api::character.character"
     },
-    "next_quest": {
+    "location": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest.quest"
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    },
+    "quest_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quest-type.quest-type"
     }
   }
 }

@@ -481,17 +481,16 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
-    Image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::character.character'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -509,26 +508,15 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    characters: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::character.character'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    quest_types: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::quest-type.quest-type'
-    >;
-    quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     slug: Schema.Attribute.String;
-    tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
-    Title: Schema.Attribute.String;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -546,16 +534,23 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    amount: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
-    Image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    description: Schema.Attribute.RichText;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    rarity: Schema.Attribute.Relation<'oneToOne', 'api::rarity.rarity'>;
+    type: Schema.Attribute.Enumeration<
+      ['weapon', 'armor', 'consumable', 'material', 'other']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -577,6 +572,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -584,9 +580,8 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     minimap: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Name: Schema.Attribute.String;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -607,7 +602,7 @@ export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -616,7 +611,6 @@ export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -635,35 +629,65 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
   };
   attributes: {
     character: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'api::character.character'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Desc: Schema.Attribute.Text;
-    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
+    description: Schema.Attribute.RichText;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'> &
       Schema.Attribute.Private;
-    location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'>;
-    Map: Schema.Attribute.JSON;
-    next_quest: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
-    previous_quest: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
+    location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    map: Schema.Attribute.Component<'map.map', false>;
     publishedAt: Schema.Attribute.DateTime;
     quest_type: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'api::quest-type.quest-type'
     >;
-    rewards: Schema.Attribute.JSON;
-    ShortDesc: Schema.Attribute.String;
+    requirement: Schema.Attribute.Component<'requirement.requirement', true>;
+    rewards: Schema.Attribute.Component<'reward.reward', false>;
+    short_desc: Schema.Attribute.String;
     tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
-    Title: Schema.Attribute.String;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     uuid: Schema.Attribute.UID;
+  };
+}
+
+export interface ApiRarityRarity extends Struct.CollectionTypeSchema {
+  collectionName: 'rarities';
+  info: {
+    displayName: 'rarity';
+    pluralName: 'rarities';
+    singularName: 'rarity';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    color: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::rarity.rarity'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -681,7 +705,7 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
       Schema.Attribute.Private;
@@ -1211,6 +1235,7 @@ declare module '@strapi/strapi' {
       'api::location.location': ApiLocationLocation;
       'api::quest-type.quest-type': ApiQuestTypeQuestType;
       'api::quest.quest': ApiQuestQuest;
+      'api::rarity.rarity': ApiRarityRarity;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

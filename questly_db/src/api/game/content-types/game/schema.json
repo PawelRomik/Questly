@@ -11,41 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
-    },
-    "characters": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::character.character",
-      "mappedBy": "game"
-    },
-    "tags": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::tag.tag",
-      "mappedBy": "game"
-    },
-    "quest_types": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest-type.quest-type",
-      "mappedBy": "game"
-    },
-    "items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::item.item",
-      "mappedBy": "game"
     },
     "slug": {
       "type": "string"
-    },
-    "quests": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest.quest",
-      "mappedBy": "game"
     }
   }
 }

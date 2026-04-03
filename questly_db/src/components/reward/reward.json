@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_reward_rewards",
+  "info": {
+    "displayName": "reward",
+    "icon": "gift"
+  },
+  "options": {},
+  "attributes": {
+    "money": {
+      "type": "integer"
+    },
+    "experience": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::item.item"
+    },
+    "other": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

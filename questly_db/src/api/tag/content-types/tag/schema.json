@@ -16,9 +16,8 @@
     },
     "game": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::game.game",
-      "inversedBy": "tags"
+      "relation": "oneToOne",
+      "target": "api::game.game"
     }
   }
 }

@@ -1,8 +1,4 @@
-type Rewards = {
-	xp: number;
-	money: number;
-	items: string[];
-};
+import { Rewards } from "@/app/types/quest";
 
 export function ModalRewards({ rewards }: { rewards: Rewards }) {
 	return (
@@ -12,7 +8,7 @@ export function ModalRewards({ rewards }: { rewards: Rewards }) {
 			<div className='flex gap-2 mt-4'>
 				<div className='flex items-center'>
 					<span className='px-2 py-1 text-xs bg-zinc-700 rounded-l'>XP</span>
-					<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>{rewards.xp}</span>
+					<span className='px-2 py-1 text-xs bg-zinc-950 rounded-r'>{rewards.experience}</span>
 				</div>
 
 				<div className='flex items-center'>

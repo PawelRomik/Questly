@@ -11,14 +11,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
-    },
-    "quests": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest.quest",
-      "mappedBy": "location"
     },
     "minimap": {
       "type": "media",
@@ -39,6 +33,11 @@
         "videos",
         "audios"
       ]
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
     }
   }
 }

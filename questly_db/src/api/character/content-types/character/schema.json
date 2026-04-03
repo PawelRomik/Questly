@@ -11,16 +11,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "game": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::game.game",
-      "inversedBy": "characters"
-    },
-    "Image": {
+    "image": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -30,11 +24,10 @@
         "audios"
       ]
     },
-    "quests": {
+    "game": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quest.quest",
-      "mappedBy": "character"
+      "relation": "oneToOne",
+      "target": "api::game.game"
     }
   }
 }

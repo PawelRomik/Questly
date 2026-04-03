@@ -14,7 +14,7 @@
     "name": {
       "type": "string"
     },
-    "Image": {
+    "image": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -24,11 +24,34 @@
         "audios"
       ]
     },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "weapon",
+        "armor",
+        "consumable",
+        "material",
+        "other"
+      ]
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "rarity": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::rarity.rarity"
+    },
     "game": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::game.game",
-      "inversedBy": "items"
+      "relation": "oneToOne",
+      "target": "api::game.game"
     }
   }
 }

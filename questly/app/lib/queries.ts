@@ -2,17 +2,22 @@ import { gql } from "@apollo/client";
 
 export const GET_QUESTS_NO_TAGS = gql`
 	query GetQuests($search: String, $game: String!) {
-		quests(filters: { game: { slug: { eq: $game } }, Title: { containsi: $search } }) {
-			Title
+		quests(filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
+			title
 			quest_type {
 				name
 			}
 			uuid
 			level
-			Desc
-			ShortDesc
+			description
+			short_desc
+			map {
+				x
+				y
+				z
+			}
 			location {
-				Name
+				name
 				minimap {
 					url
 				}
@@ -21,32 +26,63 @@ export const GET_QUESTS_NO_TAGS = gql`
 				}
 			}
 			character {
-				Name
-				Image {
+				name
+				image {
 					url
 				}
 			}
 			tags {
 				name
 			}
-			rewards
+			requirement {
+				level
+				type
+				quest {
+					title
+					uuid
+				}
+				desc
+				character {
+					name
+				}
+				item {
+					name
+				}
+				item_amount
+			}
+			rewards {
+				experience
+				money
+				items {
+					image {
+						url
+					}
+					name
+				}
+				other
+			}
 		}
 	}
 `;
 
 export const GET_QUESTS_WITH_TAGS = gql`
 	query GetQuests($search: String, $game: String!) {
-		quests(filters: { game: { slug: { eq: $game } }, or: [{ Title: { containsi: $search } }, { tags: { name: { containsi: $search } } }] }) {
-			Title
+		quests(filters: { game: { slug: { eq: $game } }, or: [{ title: { containsi: $search } }, { tags: { name: { containsi: $search } } }] }) {
+			title
 			quest_type {
 				name
 			}
-			level
 			uuid
-			Desc
-			ShortDesc
+			level
+			description
+			short_desc
+			map {
+				x
+				y
+				z
+			}
 			location {
-				Name
+				name
 				minimap {
 					url
 				}
@@ -55,15 +91,41 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				}
 			}
 			character {
-				Name
-				Image {
+				name
+				image {
 					url
 				}
 			}
 			tags {
 				name
 			}
-			rewards
+			requirement {
+				level
+				type
+				quest {
+					title
+					uuid
+				}
+				desc
+				character {
+					name
+				}
+				item {
+					name
+				}
+				item_amount
+			}
+			rewards {
+				experience
+				money
+				items {
+					image {
+						url
+					}
+					name
+				}
+				other
+			}
 		}
 	}
 `;
