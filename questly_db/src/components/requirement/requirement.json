@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_requirement_requirements",
+  "info": {
+    "displayName": "requirement",
+    "icon": "manyToMany"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "level",
+        "quest",
+        "item",
+        "relation",
+        "reputation",
+        "other"
+      ]
+    },
+    "level": {
+      "type": "integer"
+    },
+    "quest": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quest.quest"
+    },
+    "item": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::item.item"
+    },
+    "item_amount": {
+      "type": "integer"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "character": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::character.character"
+    }
+  },
+  "config": {}
+}

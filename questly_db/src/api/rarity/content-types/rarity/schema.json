@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "quest_types",
+  "collectionName": "rarities",
   "info": {
-    "singularName": "quest-type",
-    "pluralName": "quest-types",
-    "displayName": "quest-type"
+    "singularName": "rarity",
+    "pluralName": "rarities",
+    "displayName": "rarity"
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +13,11 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "color": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
     },
     "game": {
       "type": "relation",

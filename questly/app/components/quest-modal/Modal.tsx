@@ -8,12 +8,7 @@ import { ModalHeader } from "./ModalHeader";
 import { ModalMeta } from "./ModalMeta";
 import { ModalMap } from "./ModalMap";
 import { ModalRewards } from "./ModalRewards";
-
-type Rewards = {
-	xp: number;
-	money: number;
-	items: string[];
-};
+import { Rewards } from "@/app/types/quest";
 
 type ModalProps = {
 	title: string;

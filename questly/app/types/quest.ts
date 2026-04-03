@@ -1,7 +1,13 @@
 export type Rewards = {
-	xp: number;
+	experience: number;
 	money: number;
-	items: string[];
+	items: {
+		image: {
+			url: string;
+		};
+		name: string;
+	}[];
+	other: string;
 };
 
 export type Tag = {
@@ -13,7 +19,7 @@ export type QuestType = {
 };
 
 export type Location = {
-	Name: string;
+	name: string;
 	minimap: {
 		url: string;
 	};
@@ -22,27 +28,55 @@ export type Location = {
 	};
 };
 
-export type CharacterImage = {
-	url: string;
+export type Character = {
+	name: string;
+	image: {
+		url: string;
+	};
+} | null;
+
+export type Game = {
+	title: string;
+	slug: string;
 };
 
-export type Character = {
-	Name: string;
-	Image?: CharacterImage | null;
-} | null;
+export type Map = {
+	x: number;
+	y: number;
+	z: number;
+};
+
+export type Requirement = {
+	level: number;
+	type: string;
+	quest: {
+		title: string;
+		uuid: string;
+	};
+	description: string;
+	character: {
+		name: string;
+	};
+	item: {
+		name: string;
+	};
+	item_amount: number;
+};
 
 export type Quest = {
 	uuid: string;
-	Title: string;
+	game: Game;
+	quest_type?: QuestType;
+	title: string;
 	level: number;
-	Desc: string;
-	ShortDesc: string;
-	rewards: Rewards;
-
-	quest_type?: QuestType | null;
-	location?: Location | null;
+	description: string;
+	short_desc: string;
+	location: Location;
+	map: Map;
 	character: Character;
 	tags: Tag[];
+	rewards: Rewards;
+	requirement: Requirement[];
 };
 
 export type GetQuestsData = {

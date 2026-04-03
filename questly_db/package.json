@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.39.0",
+    "@strapi/plugin-color-picker": "^5.41.1",
     "@strapi/plugin-graphql": "^5.40.0",
     "@strapi/plugin-users-permissions": "5.39.0",
     "@strapi/strapi": "5.39.0",
