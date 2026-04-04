@@ -25,6 +25,8 @@ type ModalProps = {
 	uuid: string;
 	activeQuestId: string | null;
 	setActiveQuestId: (id: string | null) => void;
+	isCompleted: boolean;
+	toggleCompleted: () => void;
 };
 
 export default function Modal({
@@ -41,7 +43,9 @@ export default function Modal({
 	locationImage,
 	mapImage,
 	characterImage,
-	rewards
+	rewards,
+	isCompleted,
+	toggleCompleted
 }: ModalProps) {
 	const isOpen = activeQuestId === uuid && uuid !== null;
 
@@ -54,7 +58,17 @@ export default function Modal({
 		>
 			<Dialog.Trigger asChild>
 				<div onClick={() => setActiveQuestId(uuid)} className='w-full'>
-					<Quest title={title} search={search} searchTags={searchTags} shortDesc={desc.slice(0, 60) + "..."} level={level} tags={tags} locationImage={locationImage} />
+					<Quest
+						completed={isCompleted}
+						onToggle={toggleCompleted}
+						title={title}
+						search={search}
+						searchTags={searchTags}
+						shortDesc={desc.slice(0, 60) + "..."}
+						level={level}
+						tags={tags}
+						locationImage={locationImage}
+					/>
 				</div>
 			</Dialog.Trigger>
 

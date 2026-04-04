@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { QuestImage } from "./QuestImage";
 import { QuestContent } from "./QuestContent";
 import { QuestButton } from "./QuestButton";
 import { QuestProps } from "@/app/components/quest/types";
 
-export default function Quest({ title, shortDesc, level, tags, locationImage, searchTags, search }: QuestProps) {
-	const [completed, setCompleted] = useState(false);
-
+export default function Quest({ title, shortDesc, level, tags, locationImage, searchTags, search, completed, onToggle }: QuestProps) {
 	return (
 		<div
 			className={`w-full max-w-xl cursor-pointer flex items-center gap-4 p-4 rounded-xl border transition-all
@@ -19,7 +16,13 @@ export default function Quest({ title, shortDesc, level, tags, locationImage, se
 
 			<QuestContent title={title} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
 
-			<QuestButton completed={completed} onClick={() => setCompleted((p) => !p)} />
+			<QuestButton
+				completed={completed}
+				onClick={(e) => {
+					e.stopPropagation();
+					onToggle();
+				}}
+			/>
 		</div>
 	);
 }

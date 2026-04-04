@@ -5,9 +5,10 @@ import { GetQuestsData, GetQuestsVars, Quest } from "@/app/types/quest";
 import { useQuery } from "@apollo/client/react";
 import Modal from "@/app/components/quest-modal/Modal";
 import { useCallback, useMemo } from "react";
-import { QuestListProps } from "@/app/components/quest/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Section from "@/app/components/quest/Section";
+import { useFilters } from "@/app/context/FiltersContext";
+import { useCompletedQuests } from "@/app/hooks/useCompletedQuests";
 
 type GroupedByType = Record<string, Quest[]>;
 
@@ -21,11 +22,19 @@ type GroupedByLocation = Record<
 
 type GroupedData = GroupedByType | GroupedByLocation | null;
 
-export default function QuestList({ search, groupByType, sort, searchTags, groupByLocation }: QuestListProps) {
+export default function QuestList() {
+	const { filters } = useFilters();
+
+	const { search, groupByType, sort, searchTags, groupByLocation } = filters;
 	const query = searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 
 	const params = useParams();
 	const game = params.game as string;
+	const { toggle, isCompleted } = useCompletedQuests(game);
+
+	const countCompleted = (quests: Quest[]) => {
+		return quests.filter((q) => isCompleted(q.uuid)).length;
+	};
 
 	const { data, previousData } = useQuery<GetQuestsData, GetQuestsVars>(query, {
 		variables: { search, game },
@@ -122,6 +131,8 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 			search={search}
 			searchTags={searchTags}
 			rewards={quest.rewards}
+			isCompleted={isCompleted(quest.uuid)}
+			toggleCompleted={() => toggle(quest.uuid)}
 			locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
 			mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
 			characterImage={`http://localhost:1337${quest.character?.image?.url}`}
@@ -130,14 +141,20 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 
 	return (
 		<div className='w-full px-3 flex flex-col items-center gap-6'>
-			{!groupByLocation && !groupByType && <div className='w-full max-w-xl flex flex-col gap-5'>{sortedQuests.map(renderQuest)}</div>}
+			{!groupByLocation && !groupByType && (
+				<div className='w-full max-w-xl'>
+					<Section title='All quests' count={sortedQuests.length} completed={countCompleted(sortedQuests)}>
+						{sortedQuests.map(renderQuest)}
+					</Section>
+				</div>
+			)}
 
 			{!groupByLocation &&
 				groupByType &&
 				groupedData &&
 				Object.entries(groupedData as GroupedByType).map(([type, list]) => (
 					<div key={type} className='w-full max-w-xl'>
-						<Section title={type} count={list.length}>
+						<Section title={type} count={list.length} completed={countCompleted(list)}>
 							{list.map(renderQuest)}
 						</Section>
 					</div>
@@ -151,7 +168,7 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 
 					return (
 						<div key={location} className='w-full max-w-xl'>
-							<Section title={location} count={list.length}>
+							<Section title={location} count={list.length} completed={countCompleted(list)}>
 								{list.map(renderQuest)}
 							</Section>
 						</div>
@@ -168,12 +185,12 @@ export default function QuestList({ search, groupByType, sort, searchTags, group
 
 					return (
 						<div key={location} className='w-full max-w-xl flex flex-col gap-3'>
-							<Section title={location} count={all.length}>
+							<Section title={location} count={all.length} completed={countCompleted(all)}>
 								{Object.entries(types).map(([type, list]) => {
 									if (type === "_list" || !list) return null;
 
 									return (
-										<Section key={type} title={type} count={list.length}>
+										<Section key={type} title={type} count={list.length} completed={countCompleted(list)}>
 											{list.map(renderQuest)}
 										</Section>
 									);

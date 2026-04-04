@@ -8,6 +8,8 @@ export type QuestProps = {
 	locationImage: string;
 	search: string;
 	searchTags: boolean;
+	completed: boolean;
+	onToggle: () => void;
 };
 
 export type QuestListProps = {
