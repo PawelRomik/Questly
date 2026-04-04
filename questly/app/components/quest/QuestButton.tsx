@@ -1,6 +1,6 @@
 type Props = {
 	completed: boolean;
-	onClick: () => void;
+	onClick: (e: React.MouseEvent) => void;
 };
 
 export function QuestButton({ completed, onClick }: Props) {

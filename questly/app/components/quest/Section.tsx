@@ -1,5 +1,6 @@
 "use client";
 
+import ProgressBar from "@/app/components/quest/ProgressBar";
 import { ChevronUp } from "lucide-react";
 import { Collapsible } from "radix-ui";
 import { useState } from "react";
@@ -9,9 +10,10 @@ type Props = {
 	count: number;
 	children: React.ReactNode;
 	variant?: "location" | "type";
+	completed?: number;
 };
 
-export default function Section({ title, count, children, variant = "type" }: Props) {
+export default function Section({ title, count, children, completed, variant = "type" }: Props) {
 	const [open, setOpen] = useState(true);
 
 	const triggerBase = "w-full flex items-center cursor-pointer justify-between transition-all rounded-xl px-3 py-2 border";
@@ -36,11 +38,17 @@ export default function Section({ title, count, children, variant = "type" }: Pr
 					<span>{title}</span>
 				</div>
 
-				<span className='text-xs text-zinc-400'>0 / {count}</span>
+				<span className='text-xs text-zinc-400'>
+					{completed ?? 0} / {count}
+				</span>
 			</Collapsible.Trigger>
 
 			<Collapsible.Content className={`overflow-hidden transition-all duration-300 ${open ? "animate-slideDown" : "animate-slideUp"}`}>
-				<div className={contentWrapper}>{children}</div>
+				<div className={contentWrapper}>
+					{completed !== undefined && <ProgressBar completed={completed} total={count} />}
+
+					{children}
+				</div>
 			</Collapsible.Content>
 		</Collapsible.Root>
 	);

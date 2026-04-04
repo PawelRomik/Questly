@@ -1,4 +1,6 @@
-import GameClient from "@/app/components/clients/GameClient";
+import { SearchBar } from "@/app/components/filters/SearchBar";
+import Navbar from "@/app/components/navbar/Navbar";
+import QuestList from "@/app/components/quest/QuestList";
 import { formatName } from "@/app/lib/utils/formatName";
 
 type Props = {
@@ -16,5 +18,13 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function GamePage() {
-	return <GameClient />;
+	return (
+		<div className='flex flex-col gap-5 h-screen overflow-y-scroll bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)]'>
+			<Navbar />
+
+			<SearchBar />
+
+			<QuestList />
+		</div>
+	);
 }
