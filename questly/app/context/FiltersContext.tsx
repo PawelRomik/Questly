@@ -25,19 +25,34 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			const params = new URLSearchParams();
+			const current = searchParams.toString();
+
+			const params = new URLSearchParams(searchParams.toString());
 
 			if (filters.search) params.set("search", filters.search);
-			if (filters.groupByType) params.set("groupByType", "true");
-			if (filters.groupByLocation) params.set("groupByLocation", "true");
-			if (filters.sort) params.set("sort", filters.sort);
-			if (filters.searchTags) params.set("searchTags", "true");
+			else params.delete("search");
 
-			router.replace(`?${params.toString()}`);
+			if (filters.groupByType) params.set("groupByType", "true");
+			else params.delete("groupByType");
+
+			if (filters.groupByLocation) params.set("groupByLocation", "true");
+			else params.delete("groupByLocation");
+
+			if (filters.sort) params.set("sort", filters.sort);
+			else params.delete("sort");
+
+			if (filters.searchTags) params.set("searchTags", "true");
+			else params.delete("searchTags");
+
+			const next = params.toString();
+
+			if (current !== next) {
+				router.replace(`?${next}`);
+			}
 		}, 300);
 
 		return () => clearTimeout(timeout);
-	}, [filters, router]);
+	}, [filters, router, searchParams]);
 
 	return <FiltersContext.Provider value={{ filters, setFilters }}>{children}</FiltersContext.Provider>;
 }

@@ -129,3 +129,12 @@ export const GET_QUESTS_WITH_TAGS = gql`
 		}
 	}
 `;
+
+export const GET_NEXT_QUEST = gql`
+	query GetNextQuest($currentUuid: String!) {
+		quests(filters: { requirement: { quest: { uuid: { eq: $currentUuid } } } }) {
+			title
+			uuid
+		}
+	}
+`;
