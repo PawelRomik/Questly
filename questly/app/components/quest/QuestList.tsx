@@ -136,6 +136,7 @@ export default function QuestList() {
 			locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
 			mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
 			characterImage={`http://localhost:1337${quest.character?.image?.url}`}
+			requirements={quest.requirement}
 		/>
 	);
 

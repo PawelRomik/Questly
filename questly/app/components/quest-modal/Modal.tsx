@@ -8,7 +8,8 @@ import { ModalHeader } from "./ModalHeader";
 import { ModalMeta } from "./ModalMeta";
 import { ModalMap } from "./ModalMap";
 import { ModalRewards } from "./ModalRewards";
-import { Rewards } from "@/app/types/quest";
+import { Requirement, Rewards } from "@/app/types/quest";
+import { RequirementsList } from "@/app/components/quest-modal/RequirementsList";
 
 type ModalProps = {
 	title: string;
@@ -27,6 +28,7 @@ type ModalProps = {
 	setActiveQuestId: (id: string | null) => void;
 	isCompleted: boolean;
 	toggleCompleted: () => void;
+	requirements: Requirement[];
 };
 
 export default function Modal({
@@ -45,7 +47,8 @@ export default function Modal({
 	characterImage,
 	rewards,
 	isCompleted,
-	toggleCompleted
+	toggleCompleted,
+	requirements
 }: ModalProps) {
 	const isOpen = activeQuestId === uuid && uuid !== null;
 
@@ -86,7 +89,7 @@ export default function Modal({
 					<div className='relative'>
 						<ModalHeader title={title} />
 
-						<ModalMeta type={type} tags={tags} locationImage={locationImage} />
+						<ModalMeta uuid={uuid} type={type} tags={tags} locationImage={locationImage} />
 
 						<Dialog.Description className='text-sm leading-relaxed p-3 text-gray-300'>{desc}</Dialog.Description>
 
@@ -96,8 +99,10 @@ export default function Modal({
 					</div>
 
 					<ModalMap src={mapImage} />
-
-					<ModalRewards rewards={rewards} />
+					<div className='flex'>
+						<ModalRewards rewards={rewards} />
+						<RequirementsList requirements={requirements} />
+					</div>
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
