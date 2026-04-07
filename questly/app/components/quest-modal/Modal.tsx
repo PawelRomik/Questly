@@ -94,7 +94,7 @@ export default function Modal({
 						<Dialog.Description className='text-sm leading-relaxed p-3 text-gray-300'>{desc}</Dialog.Description>
 
 						<Dialog.Close asChild>
-							<button className='absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded bg-zinc-800 hover:bg-red-600 transition'>✕</button>
+							<button className='absolute cursor-pointer top-4 right-4 w-8 h-8 flex items-center justify-center rounded bg-zinc-800 hover:bg-red-600 transition'>✕</button>
 						</Dialog.Close>
 					</div>
 

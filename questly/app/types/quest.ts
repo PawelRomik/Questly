@@ -1,12 +1,23 @@
+export type Item = {
+	name: string;
+	image: {
+		url: string;
+	};
+	type: string;
+	amount: number;
+	price: number;
+	description: string;
+	rarity: {
+		name: string;
+		color: string;
+	};
+	game: string;
+};
+
 export type Rewards = {
 	experience: number;
 	money: number;
-	items: {
-		image: {
-			url: string;
-		};
-		name: string;
-	}[];
+	items: Item[];
 	other: string;
 };
 
