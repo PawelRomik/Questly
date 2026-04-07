@@ -58,6 +58,14 @@ export const GET_QUESTS_NO_TAGS = gql`
 						url
 					}
 					name
+					rarity {
+						name
+						color
+					}
+					description
+					amount
+					price
+					type
 				}
 				other
 			}
@@ -123,6 +131,14 @@ export const GET_QUESTS_WITH_TAGS = gql`
 						url
 					}
 					name
+					rarity {
+						name
+						color
+					}
+					description
+					amount
+					price
+					type
 				}
 				other
 			}
