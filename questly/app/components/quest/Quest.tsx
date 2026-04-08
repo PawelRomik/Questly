@@ -8,7 +8,7 @@ import { QuestProps } from "@/app/components/quest/types";
 export default function Quest({ title, shortDesc, level, tags, locationImage, searchTags, search, completed, onToggle }: QuestProps) {
 	return (
 		<div
-			className={`w-full max-w-xl cursor-pointer flex items-center gap-4 p-4 rounded-xl border transition-all
+			className={`w-full  cursor-pointer flex items-center gap-4 p-4 rounded-xl border transition-all
 			${completed ? "bg-zinc-900 border-green-600 opacity-80" : "bg-zinc-800 border-zinc-700 hover:border-red-600"}
 			`}
 		>
