@@ -30,7 +30,7 @@ export function SearchBar() {
 	}, [debouncedSearch, filters.groupByType, filters.groupByLocation, filters.sort, filters.searchTags, setFilters]);
 
 	return (
-		<div className='w-full max-w-xl m-auto flex flex-col gap-3 px-3'>
+		<div className='w-full  mt-30  mx-auto flex flex-col gap-3 px-3'>
 			<SearchInput value={filters.search} onChange={(v) => update("search", v)} />
 
 			<div className='flex justify-between items-center'>

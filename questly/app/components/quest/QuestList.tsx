@@ -141,42 +141,53 @@ export default function QuestList() {
 	);
 
 	return (
-		<div className='w-full px-3 flex flex-col items-center gap-6'>
-			{!groupByLocation && !groupByType && (
-				<div className='w-full max-w-xl'>
+		<div className='w-full px-3 flex flex-col items-center '>
+			{search && (
+				<div className='w-full py-4'>
+					<Section title='Search results' count={sortedQuests.length} completed={countCompleted(sortedQuests)}>
+						{sortedQuests.map(renderQuest)}
+					</Section>
+				</div>
+			)}
+
+			{!search && !groupByLocation && !groupByType && (
+				<div className='w-full py-4'>
 					<Section title='All quests' count={sortedQuests.length} completed={countCompleted(sortedQuests)}>
 						{sortedQuests.map(renderQuest)}
 					</Section>
 				</div>
 			)}
 
-			{!groupByLocation &&
+			{!search &&
+				!groupByLocation &&
 				groupByType &&
 				groupedData &&
 				Object.entries(groupedData as GroupedByType).map(([type, list]) => (
-					<div key={type} className='w-full max-w-xl'>
+					<div key={type} className='w-full py-4'>
 						<Section title={type} count={list.length} completed={countCompleted(list)}>
 							{list.map(renderQuest)}
 						</Section>
 					</div>
 				))}
 
-			{groupByLocation &&
+			{!search &&
+				groupByLocation &&
 				!groupByType &&
 				groupedData &&
 				Object.entries(groupedData as GroupedByLocation).map(([location, data]) => {
 					const list = data._list ?? [];
 
 					return (
-						<div key={location} className='w-full max-w-xl'>
-							<Section title={location} count={list.length} completed={countCompleted(list)}>
+						<div key={location} className='w-full py-4'>
+							<Section variant='location' title={location} count={list.length} completed={countCompleted(list)}>
 								{list.map(renderQuest)}
 							</Section>
 						</div>
 					);
 				})}
 
-			{groupByLocation &&
+			{!search &&
+				groupByLocation &&
 				groupByType &&
 				groupedData &&
 				Object.entries(groupedData as GroupedByLocation).map(([location, types]) => {
@@ -185,8 +196,8 @@ export default function QuestList() {
 						.flat();
 
 					return (
-						<div key={location} className='w-full max-w-xl flex flex-col gap-3'>
-							<Section title={location} count={all.length} completed={countCompleted(all)}>
+						<div key={location} className='w-full flex flex-col gap-3 py-4'>
+							<Section variant='location' title={location} count={all.length} completed={countCompleted(all)}>
 								{Object.entries(types).map(([type, list]) => {
 									if (type === "_list" || !list) return null;
 

@@ -19,12 +19,18 @@ export async function generateMetadata({ params }: Props) {
 
 export default function GamePage() {
 	return (
-		<div className='flex flex-col gap-5 h-screen overflow-y-scroll bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)]'>
+		<div className='h-screen flex flex-col bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)] overflow-hidden'>
 			<Navbar />
 
-			<SearchBar />
+			<div className='flex flex-1 overflow-hidden'>
+				<div className='w-1/3 p-5 bg-[rgba(0,0,0,0.5)] flex items-start'>
+					<SearchBar />
+				</div>
 
-			<QuestList />
+				<div className='w-2/3 p-5 flex justify-center overflow-y-auto'>
+					<QuestList />
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -12,7 +12,7 @@ export function SearchInput({ value, onChange }: Props) {
 			value={value}
 			onChange={(e) => onChange(e.target.value)}
 			placeholder='Search quests...'
-			className='w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-red-600'
+			className='w-full bg-zinc-800 border border-zinc-700  px-4 py-2 text-sm text-white outline-none focus:border-red-600'
 		/>
 	);
 }
