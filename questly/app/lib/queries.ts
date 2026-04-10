@@ -154,3 +154,17 @@ export const GET_NEXT_QUEST = gql`
 		}
 	}
 `;
+
+export const GET_ACHIEVEMENTS = gql`
+	query GetAchievements($game: String!, $search: String) {
+		achievements(filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
+			title
+			description
+			secret
+			uuid
+			icon {
+				url
+			}
+		}
+	}
+`;

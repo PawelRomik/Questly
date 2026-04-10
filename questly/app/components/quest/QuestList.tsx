@@ -8,7 +8,7 @@ import { useCallback, useMemo } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Section from "@/app/components/quest/Section";
 import { useFilters } from "@/app/context/FiltersContext";
-import { useCompletedQuests } from "@/app/hooks/useCompletedQuests";
+import { useCompleted } from "@/app/hooks/useCompleted";
 
 type GroupedByType = Record<string, Quest[]>;
 
@@ -30,7 +30,7 @@ export default function QuestList() {
 
 	const params = useParams();
 	const game = params.game as string;
-	const { toggle, isCompleted } = useCompletedQuests(game);
+	const { toggle, isCompleted } = useCompleted(game, "quests");
 
 	const countCompleted = (quests: Quest[]) => {
 		return quests.filter((q) => isCompleted(q.uuid)).length;

@@ -1,5 +1,7 @@
+"use client";
 import { themeProps } from "@/app/components/navbar/types";
 import { NavButton } from "./NavButton";
+import { useParams } from "next/navigation";
 
 type Props = {
 	side: "left" | "right";
@@ -10,26 +12,28 @@ type Props = {
 
 export function NavMenu({ side, active, setActive, theme }: Props) {
 	const isLeft = side === "left";
+	const params = useParams();
+	const game = params.game as string;
 
 	return (
 		<div className='flex-3 flex items-center justify-around h-full text-white'>
 			{isLeft ? (
 				<>
-					<NavButton theme={theme} side='left' activeSide={active} setActive={setActive} border='right'>
+					<NavButton href={`/${game}/quests`} theme={theme} side='left' activeSide={active} setActive={setActive} border='right'>
 						Quests
 					</NavButton>
 
-					<NavButton theme={theme} border='right' activeSide={active} setActive={setActive}>
+					<NavButton href={`/${game}/collectibles`} theme={theme} border='right' activeSide={active} setActive={setActive}>
 						Collectibles
 					</NavButton>
 				</>
 			) : (
 				<>
-					<NavButton theme={theme} border='left' activeSide={active} setActive={setActive}>
+					<NavButton href={`/${game}/map`} theme={theme} border='left' activeSide={active} setActive={setActive}>
 						Map
 					</NavButton>
 
-					<NavButton theme={theme} side='right' activeSide={active} setActive={setActive} border='left'>
+					<NavButton href={`/${game}/achievements`} theme={theme} side='right' activeSide={active} setActive={setActive} border='left'>
 						Achievements
 					</NavButton>
 				</>
