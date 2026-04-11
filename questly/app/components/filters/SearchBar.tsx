@@ -35,10 +35,8 @@ export function SearchBar() {
 
 	return (
 		<div className='w-full mt-30 mx-auto flex flex-col gap-3 px-3'>
-			{/* 🔍 ZAWSZE widoczny */}
 			<SearchInput value={filters.search} onChange={(v) => update("search", v)} />
 
-			{/* 🔥 TYLKO dla questów */}
 			{isQuestPage && (
 				<div className='flex justify-between items-center'>
 					<Checkbox label='Group by type' checked={filters.groupByType} onChange={(v) => update("groupByType", v)} />
