@@ -16,7 +16,7 @@ before:pointer-events-none flex items-center gap-4 p-4 rounded-xl
 transition-all  duration-200 ${completed && "brightness-60"} hover:shadow-[0_0_20px_rgba(38,38,38,0.15)] border-zinc-700 overflow-hidden
 	`}
 		>
-			<div className='pointer-events-none absolute inset-y-0 left-0 w-10'>
+			<div className='pointer-events-none absolute  inset-y-0 left-0 w-10'>
 				<div className={`absolute top-0 left-0 w-2 h-1/2  ${completed ? "bg-green-600" : "bg-red-600"} rounded-br-2xl`}></div>
 				<div className={`absolute bottom-0 left-0 w-2 h-1/2   ${completed ? "bg-green-600" : "bg-red-600"} rounded-tr-2xl`}></div>
 			</div>

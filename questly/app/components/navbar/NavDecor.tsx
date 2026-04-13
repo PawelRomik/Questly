@@ -14,6 +14,7 @@ export function NavDecor({ side, active, theme }: Props) {
 			<div
 				className={`
 					w-full h-full border-b-4 scale-x-150
+					
 					${isLeft ? "rotate-30 origin-bottom-right" : "-rotate-30 origin-bottom-left"}
 					${theme.bg}
 					${theme.border}
