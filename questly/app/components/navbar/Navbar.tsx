@@ -17,11 +17,13 @@ export default function Navbar() {
 	const theme = GAME_THEME[game] ?? GAME_THEME.default;
 
 	return (
-		<nav className='w-full sticky z-10 top-0 left-0 flex shadow-2xl text-2xl font-bold h-24'>
-			<NavDecor theme={theme} side='left' active={active} />
+		<nav className='w-full sticky z-10 top-0  left-0 flex shadow-2xl text-2xl font-bold h-24'>
+			<div className='bg-[rgba(0,0,0,0.5)]'>
+				<NavDecor theme={theme} side='left' active={active} />
+			</div>
 
 			<div className={`flex-1 flex items-center ${theme.border} border-b-4 ${theme.bg}`}>
-				<div className='flex w-full h-full overflow-hidden'>
+				<div className='flex w-full  h-full overflow-hidden'>
 					<NavMenu theme={theme} side='left' active={active} setActive={setActive} />
 
 					<GameSwitcher />

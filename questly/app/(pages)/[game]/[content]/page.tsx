@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function GamePage({ params }: Props) {
 	const { content } = await params;
+
 	return (
 		<div className='h-screen flex flex-col bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)] overflow-hidden'>
 			<Navbar />

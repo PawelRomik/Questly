@@ -1,4 +1,4 @@
-export type Achievement = {
+export type AchievementType = {
 	title: string;
 	description: string;
 	icon: {
@@ -10,7 +10,7 @@ export type Achievement = {
 };
 
 export type GetAchievementsData = {
-	achievements: Achievement[];
+	achievements: AchievementType[];
 };
 
 export type GetAchievementsVars = {

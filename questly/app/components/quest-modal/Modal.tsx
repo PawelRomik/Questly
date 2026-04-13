@@ -70,6 +70,7 @@ export default function Modal({
 						shortDesc={desc.slice(0, 60) + "..."}
 						level={level}
 						tags={tags}
+						characterImage={characterImage}
 						locationImage={locationImage}
 					/>
 				</div>

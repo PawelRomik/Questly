@@ -9,6 +9,7 @@ export type QuestProps = {
 	search: string;
 	searchTags: boolean;
 	completed: boolean;
+	characterImage: string;
 	onToggle: () => void;
 };
 

@@ -43,7 +43,7 @@ export default function Achievement({ title, description, search, url, completed
 		>
 			<AchievementImage src={url} />
 
-			<AchievementContent search={search} title={newTitle} description={isHidden ? "Click to reveal details." : description} completed={completed} />
+			<AchievementContent search={search} title={isHidden ? newTitle : title} description={isHidden ? "Click to reveal details." : description} completed={completed} />
 
 			<AchievementButton
 				completed={completed}
