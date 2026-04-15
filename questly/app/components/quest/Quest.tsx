@@ -22,14 +22,14 @@ transition-all  duration-200 ${completed && "brightness-60"} hover:shadow-[0_0_2
 			</div>
 
 			<div className='flex gap-2'>
-				<QuestImage src={locationImage} level={level} />
+				<QuestImage completed={completed} width='full' src={locationImage} />
 
 				<div className='hidden lg:block'>
-					<QuestImage src={characterImage} />
+					<QuestImage completed={completed} src={characterImage} />
 				</div>
 			</div>
 
-			<QuestContent title={title} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
+			<QuestContent title={title} level={level} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
 			<div className='text-xs text-zinc-400 flex flex-col'>
 				<span className='text-yellow-400 font-semibold'>+250 XP</span>
 			</div>
