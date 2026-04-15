@@ -17,7 +17,6 @@ export default function Section({ title, count, children, completed, variant = "
 	const [open, setOpen] = useState(true);
 
 	const triggerBase = "w-full flex flex-col cursor-pointer transition-all px-3 pt-2 border border-b-0";
-	console.log(variant);
 
 	const triggerStyle =
 		variant === "location"

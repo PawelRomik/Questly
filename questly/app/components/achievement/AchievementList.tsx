@@ -32,21 +32,23 @@ export default function AchievementList() {
 	};
 
 	return (
-		<div className='flex flex-col gap-4 w-full'>
-			<Section title={search ? "Search results" : "Achievements"} count={achievements.length} completed={countCompleted(achievements)}>
-				{achievements.map((a, i) => (
-					<Achievement
-						secret={a.secret}
-						search={search}
-						onToggle={() => toggle(a.uuid)}
-						key={i}
-						title={a.title}
-						completed={isCompleted(a.uuid)}
-						description={a.description}
-						url={a.icon.url}
-					/>
-				))}
-			</Section>
+		<div className='w-full px-3 flex flex-col items-center '>
+			<div className='w-full py-4'>
+				<Section title={search ? "Search results" : "Achievements"} count={achievements.length} completed={countCompleted(achievements)}>
+					{achievements.map((a, i) => (
+						<Achievement
+							secret={a.secret}
+							search={search}
+							onToggle={() => toggle(a.uuid)}
+							key={i}
+							title={a.title}
+							completed={isCompleted(a.uuid)}
+							description={a.description}
+							url={a.icon.url}
+						/>
+					))}
+				</Section>
+			</div>
 		</div>
 	);
 }
