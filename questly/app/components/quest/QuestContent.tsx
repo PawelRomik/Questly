@@ -14,11 +14,6 @@ export function QuestContent({ title, shortDesc, tags, searchTags, completed, se
 	return (
 		<div className='flex flex-col items-start flex-1'>
 			<div className='flex items-center justify-center gap-1 '>
-				<h2
-					className={`text-lg italic border-b-2  ${completed ? "border-green-600" : "border-red-600"} rounded-md px-2 font-semibold ${completed ? "line-through text-zinc-400" : "text-white"}`}
-				>
-					{highlightText(title, search)}
-				</h2>
 				<div className='flex items-center justify-center gap-1'>
 					<h2
 						className={`text-lg italic border-b-2 ${completed ? "border-green-600" : "border-red-600"} rounded-md px-2 font-semibold ${

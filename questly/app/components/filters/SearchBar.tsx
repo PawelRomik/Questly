@@ -49,36 +49,41 @@ export function SearchBar() {
 			<ul className='text-white flex flex-col gap-2 items-start justify-center'>
 				{/*TODO*/}
 				<li className='flex items-center gap-2'>
-					<span className='w-2 h-2 bg-red-600 rounded-full'></span>
+					<span className={`w-2 h-2 ${game.firstColor} rounded-full`}></span>
 					Quests: <span className='bg-zinc-900 border border-zinc-800 px-3'>0/13</span>
-					<button className='bg-red-600 px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:bg-red-500'>Reset</button>
+					<button className={`${game.firstColor} px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:brightness-110`}>Reset</button>
 				</li>
 				<li className='flex items-center gap-2'>
-					<span className='w-2 h-2 bg-red-600 rounded-full'></span>
+					<span className={`w-2 h-2 ${game.firstColor} rounded-full`}></span>
 					Achievements: <span className='bg-zinc-900 border border-zinc-800 px-3'>0/13</span>
-					<button className='bg-red-600 px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:bg-red-500 '>Reset</button>
+					<button className={`${game.firstColor} px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:brightness-110`}>Reset</button>
 				</li>
 				<li className='flex items-center gap-2'>
-					<span className='w-2 h-2 bg-red-600 rounded-full'></span>
+					<span className={`w-2 h-2 ${game.firstColor} rounded-full`}></span>
 					Collectibles: <span className='bg-zinc-900 border border-zinc-800 px-3'>0/13</span>
-					<button className='bg-red-600 px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:bg-red-500 '>Reset</button>
+					<button className={`${game.firstColor} px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:brightness-110`}>Reset</button>
 				</li>
 				<li className='flex items-center gap-2'>
-					<span className='w-2 h-2 bg-red-600 rounded-full'></span>
+					<span className={`w-2 h-2 ${game.firstColor} rounded-full`}></span>
 					Map Markers: <span className='bg-zinc-900 border border-zinc-800 px-3'>0/13</span>
-					<button className='bg-red-600 px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:bg-red-500 '>Reset</button>
+					<button className={`${game.firstColor} px-2 text-white font-bold cursor-pointer hover:scale-105 transition hover:brightness-110`}>Reset</button>
 				</li>
 			</ul>
-			<SearchInput value={filters.search} onChange={(v) => update("search", v)} />
+			<SearchInput theme={game.borderAlt} value={filters.search} onChange={(v) => update("search", v)} />
 			{isQuestPage && (
 				<div className='flex justify-between items-center'>
-					<Checkbox label='Group by type' checked={filters.groupByType} onChange={(v) => update("groupByType", v)} />
+					<Checkbox theme={{ border: game.borderAlt, color: game.secondColor }} label='Group by type' checked={filters.groupByType} onChange={(v) => update("groupByType", v)} />
 
-					<Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />
+					<Checkbox theme={{ border: game.borderAlt, color: game.secondColor }} label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />
 
-					<Checkbox label='Group by location' checked={filters.groupByLocation} onChange={(v) => update("groupByLocation", v)} />
+					<Checkbox
+						theme={{ border: game.borderAlt, color: game.secondColor }}
+						label='Group by location'
+						checked={filters.groupByLocation}
+						onChange={(v) => update("groupByLocation", v)}
+					/>
 
-					<SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />
+					<SortSelect theme={game.borderAlt} value={filters.sort} onChange={(v) => update("sort", v)} />
 				</div>
 			)}
 		</div>

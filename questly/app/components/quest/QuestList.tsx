@@ -15,8 +15,9 @@ type GroupedByType = Record<string, Quest[]>;
 type GroupedByLocation = Record<
 	string,
 	{
+		meta: Quest["location"] | null;
+		lists: Record<string, Quest[]>;
 		_list?: Quest[];
-		[type: string]: Quest[] | undefined;
 	}
 >;
 
@@ -88,17 +89,26 @@ export default function QuestList() {
 			const result: GroupedByLocation = {};
 
 			sortedQuests.forEach((quest) => {
-				const location = quest.location?.name ?? "Unknown location";
+				const locationName = quest.location?.name ?? "Unknown location";
 				const type = quest.quest_type?.name ?? "Other";
 
-				if (!result[location]) result[location] = {};
+				if (!result[locationName]) {
+					result[locationName] = {
+						meta: quest.location ?? null,
+						lists: {}
+					};
+				}
 
 				if (groupByType) {
-					if (!result[location][type]) result[location][type] = [];
-					result[location][type]!.push(quest);
+					if (!result[locationName].lists[type]) {
+						result[locationName].lists[type] = [];
+					}
+					result[locationName].lists[type].push(quest);
 				} else {
-					if (!result[location]._list) result[location]._list = [];
-					result[location]._list!.push(quest);
+					if (!result[locationName]._list) {
+						result[locationName]._list = [];
+					}
+					result[locationName]._list.push(quest);
 				}
 			});
 
@@ -176,10 +186,11 @@ export default function QuestList() {
 				groupedData &&
 				Object.entries(groupedData as GroupedByLocation).map(([location, data]) => {
 					const list = data._list ?? [];
+					const meta = data.meta;
 
 					return (
 						<div key={location} className='w-full py-4'>
-							<Section variant='location' title={location} count={list.length} completed={countCompleted(list)}>
+							<Section variant='location' icon={`http://localhost:1337${meta?.banner?.url}`} title={location} count={list.length} completed={countCompleted(list)}>
 								{list.map(renderQuest)}
 							</Section>
 						</div>
@@ -190,23 +201,18 @@ export default function QuestList() {
 				groupByLocation &&
 				groupByType &&
 				groupedData &&
-				Object.entries(groupedData as GroupedByLocation).map(([location, types]) => {
-					const all = Object.values(types)
-						.filter((v): v is Quest[] => Array.isArray(v))
-						.flat();
+				Object.entries(groupedData as GroupedByLocation).map(([location, data]) => {
+					const all = Object.values(data.lists).flat();
+					const meta = data.meta;
 
 					return (
 						<div key={location} className='w-full flex flex-col gap-3 py-4'>
-							<Section variant='location' title={location} count={all.length} completed={countCompleted(all)}>
-								{Object.entries(types).map(([type, list]) => {
-									if (type === "_list" || !list) return null;
-
-									return (
-										<Section key={type} title={type} count={list.length} completed={countCompleted(list)}>
-											{list.map(renderQuest)}
-										</Section>
-									);
-								})}
+							<Section icon={`http://localhost:1337${meta?.banner?.url}`} variant='location' title={location} count={all.length} completed={countCompleted(all)}>
+								{Object.entries(data.lists).map(([type, list]) => (
+									<Section key={type} title={type} count={list.length} completed={countCompleted(list)}>
+										{list.map(renderQuest)}
+									</Section>
+								))}
 							</Section>
 						</div>
 					);
