@@ -3,12 +3,13 @@
 import { GET_QUESTS_NO_TAGS, GET_QUESTS_WITH_TAGS } from "@/app/lib/queries";
 import { GetQuestsData, GetQuestsVars, Quest } from "@/app/types/quest";
 import { useQuery } from "@apollo/client/react";
-import Modal from "@/app/components/quest-modal/Modal";
 import { useCallback, useMemo } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Section from "@/app/components/quest/Section";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useCompleted } from "@/app/hooks/useCompleted";
+import WitcherModal from "@/app/components/quest-modal/WitcherModal";
+import CyberpunkModal from "@/app/components/quest-modal/CyberpunkModal";
 
 type GroupedByType = Record<string, Quest[]>;
 
@@ -127,8 +128,15 @@ export default function QuestList() {
 		return result;
 	}, [sortedQuests, groupByLocation, groupByType]);
 
+	const modalMap = {
+		witcher3: WitcherModal,
+		cyberpunk2077: CyberpunkModal
+	} as const;
+
+	const ModalComponent = modalMap[game as keyof typeof modalMap] ?? WitcherModal;
+
 	const renderQuest = (quest: Quest) => (
-		<Modal
+		<ModalComponent
 			key={quest.uuid}
 			uuid={quest.uuid}
 			activeQuestId={activeQuestId}

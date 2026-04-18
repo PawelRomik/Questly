@@ -4,7 +4,7 @@ import { Tooltip } from "radix-ui";
 
 export function ModalRewards({ rewards }: { rewards: Rewards }) {
 	return (
-		<div className='border-t border-r flex flex-1 flex-col border-zinc-700 p-5 bg-zinc-900'>
+		<div className=' h-full flex flex-1 flex-col '>
 			<h3 className='font-semibold text-gray-300 mb-2'>REWARDS</h3>
 
 			<div className='flex gap-2 mt-4'>

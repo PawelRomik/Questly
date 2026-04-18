@@ -11,7 +11,7 @@ export const RequirementsList = ({ requirements }: Props) => {
 	if (!requirements?.length) return null;
 
 	return (
-		<div className='border-t border-r border-zinc-700 p-5 bg-zinc-900'>
+		<div className=' '>
 			<h3 className='font-semibold text-gray-300 mb-2'>REQUIREMENTS</h3>
 
 			<div className='flex flex-wrap gap-2 mt-4'>
