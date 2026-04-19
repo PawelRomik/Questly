@@ -28,6 +28,7 @@ type Props = {
 	search: string;
 	searchTags: boolean;
 	level: number;
+	location: string;
 };
 
 export default function CyberpunkModal({
@@ -40,6 +41,7 @@ export default function CyberpunkModal({
 	tags,
 	locationImage,
 	mapImage,
+	location,
 	characterImage,
 	rewards,
 	isCompleted,

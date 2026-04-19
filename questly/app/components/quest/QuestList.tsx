@@ -142,9 +142,10 @@ export default function QuestList() {
 			activeQuestId={activeQuestId}
 			setActiveQuestId={setActiveQuestId}
 			title={quest.title}
-			type={quest.quest_type?.name ?? "Unknown"}
+			type={quest.quest_type}
 			desc={quest.description}
 			level={quest.level}
+			location={quest.location.name}
 			tags={quest.tags.map((t) => t.name)}
 			search={search}
 			searchTags={searchTags}

@@ -27,6 +27,10 @@ export type Tag = {
 
 export type QuestType = {
 	name: string;
+	icon: {
+		url: string;
+	};
+	color: string;
 };
 
 export type Location = {
@@ -77,7 +81,7 @@ export type Requirement = {
 export type Quest = {
 	uuid: string;
 	game: Game;
-	quest_type?: QuestType;
+	quest_type: QuestType;
 	title: string;
 	level: number;
 	description: string;

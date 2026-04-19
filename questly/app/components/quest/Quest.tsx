@@ -5,7 +5,7 @@ import { QuestContent } from "./QuestContent";
 import { QuestButton } from "./QuestButton";
 import { QuestProps } from "@/app/components/quest/types";
 
-export default function Quest({ title, characterImage, shortDesc, level, tags, locationImage, searchTags, search, completed, onToggle }: QuestProps) {
+export default function Quest({ title, shortDesc, level, tags, locationImage, searchTags, search, completed, onToggle }: QuestProps) {
 	return (
 		<div
 			className={`
@@ -23,10 +23,6 @@ transition-all  duration-200 ${completed && "brightness-60"} hover:shadow-[0_0_2
 
 			<div className='flex gap-2'>
 				<QuestImage completed={completed} width='full' src={locationImage} />
-
-				<div className='hidden lg:block'>
-					<QuestImage completed={completed} src={characterImage} />
-				</div>
 			</div>
 
 			<QuestContent title={title} level={level} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
