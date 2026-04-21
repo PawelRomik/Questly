@@ -65,6 +65,16 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::quest-type.quest-type"
+    },
+    "quest_act": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quest-act.quest-act"
+    },
+    "quest_groups": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest-group.quest-group"
     }
   }
 }
