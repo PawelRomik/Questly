@@ -70,7 +70,7 @@ export default function WitcherQuest({ title, type, shortDesc, rewards, level, t
 						</span>
 					)}
 
-					{rewards.items && (
+					{rewards.items.length > 0 && (
 						<span className='text-zinc-400 font-semibold flex items-center gap-1'>
 							+ item
 							<Image src={item} alt='item' className='w-4 h-4' />

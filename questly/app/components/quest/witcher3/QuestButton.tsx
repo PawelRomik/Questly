@@ -14,8 +14,8 @@ export function QuestButton({ completed, onClick }: Props) {
         
         ${
 					completed
-						? "border-[#1f6b2b] bg-gradient-to-b from-[#0f2a14] to-[#07150a] hover:border-[#2fa34a]"
-						: "border-[#6b1f1f] bg-gradient-to-b from-[#3a0d0d] to-[#1a0505] hover:border-[#a33]"
+						? "border-[#1f6b2b] bg-limear-to-b from-[#0f2a14] to-[#07150a] hover:border-[#2fa34a]"
+						: "border-[#6b1f1f] bg-linear-to-b from-[#3a0d0d] to-[#1a0505] hover:border-[#a33]"
 				}
       `}
 		>

@@ -20,9 +20,9 @@ export function QuestContent({ title, shortDesc, tags, searchTags, completed, se
 				</div>
 			</div>
 
-			<p className='text-sm text-left text-zinc-400'>
+			<div className='text-sm text-left text-zinc-400'>
 				<ReactMarkdown>{shortDesc}</ReactMarkdown>
-			</p>
+			</div>
 
 			<div className='flex gap-2 mt-2 flex-wrap'>
 				{tags.map((tag) => (

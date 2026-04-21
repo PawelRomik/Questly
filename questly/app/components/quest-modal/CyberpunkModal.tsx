@@ -6,13 +6,13 @@ import { ModalMeta } from "@/app/components/quest-modal/ModalMeta";
 import { ModalRewards } from "@/app/components/quest-modal/ModalRewards";
 import { RequirementsList } from "@/app/components/quest-modal/RequirementsList";
 import { QuestButton } from "@/app/components/quest/QuestButton";
-import { Requirement, Rewards } from "@/app/types/quest";
+import { QuestType, Requirement, Rewards } from "@/app/types/quest";
 import { ModalMap } from "@/app/components/quest-modal/ModalMap";
 import Quest from "@/app/components/quest/Quest";
 
 type Props = {
 	title: string;
-	type: string;
+	type: QuestType;
 	desc: string;
 	tags: string[];
 	rewards: Rewards;
@@ -106,9 +106,6 @@ export default function CyberpunkModal({
 					</div>
 
 					{/* TYPE */}
-					<div className='col-[2/4] row-2 border-b border-[#00f0ff]/20 px-4 py-2 text-xs uppercase tracking-widest text-[#00f0ff]'>
-						<ModalMeta uuid={uuid} type={type} tags={tags} locationImage={locationImage} />
-					</div>
 
 					{/* DESC */}
 					<div className='col-2 row-3 p-4 border-r border-[#00f0ff]/20 text-sm leading-relaxed text-[#8ffcff]'>{desc}</div>

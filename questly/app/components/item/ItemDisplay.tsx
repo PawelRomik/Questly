@@ -23,7 +23,7 @@ export function ItemDisplay({ item }: { item: Item }) {
 			</Tooltip.Trigger>
 
 			<Tooltip.Portal>
-				<Tooltip.Content side='top' className='bg-zinc-950 border border-yellow-700 text-gray-200 p-3 rounded shadow-xl w-64'>
+				<Tooltip.Content side='top' className='bg-zinc-950  z-70 border border-yellow-700 text-gray-200 p-3 rounded shadow-xl w-64'>
 					<div className='mb-2 flex justify-center'>
 						<Image unoptimized src={`http://localhost:1337${item.image.url}`} alt={item.name} width={80} height={80} className='rounded border border-zinc-700' />
 					</div>
