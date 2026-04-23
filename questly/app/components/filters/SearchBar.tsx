@@ -20,6 +20,7 @@ export function SearchBar() {
 	const isQuestPage = section === "quests";
 
 	const [filters, setLocalFilters] = useState<Filters>(globalFilters);
+	const isLocked = filters.groupByQuestGroup;
 	const debouncedSearch = useDebounce(filters.search, 300);
 
 	const update = <K extends keyof Filters>(key: K, value: Filters[K]) => {
@@ -30,11 +31,13 @@ export function SearchBar() {
 		setFilters({
 			groupByType: filters.groupByType,
 			sort: filters.sort,
+			groupByAct: filters.groupByAct,
+			groupByQuestGroup: filters.groupByQuestGroup,
 			searchTags: filters.searchTags,
 			groupByLocation: filters.groupByLocation,
 			search: debouncedSearch
 		});
-	}, [debouncedSearch, filters.groupByType, filters.groupByLocation, filters.sort, filters.searchTags, setFilters]);
+	}, [debouncedSearch, filters.groupByType, filters.groupByAct, filters.groupByQuestGroup, filters.groupByLocation, filters.sort, filters.searchTags, setFilters]);
 
 	const game = GAME_THEME[params.game as keyof typeof GAME_THEME] ?? GAME_THEME.default;
 
@@ -71,12 +74,33 @@ export function SearchBar() {
 			</ul>
 			<SearchInput theme={game.borderAlt} value={filters.search} onChange={(v) => update("search", v)} />
 			{isQuestPage && (
-				<div className='flex justify-between items-center'>
-					<Checkbox theme={{ border: game.borderAlt, color: game.secondColor }} label='Group by type' checked={filters.groupByType} onChange={(v) => update("groupByType", v)} />
+				<div className='flex justify-start flex-wrap gap-5 items-center'>
+					<Checkbox
+						theme={{ border: game.borderAlt, color: game.secondColor }}
+						label='Group by type'
+						checked={filters.groupByType}
+						disabled={isLocked}
+						onChange={(v) => update("groupByType", v)}
+					/>
 
 					<Checkbox theme={{ border: game.borderAlt, color: game.secondColor }} label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />
 
 					<Checkbox
+						theme={{ border: game.borderAlt, color: game.secondColor }}
+						label='Group by quest group'
+						checked={filters.groupByQuestGroup}
+						onChange={(v) => update("groupByQuestGroup", v)}
+					/>
+
+					<Checkbox
+						theme={{ border: game.borderAlt, color: game.secondColor }}
+						label='Group by act'
+						checked={filters.groupByAct}
+						disabled={isLocked}
+						onChange={(v) => update("groupByAct", v)}
+					/>
+					<Checkbox
+						disabled={isLocked}
 						theme={{ border: game.borderAlt, color: game.secondColor }}
 						label='Group by location'
 						checked={filters.groupByLocation}

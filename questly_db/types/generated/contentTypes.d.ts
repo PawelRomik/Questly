@@ -621,6 +621,64 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
+  collectionName: 'quest_acts';
+  info: {
+    displayName: 'quest-act';
+    pluralName: 'quest-acts';
+    singularName: 'quest-act';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quest-act.quest-act'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiQuestGroupQuestGroup extends Struct.CollectionTypeSchema {
+  collectionName: 'quest_groups';
+  info: {
+    displayName: 'quest-group';
+    pluralName: 'quest-groups';
+    singularName: 'quest-group';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quest-group.quest-group'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
   collectionName: 'quest_types';
   info: {
@@ -632,10 +690,13 @@ export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    color: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -677,6 +738,14 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
     map: Schema.Attribute.Component<'map.map', false>;
     publishedAt: Schema.Attribute.DateTime;
+    quest_act: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::quest-act.quest-act'
+    >;
+    quest_groups: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quest-group.quest-group'
+    >;
     quest_type: Schema.Attribute.Relation<
       'oneToOne',
       'api::quest-type.quest-type'
@@ -1267,6 +1336,8 @@ declare module '@strapi/strapi' {
       'api::game.game': ApiGameGame;
       'api::item.item': ApiItemItem;
       'api::location.location': ApiLocationLocation;
+      'api::quest-act.quest-act': ApiQuestActQuestAct;
+      'api::quest-group.quest-group': ApiQuestGroupQuestGroup;
       'api::quest-type.quest-type': ApiQuestTypeQuestType;
       'api::quest.quest': ApiQuestQuest;
       'api::rarity.rarity': ApiRarityRarity;

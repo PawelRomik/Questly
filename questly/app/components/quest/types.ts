@@ -1,4 +1,5 @@
 import { SortOption } from "@/app/components/filters/types";
+import { QuestType, Rewards } from "@/app/types/quest";
 
 export type QuestProps = {
 	title: string;
@@ -9,7 +10,8 @@ export type QuestProps = {
 	search: string;
 	searchTags: boolean;
 	completed: boolean;
-	characterImage: string;
+	rewards: Rewards;
+	type: QuestType;
 	onToggle: () => void;
 };
 

@@ -20,7 +20,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		groupByType: searchParams.get("groupByType") === "true",
 		sort: (searchParams.get("sort") as SortOption) ?? SortOption.AZ,
 		searchTags: searchParams.get("searchTags") === "true",
-		groupByLocation: searchParams.get("groupByLocation") === "true"
+		groupByLocation: searchParams.get("groupByLocation") === "true",
+		groupByAct: searchParams.get("groupByAct") === "true",
+		groupByQuestGroup: searchParams.get("groupByQuestGroup") === "true"
 	});
 
 	useEffect(() => {
@@ -28,6 +30,12 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 			const current = searchParams.toString();
 
 			const params = new URLSearchParams(searchParams.toString());
+
+			if (filters.groupByAct) params.set("groupByAct", "true");
+			else params.delete("groupByAct");
+
+			if (filters.groupByQuestGroup) params.set("groupByQuestGroup", "true");
+			else params.delete("groupByQuestGroup");
 
 			if (filters.search) params.set("search", filters.search);
 			else params.delete("search");

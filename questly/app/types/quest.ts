@@ -27,6 +27,10 @@ export type Tag = {
 
 export type QuestType = {
 	name: string;
+	icon: {
+		url: string;
+	};
+	color: string;
 };
 
 export type Location = {
@@ -74,10 +78,18 @@ export type Requirement = {
 	item_amount: number;
 };
 
+export type QuestAct = {
+	title: string;
+};
+
+export type QuestGroup = {
+	title: string;
+};
+
 export type Quest = {
 	uuid: string;
 	game: Game;
-	quest_type?: QuestType;
+	quest_type: QuestType;
 	title: string;
 	level: number;
 	description: string;
@@ -86,6 +98,8 @@ export type Quest = {
 	map: Map;
 	character: Character;
 	tags: Tag[];
+	quest_act: QuestAct;
+	quest_groups: QuestGroup[];
 	rewards: Rewards;
 	requirement: Requirement[];
 };

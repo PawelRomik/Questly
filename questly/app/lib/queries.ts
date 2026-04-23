@@ -6,6 +6,16 @@ export const GET_QUESTS_NO_TAGS = gql`
 			title
 			quest_type {
 				name
+				icon {
+					url
+				}
+				color
+			}
+			quest_act {
+				title
+			}
+			quest_groups {
+				title
 			}
 			uuid
 			level
@@ -79,6 +89,16 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			title
 			quest_type {
 				name
+				icon {
+					url
+				}
+				color
+			}
+			quest_act {
+				title
+			}
+			quest_groups {
+				title
 			}
 			uuid
 			level
