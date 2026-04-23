@@ -2,7 +2,10 @@ import AchievementList from "@/app/components/achievement/AchievementList";
 import { SearchBar } from "@/app/components/filters/SearchBar";
 import Navbar from "@/app/components/navbar/Navbar";
 import QuestList from "@/app/components/quest/QuestList";
+import { GAME_THEME } from "@/app/data/games";
 import { formatName } from "@/app/lib/utils/formatName";
+
+import Image from "next/image";
 
 type Props = {
 	params: Promise<{
@@ -20,12 +23,13 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function GamePage({ params }: Props) {
-	const { content } = await params;
+	const { content, game } = await params;
+	const background = GAME_THEME[game as keyof typeof GAME_THEME].background;
 
 	return (
-		<div className='h-screen flex flex-col bg-[repeating-linear-gradient(0deg,#09090b,#09090b_4px,#18181b_4px,#18181b_40px)] overflow-hidden'>
+		<div className='h-screen flex relative flex-col bg-[rgba(0,0,0,0.8)] overflow-hidden'>
 			<Navbar />
-
+			<Image src={background} alt='background' fill className='object-cover -z-10' priority />
 			<div className='flex flex-1 overflow-hidden'>
 				<div className='w-1/3 p-5 bg-[rgba(0,0,0,0.5)] flex items-start'>
 					<SearchBar />

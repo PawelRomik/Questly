@@ -11,6 +11,12 @@ export const GET_QUESTS_NO_TAGS = gql`
 				}
 				color
 			}
+			quest_act {
+				title
+			}
+			quest_groups {
+				title
+			}
 			uuid
 			level
 			description
@@ -87,6 +93,12 @@ export const GET_QUESTS_WITH_TAGS = gql`
 					url
 				}
 				color
+			}
+			quest_act {
+				title
+			}
+			quest_groups {
+				title
 			}
 			uuid
 			level

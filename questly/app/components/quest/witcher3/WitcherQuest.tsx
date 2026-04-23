@@ -21,14 +21,14 @@ export default function WitcherQuest({ title, type, shortDesc, rewards, level, t
 			className={`
   relative w-[95%] mx-auto cursor-pointer flex items-center gap-4 p-4
   transition-all duration-200
-  hover:translate-x-1 hover:-translate-y-0.5 hover:scale-[1.01]
+  hover:translate-x-1 hover:-translate-y-0.5
   ${ptSans.className}
   overflow-hidden
   border 
   shadow-[0_0_20px_rgba(0,0,0,0.7)]
-  bg-linear-to-b from-[#1a1a1a] -skew-x-5 to-[#0f0f0f]
+  bg-linear-to-b from-[#1a1a1a]  to-[#0f0f0f]
 
-  ${completed ? "border-[#1f6b2b] inset-shadow-[0_0_25px_rgba(0,255,100,0.15)]" : "border-[rgb(40,37,28)]"}
+  ${completed ? "border-[#1f6b2b] opacity-65 scale-95 hover:scale-100  inset-shadow-[0_0_25px_rgba(0,255,100,0.15)]" : " hover:scale-[1.01] border-[rgb(40,37,28)]"}
 `}
 		>
 			{/* LEFT GLOW STRIP */}

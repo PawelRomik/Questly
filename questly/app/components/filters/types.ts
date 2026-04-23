@@ -11,4 +11,6 @@ export type Filters = {
 	sort: SortOption;
 	searchTags: boolean;
 	groupByLocation: boolean;
+	groupByAct: boolean;
+	groupByQuestGroup: boolean;
 };

@@ -17,7 +17,7 @@ export default function Navbar() {
 	const theme = GAME_THEME[game] ?? GAME_THEME.default;
 
 	return (
-		<nav className='w-full sticky z-10 top-0  left-0 flex shadow-2xl text-2xl font-bold h-24'>
+		<nav className='w-full sticky z-10 top-0  left-0 flex  text-2xl font-bold h-24'>
 			<div className='bg-[rgba(0,0,0,0.5)]'>
 				<NavDecor theme={theme} side='left' active={active} />
 			</div>

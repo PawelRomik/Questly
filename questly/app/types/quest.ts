@@ -78,6 +78,14 @@ export type Requirement = {
 	item_amount: number;
 };
 
+export type QuestAct = {
+	title: string;
+};
+
+export type QuestGroup = {
+	title: string;
+};
+
 export type Quest = {
 	uuid: string;
 	game: Game;
@@ -90,6 +98,8 @@ export type Quest = {
 	map: Map;
 	character: Character;
 	tags: Tag[];
+	quest_act: QuestAct;
+	quest_groups: QuestGroup[];
 	rewards: Rewards;
 	requirement: Requirement[];
 };
