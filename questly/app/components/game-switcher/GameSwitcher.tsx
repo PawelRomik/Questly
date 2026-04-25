@@ -11,7 +11,7 @@ export default function GameSwitcher() {
 
 	return (
 		<Dialog.Root>
-			<Dialog.Trigger className='flex'>
+			<Dialog.Trigger className='flex flex-1'>
 				<NavLogo />
 			</Dialog.Trigger>
 

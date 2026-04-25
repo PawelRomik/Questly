@@ -22,7 +22,7 @@ export default function Navbar() {
 				<NavDecor theme={theme} side='left' active={active} />
 			</div>
 
-			<div className={`flex-1 flex items-center ${theme.border} border-b-4 ${theme.bg}`}>
+			<div className={`flex-1 shadow-2xl flex border-b-4 border-[#c97a00] items-center  `}>
 				<div className='flex w-full  h-full overflow-hidden'>
 					<NavMenu theme={theme} side='left' active={active} setActive={setActive} />
 
