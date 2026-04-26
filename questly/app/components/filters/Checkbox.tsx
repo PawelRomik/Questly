@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import sword from "../../../public/assets/sword.webp";
 
 type Props = {
 	label: string;
@@ -13,23 +15,36 @@ type Props = {
 
 export function Checkbox({ label, checked, disabled, onChange, theme }: Props) {
 	return (
-		<label className='flex items-center gap-3 cursor-pointer text-zinc-300 text-sm'>
-			<div className='relative group w-5 h-5'>
+		<label
+			className={`
+        flex items-center gap-3 cursor-pointer text-sm
+        ${disabled ? "opacity-40 cursor-not-allowed" : "text-[#cfc6a4] hover:text-white"}
+        transition
+      `}
+		>
+			{/* BOX */}
+			<div className='relative w-5 h-5'>
 				<input type='checkbox' disabled={disabled} checked={checked} onChange={(e) => onChange(e.target.checked)} className='absolute inset-0 opacity-0 cursor-pointer peer' />
 
-				<div style={checked ? { backgroundColor: theme.color } : undefined} className={`w-full h-full flex items-center justify-center `}>
-					{checked && <div className='w-2.5 h-2.5 bg-black'></div>}
-				</div>
-
-				<div className='absolute inset-0 pointer-events-none transition-transform duration-200 group-hover:rotate-45'>
-					<div className={`absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 ${theme.border}`}></div>
-					<div className={`absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 ${theme.border}`}></div>
-					<div className={`absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 ${theme.border}`}></div>
-					<div className={`absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 ${theme.border}`}></div>
+				{/* BASE */}
+				<div
+					className={`
+            w-full h-full flex items-center justify-center
+            
+            bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]
+            shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]
+            transition
+			border-[#c6a85a] relative
+			border-2 shadow-3xl 
+           
+          `}
+				>
+					{checked && <Image src={sword} alt='check' unoptimized className='absolute select-none pointer-events-none object-contain h-[20px] scale-300' />}
 				</div>
 			</div>
 
-			{label}
+			{/* LABEL */}
+			<span className='uppercase tracking-wide'>{label}</span>
 		</label>
 	);
 }

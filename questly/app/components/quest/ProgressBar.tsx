@@ -14,7 +14,7 @@ export default function ProgressBar({ completed, total }: Props) {
 		<div className='w-full mx-auto flex flex-col gap-1'>
 			<div className='w-full h-2 bg-zinc-700  overflow-hidden  '>
 				<div
-					className={`h-full transition-all  duration-500 ${isComplete ? "bg-linear-to-r from-green-400 via-green-500 to-green-600" : "bg-linear-to-r from-red-500 to-red-600"}`}
+					className={`h-full transition-all  duration-500 ${isComplete ? "bg-linear-to-r from-green-400 via-green-500 to-green-600" : "bg-linear-to-r from-[#a8803b] to-[#d6982e]"}`}
 					style={{ width: `${percent}%` }}
 				/>
 			</div>
