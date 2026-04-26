@@ -6,7 +6,7 @@ export function highlightText(text: string, query: string) {
 
 	return parts.map((part, i) =>
 		part.toLowerCase() === query.toLowerCase() ? (
-			<span key={i} className='text-red-500 font-semibold '>
+			<span key={i} className='text-[#c6a85a] font-semibold '>
 				{part}
 			</span>
 		) : (

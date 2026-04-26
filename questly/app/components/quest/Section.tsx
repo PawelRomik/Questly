@@ -30,12 +30,16 @@ export default function Section({ title, count, level = 0, icon, children, compl
           w-full flex flex-col cursor-pointer transition-all px-4 py-3
           border border-[rgb(40,37,28)]
           bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
-          shadow-[0_0_20px_rgba(0,0,0,0.7)] skew-x-5 hover:brightness-110
+          shadow-[0_0_20px_rgba(0,0,0,0.7)] relative -skew-x-8 hover:brightness-110
           
         `}
 			>
 				<div className='flex items-center justify-between w-full'>
 					<div className='flex items-center gap-3'>
+						<div className='pointer-events-none absolute inset-y-0 left-0 w-12'>
+							<div style={{ backgroundColor: completed != count ? "#c97a00" : "#2fa34a" }} className='absolute top-0 left-0 w-1 h-full opacity-80' />
+							<div style={{ backgroundColor: completed != count ? "#c97a00" : "#2fa34a" }} className='absolute top-0 left-0 w-3 h-full opacity-20 blur-lg' />
+						</div>
 						<ChevronUp
 							className={`
                 w-4 h-4 transition-transform duration-200 text-[#a68b5b]
