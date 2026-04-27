@@ -52,6 +52,21 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "effects": {
+      "type": "richtext"
+    },
+    "armor": {
+      "type": "integer"
+    },
+    "damage": {
+      "type": "integer"
+    },
+    "console_id": {
+      "type": "string"
     }
   }
 }
