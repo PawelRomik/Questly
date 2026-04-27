@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collection_groups",
+  "info": {
+    "singularName": "collection-group",
+    "pluralName": "collection-groups",
+    "displayName": "collection-group"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collection.collection"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
+    }
+  }
+}
