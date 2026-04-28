@@ -188,3 +188,30 @@ export const GET_ACHIEVEMENTS = gql`
 		}
 	}
 `;
+
+export const GET_COLLECTION_GROUPS = gql`
+	query GetCollectionGroups($game: String!) {
+		collectionGroups(filters: { game: { slug: { eq: $game } } }) {
+			title
+		}
+	}
+`;
+
+export const GET_COLLECTIONS = gql`
+	query GetCollections($collectionGroup: String!) {
+		collectionGroups(filters: { title: { eq: $collectionGroup } }) {
+			collections {
+				items {
+					uuid
+					image {
+						url
+					}
+					name
+					description
+				}
+				type
+				title
+			}
+		}
+	}
+`;

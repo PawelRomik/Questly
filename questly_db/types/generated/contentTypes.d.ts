@@ -592,6 +592,7 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<'title'>;
   };
 }
 
@@ -657,6 +658,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<'name'>;
   };
 }
 

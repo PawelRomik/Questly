@@ -1,4 +1,5 @@
 import AchievementList from "@/app/components/achievement/AchievementList";
+import CollectionList from "@/app/components/collection/CollectionList";
 import { SearchBar } from "@/app/components/filters/SearchBar";
 import Navbar from "@/app/components/navbar/Navbar";
 import QuestList from "@/app/components/quest/QuestList";
@@ -38,6 +39,7 @@ export default async function GamePage({ params }: Props) {
 				<div className='w-2/3 p-5 flex justify-center overflow-y-auto'>
 					{content === "quests" && <QuestList />}
 					{content === "achievements" && <AchievementList />}
+					{content === "collectibles" && <CollectionList />}
 				</div>
 			</div>
 		</div>
