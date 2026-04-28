@@ -67,6 +67,10 @@
     },
     "console_id": {
       "type": "string"
+    },
+    "uuid": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
