@@ -68,23 +68,22 @@ export default function WitcherModal({
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
-			<Dialog.Trigger asChild>
-				<div onClick={() => setActiveQuestId(uuid)} className='w-full'>
-					<WitcherQuest
-						completed={isCompleted}
-						onToggle={toggleCompleted}
-						title={title}
-						search={search}
-						searchTags={searchTags}
-						shortDesc={desc.slice(0, 60) + "..."}
-						level={level}
-						tags={tags}
-						locationImage={locationImage}
-						type={type}
-						rewards={rewards}
-					/>
-				</div>
-			</Dialog.Trigger>
+			<div onClick={() => setActiveQuestId(uuid)} className='w-full'>
+				<WitcherQuest
+					completed={isCompleted}
+					onToggle={toggleCompleted}
+					title={title}
+					search={search}
+					searchTags={searchTags}
+					shortDesc={desc.slice(0, 60) + "..."}
+					level={level}
+					tags={tags}
+					locationImage={locationImage}
+					type={type}
+					rewards={rewards}
+				/>
+			</div>
+
 			<Dialog.Portal>
 				<Dialog.Overlay className={`fixed inset-0 z-30 bg-black/80 backdrop-blur-sm `} />
 

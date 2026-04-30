@@ -4,6 +4,7 @@ import ProgressBar from "@/app/components/quest/ProgressBar";
 import { ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { Collapsible } from "radix-ui";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 type Props = {
@@ -17,7 +18,7 @@ type Props = {
 };
 
 export default function Section({ title, count, level = 0, icon, children, completed, variant = "type" }: Props) {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(level === 0);
 
 	const indentStyle = {
 		paddingLeft: `${level * 24}px`
@@ -40,12 +41,9 @@ export default function Section({ title, count, level = 0, icon, children, compl
 							<div style={{ backgroundColor: completed != count ? "#c97a00" : "#2fa34a" }} className='absolute top-0 left-0 w-1 h-full opacity-80' />
 							<div style={{ backgroundColor: completed != count ? "#c97a00" : "#2fa34a" }} className='absolute top-0 left-0 w-3 h-full opacity-20 blur-lg' />
 						</div>
-						<ChevronUp
-							className={`
-                w-4 h-4 transition-transform duration-200 text-[#a68b5b]
-                ${open ? "rotate-180" : ""}
-              `}
-						/>
+						<motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+							<ChevronUp className='w-4 h-4 text-[#a68b5b]' />
+						</motion.div>
 
 						{icon && <Image unoptimized width={100} height={100} src={icon} className='h-8 w-8 object-cover  ' alt='location' />}
 
@@ -64,21 +62,34 @@ export default function Section({ title, count, level = 0, icon, children, compl
 				)}
 			</Collapsible.Trigger>
 
-			<Collapsible.Content
-				className={`
-          overflow-hidden pt-3 transition-all duration-300
-          ${open ? "animate-slideDown" : "animate-slideUp"}
-        `}
-			>
-				<div
-					className={`
-            flex flex-col gap-3 pl-2
-            
-          `}
-				>
-					{children}
-				</div>
-			</Collapsible.Content>
+			<AnimatePresence initial={false}>
+				{open && (
+					<motion.div
+						key='content'
+						initial={{ height: 0, opacity: 0 }}
+						animate={{ height: "auto", opacity: 1 }}
+						exit={{ height: 0, opacity: 0 }}
+						transition={{
+							height: { type: "spring", stiffness: 200, damping: 25, duration: 3 },
+							opacity: { duration: 0.2 }
+						}}
+						className='overflow-hidden'
+					>
+						<motion.div
+							initial='hidden'
+							animate='visible'
+							variants={{
+								visible: {
+									transition: { staggerChildren: 0.07 }
+								}
+							}}
+							className='flex flex-col gap-3 pl-2 pt-3'
+						>
+							{children}
+						</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</Collapsible.Root>
 	);
 }
