@@ -10,6 +10,7 @@ import { useFilters } from "@/app/context/FiltersContext";
 import { useCompleted } from "@/app/hooks/useCompleted";
 import WitcherModal from "@/app/components/quest-modal/WitcherModal";
 import CyberpunkModal from "@/app/components/quest-modal/CyberpunkModal";
+import { motion } from "framer-motion";
 
 export default function QuestList() {
 	const { filters } = useFilters();
@@ -50,25 +51,30 @@ export default function QuestList() {
 		return data?.quests ?? previousData?.quests ?? [];
 	}, [data, previousData]);
 
-	// 🔽 SORT
 	const sortList = (list: Quest[]) => {
 		const copy = [...list];
 
-		switch (sort) {
-			case "az":
-				return copy.sort((a, b) => a.title.localeCompare(b.title));
-			case "za":
-				return copy.sort((a, b) => b.title.localeCompare(a.title));
-			case "levelAsc":
-				return copy.sort((a, b) => a.level - b.level);
-			case "levelDesc":
-				return copy.sort((a, b) => b.level - a.level);
-			default:
-				return copy;
-		}
+		return copy.sort((a, b) => {
+			const aDone = isCompleted(a.uuid);
+			const bDone = isCompleted(b.uuid);
+
+			if (aDone !== bDone) return aDone ? 1 : -1;
+
+			switch (sort) {
+				case "az":
+					return a.title.localeCompare(b.title);
+				case "za":
+					return b.title.localeCompare(a.title);
+				case "levelAsc":
+					return a.level - b.level;
+				case "levelDesc":
+					return b.level - a.level;
+				default:
+					return 0;
+			}
+		});
 	};
 
-	// 🔽 MODAL
 	const modalMap = {
 		witcher3: WitcherModal,
 		cyberpunk2077: CyberpunkModal
@@ -77,30 +83,40 @@ export default function QuestList() {
 	const ModalComponent = modalMap[game as keyof typeof modalMap] ?? WitcherModal;
 
 	const renderQuest = (quest: Quest) => (
-		<ModalComponent
+		<motion.div
+			variants={{
+				hidden: { opacity: 0, y: -5 },
+				visible: { opacity: 1, y: 0 }
+			}}
+			transition={{ type: "spring", stiffness: 300, damping: 25 }}
+			whileTap={{ scale: 0.97 }}
 			key={quest.uuid}
-			uuid={quest.uuid}
-			activeQuestId={activeQuestId}
-			setActiveQuestId={setActiveQuestId}
-			title={quest.title}
-			type={quest.quest_type}
-			desc={quest.description}
-			level={quest.level}
-			location={quest.location.name}
-			tags={quest.tags.map((t) => t.name)}
-			search={search}
-			searchTags={searchTags}
-			rewards={quest.rewards}
-			isCompleted={isCompleted(quest.uuid)}
-			toggleCompleted={() => toggle(quest.uuid)}
-			locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
-			mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
-			characterImage={`http://localhost:1337${quest.character?.image?.url}`}
-			requirements={quest.requirement}
-		/>
+			layout
+		>
+			<ModalComponent
+				key={quest.uuid}
+				uuid={quest.uuid}
+				activeQuestId={activeQuestId}
+				setActiveQuestId={setActiveQuestId}
+				title={quest.title}
+				type={quest.quest_type}
+				desc={quest.description}
+				level={quest.level}
+				location={quest.location.name}
+				tags={quest.tags.map((t) => t.name)}
+				search={search}
+				searchTags={searchTags}
+				rewards={quest.rewards}
+				isCompleted={isCompleted(quest.uuid)}
+				toggleCompleted={() => toggle(quest.uuid)}
+				locationImage={`http://localhost:1337${quest.location?.banner?.url}`}
+				mapImage={`http://localhost:1337${quest.location?.minimap?.url}`}
+				characterImage={`http://localhost:1337${quest.character?.image?.url}`}
+				requirements={quest.requirement}
+			/>
+		</motion.div>
 	);
 
-	// 🔽 UNIWERSALNY SECTION
 	function renderSection(
 		title: string,
 		list: Quest[],
@@ -116,13 +132,14 @@ export default function QuestList() {
 		return (
 			<div key={title} className='w-full py-4'>
 				<Section title={title} level={options?.level} count={sorted.length} completed={countCompleted(sorted)} icon={options?.icon} variant={options?.variant}>
-					{options?.children ?? sorted.map(renderQuest)}
+					<motion.div layout className='flex flex-col gap-2'>
+						{options?.children ?? sorted.map(renderQuest)}
+					</motion.div>
 				</Section>
 			</div>
 		);
 	}
 
-	// 🔽 GROUPING
 	const groupBy = <T, K extends string>(list: T[], getKey: (item: T) => K): Record<K, T[]> => {
 		return list.reduce(
 			(acc, item) => {
