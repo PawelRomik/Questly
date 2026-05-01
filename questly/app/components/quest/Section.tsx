@@ -17,7 +17,7 @@ type Props = {
 	level?: number;
 };
 
-export default function Section({ title, count, level = 0, icon, children, completed, variant = "type" }: Props) {
+export default function Section({ title, count, level = 0, icon, children, completed }: Props) {
 	const [open, setOpen] = useState(level === 0);
 
 	const indentStyle = {
@@ -73,7 +73,7 @@ export default function Section({ title, count, level = 0, icon, children, compl
 							height: { type: "spring", stiffness: 200, damping: 25, duration: 3 },
 							opacity: { duration: 0.2 }
 						}}
-						className='overflow-hidden'
+						className='overflow-hidden '
 					>
 						<motion.div
 							initial='hidden'
@@ -83,7 +83,7 @@ export default function Section({ title, count, level = 0, icon, children, compl
 									transition: { staggerChildren: 0.07 }
 								}
 							}}
-							className='flex flex-col gap-3 pl-2 pt-3'
+							className='flex flex-col gap-3  pl-2 pt-4'
 						>
 							{children}
 						</motion.div>

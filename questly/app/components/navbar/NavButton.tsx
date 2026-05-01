@@ -6,10 +6,7 @@ type WitcherSign = "igni" | "axii" | "yrden" | "aard" | "quen";
 type Props = {
 	children: React.ReactNode;
 	href: string;
-	side?: "left" | "right";
-	activeSide?: "left" | "right" | null;
-	setActive: (v: "left" | "right" | null) => void;
-	border?: "left" | "right";
+
 	theme: themeProps;
 	sign: WitcherSign;
 };
@@ -22,13 +19,11 @@ const signColors: Record<WitcherSign, string> = {
 	quen: "after:from-yellow-500/80 after:via-yellow-400/40"
 };
 
-export function NavButton({ children, href, side, activeSide, sign, setActive, border, theme }: Props) {
+export function NavButton({ children, href, sign, theme }: Props) {
 	const gradient = signColors[sign];
 	return (
 		<Link href={href} className='w-full h-full'>
 			<button
-				onMouseEnter={() => side && setActive(side)}
-				onMouseLeave={() => side && setActive(null)}
 				className={`
   relative overflow-hidden
   bg-linear-to-b 

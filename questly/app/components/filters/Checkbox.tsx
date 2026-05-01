@@ -13,7 +13,7 @@ type Props = {
 	};
 };
 
-export function Checkbox({ label, checked, disabled, onChange, theme }: Props) {
+export function Checkbox({ label, checked, disabled, onChange }: Props) {
 	return (
 		<label
 			className={`
@@ -22,16 +22,14 @@ export function Checkbox({ label, checked, disabled, onChange, theme }: Props) {
         transition
       `}
 		>
-			{/* BOX */}
 			<div className='relative w-5 h-5'>
 				<input type='checkbox' disabled={disabled} checked={checked} onChange={(e) => onChange(e.target.checked)} className='absolute inset-0 opacity-0 cursor-pointer peer' />
 
-				{/* BASE */}
 				<div
 					className={`
             w-full h-full flex items-center justify-center
             
-            bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]
+            bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
             shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]
             transition
 			border-[#c6a85a] relative
@@ -39,11 +37,10 @@ export function Checkbox({ label, checked, disabled, onChange, theme }: Props) {
            
           `}
 				>
-					{checked && <Image src={sword} alt='check' unoptimized className='absolute select-none pointer-events-none object-contain h-[20px] scale-300' />}
+					{checked && <Image src={sword} alt='check' unoptimized className='absolute select-none pointer-events-none object-contain h-5 scale-300' />}
 				</div>
 			</div>
 
-			{/* LABEL */}
 			<span className='uppercase tracking-wide'>{label}</span>
 		</label>
 	);
