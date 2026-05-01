@@ -14,7 +14,7 @@ export function SortSelect({ value, onChange, theme }: Props) {
 			className={`
         relative w-fit
         border border-[rgb(40,37,28)]
-        bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]
+        bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
         shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]
         group
       `}
@@ -39,7 +39,6 @@ export function SortSelect({ value, onChange, theme }: Props) {
 				<option value={SortOption.LEVEL_DESC}>Level ↓</option>
 			</select>
 
-			{/* CUSTOM ARROW */}
 			<div
 				className='
           pointer-events-none
@@ -51,10 +50,9 @@ export function SortSelect({ value, onChange, theme }: Props) {
 				▼
 			</div>
 
-			{/* BOTTOM ACCENT */}
 			<div
 				className={`
-          absolute bottom-0 left-0 w-full h-[2px]
+          absolute bottom-0 left-0 w-full h-0.5
           ${theme}
           opacity-60
           transition-all duration-200
@@ -63,7 +61,6 @@ export function SortSelect({ value, onChange, theme }: Props) {
         `}
 			/>
 
-			{/* HOVER GLOW */}
 			<div
 				className='
     pointer-events-none absolute inset-0

@@ -1,6 +1,5 @@
 "use client";
 
-import { useQuery } from "@apollo/client/react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { GET_COLLECTION_GROUPS, GET_COLLECTIONS } from "@/app/lib/queries";
 
@@ -8,6 +7,7 @@ import { useMemo } from "react";
 import Collection from "@/app/components/collection/Collection";
 import CollectionGroup from "@/app/components/collection/CollectionGroup";
 import { CollectionType, GetCollectionGroupsData, GetCollectionsData, GetCollectionsVars } from "@/app/types/collection";
+import { useApollo } from "@/app/hooks/useApollo";
 
 export default function CollectionList() {
 	const params = useParams();
@@ -18,19 +18,11 @@ export default function CollectionList() {
 
 	const selectedCollection = searchParams.get("collection");
 
-	const { data: groupsData } = useQuery<GetCollectionGroupsData>(GET_COLLECTION_GROUPS, {
-		variables: { game }
-	});
+	const { data: groupsData } = useApollo<GetCollectionGroupsData, { game: string }>(GET_COLLECTION_GROUPS, { game });
 
-	const { data, previousData } = useQuery<GetCollectionsData, GetCollectionsVars>(GET_COLLECTIONS, {
-		variables: { collectionGroup: selectedCollection as string },
-		skip: !selectedCollection,
-		notifyOnNetworkStatusChange: true
-	});
+	const { data: collectionsData } = useApollo<GetCollectionsData, GetCollectionsVars>(GET_COLLECTIONS, { collectionGroup: selectedCollection as string });
 
-	const collections = useMemo(() => {
-		return data?.collectionGroups?.[0]?.collections ?? previousData?.collectionGroups?.[0]?.collections ?? [];
-	}, [data, previousData]);
+	const collections = useMemo(() => collectionsData?.collectionGroups?.[0]?.collections ?? [], [collectionsData]);
 
 	const handleSelectGroup = (title: string) => {
 		const params = new URLSearchParams(searchParams.toString());

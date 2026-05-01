@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog } from "radix-ui";
+import { Dialog, VisuallyHidden } from "radix-ui";
 import { ModalCharacter } from "@/app/components/quest-modal/ModalCharacter";
 
 import { ModalRewards } from "@/app/components/quest-modal/ModalRewards";
@@ -97,6 +97,9 @@ export default function WitcherModal({
 					grid grid-cols-[220px_2fr_1fr]
 					grid-rows-[auto_auto_1fr_100px_70px]'
 				>
+					<VisuallyHidden.Root>
+						<Dialog.Title>Modal</Dialog.Title>
+					</VisuallyHidden.Root>
 					{/* CHARACTER */}
 					<div className='row-[1/4] col-1 border-r-3 border-b-3 border-[rgb(40,37,28)] '>
 						<ModalCharacter src={characterImage} />

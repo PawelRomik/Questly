@@ -1,6 +1,5 @@
 "use client";
 
-import { useQuery } from "@apollo/client/react";
 import { useParams } from "next/navigation";
 import { GET_ACHIEVEMENTS } from "@/app/lib/queries";
 import Achievement from "@/app/components/achievement/Achievement";
@@ -9,6 +8,8 @@ import { AchievementType, GetAchievementsData, GetAchievementsVars } from "@/app
 import { useCompleted } from "@/app/hooks/useCompleted";
 import { useMemo } from "react";
 import Section from "@/app/components/quest/Section";
+import { useApollo } from "@/app/hooks/useApollo";
+import { extractList } from "@/app/hooks/extractList";
 
 export default function AchievementList() {
 	const params = useParams();
@@ -18,23 +19,19 @@ export default function AchievementList() {
 	const { search } = filters;
 	const { toggle, isCompleted } = useCompleted(game, "achievements");
 
-	const { data, previousData } = useQuery<GetAchievementsData, GetAchievementsVars>(GET_ACHIEVEMENTS, {
-		variables: { game, search },
-		notifyOnNetworkStatusChange: true
+	const { data } = useApollo<GetAchievementsData, GetAchievementsVars>(GET_ACHIEVEMENTS, {
+		game,
+		search
 	});
 
-	const achievements = useMemo(() => {
-		return data?.achievements ?? previousData?.achievements ?? [];
-	}, [data, previousData]);
+	const achievements = useMemo(() => extractList<AchievementType>(data, "achievements"), [data]);
 
-	const countCompleted = (achievements: AchievementType[]) => {
-		return achievements.filter((a) => isCompleted(a.uuid)).length;
-	};
+	const completedCount = achievements.filter((a) => isCompleted(a.uuid)).length;
 
 	return (
 		<div className='w-full px-3 flex flex-col items-center '>
 			<div className='w-full py-4'>
-				<Section title={search ? "Search results" : "Achievements"} count={achievements.length} completed={countCompleted(achievements)}>
+				<Section title={search ? "Search results" : "Achievements"} count={achievements.length} completed={completedCount}>
 					{achievements.map((a, i) => (
 						<Achievement
 							secret={a.secret}

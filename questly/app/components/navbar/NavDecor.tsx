@@ -1,12 +1,8 @@
-import { themeProps } from "@/app/components/navbar/types";
-
 type Props = {
 	side: "left" | "right";
-	active: "left" | "right" | null;
-	theme: themeProps;
 };
 
-export function NavDecor({ side, active, theme }: Props) {
+export function NavDecor({ side }: Props) {
 	const isLeft = side === "left";
 
 	return (
