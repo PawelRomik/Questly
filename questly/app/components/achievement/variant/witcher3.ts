@@ -1,4 +1,4 @@
-export const achievementBaseClass = `
+const achievementBaseClass = `
   transition-all duration-200
   border
   bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
