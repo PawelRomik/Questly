@@ -653,7 +653,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Relation<'oneToOne', 'api::rarity.rarity'>;
     type: Schema.Attribute.Enumeration<
-      ['weapon', 'armor', 'consumable', 'material', 'other']
+      ['weapon', 'armor', 'consumable', 'material', 'other', 'gwent card']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

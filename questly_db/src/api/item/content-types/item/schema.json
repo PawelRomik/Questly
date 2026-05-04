@@ -31,7 +31,8 @@
         "armor",
         "consumable",
         "material",
-        "other"
+        "other",
+        "gwent card"
       ]
     },
     "amount": {
