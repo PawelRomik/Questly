@@ -1,7 +1,7 @@
 import AchievementDescription from "@/app/components/achievement/content/AchievementDescription";
 import AchievementTitle from "@/app/components/achievement/content/AchievementTitle";
 import { AchievementContentContainerClass } from "@/app/components/achievement/variant/universal";
-import CompletedTag from "@/app/components/common/CompletedTag";
+import CompletedTag from "@/app/components/tag/CompletedTag";
 import { AchievementType } from "@/app/types/achievement";
 
 type Props = {

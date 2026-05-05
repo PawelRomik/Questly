@@ -13,7 +13,7 @@ export function CollectionItem({ name, src, completed, onClick }: Props) {
 
 	return (
 		<div onClick={onClick} className={styles.collection.item.base(completed)}>
-			<FixedImage src={src} alt={name} styles={styles.collection.item.image()} />
+			<FixedImage src={src} alt={name} className={styles.collection.item.image()} />
 		</div>
 	);
 }

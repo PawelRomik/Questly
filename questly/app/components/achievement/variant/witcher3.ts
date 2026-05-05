@@ -63,6 +63,8 @@ const achievementButtonIconBaseClass = `
 
 const achievementButtonIconVariant = (completed: boolean) => (completed ? "opacity-100 scale-100" : "opacity-0 scale-75");
 
+// ----------------------------------------
+
 export const witcher3Styles = {
 	root: () => ``,
 	achievement: (completed: boolean) => achievementClass(completed),

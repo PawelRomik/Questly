@@ -13,7 +13,7 @@ export function AchievementImage({ src, completed }: Props) {
 	return (
 		<div className={styles.image.wrapper()}>
 			<div className={styles.image.container(completed)}>
-				<FixedImage src={src} alt='Achievement icon' styles={styles.image.img(completed)} />
+				<FixedImage src={src} alt='Achievement icon' className={styles.image.img(completed)} />
 
 				<AchievementImageCorners completed={completed} />
 
