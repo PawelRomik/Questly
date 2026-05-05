@@ -6,4 +6,4 @@ export const itemVariants = {
 	witcher3: mergeStyles(universalStyles, witcher3Styles)
 };
 
-export type CollectionVariants = keyof typeof itemVariants;
+export type itemVariants = keyof typeof itemVariants;
