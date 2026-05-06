@@ -1,8 +1,11 @@
 import QuestItem from "@/app/components/quest/QuestItem";
 import Section from "@/app/components/quest/Section";
+import { useCompleted } from "@/app/context/CompletedContext";
 import collectQuests from "@/app/hooks/collectQuests";
+
 import { sortQuests } from "@/app/lib/utils/sortQuests";
 import { Quest } from "@/app/types/quest";
+import { useParams } from "next/navigation";
 
 export type GroupNode = {
 	title: string;
@@ -15,13 +18,12 @@ type QuestTreeRendererProps = {
 	nodes: GroupNode[];
 	level?: number;
 	sort: string;
-	isCompleted: (id: string) => boolean;
-	toggle: (id: string) => void;
-	activeQuestId: string | null;
-	setActiveQuestId: (id: string | null) => void;
 };
 
-export default function QuestTreeRenderer({ nodes, level = 0, sort, isCompleted, toggle, activeQuestId, setActiveQuestId }: QuestTreeRendererProps) {
+export default function QuestTreeRenderer({ nodes, level = 0, sort }: QuestTreeRendererProps) {
+	const params = useParams();
+	const game = params.game as string;
+	const { isCompleted } = useCompleted(game, "quests");
 	return nodes.map((node) => {
 		const allQuests = collectQuests(node);
 
@@ -36,19 +38,12 @@ export default function QuestTreeRenderer({ nodes, level = 0, sort, isCompleted,
 						nodes={node.children}
 						level={level + 1}
 						{...{
-							sort,
-							isCompleted,
-							toggle,
-							activeQuestId,
-							setActiveQuestId
+							sort
 						}}
 					/>
 				)}
 
-				{node.items &&
-					sorted.map((quest: Quest) => (
-						<QuestItem key={quest.uuid} quest={quest} activeQuestId={activeQuestId} setActiveQuestId={setActiveQuestId} isCompleted={isCompleted} toggle={toggle} />
-					))}
+				{node.items && sorted.map((quest: Quest) => <QuestItem key={quest.uuid} quest={quest} />)}
 			</Section>
 		);
 	});

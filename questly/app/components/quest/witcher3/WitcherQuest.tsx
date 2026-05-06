@@ -9,13 +9,18 @@ import money from "../../../../public/assets/money.webp";
 import item from "../../../../public/assets/item.webp";
 import exp from "../../../../public/assets/xp.webp";
 import { QuestButton } from "@/app/components/quest/witcher3/QuestButton";
+import { useParams } from "next/navigation";
+import { useCompleted } from "@/app/context/CompletedContext";
 
 const ptSans = PT_Sans({
 	subsets: ["latin", "latin-ext"],
 	weight: ["400", "700"]
 });
 
-export default function WitcherQuest({ title, type, shortDesc, rewards, level, tags, locationImage, searchTags, search, completed, onToggle }: QuestProps) {
+export default function WitcherQuest({ uuid, title, type, shortDesc, rewards, level, tags, locationImage, searchTags, search }: QuestProps) {
+	const { game } = useParams() as { game: string };
+	const { isCompleted, toggle } = useCompleted(game, "quests");
+
 	return (
 		<div
 			className={`
@@ -28,18 +33,18 @@ export default function WitcherQuest({ title, type, shortDesc, rewards, level, t
   shadow-[0_0_20px_rgba(0,0,0,0.7)]
   bg-linear-to-b from-[#1a1a1a]  to-[#0f0f0f]
 
-  ${completed ? "border-[#1f6b2b] opacity-65 scale-95 hover:scale-100  inset-shadow-[0_0_25px_rgba(0,255,100,0.15)]" : " hover:scale-[1.01] border-[rgb(40,37,28)]"}
+  ${isCompleted(uuid) ? "border-[#1f6b2b] opacity-65 scale-95 hover:scale-100  inset-shadow-[0_0_25px_rgba(0,255,100,0.15)]" : " hover:scale-[1.01] border-[rgb(40,37,28)]"}
 `}
 		>
 			{/* LEFT GLOW STRIP */}
 			<div className='pointer-events-none absolute inset-y-0 left-0 w-12'>
-				<div style={{ backgroundColor: !completed ? type.color : "#2fa34a" }} className='absolute top-0 left-0 w-1 h-full opacity-80' />
-				<div style={{ backgroundColor: !completed ? type.color : "#2fa34a" }} className='absolute top-0 left-0 w-4 h-full opacity-20 blur-md' />
+				<div style={{ backgroundColor: !isCompleted(uuid) ? type.color : "#2fa34a" }} className='absolute top-0 left-0 w-1 h-full opacity-80' />
+				<div style={{ backgroundColor: !isCompleted(uuid) ? type.color : "#2fa34a" }} className='absolute top-0 left-0 w-4 h-full opacity-20 blur-md' />
 			</div>
 
 			{/* ICON + LEVEL */}
 			<div className='flex gap-3 items-center justify-center z-10'>
-				<QuestImage completed={completed} icon={type.icon.url} width='full' src={locationImage} />
+				<QuestImage completed={isCompleted(uuid)} icon={type.icon.url} width='full' src={locationImage} />
 
 				<div className='flex flex-col items-center'>
 					<span className='text-xs text-zinc-400 uppercase'>Lvl</span>
@@ -49,7 +54,7 @@ export default function WitcherQuest({ title, type, shortDesc, rewards, level, t
 
 			{/* CONTENT */}
 			<div className='flex-1 z-10'>
-				<QuestContent title={title} level={level} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
+				<QuestContent title={title} level={level} shortDesc={shortDesc} tags={tags} completed={isCompleted(uuid)} search={search} searchTags={searchTags} />
 			</div>
 
 			{/* REWARD */}
@@ -84,10 +89,10 @@ export default function WitcherQuest({ title, type, shortDesc, rewards, level, t
 
 			{/* BUTTON */}
 			<QuestButton
-				completed={completed}
+				completed={isCompleted(uuid)}
 				onClick={(e) => {
 					e.stopPropagation();
-					onToggle();
+					toggle(uuid);
 				}}
 			/>
 

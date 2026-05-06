@@ -2,13 +2,13 @@
 
 import { useMemo } from "react";
 import { useParams } from "next/navigation";
-import { useCompleted } from "@/app/hooks/useCompleted";
 import { CollectionType } from "@/app/types/collection";
 import { CollectionAccent } from "../common/CollectionAccent";
 import { CollectionHeader } from "./CollectionHeader";
 import { CollectionItem } from "./CollectionItem";
 import { CollectionButton } from "./CollectionButton";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
+import { useCompleted } from "@/app/context/CompletedContext";
 
 type Props = {
 	collection: CollectionType;
