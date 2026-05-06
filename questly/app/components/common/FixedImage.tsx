@@ -7,5 +7,5 @@ type Props = {
 };
 
 export default function FixedImage({ src, className, alt }: Props) {
-	return <Image width={100} height={100} src={`http://localhost:1337${src}`} className={className} alt={alt} />;
+	return <Image width={1000} height={1000} src={`http://localhost:1337${src}`} className={className} alt={alt} />;
 }

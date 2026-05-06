@@ -9,10 +9,9 @@ export type QuestProps = {
 	locationImage: string;
 	search: string;
 	searchTags: boolean;
-	completed: boolean;
 	rewards: Rewards;
 	type: QuestType;
-	onToggle: () => void;
+	uuid: string;
 };
 
 export type QuestListProps = {

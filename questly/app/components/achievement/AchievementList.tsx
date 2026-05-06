@@ -6,11 +6,11 @@ import { GET_ACHIEVEMENTS } from "@/app/lib/queries";
 import Achievement from "@/app/components/achievement/Achievement";
 import Section from "@/app/components/quest/Section";
 import { useFilters } from "@/app/context/FiltersContext";
-import { useCompleted } from "@/app/hooks/useCompleted";
 import { useApollo } from "@/app/hooks/useApollo";
 import { extractList } from "@/app/hooks/extractList";
 import { AchievementType, GetAchievementsData, GetAchievementsVars } from "@/app/types/achievement";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useCompleted } from "@/app/context/CompletedContext";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
