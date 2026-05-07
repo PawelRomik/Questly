@@ -8,6 +8,7 @@ import WitcherQuest from "@/app/components/quest/witcher3/WitcherQuest";
 
 import { Quest } from "@/app/types/quest";
 import { QuestModalLayout } from "@/app/components/quest-modal/QuestModalLayout";
+import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 
 type Props = {
 	quest: Quest;
@@ -15,7 +16,7 @@ type Props = {
 
 export default function QuestModal({ quest }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
-
+	const styles = questModalVariants["witcher3"];
 	const { filters } = useFilters();
 	const { searchTags, search } = filters;
 
@@ -23,7 +24,7 @@ export default function QuestModal({ quest }: Props) {
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
-			<div onClick={() => setActiveQuestId(quest.uuid)} className='w-full'>
+			<div onClick={() => setActiveQuestId(quest.uuid)} className={styles.trigger()}>
 				<WitcherQuest
 					uuid={quest.uuid}
 					title={quest.title}
@@ -39,7 +40,7 @@ export default function QuestModal({ quest }: Props) {
 			</div>
 
 			<Dialog.Portal>
-				<Dialog.Overlay className='fixed inset-0 z-30 bg-black/80 backdrop-blur-sm' />
+				<Dialog.Overlay className={styles.overlay()} />
 
 				<Dialog.Content>
 					<VisuallyHidden.Root>

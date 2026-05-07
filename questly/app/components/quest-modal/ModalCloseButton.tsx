@@ -1,22 +1,11 @@
+import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { Dialog } from "radix-ui";
 
 export function ModalCloseButton() {
+	const styles = questModalVariants["witcher3"];
 	return (
 		<Dialog.Close asChild>
-			<button
-				className='
-          absolute top-3 right-3
-          w-8 h-8
-          flex items-center justify-center
-          bg-black/60
-          border border-[#444]
-          hover:bg-[#7a1414]
-          cursor-pointer
-          transition
-        '
-			>
-				✕
-			</button>
+			<button className={styles.closeButton()}>✕</button>
 		</Dialog.Close>
 	);
 }

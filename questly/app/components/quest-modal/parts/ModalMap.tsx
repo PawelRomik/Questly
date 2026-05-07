@@ -1,10 +1,14 @@
 import FixedImage from "@/app/components/common/FixedImage";
+import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 
 export function ModalMap({ src }: { src: string }) {
+	const styles = questModalVariants["witcher3"];
 	return (
-		<div className='  h-full w-full  overflow-hidden'>
-			<div className='text-gray-500 text-sm opacity-60 w h-full p-1   hover:opacity-100 cursor-pointer transition'>
-				<FixedImage src={src} className='h-full w-full object-cover' alt='map' />
+		<div className={styles.map.wrapper()}>
+			<div className={styles.map.container()}>
+				<div className={styles.map.content()}>
+					<FixedImage src={src} className={styles.map.image()} alt='map' />
+				</div>
 			</div>
 		</div>
 	);
