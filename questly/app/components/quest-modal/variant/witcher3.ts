@@ -7,7 +7,7 @@ const ptSans = PT_Sans({
 
 // ----------------------------------------
 
-export const questModalClass = `
+const questModalClass = `
   bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
   border-4 border-[rgb(40,37,28)]
   shadow-[0_0_40px_rgba(0,0,0,0.9)]
@@ -16,13 +16,13 @@ export const questModalClass = `
 
 // ----------------------------------------
 
-export const questModalOverlayClass = `
+const questModalOverlayClass = `
   bg-black/80 backdrop-blur-sm
 `;
 
 // ----------------------------------------
 
-export const modalCloseButtonClass = `
+const modalCloseButtonClass = `
   bg-black/60
 
   border border-[#444]
@@ -34,18 +34,18 @@ export const modalCloseButtonClass = `
 
 // ----------------------------------------
 
-export const modalCharacterWrapperClass = `
+const modalCharacterWrapperClass = `
   border-r-3 border-b-3 border-[rgb(40,37,28)]
 `;
 
-export const modalCharacterContainerClass = `
+const modalCharacterContainerClass = `
   border-r border-zinc-700
   bg-zinc-900
 `;
 
 // ----------------------------------------
 
-export const modalDescriptionClass = `
+const modalDescriptionClass = `
   border-r-3 border-y-3 border-[rgb(40,37,28)]
 
   text-gray-300
@@ -54,7 +54,7 @@ export const modalDescriptionClass = `
 `;
 // ----------------------------------------
 
-export const modalFooterClass = `
+const modalFooterClass = `
   border-t border-[#3a3a3a]
 
   bg-black/50
@@ -62,13 +62,13 @@ export const modalFooterClass = `
 
 // ----------------------------------------
 
-export const modalCompleteButtonStyles = `
+const modalCompleteButtonStyles = `
   transition-all duration-200
 
   shadow-[inset_0_0_12px_rgba(255,0,0,0.08)]
 `;
 
-export const modalCompleteButtonVariant = (completed: boolean) =>
+const modalCompleteButtonVariant = (completed: boolean) =>
 	completed
 		? `
       border-[#1f6b2b]
@@ -85,15 +85,15 @@ export const modalCompleteButtonVariant = (completed: boolean) =>
 
 const modalCompleteButtonClass = (completed: boolean) => `${modalCompleteButtonStyles} ${modalCompleteButtonVariant(completed)}`;
 
-export const modalCompleteButtonIconVariant = (completed: boolean) => (completed ? "opacity-100 transition" : "opacity-0 transition");
+const modalCompleteButtonIconVariant = (completed: boolean) => (completed ? "opacity-100 transition" : "opacity-0 transition");
 
 // ----------------------------------------
 
-export const modalNextQuestLinkClass = `
+const modalNextQuestLinkClass = `
   text-xs
 `;
 
-export const modalNextQuestButtonClass = `
+const modalNextQuestButtonClass = `
   border border-[#6b5a2b]
 
   bg-linear-to-b from-[#1a1a1a] to-[#0b0b0b]
@@ -108,13 +108,13 @@ export const modalNextQuestButtonClass = `
   shadow-[inset_0_0_10px_rgba(255,215,0,0.05)]
 `;
 
-export const modalNextQuestButtonTitleClass = `
+const modalNextQuestButtonTitleClass = `
   italic text-[#a68b5b]
 `;
 
 // ----------------------------------------
 
-export const modalHeaderClass = `
+const modalHeaderClass = `
   border-3 border-[rgb(75,63,13)]
 
   bg-linear-to-r
@@ -125,28 +125,28 @@ export const modalHeaderClass = `
   ${ptSans.className}
 `;
 
-export const modalHeaderTitleClass = `
+const modalHeaderTitleClass = `
   text-white
 `;
 
-export const modalHeaderSubtitleClass = `
+const modalHeaderSubtitleClass = `
   text-[rgb(255,203,14)]
 `;
 
-export const modalHeaderLevelClass = `
+const modalHeaderLevelClass = `
   text-gray-300
 `;
 
 // ----------------------------------------
 
-export const modalMapWrapperClass = `
+const modalMapWrapperClass = `
   bg-black/20
 
   border-[rgb(40,37,28)]
   border-b-3
 `;
 
-export const modalMapContentClass = `
+const modalMapContentClass = `
   text-sm text-gray-500
 
   opacity-60
@@ -157,18 +157,17 @@ export const modalMapContentClass = `
 
 // ----------------------------------------
 
-export const modalRequirementsClass = `
+const modalRequirementsClass = `
   border-[rgb(40,37,28)]
   border-y-3
 
   bg-black/20
 `;
 
-export const modalRequirementsTitleClass = `
+const modalRequirementsTitleClass = `
   text-[#a68b5b]
 `;
-
-export const requirementQuestLinkClass = `
+const requirementQuestLinkClass = `
   text-[#a68b5b]
 
   underline
@@ -176,7 +175,7 @@ export const requirementQuestLinkClass = `
   hover:text-blue-300
 `;
 
-export const requirementTagPrimaryClass = `
+const requirementTagPrimaryClass = `
   px-2 py-1
 
   text-xs
@@ -186,7 +185,7 @@ export const requirementTagPrimaryClass = `
   rounded-l
 `;
 
-export const requirementTagSecondaryClass = `
+const requirementTagSecondaryClass = `
   px-2 py-1
 
   text-xs
@@ -198,13 +197,13 @@ export const requirementTagSecondaryClass = `
 
 // ----------------------------------------
 
-export const modalRewardsClass = `
+const modalRewardsClass = `
   border-3 border-t-0 border-[rgb(40,37,28)]
 
   bg-black/20
 `;
 
-export const modalRewardsTitleClass = `
+const modalRewardsTitleClass = `
   text-[#a68b5b]
 `;
 
@@ -225,7 +224,8 @@ export const witcher3Styles = {
 	completeButton: {
 		base: (completed: boolean) => modalCompleteButtonClass(completed),
 		wrapper: () => ``,
-		icon: (completed: boolean) => modalCompleteButtonVariant(completed)
+		icon: (completed: boolean) => modalCompleteButtonVariant(completed),
+		mark: (completed: boolean) => modalCompleteButtonIconVariant(completed)
 	},
 	nextButton: {
 		base: () => modalNextQuestButtonClass,

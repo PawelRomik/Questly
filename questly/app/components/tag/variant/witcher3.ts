@@ -1,4 +1,4 @@
-export const completedTagClass = `
+const completedTagClass = `
   border border-[#1f6b2b]
   bg-linear-to-b from-[#0f2a14] to-[#07150a]
   text-[#b7f5c5]

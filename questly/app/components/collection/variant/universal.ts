@@ -1,24 +1,24 @@
-export const collectionAccentWrapperClass = `
+const collectionAccentWrapperClass = `
   pointer-events-none absolute inset-y-0 left-0 w-12
 `;
 
-export const collectionAccentBarClass = `
+const collectionAccentBarClass = `
   absolute top-0 left-0 w-1 h-full opacity-80
 `;
 
-export const collectionAccentGlowClass = `
+const collectionAccentGlowClass = `
   absolute top-0 left-0 w-4 h-full opacity-20 blur-md
 `;
 
 // ----------------------------------------
 
-export const collectionGroupWrapperClass = `
+const collectionGroupWrapperClass = `
   w-full flex flex-wrap gap-3
 `;
 
 // ----------------------------------------
 
-export const collectionGroupButtonBaseClass = `
+const collectionGroupButtonBaseClass = `
   relative px-4 py-2 text-sm uppercase tracking-wide
 transition-all duration-200 cursor-pointer
   overflow-hidden
@@ -26,20 +26,20 @@ transition-all duration-200 cursor-pointer
 
 // ----------------------------------------
 
-export const collectionLayoutClass = `
+const collectionLayoutClass = `
   relative w-[95%] mx-auto flex flex-col gap-4 p-4
   overflow-hidden
   transition-all duration-200
   hover:translate-x-1 hover:-translate-y-0.5
 `;
 
-export const collectionGridLayoutClass = `
+const collectionGridLayoutClass = `
   grid grid-cols-3 gap-3 place-items-center z-10
 `;
 
 // ----------------------------------------
 
-export const collectionButtonLayoutClass = `
+const collectionButtonLayoutClass = `
   w-full h-10 flex items-center justify-center
   cursor-pointer
   transition-all duration-200
@@ -48,46 +48,46 @@ export const collectionButtonLayoutClass = `
 
 // ----------------------------------------
 
-export const collectionHeaderLayoutClass = `
+const collectionHeaderLayoutClass = `
   z-10 w-full flex flex-col gap-1
 `;
 
-export const collectionHeaderRowLayoutClass = `
+const collectionHeaderRowLayoutClass = `
   flex justify-between items-center
 `;
 
-export const collectionHeaderTitleLayoutClass = `
+const collectionHeaderTitleLayoutClass = `
   text-lg font-bold tracking-wide
 `;
 
-export const collectionHeaderCounterLayoutClass = `
+const collectionHeaderCounterLayoutClass = `
   text-sm font-semibold
 `;
 
 // ----------------------------------------
 
-export const collectionItemLayoutClass = `
+const collectionItemLayoutClass = `
   flex flex-col items-center
   cursor-pointer
   transition-all duration-200
 `;
 
-export const collectionItemImageLayoutClass = `
+const collectionItemImageLayoutClass = `
   w-28 h-28 object-contain
   transition
 `;
 
 // ----------------------------------------
 
-export const collectionListWrapperClass = `
+const collectionListWrapperClass = `
   w-full px-3 flex flex-col items-center
 `;
 
-export const collectionListGroupsWrapperClass = `
+const collectionListGroupsWrapperClass = `
   flex w-full p-2
 `;
 
-export const collectionListGridClass = `
+const collectionListGridClass = `
   w-full grid grid-cols-2 gap-6 mt-4
 `;
 
