@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
 	filters: Filters;
-	setFilters: (filters: Filters) => void;
+	setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 };
 
 const FiltersContext = createContext<FiltersContextType | null>(null);

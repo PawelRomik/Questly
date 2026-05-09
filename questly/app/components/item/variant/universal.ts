@@ -1,55 +1,55 @@
-export const itemTooltipLayoutClass = `
+const itemTooltipLayoutClass = `
   w-64 z-70
 `;
 
 // ----------------------------------------
 
-export const itemTooltipDescriptionLayoutClass = `
+const itemTooltipDescriptionLayoutClass = `
   text-xs p-3 mb-2 text-center
 `;
 
 // ----------------------------------------
 
-export const itemTooltipFooterLayoutClass = `
+const itemTooltipFooterLayoutClass = `
   text-xs p-2 flex justify-between mt-2
 `;
 
 // ----------------------------------------
 
-export const itemTooltipHeaderNameLayoutClass = `
+const itemTooltipHeaderNameLayoutClass = `
   font-semibold mb-1 text-center
 `;
 
-export const itemTooltipHeaderRarityLayoutClass = `
+const itemTooltipHeaderRarityLayoutClass = `
   text-xs mb-1 text-center
 `;
 
-export const itemTooltipHeaderTypeLayoutClass = `
+const itemTooltipHeaderTypeLayoutClass = `
   text-xs mb-1 text-center
 `;
 
 // ----------------------------------------
 
-export const itemTooltipImageWrapperLayoutClass = `
+const itemTooltipImageWrapperLayoutClass = `
   mb-2 px-3 pt-3
   flex items-center justify-center
 `;
 
-export const itemTooltipImageClass = `
+const itemTooltipImageClass = `
   h-32 object-contain
 `;
 
 // ----------------------------------------
 
-export const itemTriggerLayoutClass = `
+const itemTriggerLayoutClass = `
   flex items-center gap-2 text-xs cursor-pointer
 `;
 
-export const itemTriggerIconLayoutClass = `
+const itemTriggerIconLayoutClass = `
   w-3 object-contain
 `;
 
-export const itemTriggerAmountLayoutClass = `
+const itemTriggerAmountLayoutClass = `
   ml-1
 `;
 

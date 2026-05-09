@@ -20,7 +20,7 @@ export function ModalCompleteButton({ uuid }: Props) {
 			Completed
 			<span className={styles.completeButton.wrapper()}>
 				<svg viewBox='0 0 24 24' className={styles.completeButton.icon(completed)}>
-					<path d='M10 15.172l-3.95-3.95-1.414 1.414L10 18 20.364 7.636l-1.414-1.414z' />
+					<path className={styles.completeButton.mark(completed)} d='M10 15.172l-3.95-3.95-1.414 1.414L10 18 20.364 7.636l-1.414-1.414z' />
 				</svg>
 			</span>
 		</button>
