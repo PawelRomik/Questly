@@ -36,7 +36,11 @@
       "type": "boolean"
     },
     "uuid": {
-      "type": "uid"
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^A[a-zA-Z0-9]{5}$"
+      }
     }
   }
 }

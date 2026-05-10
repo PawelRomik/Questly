@@ -3,9 +3,10 @@ import { achievementVariants } from "@/app/components/achievement/variant/achiev
 type Props = {
 	secret: boolean;
 	description: string;
+	revealed: boolean;
 };
 
-export default function AchievementDescription({ secret, description }: Props) {
+export default function AchievementDescription({ secret, description, revealed }: Props) {
 	const styles = achievementVariants["witcher3"];
-	return <p className={styles.description}>{secret ? "Hidden Achievement " : description}</p>;
+	return <p className={styles.description}>{secret && !revealed ? "Hidden Achievement " : description}</p>;
 }

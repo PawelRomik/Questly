@@ -496,7 +496,18 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    uuid: Schema.Attribute.UID;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'uuid-format': '^A[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^A[a-zA-Z0-9]{5}$';
+        }
+      >;
   };
 }
 
@@ -592,7 +603,18 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    uuid: Schema.Attribute.UID<'title'>;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'uuid-format': '^C[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^C[a-zA-Z0-9]{5}$';
+        }
+      >;
   };
 }
 
@@ -622,6 +644,36 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiItemTypeItemType extends Struct.CollectionTypeSchema {
+  collectionName: 'item_types';
+  info: {
+    displayName: 'item-type';
+    pluralName: 'item-types';
+    singularName: 'item-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::item-type.item-type'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiItemItem extends Struct.CollectionTypeSchema {
   collectionName: 'items';
   info: {
@@ -644,6 +696,10 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     effects: Schema.Attribute.RichText;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    item_type: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::item-type.item-type'
+    >;
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
@@ -652,13 +708,21 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Relation<'oneToOne', 'api::rarity.rarity'>;
-    type: Schema.Attribute.Enumeration<
-      ['weapon', 'armor', 'consumable', 'material', 'other', 'gwent card']
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    uuid: Schema.Attribute.UID<'name'>;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'uuid-format': '^I[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^I[a-zA-Z0-9]{5}$';
+        }
+      >;
   };
 }
 
@@ -830,7 +894,18 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    uuid: Schema.Attribute.UID;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'uuid-format': '^Q[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^Q[a-zA-Z0-9]{5}$';
+        }
+      >;
   };
 }
 
@@ -1408,6 +1483,7 @@ declare module '@strapi/strapi' {
       'api::collection-group.collection-group': ApiCollectionGroupCollectionGroup;
       'api::collection.collection': ApiCollectionCollection;
       'api::game.game': ApiGameGame;
+      'api::item-type.item-type': ApiItemTypeItemType;
       'api::item.item': ApiItemItem;
       'api::location.location': ApiLocationLocation;
       'api::quest-act.quest-act': ApiQuestActQuestAct;

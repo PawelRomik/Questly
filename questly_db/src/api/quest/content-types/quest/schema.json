@@ -11,9 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "uuid": {
-      "type": "uid"
-    },
     "title": {
       "type": "string"
     },
@@ -75,6 +72,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::quest-group.quest-group"
+    },
+    "uuid": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^Q[a-zA-Z0-9]{5}$"
+      }
     }
   }
 }

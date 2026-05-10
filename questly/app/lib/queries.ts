@@ -75,7 +75,12 @@ export const GET_QUESTS_NO_TAGS = gql`
 					description
 					amount
 					price
-					type
+					item_type {
+						name
+						icon {
+							url
+						}
+					}
 				}
 				other
 			}
@@ -158,7 +163,12 @@ export const GET_QUESTS_WITH_TAGS = gql`
 					description
 					amount
 					price
-					type
+					item_type {
+						name
+						icon {
+							url
+						}
+					}
 				}
 				other
 			}

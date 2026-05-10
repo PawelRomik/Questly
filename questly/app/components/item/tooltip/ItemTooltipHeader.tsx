@@ -24,7 +24,7 @@ export function ItemTooltipHeader({ item }: Props) {
 				{item.rarity.name}
 			</div>
 
-			<div className={styles.tooltip.header.type()}>{item.type}</div>
+			<div className={styles.tooltip.header.type()}>{item.item_type.name}</div>
 		</>
 	);
 }

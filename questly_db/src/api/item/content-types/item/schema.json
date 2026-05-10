@@ -24,17 +24,6 @@
         "audios"
       ]
     },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "weapon",
-        "armor",
-        "consumable",
-        "material",
-        "other",
-        "gwent card"
-      ]
-    },
     "amount": {
       "type": "integer"
     },
@@ -70,8 +59,16 @@
       "type": "string"
     },
     "uuid": {
-      "type": "uid",
-      "targetField": "name"
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^I[a-zA-Z0-9]{5}$"
+      }
+    },
+    "item_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::item-type.item-type"
     }
   }
 }
