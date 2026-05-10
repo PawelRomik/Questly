@@ -8,16 +8,17 @@ type Props = {
 	achievement: AchievementType;
 	completed: boolean;
 	search: string;
+	revealed: boolean;
 };
 
-export function AchievementContent({ achievement, completed, search }: Props) {
+export function AchievementContent({ achievement, completed, revealed, search }: Props) {
 	const { title, description, secret } = achievement;
 	const styles = achievementVariants["witcher3"];
 
 	return (
 		<div className={styles.container()}>
 			<AchievementTitle title={title} completed={completed} search={search} />
-			<AchievementDescription description={description} secret={secret} />
+			<AchievementDescription description={description} revealed={revealed} secret={secret} />
 
 			{completed && <CompletedTag />}
 		</div>

@@ -38,7 +38,7 @@ export default function Achievement({ achievement, completed, search, onToggle }
 
 			<AchievementImage completed={completed} src={icon.url} />
 
-			<AchievementContent search={search} achievement={achievement} completed={completed} />
+			<AchievementContent search={search} revealed={revealed} achievement={achievement} completed={completed} />
 
 			<AchievementButton completed={completed} onClick={handleToggle} />
 		</div>

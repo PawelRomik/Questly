@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "item_types",
+  "info": {
+    "singularName": "item-type",
+    "pluralName": "item-types",
+    "displayName": "item-type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

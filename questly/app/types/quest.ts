@@ -4,7 +4,12 @@ export type Item = {
 	image: {
 		url: string;
 	};
-	type: string;
+	item_type: {
+		name: string;
+		icon: {
+			url: string;
+		};
+	};
 	amount: number;
 	price: number;
 	description: string;
