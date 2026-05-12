@@ -1,26 +1,23 @@
 {
   "kind": "collectionType",
-  "collectionName": "quest_acts",
+  "collectionName": "achievement_groups",
   "info": {
-    "singularName": "quest-act",
-    "pluralName": "quest-acts",
-    "displayName": "quest-act"
+    "singularName": "achievement-group",
+    "pluralName": "achievement-groups",
+    "displayName": "achievement-group"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "name": {
       "type": "string"
     },
     "game": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
-    },
-    "order": {
-      "type": "integer"
     }
   }
 }

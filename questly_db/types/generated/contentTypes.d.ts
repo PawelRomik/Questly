@@ -467,6 +467,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAchievementGroupAchievementGroup
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'achievement_groups';
+  info: {
+    displayName: 'achievement-group';
+    pluralName: 'achievement-groups';
+    singularName: 'achievement-group';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::achievement-group.achievement-group'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
   collectionName: 'achievements';
   info: {
@@ -478,6 +508,10 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    achievement_group: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::achievement-group.achievement-group'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -778,6 +812,7 @@ export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
       'api::quest-act.quest-act'
     > &
       Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -1478,6 +1513,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::achievement-group.achievement-group': ApiAchievementGroupAchievementGroup;
       'api::achievement.achievement': ApiAchievementAchievement;
       'api::character.character': ApiCharacterCharacter;
       'api::collection-group.collection-group': ApiCollectionGroupCollectionGroup;

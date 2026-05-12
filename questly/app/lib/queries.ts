@@ -13,6 +13,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			quest_act {
 				title
+				order
 			}
 			quest_groups {
 				title
@@ -101,6 +102,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			quest_act {
 				title
+				order
 			}
 			quest_groups {
 				title
@@ -194,6 +196,9 @@ export const GET_ACHIEVEMENTS = gql`
 			uuid
 			icon {
 				url
+			}
+			achievement_group {
+				name
 			}
 		}
 	}

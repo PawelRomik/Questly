@@ -16,8 +16,6 @@ export function SearchBar() {
 	const { filters, setFilters } = useFilters();
 	const params = useParams();
 	const styles = filterVariants["witcher3"];
-	const section = params.content as string;
-	const isQuestPage = section === "quests";
 
 	const isLocked = filters.groupByQuestGroup;
 
@@ -41,7 +39,7 @@ export function SearchBar() {
 				<SearchInput value={filters.search} onChange={(v) => update("search", v)} />
 			</div>
 
-			{isQuestPage && <SearchSettings filters={filters} isLocked={isLocked} update={update} />}
+			{<SearchSettings filters={filters} isLocked={isLocked} update={update} />}
 			<StatisticList stats={[{ label: "Quests" }, { label: "Achievements" }, { label: "Collectibles" }, { label: "Map Markers" }]} />
 		</div>
 	);

@@ -7,6 +7,9 @@ export type AchievementType = {
 	game: string;
 	uuid: string;
 	secret: boolean;
+	achievement_group: {
+		name: string;
+	};
 };
 
 export type GetAchievementsData = {

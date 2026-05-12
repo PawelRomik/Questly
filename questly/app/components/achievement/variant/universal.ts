@@ -1,4 +1,4 @@
-const AchievementListContainerClass = "w-full px-3 py-4 flex flex-col items-center";
+const AchievementListContainerClass = "w-full px-3 py-4 flex flex-col gap-3 items-center";
 
 // ----------------------------------------
 
