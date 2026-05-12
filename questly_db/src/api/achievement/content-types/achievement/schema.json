@@ -41,6 +41,11 @@
       "options": {
         "uuid-format": "^A[a-zA-Z0-9]{5}$"
       }
+    },
+    "achievement_group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::achievement-group.achievement-group"
     }
   }
 }

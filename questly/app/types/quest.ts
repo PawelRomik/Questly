@@ -86,6 +86,7 @@ export type Requirement = {
 
 export type QuestAct = {
 	title: string;
+	order: number;
 };
 
 export type QuestGroup = {

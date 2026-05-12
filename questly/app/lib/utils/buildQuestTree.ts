@@ -31,19 +31,28 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 
 		const map = groupBy(list, (q) => getKeyValue(q, key));
 
-		return Object.entries(map).map(([title, grouped]) => {
+		const entries = Object.entries(map);
+
+		if (key === "act") {
+			entries.sort(([, a], [, b]) => {
+				const orderA = a[0]?.quest_act?.order ?? 9999;
+				const orderB = b[0]?.quest_act?.order ?? 9999;
+
+				return orderA - orderB;
+			});
+		}
+
+		return entries.map(([title, grouped]) => {
 			const node: GroupNode = {
 				title
 			};
 
-			// 🔹 leaf
 			if (depth === keys.length - 1) {
 				node.items = grouped;
 			} else {
 				node.children = groupRecursive(grouped, depth + 1);
 			}
 
-			// 🔹 icons
 			if (key === "location") {
 				node.icon = getters.getLocationIcon(grouped);
 			}
