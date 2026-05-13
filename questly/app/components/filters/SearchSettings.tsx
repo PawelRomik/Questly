@@ -16,12 +16,17 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 	const section = params.content as string;
 	const isQuestPage = section === "quests";
 	const isAchievementPage = section === "achievements";
+
 	const styles = filterVariants["witcher3"];
+	const { content } = params;
+
+	if (!isQuestPage && !isAchievementPage) return null;
+
 	return (
 		<div className={styles.settings()}>
 			{isQuestPage && <Checkbox label='Group by type' checked={filters.groupByType} disabled={isLocked} onChange={(v) => update("groupByType", v)} />}
 			{isQuestPage && <Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />}
-			{(isAchievementPage || isQuestPage) && <Checkbox label='Group by quest group' checked={filters.groupByQuestGroup} onChange={(v) => update("groupByQuestGroup", v)} />}
+			{(isAchievementPage || isQuestPage) && <Checkbox label={`Group by ${content} group`} checked={filters.groupByQuestGroup} onChange={(v) => update("groupByQuestGroup", v)} />}
 			{isQuestPage && <Checkbox label='Group by act' checked={filters.groupByAct} disabled={isLocked} onChange={(v) => update("groupByAct", v)} />}
 			{isQuestPage && <Checkbox label='Group by location' checked={filters.groupByLocation} disabled={isLocked} onChange={(v) => update("groupByLocation", v)} />}
 			{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />}
