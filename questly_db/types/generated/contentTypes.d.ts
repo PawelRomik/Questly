@@ -678,6 +678,52 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiIconIcon extends Struct.CollectionTypeSchema {
+  collectionName: 'icons';
+  info: {
+    displayName: 'icon';
+    pluralName: 'icons';
+    singularName: 'icon';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    backgrounds: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    character: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    checkbox_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    experience_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    game_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    item_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::icon.icon'> &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    nav_icons: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiItemTypeItemType extends Struct.CollectionTypeSchema {
   collectionName: 'item_types';
   info: {
@@ -806,6 +852,7 @@ export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -836,6 +883,7 @@ export interface ApiQuestGroupQuestGroup extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1519,6 +1567,7 @@ declare module '@strapi/strapi' {
       'api::collection-group.collection-group': ApiCollectionGroupCollectionGroup;
       'api::collection.collection': ApiCollectionCollection;
       'api::game.game': ApiGameGame;
+      'api::icon.icon': ApiIconIcon;
       'api::item-type.item-type': ApiItemTypeItemType;
       'api::item.item': ApiItemItem;
       'api::location.location': ApiLocationLocation;
