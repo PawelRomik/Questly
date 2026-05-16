@@ -21,11 +21,13 @@ export default function QuestList() {
 	const { data } = useApollo(query, { search, game });
 	const quests = useMemo(() => extractList<Quest>(data, "quests"), [data]);
 
-	const { getTypeIcon, getLocationIcon } = useQuestIcons();
+	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
 
 	const tree = useQuestGrouping(quests, filters, {
 		getTypeIcon,
-		getLocationIcon
+		getLocationIcon,
+		getGroupIcon,
+		getActIcon
 	});
 
 	return (

@@ -14,6 +14,8 @@ type GroupNode = {
 export type Getters = {
 	getTypeIcon: (list: Quest[]) => string | undefined;
 	getLocationIcon: (list: Quest[]) => string | undefined;
+	getGroupIcon: (list: Quest[]) => string | undefined;
+	getActIcon: (list: Quest[]) => string | undefined;
 };
 
 export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters): GroupNode[] {
@@ -55,6 +57,14 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 
 			if (key === "location") {
 				node.icon = getters.getLocationIcon(grouped);
+			}
+
+			if (key === "act") {
+				node.icon = getters.getActIcon(grouped);
+			}
+
+			if (key === "quest_group") {
+				node.icon = getters.getGroupIcon(grouped);
 			}
 
 			if (key === "type") {

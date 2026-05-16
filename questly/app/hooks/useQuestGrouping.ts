@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Quest } from "@/app/types/quest";
-import { groupBy } from "@/app/lib/utils/group";
 import { buildQuestTree, Getters, GroupKey } from "@/app/lib/utils/buildQuestTree";
 import { Filters } from "@/app/components/filters/types";
 
@@ -10,27 +9,14 @@ export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Get
 			return [
 				{
 					title: "Search results",
+					icon: "/assets/quest.png",
 					items: quests
 				}
 			];
 		}
 
 		if (filters.groupByQuestGroup) {
-			const expanded = quests.flatMap((q) =>
-				q.quest_groups?.length
-					? q.quest_groups.map((g) => ({
-							...q,
-							__group: g.title
-						}))
-					: [{ ...q, __group: "Other" }]
-			);
-
-			const grouped = groupBy(expanded, (q) => q.__group);
-
-			return Object.entries(grouped).map(([title, list]) => ({
-				title,
-				items: list
-			}));
+			return buildQuestTree(quests, ["quest_group"], getters);
 		}
 
 		const keys: GroupKey[] = [];
@@ -43,6 +29,7 @@ export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Get
 			return [
 				{
 					title: "All quests",
+					icon: "/assets/quest.png",
 					items: quests
 				}
 			];
