@@ -2,13 +2,10 @@
 
 import { Dialog, VisuallyHidden } from "radix-ui";
 import { useActiveQuest } from "@/app/hooks/useActiveQuest";
-import { useFilters } from "@/app/context/FiltersContext";
-
-import WitcherQuest from "@/app/components/quest/witcher3/WitcherQuest";
-
 import { Quest } from "@/app/types/quest";
 import { QuestModalLayout } from "@/app/components/quest-modal/QuestModalLayout";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import QuestWrapper from "@/app/components/quest/parts/QuestWrapper";
 
 type Props = {
 	quest: Quest;
@@ -17,26 +14,13 @@ type Props = {
 export default function QuestModal({ quest }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
 	const styles = questModalVariants["witcher3"];
-	const { filters } = useFilters();
-	const { searchTags, search } = filters;
 
 	const isOpen = activeQuestId === quest.uuid;
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
 			<div onClick={() => setActiveQuestId(quest.uuid)} className={styles.trigger()}>
-				<WitcherQuest
-					uuid={quest.uuid}
-					title={quest.title}
-					search={search}
-					searchTags={searchTags}
-					shortDesc={quest.description.slice(0, 60) + "..."}
-					level={quest.level}
-					tags={quest.tags.map((t) => t.name)}
-					locationImage={quest.location.banner.url}
-					type={quest.quest_type}
-					rewards={quest.rewards}
-				/>
+				<QuestWrapper quest={quest} />
 			</div>
 
 			<Dialog.Portal>

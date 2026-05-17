@@ -259,6 +259,10 @@ const rewardItemsLayoutClass = `
 
 // ----------------------------------------
 
+const questListClass = `w-full px-3 gap-8 flex flex-col items-center`;
+
+// ----------------------------------------
+
 export const universalStyles = {
 	base: () => questModalLayoutClass,
 	trigger: () => questModalTriggerLayoutClass,
@@ -319,5 +323,6 @@ export const universalStyles = {
 			value: () => rewardCurrencyValueLayoutClass
 		},
 		items: () => rewardItemsLayoutClass
-	}
+	},
+	list: () => questListClass
 };

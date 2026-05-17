@@ -1,5 +1,5 @@
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
-import ProgressBar from "@/app/components/quest/ProgressBar";
+import ProgressBar from "@/app/components/section/ProgressBar";
 
 type Props = {
 	title: string;

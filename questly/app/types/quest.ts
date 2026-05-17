@@ -87,10 +87,16 @@ export type Requirement = {
 export type QuestAct = {
 	title: string;
 	order: number;
+	icon: {
+		url: string;
+	};
 };
 
 export type QuestGroup = {
 	title: string;
+	icon: {
+		url: string;
+	};
 };
 
 export type Quest = {

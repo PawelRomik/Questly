@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { extractList } from "@/app/hooks/extractList";
 import { Quest } from "@/app/types/quest";
 import { useParams } from "next/navigation";
+import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 
 export default function QuestList() {
 	const params = useParams();
@@ -20,16 +21,19 @@ export default function QuestList() {
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 	const { data } = useApollo(query, { search, game });
 	const quests = useMemo(() => extractList<Quest>(data, "quests"), [data]);
+	const styles = questModalVariants["witcher3"];
 
-	const { getTypeIcon, getLocationIcon } = useQuestIcons();
+	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
 
 	const tree = useQuestGrouping(quests, filters, {
 		getTypeIcon,
-		getLocationIcon
+		getLocationIcon,
+		getGroupIcon,
+		getActIcon
 	});
 
 	return (
-		<div className='w-full px-3 gap-8 flex flex-col items-center'>
+		<div className={styles.list()}>
 			<QuestTreeRenderer nodes={tree} sort={sort} />
 		</div>
 	);

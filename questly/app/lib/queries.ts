@@ -14,9 +14,15 @@ export const GET_QUESTS_NO_TAGS = gql`
 			quest_act {
 				title
 				order
+				icon {
+					url
+				}
 			}
 			quest_groups {
 				title
+				icon {
+					url
+				}
 			}
 			uuid
 			level
@@ -103,9 +109,15 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			quest_act {
 				title
 				order
+				icon {
+					url
+				}
 			}
 			quest_groups {
 				title
+				icon {
+					url
+				}
 			}
 			uuid
 			level
