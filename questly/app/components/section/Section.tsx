@@ -1,17 +1,16 @@
 "use client";
 
-import ProgressBar from "@/app/components/quest/ProgressBar";
 import { ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { Collapsible } from "radix-ui";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import ProgressBar from "@/app/components/section/ProgressBar";
 
 type Props = {
 	title: string;
 	count: number;
 	children: React.ReactNode;
-	variant?: "location" | "type";
 	completed?: number;
 	icon?: string;
 	level?: number;

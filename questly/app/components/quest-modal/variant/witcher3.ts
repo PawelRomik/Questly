@@ -272,5 +272,6 @@ export const witcher3Styles = {
 			value: () => ``
 		},
 		items: () => ``
-	}
+	},
+	list: () => ``
 };

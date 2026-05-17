@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { GET_ACHIEVEMENTS } from "@/app/lib/queries";
 
 import Achievement from "@/app/components/achievement/Achievement";
-import Section from "@/app/components/quest/Section";
+import Section from "@/app/components/section/Section";
 
 import { useFilters } from "@/app/context/FiltersContext";
 import { useCompleted } from "@/app/context/CompletedContext";

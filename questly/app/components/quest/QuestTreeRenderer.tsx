@@ -1,5 +1,5 @@
 import QuestItem from "@/app/components/quest/QuestItem";
-import Section from "@/app/components/quest/Section";
+import Section from "@/app/components/section/Section";
 import { useCompleted } from "@/app/context/CompletedContext";
 import collectQuests from "@/app/hooks/collectQuests";
 
