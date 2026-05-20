@@ -1,12 +1,13 @@
 "use client";
 
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { NavDecor } from "./NavDecor";
 import { NavMenu } from "./NavMenu";
 import GameSwitcher from "@/app/components/game-switcher/GameSwitcher";
 import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
 
 export default function Navbar() {
-	const styles = navbarVariants["witcher3"];
+	const styles = useGameStyles(navbarVariants);
 
 	return (
 		<nav className={styles.base()}>

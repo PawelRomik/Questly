@@ -1,4 +1,5 @@
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 const achievementImageCornerPositions = {
 	tl: "top-0 left-0 border-t border-l",
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export default function AchievementImageCorners({ completed }: Props) {
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 	return (
 		<div className={styles.image.corners.style(completed)}>
 			{Object.values(achievementImageCornerPositions).map((pos, i) => (

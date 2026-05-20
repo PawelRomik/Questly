@@ -6,6 +6,7 @@ import { Quest } from "@/app/types/quest";
 import { QuestModalLayout } from "@/app/components/quest-modal/QuestModalLayout";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import QuestWrapper from "@/app/components/quest/parts/QuestWrapper";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	quest: Quest;
@@ -13,7 +14,7 @@ type Props = {
 
 export default function QuestModal({ quest }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 
 	const isOpen = activeQuestId === quest.uuid;
 

@@ -1,11 +1,12 @@
 import { statisticVariants } from "@/app/components/statistics/variant/statisticVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	label: string;
 };
 
 export function Statistic({ label }: Props) {
-	const styles = statisticVariants["witcher3"];
+	const styles = useGameStyles(statisticVariants);
 
 	return (
 		<li className={styles.stat.base()}>

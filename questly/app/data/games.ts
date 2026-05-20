@@ -1,8 +1,6 @@
 import witcher from "../../public/assets/witcher.png";
 import cyberpunk from "../../public/assets/cyberpunk.png";
 import questly from "../../public/assets/questly.png";
-import skellige from "../../public/assets/skellige.webp";
-import nightCity from "../../public/assets/nightcity.jpeg";
 
 export const GAME_THEME = {
 	witcher3: {
@@ -14,8 +12,7 @@ export const GAME_THEME = {
 		logo: witcher,
 		text: "text-white",
 		name: "Witcher 3",
-		slug: "witcher3",
-		background: skellige
+		slug: "witcher3"
 	},
 	cyberpunk2077: {
 		bg: "bg-[linear-gradient(180deg,rgba(3,7,30,1)_0%,rgba(2,10,55,1)_100%)]",
@@ -26,8 +23,7 @@ export const GAME_THEME = {
 		logo: cyberpunk,
 		text: "text-yellow-400",
 		name: "Cyberpunk 2077",
-		slug: "cyberpunk2077",
-		background: nightCity
+		slug: "cyberpunk2077"
 	},
 	default: {
 		bg: "bg-[linear-gradient(180deg,#18181b_0%,#09090b_100%)]",
@@ -38,7 +34,6 @@ export const GAME_THEME = {
 		logo: questly,
 		text: "text-white",
 		name: "Questly",
-		slug: "questly",
-		background: ""
+		slug: "questly"
 	}
 } as const;

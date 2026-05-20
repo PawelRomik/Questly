@@ -1,12 +1,5 @@
 const searchBarHeaderClass = `
-  bg-linear-to-r
-  from-[#120909]
-  via-[#1a0b0b]
-  to-[#090d18]
 
-  border-b border-[#00d9ff]/20
-
-  shadow-[0_0_30px_rgba(255,0,60,0.18)]
 `;
 
 const searchBarInputWrapperClass = `
@@ -17,16 +10,17 @@ const searchBarInputWrapperClass = `
   backdrop-blur-sm
 
   shadow-[0_0_20px_rgba(255,0,60,0.12)]
+
 `;
 
 const searchBarCharacterClass = `
   text-[#ffe600]
-
   opacity-80
 
-  drop-shadow-[0_0_20px_rgba(255,0,60,0.12)]
-`;
 
+  drop-shadow-[0_0_15px_rgba(255,0,60,0.9)]
+  [filter:drop-shadow(-1px_-1px_1px_rgba(255,0,60,0.45))_drop-shadow(1px_-1px_1px_rgba(255,0,60,0.45))_drop-shadow(0px_-3px_30px_rgba(255,0,60,0.45))]
+`;
 // ----------------------------------------
 
 const checkboxWrapperVariant = (disabled?: boolean) =>
@@ -64,6 +58,7 @@ const searchInputWrapperClass = `
   bg-linear-to-b
   from-[#16090b]
   to-[#090b12]
+ 
 
   shadow-[inset_0_0_12px_rgba(255,0,60,0.08)]
 

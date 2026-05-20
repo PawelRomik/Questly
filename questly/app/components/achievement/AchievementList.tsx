@@ -19,6 +19,7 @@ import { AchievementType, GetAchievementsData, GetAchievementsVars } from "@/app
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 
 import { buildAchievementTree } from "@/app/lib/utils/buildAchievementTree";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
@@ -26,7 +27,7 @@ export default function AchievementList() {
 	const { filters } = useFilters();
 	const { search, groupByQuestGroup } = filters;
 
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 
 	const { toggle, isCompleted } = useCompleted(game, "achievements");
 

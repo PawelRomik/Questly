@@ -7,6 +7,7 @@ import { AchievementImage } from "@/app/components/achievement/image/Achievement
 import AchievementHidden from "@/app/components/achievement/content/AchievementHidden";
 import { AchievementType } from "@/app/types/achievement";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	achievement: AchievementType;
@@ -18,7 +19,7 @@ type Props = {
 export default function Achievement({ achievement, completed, search, onToggle }: Props) {
 	const [revealed, setRevealed] = useState(completed);
 	const { secret, icon } = achievement;
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 
 	const isSecretLocked = secret && !completed;
 	const isHidden = isSecretLocked && !revealed;

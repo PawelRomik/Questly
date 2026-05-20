@@ -6,13 +6,14 @@ import { RequirementQuest } from "./RequirementQuest";
 import { RequirementLevel } from "./RequirementLevel";
 import { RequirementItem } from "./RequirementItem";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	requirements: Requirement[];
 };
 
 export const ModalRequirements = ({ requirements }: Props) => {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 	if (!requirements?.length) return null;
 
 	return (

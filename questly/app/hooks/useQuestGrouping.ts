@@ -3,13 +3,13 @@ import { Quest } from "@/app/types/quest";
 import { buildQuestTree, Getters, GroupKey } from "@/app/lib/utils/buildQuestTree";
 import { Filters } from "@/app/components/filters/types";
 
-export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Getters) {
+export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Getters, icon: string) {
 	return useMemo(() => {
 		if (filters.search) {
 			return [
 				{
 					title: "Search results",
-					icon: "/assets/quest.png",
+					icon: icon,
 					items: quests
 				}
 			];
@@ -29,12 +29,12 @@ export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Get
 			return [
 				{
 					title: "All quests",
-					icon: "/assets/quest.png",
+					icon: icon,
 					items: quests
 				}
 			];
 		}
 
 		return buildQuestTree(quests, keys, getters);
-	}, [quests, filters, getters]);
+	}, [quests, filters, getters, icon]);
 }

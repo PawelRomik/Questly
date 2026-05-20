@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useCompleted } from "@/app/context/CompletedContext";
 
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	uuid: string;
@@ -10,7 +11,7 @@ type Props = {
 
 export function ModalCompleteButton({ uuid }: Props) {
 	const { game } = useParams() as { game: string };
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 
 	const { isCompleted, toggle } = useCompleted(game, "quests");
 	const completed = isCompleted(uuid);

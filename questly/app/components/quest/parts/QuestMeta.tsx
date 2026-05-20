@@ -1,4 +1,5 @@
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	level: number;
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export function QuestMeta({ level, children }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<div className={styles.meta.base()}>
 			{children}

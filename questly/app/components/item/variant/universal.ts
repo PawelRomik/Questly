@@ -46,7 +46,7 @@ const itemTriggerLayoutClass = `
 `;
 
 const itemTriggerIconLayoutClass = `
-  w-3 object-contain
+  w-5 h-5 object-contain
 `;
 
 const itemTriggerAmountLayoutClass = `

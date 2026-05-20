@@ -4,13 +4,14 @@ import { Item } from "@/app/types/quest";
 
 import { ItemDisplay } from "@/app/components/item/ItemDisplay";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	items?: Item[];
 };
 
 export function RewardItems({ items }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 	if (!items?.length) return null;
 
 	return (

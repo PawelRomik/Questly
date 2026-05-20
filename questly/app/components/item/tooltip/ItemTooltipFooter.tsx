@@ -1,4 +1,5 @@
 import { itemVariants } from "@/app/components/item/variant/itemVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	price: number;
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export function ItemTooltipFooter({ price, game }: Props) {
-	const styles = itemVariants["witcher3"];
+	const styles = useGameStyles(itemVariants);
 
 	return (
 		<div className={styles.tooltip.footer()}>

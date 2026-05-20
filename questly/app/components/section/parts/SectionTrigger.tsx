@@ -5,6 +5,7 @@ import { SectionAccent } from "./SectionAccent";
 import { SectionProgress } from "./SectionProgress";
 import { SectionHeader } from "@/app/components/section/parts/SectionHeader";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	title: string;
@@ -16,7 +17,7 @@ type Props = {
 };
 
 export function SectionTrigger({ title, count, completed, icon, open, children }: Props) {
-	const styles = sectionVariants["witcher3"];
+	const styles = useGameStyles(sectionVariants);
 	return (
 		<Collapsible.Trigger className={styles.section.trigger()}>
 			<SectionAccent completed={completed} total={count} />

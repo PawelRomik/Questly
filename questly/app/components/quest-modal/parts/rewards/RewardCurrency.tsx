@@ -1,17 +1,18 @@
+import FixedImage from "@/app/components/common/FixedImage";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import Image, { StaticImageData } from "next/image";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
-	icon: StaticImageData;
+	icon: string;
 	value: number;
 };
 
 export function RewardCurrency({ icon, value }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 
 	return (
 		<div className={styles.rewards.currency.base()}>
-			<Image src={icon} alt='currency' unoptimized />
+			<FixedImage src={icon} className={styles.rewards.currency.icon()} alt='currency' />
 
 			<span className={styles.rewards.currency.value()}>{value}</span>
 		</div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	completed: number;
@@ -12,7 +13,7 @@ export default function ProgressBar({ completed, total }: Props) {
 
 	const isComplete = percent === 100;
 
-	const styles = sectionVariants["witcher3"];
+	const styles = useGameStyles(sectionVariants);
 
 	return (
 		<div className={styles.progressBar.base()}>

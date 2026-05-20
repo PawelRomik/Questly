@@ -2,6 +2,7 @@
 
 import { tagVariants } from "@/app/components/tag/variant/tagVariants";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 import { highlightText } from "@/app/lib/utils/highlightText";
 
@@ -13,7 +14,7 @@ type Props = {
 
 export function Tag({ tag, search, searchTags }: Props) {
 	const { filters, setFilters } = useFilters();
-	const styles = tagVariants["witcher3"];
+	const styles = useGameStyles(tagVariants);
 
 	const isActive = filters.search.toLowerCase() === tag.toLowerCase() && filters.searchTags;
 

@@ -1,21 +1,26 @@
 import Link from "next/link";
-import Image from "next/image";
 
-import questIcon from "../../../../../public/assets/quest.png";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import FixedImage from "@/app/components/common/FixedImage";
 
 type Props = {
 	quest: {
 		uuid: string;
+		quest_type: {
+			icon: {
+				url: string;
+			};
+		};
 		title: string;
 	};
 };
 
 export function RequirementQuest({ quest }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 	return (
 		<div className={styles.requirements.quest.base()}>
-			<Image src={questIcon} unoptimized className={styles.requirements.quest.icon()} alt='quest' />
+			<FixedImage src={quest?.quest_type?.icon?.url || ""} className={styles.requirements.quest.icon()} alt='quest' />
 
 			<span className={styles.requirements.quest.label()}>Completed quest:</span>
 

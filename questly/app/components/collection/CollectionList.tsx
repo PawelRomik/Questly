@@ -8,6 +8,7 @@ import CollectionGroup from "@/app/components/collection/group/CollectionGroup";
 import { CollectionType, GetCollectionGroupsData, GetCollectionsData, GetCollectionsVars } from "@/app/types/collection";
 import { useApollo } from "@/app/hooks/useApollo";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 export default function CollectionList() {
 	const params = useParams();
@@ -30,7 +31,7 @@ export default function CollectionList() {
 
 	const { data: collectionsData } = useApollo<GetCollectionsData, GetCollectionsVars>(GET_COLLECTIONS, { collectionGroup: selectedCollection as string });
 	const collections = useMemo(() => collectionsData?.collectionGroups?.[0]?.collections ?? [], [collectionsData]);
-	const styles = collectionVariants["witcher3"];
+	const styles = useGameStyles(collectionVariants);
 
 	const handleSelectGroup = (title: string) => {
 		const params = new URLSearchParams(searchParams.toString());

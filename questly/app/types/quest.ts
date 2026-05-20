@@ -73,6 +73,11 @@ export type Requirement = {
 	quest: {
 		title: string;
 		uuid: string;
+		quest_type: {
+			icon: {
+				url: string;
+			};
+		};
 	};
 	description: string;
 	character: {

@@ -9,6 +9,7 @@ import { CollectionItem } from "./CollectionItem";
 import { CollectionButton } from "./CollectionButton";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	collection: CollectionType;
@@ -17,7 +18,7 @@ type Props = {
 export default function Collection({ collection }: Props) {
 	const { title, items, uuid } = collection;
 	const { game } = useParams() as { game: string };
-	const styles = collectionVariants["witcher3"];
+	const styles = useGameStyles(collectionVariants);
 	const { toggleCollectionItem, isCollectionItemCompleted } = useCompleted(game, "collections");
 
 	const completedMap = useMemo(() => {

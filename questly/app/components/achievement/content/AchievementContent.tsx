@@ -2,6 +2,7 @@ import AchievementDescription from "@/app/components/achievement/content/Achieve
 import AchievementTitle from "@/app/components/achievement/content/AchievementTitle";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 import CompletedTag from "@/app/components/tag/CompletedTag";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { AchievementType } from "@/app/types/achievement";
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 
 export function AchievementContent({ achievement, completed, revealed, search }: Props) {
 	const { title, description, secret } = achievement;
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 
 	return (
 		<div className={styles.container()}>
