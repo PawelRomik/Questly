@@ -1,4 +1,5 @@
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	completed: boolean;
@@ -6,8 +7,7 @@ type Props = {
 };
 
 export function QuestAccent({ completed, color }: Props) {
-	const styles = questVariants["witcher3"];
-
+	const styles = useGameStyles(questVariants);
 	return (
 		<div className={styles.accent.base()}>
 			<div style={{ backgroundColor: styles.accent.color(completed, color) }} className={styles.accent.bar()} />

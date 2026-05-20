@@ -1,5 +1,6 @@
 import FixedImage from "@/app/components/common/FixedImage";
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	src: string;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 export function QuestImage({ src, icon }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<div className={styles.image.wrapper()}>
 			<div className={styles.image.container()}>

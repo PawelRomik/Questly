@@ -1,4 +1,5 @@
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	item: {
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function RequirementItem({ item, amount }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 	return (
 		<div className={styles.requirements.tag.base()}>
 			<span className={styles.requirements.secondary.base()}>{item.name}</span>

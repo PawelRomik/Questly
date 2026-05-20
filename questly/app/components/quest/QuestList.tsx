@@ -11,6 +11,8 @@ import { extractList } from "@/app/hooks/extractList";
 import { Quest } from "@/app/types/quest";
 import { useParams } from "next/navigation";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 export default function QuestList() {
 	const params = useParams();
@@ -21,16 +23,22 @@ export default function QuestList() {
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 	const { data } = useApollo(query, { search, game });
 	const quests = useMemo(() => extractList<Quest>(data, "quests"), [data]);
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 
 	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
+	const { default_icon } = useGameAssets();
 
-	const tree = useQuestGrouping(quests, filters, {
-		getTypeIcon,
-		getLocationIcon,
-		getGroupIcon,
-		getActIcon
-	});
+	const tree = useQuestGrouping(
+		quests,
+		filters,
+		{
+			getTypeIcon,
+			getLocationIcon,
+			getGroupIcon,
+			getActIcon
+		},
+		default_icon?.url || ""
+	);
 
 	return (
 		<div className={styles.list()}>

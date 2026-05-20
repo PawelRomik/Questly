@@ -1,6 +1,7 @@
 "use client";
 
 import { filterVariants } from "@/app/components/filters/variant/filterVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useParams } from "next/navigation";
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function SearchInput({ value, onChange }: Props) {
-	const styles = filterVariants["witcher3"];
+	const styles = useGameStyles(filterVariants);
 	const params = useParams();
 	const { content } = params;
 

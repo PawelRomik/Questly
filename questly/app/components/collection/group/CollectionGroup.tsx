@@ -2,6 +2,7 @@
 
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { CollectionGroupButton } from "./CollectionGroupButton";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	groups: { title: string }[];
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function CollectionGroup({ groups, onSelect, active }: Props) {
-	const styles = collectionVariants["witcher3"];
+	const styles = useGameStyles(collectionVariants);
 	return (
 		<div className={styles.group.wrapper()}>
 			{groups.map((g) => (

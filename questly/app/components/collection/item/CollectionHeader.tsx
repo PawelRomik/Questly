@@ -1,5 +1,6 @@
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import ProgressBar from "@/app/components/section/ProgressBar";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	title: string;
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export function CollectionHeader({ title, completed, total }: Props) {
-	const styles = collectionVariants["witcher3"];
+	const styles = useGameStyles(collectionVariants);
 
 	return (
 		<div className={styles.collection.header.base()}>

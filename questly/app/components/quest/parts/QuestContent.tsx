@@ -5,6 +5,7 @@ import { QuestTitle } from "./QuestTitle";
 import { QuestDescription } from "./QuestDescription";
 import { QuestTags } from "@/app/components/quest/parts/QuestTags";
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	title: string;
@@ -17,7 +18,7 @@ type Props = {
 };
 
 export function QuestContent({ title, shortDesc, tags, searchTags, completed, search }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<div className={styles.content.base()}>
 			<QuestTitle title={title} search={search} />

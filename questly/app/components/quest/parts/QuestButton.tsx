@@ -1,4 +1,5 @@
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	completed: boolean;
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export function QuestButton({ completed, onClick }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<button onClick={onClick} className={styles.button.base(completed)}>
 			<svg viewBox='0 0 24 24' className={styles.button.icon(completed)}>

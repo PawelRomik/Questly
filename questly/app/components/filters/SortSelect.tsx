@@ -2,6 +2,7 @@
 
 import { filterVariants } from "@/app/components/filters/variant/filterVariants";
 import { SortOption } from "./types";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	value: SortOption;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function SortSelect({ value, onChange }: Props) {
-	const styles = filterVariants["witcher3"];
+	const styles = useGameStyles(filterVariants);
 	return (
 		<div className={styles.select.wrapper()}>
 			<select value={value} onChange={(e) => onChange(e.target.value as SortOption)} className={styles.select.base()}>

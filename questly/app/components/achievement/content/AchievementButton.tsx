@@ -1,4 +1,5 @@
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	completed: boolean;
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export function AchievementButton({ completed, onClick }: Props) {
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 	return (
 		<button onClick={onClick} className={styles.button.root(completed)}>
 			<svg viewBox='0 0 24 24' className={styles.button.icon(completed)}>

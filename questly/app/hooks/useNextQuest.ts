@@ -5,6 +5,11 @@ type GetNextQuestResponse = {
 	quests: {
 		title: string;
 		uuid: string;
+		quest_type: {
+			icon: {
+				url: string;
+			};
+		};
 	}[];
 };
 

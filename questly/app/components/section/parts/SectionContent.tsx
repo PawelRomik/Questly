@@ -1,4 +1,5 @@
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 };
 
 export function SectionContent({ open, children }: Props) {
-	const styles = sectionVariants["witcher3"];
+	const styles = useGameStyles(sectionVariants);
 	return (
 		<AnimatePresence initial={false}>
 			{open && (

@@ -703,6 +703,9 @@ export interface ApiIconIcon extends Struct.CollectionTypeSchema {
     currency_icon: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    default_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     experience_icon: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;

@@ -1,4 +1,5 @@
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { highlightText } from "@/app/lib/utils/highlightText";
 
 type AchievementTitleProps = {
@@ -8,6 +9,6 @@ type AchievementTitleProps = {
 };
 
 export default function AchievementTitle({ completed, title, search }: AchievementTitleProps) {
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 	return <h2 className={styles.title(completed)}>{highlightText(title, search)}</h2>;
 }

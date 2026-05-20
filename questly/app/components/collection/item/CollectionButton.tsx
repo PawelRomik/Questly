@@ -1,4 +1,5 @@
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	completed: boolean;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 export function CollectionButton({ completed, onCompleteAll, onReset }: Props) {
-	const styles = collectionVariants["witcher3"];
+	const styles = useGameStyles(collectionVariants);
 	const buttonText = completed ? "RESET" : "COMPLETE";
 	const onClick = completed ? onReset : onCompleteAll;
 

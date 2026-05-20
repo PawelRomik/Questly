@@ -1,9 +1,9 @@
 import { ChevronUp } from "lucide-react";
 
-import Image from "next/image";
-
 import { motion } from "framer-motion";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import FixedImage from "@/app/components/common/FixedImage";
 
 type Props = {
 	title: string;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function SectionHeader({ title, count, completed, icon, open }: Props) {
-	const styles = sectionVariants["witcher3"];
+	const styles = useGameStyles(sectionVariants);
 	return (
 		<div className={styles.section.header.base()}>
 			<div className={styles.section.header.content()}>
@@ -31,7 +31,7 @@ export function SectionHeader({ title, count, completed, icon, open }: Props) {
 					<ChevronUp className={styles.section.header.chevron()} />
 				</motion.div>
 
-				{icon && <Image unoptimized width={100} height={100} src={icon} className={styles.section.header.icon()} alt='location' />}
+				{icon && <FixedImage src={icon} className={styles.section.header.icon()} alt='location' />}
 
 				<span className={styles.section.header.title()}>{title}</span>
 			</div>

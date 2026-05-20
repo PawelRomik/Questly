@@ -1,19 +1,20 @@
+import FixedImage from "@/app/components/common/FixedImage";
 import { questVariants } from "@/app/components/quest/variant/questVariants";
-import Image, { StaticImageData } from "next/image";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	value: string | number;
-	icon: StaticImageData;
+	icon: string;
 	alt: string;
 };
 
 export function QuestRewardItem({ value, icon, alt }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<span className={styles.rewards.item()}>
 			{value}
 
-			<Image src={icon} alt={alt} className={styles.rewards.icon()} />
+			<FixedImage src={icon} alt={alt} className={styles.rewards.icon()} />
 		</span>
 	);
 }

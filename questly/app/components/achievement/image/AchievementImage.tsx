@@ -2,6 +2,7 @@ import FixedImage from "@/app/components/common/FixedImage";
 import AchievementImageCorners from "@/app/components/achievement/image/AchievementImageCorners";
 import AchievementImageOverlay from "@/app/components/achievement/image/AchievementImageOverlay";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	src: string;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function AchievementImage({ src, completed }: Props) {
-	const styles = achievementVariants["witcher3"];
+	const styles = useGameStyles(achievementVariants);
 	return (
 		<div className={styles.image.wrapper()}>
 			<div className={styles.image.container(completed)}>

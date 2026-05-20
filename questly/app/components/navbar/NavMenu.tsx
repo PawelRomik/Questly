@@ -1,46 +1,46 @@
 "use client";
-import { themeProps } from "@/app/components/navbar/types";
+
 import { NavButton } from "./NavButton";
 import { useParams } from "next/navigation";
-import aard from "../../../public/assets/aard.webp";
-import igni from "../../../public/assets/igni.webp";
-import axii from "../../../public/assets/axii.webp";
-import yrden from "../../../public/assets/yrden.webp";
-import Image from "next/image";
+import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import FixedImage from "@/app/components/common/FixedImage";
 type Props = {
 	side: "left" | "right";
-	theme: themeProps;
 };
 
-export function NavMenu({ side, theme }: Props) {
+export function NavMenu({ side }: Props) {
 	const isLeft = side === "left";
 	const params = useParams();
 	const game = params.game as string;
+	const styles = useGameStyles(navbarVariants);
+	const { nav_icons } = useGameAssets();
 
 	return (
-		<div className='flex-2 flex items-center justify-around h-full text-white'>
+		<div className={styles.menu.base()}>
 			{isLeft ? (
 				<>
-					<NavButton sign='aard' href={`/${game}/quests`} theme={theme}>
-						<Image src={aard} alt='alt' unoptimized className='w-12.5 z-30 h-12.5' />
-						<span className='z-30'>Quests</span>
+					<NavButton id={0} href={`/${game}/quests`}>
+						<FixedImage src={nav_icons[0]?.url || ""} alt='alt' className={styles.menu.item()} />
+						<span className={styles.menu.label()}>Quests</span>
 					</NavButton>
 
-					<NavButton sign='igni' href={`/${game}/collectibles`} theme={theme}>
-						<Image src={igni} alt='alt' unoptimized className='w-12.5 h-12.5 z-30' />
-						<span className='z-30'>Collectibles</span>
+					<NavButton id={1} href={`/${game}/collectibles`}>
+						<FixedImage src={nav_icons[1]?.url || ""} alt='alt' className={styles.menu.item()} />
+						<span className={styles.menu.label()}>Collectibles</span>
 					</NavButton>
 				</>
 			) : (
 				<>
-					<NavButton sign='axii' href={`/${game}/map`} theme={theme}>
-						<Image src={axii} alt='alt' unoptimized className='w-12.5 h-12.5 z-30' />
-						<span className='z-30'>Map</span>
+					<NavButton id={2} href={`/${game}/map`}>
+						<FixedImage src={nav_icons[2]?.url || ""} alt='alt' className={styles.menu.item()} />
+						<span className={styles.menu.label()}>Map</span>
 					</NavButton>
 
-					<NavButton sign='yrden' href={`/${game}/achievements`} theme={theme}>
-						<Image src={yrden} alt='alt' unoptimized className='w-12.5 h-12.5 z-30' />
-						<span className='z-30'>Achievements</span>
+					<NavButton id={3} href={`/${game}/achievements`}>
+						<FixedImage src={nav_icons[3]?.url || ""} alt='alt' className={styles.menu.item()} />
+						<span className={styles.menu.label()}>Achievements</span>
 					</NavButton>
 				</>
 			)}

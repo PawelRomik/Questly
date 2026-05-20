@@ -12,6 +12,7 @@ import { QuestRewards } from "@/app/components/quest/parts/QuestRewards";
 import { questVariants } from "@/app/components/quest/variant/questVariants";
 import { useFilters } from "@/app/context/FiltersContext";
 import { Quest } from "@/app/types/quest";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	quest: Quest;
@@ -21,7 +22,7 @@ export default function QuestWrapper({ quest }: Props) {
 	const { game } = useParams() as { game: string };
 	const { isCompleted, toggle } = useCompleted(game, "quests");
 
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	const { filters } = useFilters();
 	const { searchTags, search } = filters;
 	const { uuid, level, quest_type, title, description, tags, rewards, location } = quest;

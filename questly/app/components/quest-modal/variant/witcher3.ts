@@ -269,7 +269,8 @@ export const witcher3Styles = {
 		list: () => ``,
 		currency: {
 			base: () => ``,
-			value: () => ``
+			value: () => ``,
+			icon: () => ``
 		},
 		items: () => ``
 	},

@@ -1,4 +1,5 @@
 import { questVariants } from "@/app/components/quest/variant/questVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import ReactMarkdown from "react-markdown";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export function QuestDescription({ description }: Props) {
-	const styles = questVariants["witcher3"];
+	const styles = useGameStyles(questVariants);
 	return (
 		<div className={styles.content.description()}>
 			<ReactMarkdown>{description}</ReactMarkdown>

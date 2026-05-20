@@ -4,6 +4,7 @@ import { Checkbox } from "./Checkbox";
 import { SortSelect } from "./SortSelect";
 import { Filters } from "./types";
 import { filterVariants } from "@/app/components/filters/variant/filterVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	filters: Filters;
@@ -17,7 +18,7 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 	const isQuestPage = section === "quests";
 	const isAchievementPage = section === "achievements";
 
-	const styles = filterVariants["witcher3"];
+	const styles = useGameStyles(filterVariants);
 	const { content } = params;
 
 	if (!isQuestPage && !isAchievementPage) return null;

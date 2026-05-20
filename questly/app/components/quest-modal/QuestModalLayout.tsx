@@ -8,13 +8,14 @@ import { ModalCloseButton } from "@/app/components/quest-modal/ModalCloseButton"
 import { ModalDescription } from "@/app/components/quest-modal/parts/ModalDescription";
 import { ModalRequirements } from "@/app/components/quest-modal/parts/requirements/ModalRequirements";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	quest: Quest;
 };
 
 export function QuestModalLayout({ quest }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
 
 	return (
 		<div className={styles.base()}>

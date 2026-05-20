@@ -242,6 +242,7 @@ const rewardCurrencyLayoutClass = `
   flex items-center gap-2
   items-end
  h-full
+
 `;
 
 const rewardCurrencyValueLayoutClass = `
@@ -250,9 +251,13 @@ const rewardCurrencyValueLayoutClass = `
   
 `;
 
+const rewardIconClass = `
+w-5 h-5`;
+
 const rewardItemsLayoutClass = `
   flex gap-3 flex-wrap
   items-end
+
 
   h-full
 `;
@@ -320,7 +325,8 @@ export const universalStyles = {
 		list: () => modalRewardsListLayoutClass,
 		currency: {
 			base: () => rewardCurrencyLayoutClass,
-			value: () => rewardCurrencyValueLayoutClass
+			value: () => rewardCurrencyValueLayoutClass,
+			icon: () => rewardIconClass
 		},
 		items: () => rewardItemsLayoutClass
 	},

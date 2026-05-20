@@ -2,17 +2,17 @@ import { Rewards } from "@/app/types/quest";
 
 import { RewardCurrency } from "./RewardCurrency";
 import { RewardItems } from "./RewardItems";
-
-import xp from "../../../../../public/assets/xp.webp";
-import money from "../../../../../public/assets/money.webp";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 type Props = {
 	rewards: Rewards;
 };
 
 export function ModalRewards({ rewards }: Props) {
-	const styles = questModalVariants["witcher3"];
+	const styles = useGameStyles(questModalVariants);
+	const { currency_icon, experience_icon } = useGameAssets();
 
 	return (
 		<div className={styles.rewards.base()}>
@@ -20,9 +20,9 @@ export function ModalRewards({ rewards }: Props) {
 
 			<div className={styles.rewards.content()}>
 				<div className={styles.rewards.list()}>
-					<RewardCurrency icon={xp} value={rewards.experience} />
+					<RewardCurrency icon={experience_icon?.url || ""} value={rewards.experience} />
 
-					<RewardCurrency icon={money} value={rewards.money} />
+					<RewardCurrency icon={currency_icon?.url || ""} value={rewards.money} />
 
 					<RewardItems items={rewards.items} />
 				</div>

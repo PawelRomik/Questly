@@ -1,5 +1,5 @@
 const completedTagWrapperLayoutClass = `
-  flex gap-2 mt-2 flex-wrap
+  flex gap-2  flex-wrap
 `;
 
 const completedTagLayoutClass = `
@@ -9,7 +9,7 @@ const completedTagLayoutClass = `
 
 // ----------------------------------------
 
-export const tagLayoutClass = `
+const tagLayoutClass = `
   text-[10px]
 
   uppercase tracking-wide

@@ -57,6 +57,11 @@ export const GET_QUESTS_NO_TAGS = gql`
 				quest {
 					title
 					uuid
+					quest_type {
+						icon {
+							url
+						}
+					}
 				}
 				desc
 				character {
@@ -152,6 +157,11 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				quest {
 					title
 					uuid
+					quest_type {
+						icon {
+							url
+						}
+					}
 				}
 				desc
 				character {
@@ -195,6 +205,11 @@ export const GET_NEXT_QUEST = gql`
 		quests(filters: { requirement: { quest: { uuid: { eq: $currentUuid } } } }) {
 			title
 			uuid
+			quest_type {
+				icon {
+					url
+				}
+			}
 		}
 	}
 `;
@@ -238,6 +253,47 @@ export const GET_COLLECTIONS = gql`
 				}
 				type
 				title
+			}
+		}
+	}
+`;
+
+export const GET_ICONS = gql`
+	query GetCollectionGroups($game: String!) {
+		icons(filters: { game: { slug: { eq: $game } } }) {
+			checkbox_image {
+				url
+			}
+			game {
+				title
+				slug
+			}
+			logo {
+				url
+			}
+			character {
+				url
+			}
+			backgrounds {
+				url
+			}
+			nav_icons {
+				url
+			}
+			currency_icon {
+				url
+			}
+			experience_icon {
+				url
+			}
+			default_icon {
+				url
+			}
+			item_icon {
+				url
+			}
+			game_icon {
+				url
 			}
 		}
 	}

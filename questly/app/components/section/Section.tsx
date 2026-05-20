@@ -6,6 +6,7 @@ import { Collapsible } from "radix-ui";
 import { SectionTrigger } from "@/app/components/section/parts/SectionTrigger";
 import { SectionContent } from "@/app/components/section/parts/SectionContent";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
 	title: string;
@@ -19,7 +20,7 @@ type Props = {
 
 export default function Section({ title, count, level = 0, icon, children, completed }: Props) {
 	const [open, setOpen] = useState(level === 0);
-	const styles = sectionVariants["witcher3"];
+	const styles = useGameStyles(sectionVariants);
 
 	const indentStyle = {
 		paddingLeft: `${level * 24}px`
