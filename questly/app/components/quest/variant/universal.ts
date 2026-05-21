@@ -168,7 +168,7 @@ const questRewardItemLayoutClass = `
 `;
 
 const questRewardIconLayoutClass = `
-  w-4 h-4
+ object-contain h-4 
 `;
 
 // ----------------------------------------

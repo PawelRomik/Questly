@@ -75,7 +75,7 @@ const checkboxIconLayoutClass = `
 
   object-contain
 
-  scale-300
+ 
 
   select-none
 

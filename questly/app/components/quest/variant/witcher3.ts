@@ -187,7 +187,7 @@ export const witcher3Styles = {
 		title: () => questRewardsTitleClass,
 		list: () => ``,
 		item: () => questRewardItemClass,
-		icon: () => ``
+		icon: () => `w-4`
 	},
 	wrapper: {
 		base: (completed: boolean) => questWrapperClass(completed),

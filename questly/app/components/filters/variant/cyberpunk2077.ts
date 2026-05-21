@@ -1,3 +1,10 @@
+import { Rajdhani } from "next/font/google";
+
+const rajdhani = Rajdhani({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"]
+});
+
 const searchBarHeaderClass = `
 
 `;
@@ -8,6 +15,7 @@ const searchBarInputWrapperClass = `
   bg-[#090b12]/90
 
   backdrop-blur-sm
+  ${rajdhani.className}
 
   shadow-[0_0_20px_rgba(255,0,60,0.12)]
 
@@ -153,7 +161,7 @@ export const cyberpunk2077Styles = {
 		inputWrapper: () => ``,
 		input: () => ``,
 		base: () => checkboxBoxClass,
-		icon: () => `text-[#00d9ff]`,
+		icon: () => `text-[#00d9ff] scale-100`,
 		label: () => `
       uppercase
       tracking-wide
