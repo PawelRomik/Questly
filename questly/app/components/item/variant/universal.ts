@@ -59,6 +59,10 @@ export const universalStyles = {
 	tooltip: {
 		base: () => itemTooltipLayoutClass,
 		arrow: () => ``,
+		rewards: {
+			base: () => `flex items-center gap-1 justify-center`,
+			icon: () => `w-5 object-contain h-5`
+		},
 		description: () => itemTooltipDescriptionLayoutClass,
 		footer: () => itemTooltipFooterLayoutClass,
 		header: {

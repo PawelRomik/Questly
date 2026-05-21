@@ -240,7 +240,7 @@ const modalRewardsListLayoutClass = `
 
 const rewardCurrencyLayoutClass = `
   flex items-center gap-2
-  items-end
+  items-center
  h-full
 
 `;

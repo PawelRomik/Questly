@@ -107,7 +107,7 @@ export const witcher3Styles = {
 		inputWrapper: () => ``,
 		input: () => ``,
 		base: () => checkboxBoxClass,
-		icon: () => ``,
+		icon: () => `scale-300`,
 		label: () => ``
 	},
 	searchInput: {

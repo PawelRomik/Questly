@@ -84,7 +84,7 @@ const questButtonIconVariant = (completed: boolean) =>
 		: `
       text-[#ff204e]
 
-      opacity-80
+      opacity-0
       scale-95
     `;
 
@@ -268,7 +268,7 @@ export const cyberpunk2077Styles = {
 		list: () => ``,
 		item: () => questRewardItemClass,
 		icon: () => `
-      text-[#ffe600]
+      text-[#ffe600] max-w-7
     `
 	},
 	wrapper: {
