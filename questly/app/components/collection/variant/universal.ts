@@ -27,14 +27,17 @@ transition-all duration-200 cursor-pointer
 // ----------------------------------------
 
 const collectionLayoutClass = `
-  relative w-[95%] mx-auto flex flex-col gap-4 p-4
-  overflow-hidden
+  relative flex flex-col gap-4 p-4
+  overflow-hidden 
+
+
+
   transition-all duration-200
   hover:translate-x-1 hover:-translate-y-0.5
 `;
 
 const collectionGridLayoutClass = `
-  grid grid-cols-3 gap-3 place-items-center z-10
+  flex flex-wrap items-center justify-center gap-3 z-10 px-15
 `;
 
 // ----------------------------------------
@@ -88,7 +91,7 @@ const collectionListGroupsWrapperClass = `
 `;
 
 const collectionListGridClass = `
-  w-full grid grid-cols-2 gap-6 mt-4
+ w-full flex items-start flex-wrap gap-8 gap-y-8 mt-4 justify-start
 `;
 
 // ----------------------------------------
