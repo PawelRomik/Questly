@@ -15,7 +15,7 @@ const navbarLayoutClass = `
 `;
 
 const navbarSideLayoutClass = `
-  bg-[rgba(0,0,0,0.5)]
+
 `;
 
 const navbarContentLayoutClass = `
@@ -53,14 +53,10 @@ const navDecorLayoutClass = `
 const navDecorVariant = (isLeft: boolean) =>
 	isLeft
 		? `
-      rotate-30
 
-      origin-bottom-right
     `
 		: `
-      -rotate-30
-
-      origin-bottom-left
+      
     `;
 
 const navDecorClass = (isLeft: boolean) => `${navDecorLayoutClass} ${navDecorVariant(isLeft)}`;

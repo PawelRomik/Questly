@@ -5,9 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import NavLogo from "@/app/components/navbar/NavLogo";
 import { GAME_THEME } from "@/app/data/games";
+import { usePathname } from "next/navigation";
 
 export default function GameSwitcher() {
 	const games = Object.values(GAME_THEME);
+
+	const pathname = usePathname();
+
+	const currentSegments = pathname.split("/").filter(Boolean);
 
 	return (
 		<Dialog.Root>
@@ -24,15 +29,27 @@ export default function GameSwitcher() {
 					<div className='grid grid-cols-2 sm:grid-cols-3 gap-6'>
 						{games
 							.filter((game) => game.slug !== "questly")
-							.map((game) => (
-								<Link key={game.slug} href={`/${game.slug}/quests`} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
-									<div className='relative w-16 h-16'>
-										<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
-									</div>
+							.map((game) => {
+								let href = `/${game.slug}/quests`;
 
-									<span className='text-sm text-white group-hover:brightness-125 text-center'>{game.name}</span>
-								</Link>
-							))}
+								if (currentSegments.length > 0) {
+									const segments = [...currentSegments];
+
+									segments[0] = game.slug;
+
+									href = `/${segments.join("/")}`;
+								}
+
+								return (
+									<Link key={game.slug} href={href} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
+										<div className='relative w-16 h-16'>
+											<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
+										</div>
+
+										<span className='text-sm text-white group-hover:brightness-125 text-center'>{game.name}</span>
+									</Link>
+								);
+							})}
 					</div>
 
 					<Dialog.Close asChild>

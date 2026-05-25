@@ -16,6 +16,7 @@ type Props = {
 };
 
 export default function Collection({ collection }: Props) {
+	console.log(collection.uuid);
 	const { title, items, uuid } = collection;
 	const { game } = useParams() as { game: string };
 	const styles = useGameStyles(collectionVariants);

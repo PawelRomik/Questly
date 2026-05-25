@@ -2,28 +2,42 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { Filters, SortOption } from "@/app/components/filters/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
 	filters: Filters;
 	setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+
+	sidebarOpen: boolean;
+	setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const FiltersContext = createContext<FiltersContextType | null>(null);
 
 export function FiltersProvider({ children }: { children: React.ReactNode }) {
 	const router = useRouter();
+	const params = useParams();
+	const { game, content } = params;
+
 	const searchParams = useSearchParams();
 
 	const [filters, setFilters] = useState<Filters>({
 		search: searchParams.get("search") ?? "",
+
 		groupByType: searchParams.get("groupByType") === "true",
+
 		sort: (searchParams.get("sort") as SortOption) ?? SortOption.AZ,
+
 		searchTags: searchParams.get("searchTags") === "true",
+
 		groupByLocation: searchParams.get("groupByLocation") === "true",
+
 		groupByAct: searchParams.get("groupByAct") === "true",
+
 		groupByQuestGroup: searchParams.get("groupByQuestGroup") === "true"
 	});
+
+	const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -62,13 +76,49 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		return () => clearTimeout(timeout);
 	}, [filters, router, searchParams]);
 
-	return <FiltersContext.Provider value={{ filters, setFilters }}>{children}</FiltersContext.Provider>;
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setFilters({
+				search: "",
+
+				groupByType: false,
+
+				sort: SortOption.AZ,
+
+				searchTags: false,
+
+				groupByLocation: false,
+
+				groupByAct: false,
+
+				groupByQuestGroup: false
+			});
+		});
+
+		return () => clearTimeout(timeout);
+	}, [game, content]);
+
+	return (
+		<FiltersContext.Provider
+			value={{
+				filters,
+				setFilters,
+
+				sidebarOpen,
+				setSidebarOpen
+			}}
+		>
+			{children}
+		</FiltersContext.Provider>
+	);
 }
 
 export function useFilters() {
 	const context = useContext(FiltersContext);
+
 	if (!context) {
 		throw new Error("useFilters must be used within FiltersProvider");
 	}
+
 	return context;
 }

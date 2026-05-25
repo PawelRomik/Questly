@@ -21,7 +21,7 @@ const collectionGroupWrapperClass = `
 const collectionGroupButtonBaseClass = `
   relative px-4 py-2 text-sm uppercase tracking-wide
 transition-all duration-200 cursor-pointer
-  overflow-hidden
+  overflow-hidden disabled:opacity-30 disabled:cursor-default hover:scale-105 disabled:hover:scale-100
 `;
 
 // ----------------------------------------

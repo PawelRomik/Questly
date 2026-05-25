@@ -243,6 +243,7 @@ export const GET_COLLECTIONS = gql`
 	query GetCollections($collectionGroup: String!) {
 		collectionGroups(filters: { title: { eq: $collectionGroup } }) {
 			collections {
+				uuid
 				items {
 					uuid
 					image {
@@ -253,6 +254,27 @@ export const GET_COLLECTIONS = gql`
 				}
 				type
 				title
+			}
+		}
+	}
+`;
+
+export const SEARCH_COLLECTIONS = gql`
+	query SearchCollections($search: String!, $game: String!) {
+		collections(filters: { title: { containsi: $search }, game: { slug: { eq: $game } } }) {
+			uuid
+			type
+			title
+
+			items {
+				uuid
+
+				image {
+					url
+				}
+
+				name
+				description
 			}
 		}
 	}

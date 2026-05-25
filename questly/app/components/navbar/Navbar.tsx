@@ -1,7 +1,7 @@
 "use client";
 
 import { useGameStyles } from "@/app/hooks/useGameStyles";
-import { NavDecor } from "./NavDecor";
+
 import { NavMenu } from "./NavMenu";
 import GameSwitcher from "@/app/components/game-switcher/GameSwitcher";
 import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
@@ -11,10 +11,6 @@ export default function Navbar() {
 
 	return (
 		<nav className={styles.base()}>
-			<div className={styles.leftSideWrapper()}>
-				<NavDecor side='left' />
-			</div>
-
 			<div className={styles.content.base()}>
 				<div className={styles.content.contentWrapper()}>
 					<NavMenu side='left' />
@@ -24,8 +20,6 @@ export default function Navbar() {
 					<NavMenu side='right' />
 				</div>
 			</div>
-
-			<NavDecor side='right' />
 		</nav>
 	);
 }
