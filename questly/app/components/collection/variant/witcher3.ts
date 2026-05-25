@@ -21,11 +21,13 @@ const collectionGroupButtonBaseClass = `
   border
   shadow-[0_0_10px_rgba(0,0,0,0.7)]
   bg-linear-to-b from-[#1a1a1a] to-[#0f0f0f]
-  hover:brightness-125
+  hover:brightness-125 disabled:hover:brightness-100 
 `;
 
 const collectionGroupButtonVariant = (active: boolean) =>
-	active ? "border-[#1f6b2b] text-[#9be3a7] scale-95 inset-shadow-[0_0_15px_rgba(0,255,100,0.2)]" : "border-[rgb(40,37,28)] text-[#e6d3a3] hover:scale-105 hover:border-[#c6a85a]";
+	active
+		? "border-[#1f6b2b] text-[#9be3a7] scale-95 inset-shadow-[0_0_15px_rgba(0,255,100,0.2)]"
+		: "border-[rgb(40,37,28)] text-[#e6d3a3] disabled:hover:border-[rgb(40,37,28)]   hover:border-[#c6a85a]";
 
 const collectionGroupButtonClass = (active: boolean) => `${collectionGroupButtonBaseClass} ${collectionGroupButtonVariant(active)}`;
 

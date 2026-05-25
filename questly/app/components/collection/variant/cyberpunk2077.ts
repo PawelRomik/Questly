@@ -33,7 +33,7 @@ const collectionGroupButtonBaseClass = `
 
   transition-all duration-200
 
-  hover:brightness-125
+  hover:brightness-125 disabled:hover:brightness-100
 `;
 
 const collectionGroupButtonVariant = (active: boolean) =>
@@ -54,7 +54,7 @@ const collectionGroupButtonVariant = (active: boolean) =>
 
       text-[#ffe600]
 
-      hover:scale-105
+      disabled:hover:border-[#ff204e]/40
       hover:border-[#00e0ff]
 
       shadow-[0_0_14px_rgba(255,32,78,0.12)]
