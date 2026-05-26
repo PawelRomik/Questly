@@ -44,7 +44,7 @@ const sectionTriggerBaseClass = `
 
   shadow-[0_0_20px_rgba(0,0,0,0.7)]
 
-  -skew-x-8
+
 
   hover:brightness-110
 `;
