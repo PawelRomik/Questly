@@ -226,6 +226,9 @@ export const GET_ACHIEVEMENTS = gql`
 			}
 			achievement_group {
 				name
+				icon {
+					url
+				}
 			}
 		}
 	}
@@ -315,6 +318,12 @@ export const GET_ICONS = gql`
 				url
 			}
 			game_icon {
+				url
+			}
+			achievement_icon {
+				url
+			}
+			search_icon {
 				url
 			}
 		}

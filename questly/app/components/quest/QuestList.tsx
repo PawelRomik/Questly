@@ -26,7 +26,7 @@ export default function QuestList() {
 	const styles = useGameStyles(questModalVariants);
 
 	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
-	const { default_icon } = useGameAssets();
+	const { default_icon, search_icon } = useGameAssets();
 
 	const tree = useQuestGrouping(
 		quests,
@@ -37,7 +37,7 @@ export default function QuestList() {
 			getGroupIcon,
 			getActIcon
 		},
-		default_icon?.url || ""
+		{ searchIcon: search_icon?.url || "", defaultIcon: default_icon?.url || "" }
 	);
 
 	return (

@@ -43,6 +43,8 @@ export function GameAssetsProvider({ children }: Props) {
 			item_icon: icons?.item_icon ?? null,
 			game_icon: icons?.game_icon ?? null,
 			default_icon: icons?.default_icon ?? null,
+			achievement_icon: icons?.achievement_icon ?? null,
+			search_icon: icons?.search_icon ?? null,
 
 			loading,
 			error

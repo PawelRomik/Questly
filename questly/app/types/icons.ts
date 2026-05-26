@@ -13,6 +13,8 @@ export type Icons = {
 	item_icon: ImageAsset;
 	game_icon: ImageAsset;
 	default_icon: ImageAsset;
+	achievement_icon: ImageAsset;
+	search_icon: ImageAsset;
 };
 
 export type GameAssetsContextType = {
@@ -30,6 +32,8 @@ export type GameAssetsContextType = {
 	item_icon: ImageAsset | null;
 	game_icon: ImageAsset | null;
 	default_icon: ImageAsset | null;
+	achievement_icon: ImageAsset | null;
+	search_icon: ImageAsset | null;
 
 	loading: boolean;
 	error?: Error;

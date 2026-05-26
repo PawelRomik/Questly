@@ -483,6 +483,7 @@ export interface ApiAchievementGroupAchievementGroup
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -689,6 +690,9 @@ export interface ApiIconIcon extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    achievement_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     backgrounds: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -721,6 +725,9 @@ export interface ApiIconIcon extends Struct.CollectionTypeSchema {
       true
     >;
     publishedAt: Schema.Attribute.DateTime;
+    search_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
