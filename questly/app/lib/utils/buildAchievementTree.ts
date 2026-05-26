@@ -1,16 +1,17 @@
-import { groupBy } from "@/app/lib/utils/group";
 import { AchievementType } from "@/app/types/achievement";
+import { groupBy } from "./group";
 
 export type AchievementGroupNode = {
 	title: string;
 	items: AchievementType[];
+	icon?: string;
 };
 
 export function buildAchievementTree(achievements: AchievementType[], groupByQuestGroup: boolean): AchievementGroupNode[] {
 	if (!groupByQuestGroup) {
 		return [
 			{
-				title: "Achievements",
+				title: "All achievements",
 				items: achievements
 			}
 		];
@@ -20,6 +21,8 @@ export function buildAchievementTree(achievements: AchievementType[], groupByQue
 
 	return Object.entries(grouped).map(([title, items]) => ({
 		title,
-		items
+		items,
+
+		icon: items[0]?.achievement_group?.icon?.url
 	}));
 }

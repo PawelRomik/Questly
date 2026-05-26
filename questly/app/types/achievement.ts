@@ -9,6 +9,9 @@ export type AchievementType = {
 	secret: boolean;
 	achievement_group: {
 		name: string;
+		icon: {
+			url: string;
+		};
 	};
 };
 

@@ -107,7 +107,7 @@ const sectionHeaderChevronLayoutClass = `
 const sectionHeaderIconLayoutClass = `
   h-8 w-8
 
-  object-cover
+  object-contain
 `;
 
 const sectionHeaderTitleLayoutClass = `

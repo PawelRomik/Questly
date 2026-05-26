@@ -20,6 +20,7 @@ import { achievementVariants } from "@/app/components/achievement/variant/achiev
 
 import { buildAchievementTree } from "@/app/lib/utils/buildAchievementTree";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
@@ -35,6 +36,7 @@ export default function AchievementList() {
 		game,
 		search
 	});
+	const { achievement_icon, search_icon } = useGameAssets();
 
 	const achievements = useMemo(() => extractList<AchievementType>(data, "achievements"), [data]);
 
@@ -44,9 +46,10 @@ export default function AchievementList() {
 		<div className={styles.root()}>
 			{grouped.map((group) => {
 				const completedCount = group.items.filter((a) => isCompleted(a.uuid)).length;
+				const icon = search ? search_icon?.url : group.icon || achievement_icon?.url;
 
 				return (
-					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount}>
+					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
 							<Achievement key={achievement.uuid} achievement={achievement} completed={isCompleted(achievement.uuid)} search={search} onToggle={() => toggle(achievement.uuid)} />
 						))}
