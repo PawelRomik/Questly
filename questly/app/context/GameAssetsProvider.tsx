@@ -6,6 +6,8 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client/react";
 import { GET_ICONS } from "@/app/lib/queries";
 import { GameAssetsContextType, GetIconsResponse, Icons } from "@/app/types/icons";
+import default_game_icon from "../../public/assets/game_icon.png";
+import default_background from "../../public/assets/background.png";
 
 const GameAssetsContext = createContext<GameAssetsContextType | null>(null);
 
@@ -35,14 +37,14 @@ export function GameAssetsProvider({ children }: Props) {
 			logo: icons?.logo ?? null,
 			character: icons?.character ?? null,
 
-			backgrounds: icons?.backgrounds ?? [],
+			backgrounds: icons?.backgrounds?.length ? icons.backgrounds : [{ url: default_background }],
 			nav_icons: icons?.nav_icons ?? [],
 
 			currency_icon: icons?.currency_icon ?? null,
 			experience_icon: icons?.experience_icon ?? null,
 			item_icon: icons?.item_icon ?? null,
-			game_icon: icons?.game_icon ?? null,
-			default_icon: icons?.default_icon ?? null,
+			game_icon: icons?.game_icon.url ?? default_game_icon,
+			default_icon: icons?.default_icon.url ?? default_game_icon,
 			achievement_icon: icons?.achievement_icon ?? null,
 			search_icon: icons?.search_icon ?? null,
 

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
 type Props = {
-	src: string;
+	src: string | StaticImageData;
 	className?: string;
 	alt: string;
 };
@@ -14,5 +14,7 @@ export default function FixedImage({ src, className, alt }: Props) {
 
 	if (!src || hidden) return null;
 
-	return <Image width={1000} height={1000} src={`http://localhost:1337${src}`} className={className} alt={alt} onError={() => setHidden(true)} />;
+	const imageSrc = typeof src === "string" ? `http://localhost:1337${src}` : src;
+
+	return <Image width={1000} height={1000} src={imageSrc} className={className} alt={alt} onError={() => setHidden(true)} />;
 }
