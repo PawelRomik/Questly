@@ -9,5 +9,5 @@ export function useGameStyles<T>(variants: VariantMap<T>): T {
 
 	const game = params.game as string;
 
-	return variants[game] ?? variants.witcher3;
+	return variants[game] ?? variants.default;
 }

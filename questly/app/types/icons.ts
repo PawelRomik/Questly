@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 type ImageAsset = {
 	url: string;
 };
@@ -24,14 +26,14 @@ export type GameAssetsContextType = {
 	logo: ImageAsset | null;
 	character: ImageAsset | null;
 
-	backgrounds: ImageAsset[];
+	backgrounds: ImageAsset[] | { url: StaticImageData }[];
 	nav_icons: ImageAsset[];
 
 	currency_icon: ImageAsset | null;
 	experience_icon: ImageAsset | null;
 	item_icon: ImageAsset | null;
-	game_icon: ImageAsset | null;
-	default_icon: ImageAsset | null;
+	game_icon: string | StaticImageData;
+	default_icon: string | StaticImageData;
 	achievement_icon: ImageAsset | null;
 	search_icon: ImageAsset | null;
 

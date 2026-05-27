@@ -9,7 +9,6 @@ import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { useParams } from "next/navigation";
-import FixedImage from "@/app/components/common/FixedImage";
 import { useMemo } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
 
@@ -38,7 +37,12 @@ export default function GamePageClient() {
 		<div className='h-screen flex relative flex-col bg-[rgba(0,0,0,0.8)] overflow-hidden'>
 			<Navbar />
 
-			<FixedImage src={background} alt='background' className='object-cover w-full h-full absolute -z-10' />
+			<div
+				className='w-full h-full absolute -z-10 bg-repeat'
+				style={{
+					backgroundImage: `url(${typeof background === "string" ? `http://localhost:1337${background}` : background.src})`
+				}}
+			/>
 
 			<div className='flex flex-1  overflow-hidden relative'>
 				<div
