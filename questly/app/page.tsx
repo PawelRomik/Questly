@@ -1,5 +1,5 @@
-import Navbar from "@/app/components/navbar/Navbar";
 import background from "../public/assets/background.png";
+import HubNavbar from "@/app/components/navbar/HubNavbar";
 
 export async function generateMetadata() {
 	return {
@@ -10,7 +10,7 @@ export async function generateMetadata() {
 export default function Home() {
 	return (
 		<div style={{ backgroundImage: `url(${background.src})` }} className='flex flex-col gap-5 h-screen overflow-y-scroll'>
-			<Navbar />
+			<HubNavbar />
 		</div>
 	);
 }

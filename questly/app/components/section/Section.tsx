@@ -7,6 +7,7 @@ import { SectionTrigger } from "@/app/components/section/parts/SectionTrigger";
 import { SectionContent } from "@/app/components/section/parts/SectionContent";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { StaticImageData } from "next/image";
 
 type Props = {
 	title: string;
@@ -14,7 +15,7 @@ type Props = {
 	children: React.ReactNode;
 	variant?: "location" | "type";
 	completed?: number;
-	icon?: string;
+	icon: string | StaticImageData;
 	level?: number;
 };
 

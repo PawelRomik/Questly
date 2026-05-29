@@ -1,8 +1,9 @@
 import FixedImage from "@/app/components/common/FixedImage";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { StaticImageData } from "next/image";
 
-export function ModalMap({ src }: { src: string }) {
+export function ModalMap({ src }: { src: string | StaticImageData }) {
 	const styles = useGameStyles(questModalVariants);
 	return (
 		<div className={styles.map.wrapper()}>

@@ -15,7 +15,7 @@ export function ItemTrigger({ item }: Props) {
 	return (
 		<div className={styles.trigger.base()}>
 			<span style={{ color: item.rarity.color }}>
-				<FixedImage src={item_icon?.url || ""} className={styles.trigger.icon()} alt={item.name} />
+				<FixedImage src={item_icon} className={styles.trigger.icon()} alt={item.name} />
 			</span>
 
 			<span style={{ color: item.rarity.color }}>

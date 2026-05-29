@@ -6,12 +6,13 @@ import { SectionProgress } from "./SectionProgress";
 import { SectionHeader } from "@/app/components/section/parts/SectionHeader";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { StaticImageData } from "next/image";
 
 type Props = {
 	title: string;
 	count: number;
 	completed?: number;
-	icon?: string;
+	icon: string | StaticImageData;
 	open: boolean;
 	children?: React.ReactNode;
 };

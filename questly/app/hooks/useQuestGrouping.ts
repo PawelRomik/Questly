@@ -2,8 +2,9 @@ import { useMemo } from "react";
 import { Quest } from "@/app/types/quest";
 import { buildQuestTree, Getters, GroupKey } from "@/app/lib/utils/buildQuestTree";
 import { Filters } from "@/app/components/filters/types";
+import { StaticImageData } from "next/image";
 
-export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Getters, icons: { defaultIcon: string; searchIcon: string }) {
+export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Getters, icons: { defaultIcon: string | StaticImageData; searchIcon: string | StaticImageData }) {
 	return useMemo(() => {
 		if (filters.search) {
 			return [

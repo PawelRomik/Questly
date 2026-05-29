@@ -61,6 +61,7 @@ border-b-2
 const navLogoImageClass = `
   transition-transform
   duration-300
+  w-full
 
   group-hover:scale-105
 `;

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import FixedImage from "@/app/components/common/FixedImage";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 type Props = {
 	quest: {
@@ -18,9 +19,10 @@ type Props = {
 
 export function RequirementQuest({ quest }: Props) {
 	const styles = useGameStyles(questModalVariants);
+	const { default_icon } = useGameAssets();
 	return (
 		<div className={styles.requirements.quest.base()}>
-			<FixedImage src={quest?.quest_type?.icon?.url || ""} className={styles.requirements.quest.icon()} alt='quest' />
+			<FixedImage src={quest?.quest_type?.icon?.url || default_icon} className={styles.requirements.quest.icon()} alt='quest' />
 
 			<span className={styles.requirements.quest.label()}>Completed quest:</span>
 

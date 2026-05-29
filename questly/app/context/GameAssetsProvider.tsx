@@ -6,8 +6,15 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client/react";
 import { GET_ICONS } from "@/app/lib/queries";
 import { GameAssetsContextType, GetIconsResponse, Icons } from "@/app/types/icons";
-import default_game_icon from "../../public/assets/game_icon.png";
+import default_game_icon from "../../public/assets/logo.png";
 import default_background from "../../public/assets/background.png";
+import default_search from "../../public/assets/search.png";
+import default_trophy from "../../public/assets/trophy.png";
+import default_item from "../../public/assets/item.webp";
+import default_quest from "../../public/assets/quest.png";
+import default_money from "../../public/assets/money.png";
+import default_exp from "../../public/assets/exp.png";
+import default_check from "../../public/assets/check.png";
 
 const GameAssetsContext = createContext<GameAssetsContextType | null>(null);
 
@@ -33,20 +40,20 @@ export function GameAssetsProvider({ children }: Props) {
 		() => ({
 			game,
 
-			checkbox_image: icons?.checkbox_image ?? null,
-			logo: icons?.logo ?? null,
-			character: icons?.character ?? null,
+			checkbox_image: icons?.checkbox_image?.url ?? default_check,
+			logo: icons?.logo?.url ?? default_game_icon,
+			character: icons?.character?.url ?? null,
 
 			backgrounds: icons?.backgrounds?.length ? icons.backgrounds : [{ url: default_background }],
 			nav_icons: icons?.nav_icons ?? [],
 
-			currency_icon: icons?.currency_icon ?? null,
-			experience_icon: icons?.experience_icon ?? null,
-			item_icon: icons?.item_icon ?? null,
-			game_icon: icons?.game_icon.url ?? default_game_icon,
-			default_icon: icons?.default_icon.url ?? default_game_icon,
-			achievement_icon: icons?.achievement_icon ?? null,
-			search_icon: icons?.search_icon ?? null,
+			currency_icon: icons?.currency_icon?.url ?? default_money,
+			experience_icon: icons?.experience_icon?.url ?? default_exp,
+			item_icon: icons?.item_icon?.url ?? default_item,
+			game_icon: icons?.game_icon?.url ?? default_game_icon,
+			default_icon: icons?.default_icon?.url ?? default_quest,
+			achievement_icon: icons?.achievement_icon?.url ?? default_trophy,
+			search_icon: icons?.search_icon?.url ?? default_search,
 
 			loading,
 			error

@@ -13,6 +13,8 @@ import { questVariants } from "@/app/components/quest/variant/questVariants";
 import { useFilters } from "@/app/context/FiltersContext";
 import { Quest } from "@/app/types/quest";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import default_banner from "../../../../public/assets/banner.png";
 
 type Props = {
 	quest: Quest;
@@ -28,13 +30,14 @@ export default function QuestWrapper({ quest }: Props) {
 	const { uuid, level, quest_type, title, description, tags, rewards, location } = quest;
 	const completed = isCompleted(uuid);
 	const shortDesc = description.slice(0, 60) + "...";
+	const { default_icon } = useGameAssets();
 
 	return (
 		<div className={styles.wrapper.base(completed)}>
 			<QuestAccent completed={completed} color={quest_type.color} />
 
 			<QuestMeta level={level}>
-				<QuestImage icon={quest_type.icon.url} src={location.banner.url} />
+				<QuestImage icon={quest_type?.icon?.url ?? default_icon} src={location?.banner?.url ?? default_banner} />
 			</QuestMeta>
 
 			<div className={styles.wrapper.content()}>

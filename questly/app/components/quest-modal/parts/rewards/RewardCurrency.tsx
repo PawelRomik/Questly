@@ -1,9 +1,10 @@
 import FixedImage from "@/app/components/common/FixedImage";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { StaticImageData } from "next/image";
 
 type Props = {
-	icon: string;
+	icon: string | StaticImageData;
 	value: number;
 };
 
