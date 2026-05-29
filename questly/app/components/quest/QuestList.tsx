@@ -37,7 +37,7 @@ export default function QuestList() {
 			getGroupIcon,
 			getActIcon
 		},
-		{ searchIcon: search_icon?.url || "", defaultIcon: default_icon?.url || "" }
+		{ searchIcon: search_icon, defaultIcon: default_icon }
 	);
 
 	return (

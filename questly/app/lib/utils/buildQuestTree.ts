@@ -1,6 +1,8 @@
 import { groupBy } from "@/app/lib/utils/group";
 import { getKeyValue } from "@/app/lib/utils/groupHelpers";
 import { Quest } from "@/app/types/quest";
+import { StaticImageData } from "next/image";
+import default_quest from "../../../public/assets/quest.png";
 
 export type GroupKey = "quest_group" | "act" | "location" | "type";
 
@@ -8,14 +10,14 @@ type GroupNode = {
 	title: string;
 	items?: Quest[];
 	children?: GroupNode[];
-	icon?: string;
+	icon: string | StaticImageData;
 };
 
 export type Getters = {
-	getTypeIcon: (list: Quest[]) => string | undefined;
-	getLocationIcon: (list: Quest[]) => string | undefined;
-	getGroupIcon: (list: Quest[]) => string | undefined;
-	getActIcon: (list: Quest[]) => string | undefined;
+	getTypeIcon: (list: Quest[]) => string | StaticImageData;
+	getLocationIcon: (list: Quest[]) => string | StaticImageData;
+	getGroupIcon: (list: Quest[]) => string | StaticImageData;
+	getActIcon: (list: Quest[]) => string | StaticImageData;
 };
 
 export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters): GroupNode[] {
@@ -23,7 +25,8 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 		return [
 			{
 				title: "All quests",
-				items: quests
+				items: quests,
+				icon: default_quest
 			}
 		];
 	}
@@ -46,7 +49,8 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 
 		return entries.map(([title, grouped]) => {
 			const node: GroupNode = {
-				title
+				title,
+				icon: default_quest
 			};
 
 			if (depth === keys.length - 1) {

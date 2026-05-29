@@ -5,13 +5,14 @@ import collectQuests from "@/app/hooks/collectQuests";
 
 import { sortQuests } from "@/app/lib/utils/sortQuests";
 import { Quest } from "@/app/types/quest";
+import { StaticImageData } from "next/image";
 import { useParams } from "next/navigation";
 
 export type GroupNode = {
 	title: string;
 	items?: Quest[];
 	children?: GroupNode[];
-	icon?: string;
+	icon: string | StaticImageData;
 };
 
 type QuestTreeRendererProps = {

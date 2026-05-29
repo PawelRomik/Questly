@@ -17,11 +17,11 @@ export function QuestRewards({ rewards }: Props) {
 			<span className={styles.rewards.title()}>Reward</span>
 
 			<div className={styles.rewards.list()}>
-				{rewards.experience > 0 && <QuestRewardItem value={`+${rewards.experience}`} icon={experience_icon?.url || ""} alt='xp' />}
+				{rewards.experience > 0 && <QuestRewardItem value={`+${rewards.experience}`} icon={experience_icon} alt='xp' />}
 
-				{rewards.money > 0 && <QuestRewardItem value={`+${rewards.money}`} icon={currency_icon?.url || ""} alt='money' />}
+				{rewards.money > 0 && <QuestRewardItem value={`+${rewards.money}`} icon={currency_icon} alt='money' />}
 
-				{rewards.items.length > 0 && <QuestRewardItem value='+ item' icon={item_icon?.url || ""} alt='item' />}
+				{rewards.items.length > 0 && <QuestRewardItem value='+ item' icon={item_icon} alt='item' />}
 			</div>
 		</div>
 	);

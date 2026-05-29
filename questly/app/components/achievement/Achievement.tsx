@@ -8,6 +8,7 @@ import AchievementHidden from "@/app/components/achievement/content/AchievementH
 import { AchievementType } from "@/app/types/achievement";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 type Props = {
 	achievement: AchievementType;
@@ -32,12 +33,13 @@ export default function Achievement({ achievement, completed, search, onToggle }
 		e.stopPropagation();
 		onToggle();
 	};
+	const { achievement_icon } = useGameAssets();
 
 	return (
 		<div onClick={handleReveal} className={styles.achievement(completed)}>
 			{isHidden && <AchievementHidden />}
 
-			<AchievementImage completed={completed} src={icon.url} />
+			<AchievementImage completed={completed} src={icon?.url ?? achievement_icon} />
 
 			<AchievementContent search={search} revealed={revealed} achievement={achievement} completed={completed} />
 

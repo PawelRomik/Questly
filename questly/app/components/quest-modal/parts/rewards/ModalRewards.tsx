@@ -20,9 +20,9 @@ export function ModalRewards({ rewards }: Props) {
 
 			<div className={styles.rewards.content()}>
 				<div className={styles.rewards.list()}>
-					<RewardCurrency icon={experience_icon?.url || ""} value={rewards.experience} />
+					<RewardCurrency icon={experience_icon} value={rewards.experience} />
 
-					<RewardCurrency icon={currency_icon?.url || ""} value={rewards.money} />
+					<RewardCurrency icon={currency_icon} value={rewards.money} />
 
 					<RewardItems items={rewards.items} />
 				</div>

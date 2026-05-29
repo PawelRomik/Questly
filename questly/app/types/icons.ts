@@ -22,20 +22,20 @@ export type Icons = {
 export type GameAssetsContextType = {
 	game: string;
 
-	checkbox_image: ImageAsset | null;
-	logo: ImageAsset | null;
-	character: ImageAsset | null;
+	checkbox_image: string | StaticImageData;
+	logo: string | StaticImageData;
+	character: string | null;
 
 	backgrounds: ImageAsset[] | { url: StaticImageData }[];
 	nav_icons: ImageAsset[];
 
-	currency_icon: ImageAsset | null;
-	experience_icon: ImageAsset | null;
-	item_icon: ImageAsset | null;
+	currency_icon: string | StaticImageData;
+	experience_icon: string | StaticImageData;
+	item_icon: string | StaticImageData;
 	game_icon: string | StaticImageData;
 	default_icon: string | StaticImageData;
-	achievement_icon: ImageAsset | null;
-	search_icon: ImageAsset | null;
+	achievement_icon: string | StaticImageData;
+	search_icon: string | StaticImageData;
 
 	loading: boolean;
 	error?: Error;

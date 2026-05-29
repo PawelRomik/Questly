@@ -9,6 +9,8 @@ import { ModalDescription } from "@/app/components/quest-modal/parts/ModalDescri
 import { ModalRequirements } from "@/app/components/quest-modal/parts/requirements/ModalRequirements";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import default_character from "../../../public/assets/chh.png";
+import default_map from "../../../public/assets/map.png";
 
 type Props = {
 	quest: Quest;
@@ -19,9 +21,9 @@ export function QuestModalLayout({ quest }: Props) {
 
 	return (
 		<div className={styles.base()}>
-			<ModalCharacter src={quest.character?.image.url || ""} />
+			<ModalCharacter src={quest.character?.image?.url || default_character} />
 
-			<ModalMap src={quest.location.minimap.url} />
+			<ModalMap src={quest.location?.minimap?.url || default_map} />
 
 			<ModalHeader quest={quest} />
 

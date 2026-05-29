@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import FixedImage from "@/app/components/common/FixedImage";
+import { StaticImageData } from "next/image";
 
 type Props = {
 	title: string;
 	count: number;
 	completed?: number;
-	icon?: string;
+	icon: string | StaticImageData;
 	open: boolean;
 };
 

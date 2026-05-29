@@ -46,7 +46,7 @@ export default function AchievementList() {
 		<div className={styles.root()}>
 			{grouped.map((group) => {
 				const completedCount = group.items.filter((a) => isCompleted(a.uuid)).length;
-				const icon = search ? search_icon?.url : group.icon || achievement_icon?.url;
+				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
 					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount} icon={icon}>

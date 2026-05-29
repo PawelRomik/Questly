@@ -10,6 +10,7 @@ import { CollectionButton } from "./CollectionButton";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 
 type Props = {
 	collection: CollectionType;
@@ -32,6 +33,7 @@ export default function Collection({ collection }: Props) {
 
 	const total = items.length;
 	const isComplete = completedCount === total;
+	const { item_icon } = useGameAssets();
 
 	const handleItemClick = (itemUuid: string) => {
 		toggleCollectionItem(uuid, itemUuid);
@@ -61,7 +63,13 @@ export default function Collection({ collection }: Props) {
 
 			<div className={styles.collection.grid()}>
 				{items.map((item) => (
-					<CollectionItem key={item.uuid} name={item.name} src={item.image.url} completed={!!completedMap.get(item.uuid)} onClick={() => handleItemClick(item.uuid)} />
+					<CollectionItem
+						key={item.uuid}
+						name={item.name}
+						src={item?.image?.url ?? item_icon}
+						completed={!!completedMap.get(item.uuid)}
+						onClick={() => handleItemClick(item.uuid)}
+					/>
 				))}
 			</div>
 
