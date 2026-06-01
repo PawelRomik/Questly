@@ -517,6 +517,7 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -624,6 +625,7 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -650,6 +652,35 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
           'uuid-format': '^C[a-zA-Z0-9]{5}$';
         }
       >;
+  };
+}
+
+export interface ApiDlcDlc extends Struct.CollectionTypeSchema {
+  collectionName: 'dlcs';
+  info: {
+    displayName: 'dlc';
+    pluralName: 'dlcs';
+    singularName: 'dlc';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    color: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::dlc.dlc'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -959,6 +990,7 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
+    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1576,6 +1608,7 @@ declare module '@strapi/strapi' {
       'api::character.character': ApiCharacterCharacter;
       'api::collection-group.collection-group': ApiCollectionGroupCollectionGroup;
       'api::collection.collection': ApiCollectionCollection;
+      'api::dlc.dlc': ApiDlcDlc;
       'api::game.game': ApiGameGame;
       'api::icon.icon': ApiIconIcon;
       'api::item-type.item-type': ApiItemTypeItemType;

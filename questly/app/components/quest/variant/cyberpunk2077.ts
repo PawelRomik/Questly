@@ -221,7 +221,8 @@ export const cyberpunk2077Styles = {
 		title: {
 			wrapper: () => ``,
 			base: () => questTitleClass
-		}
+		},
+		dlc: () => ``
 	},
 	divider: () => questDividerClass,
 	image: {

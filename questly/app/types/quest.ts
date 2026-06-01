@@ -103,6 +103,13 @@ export type QuestGroup = {
 		url: string;
 	};
 };
+export type DLC = {
+	title: string;
+	color: string;
+	icon: {
+		url: string;
+	};
+};
 
 export type Quest = {
 	uuid: string;
@@ -119,6 +126,7 @@ export type Quest = {
 	quest_act: QuestAct;
 	quest_groups: QuestGroup[];
 	rewards: Rewards;
+	dlc: DLC;
 	requirement: Requirement[];
 };
 
