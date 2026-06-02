@@ -50,6 +50,9 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			tags {
 				name
+				dlc {
+					color
+				}
 			}
 			requirement {
 				level
@@ -95,6 +98,13 @@ export const GET_QUESTS_NO_TAGS = gql`
 					}
 				}
 				other
+			}
+			dlc {
+				title
+				color
+				icon {
+					url
+				}
 			}
 		}
 	}
@@ -150,6 +160,9 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			tags {
 				name
+				dlc {
+					color
+				}
 			}
 			requirement {
 				level
@@ -196,6 +209,13 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				}
 				other
 			}
+			dlc {
+				title
+				color
+				icon {
+					url
+				}
+			}
 		}
 	}
 `;
@@ -206,6 +226,13 @@ export const GET_NEXT_QUEST = gql`
 			title
 			uuid
 			quest_type {
+				icon {
+					url
+				}
+			}
+			dlc {
+				title
+				color
 				icon {
 					url
 				}
@@ -226,6 +253,13 @@ export const GET_ACHIEVEMENTS = gql`
 			}
 			achievement_group {
 				name
+				icon {
+					url
+				}
+			}
+			dlc {
+				title
+				color
 				icon {
 					url
 				}

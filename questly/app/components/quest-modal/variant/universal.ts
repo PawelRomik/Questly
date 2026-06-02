@@ -130,6 +130,11 @@ const modalHeaderLayoutClass = `
   text-xl uppercase
 `;
 
+const modalHeaderWrapperClass = `
+flex items-center justify-center gap-3`;
+
+const modalHeaderDLCImageClass = `h-4 w-auto`;
+
 const modalHeaderImageLayoutClass = `
   w-13.75
   object-contain
@@ -293,7 +298,11 @@ export const universalStyles = {
 	},
 	header: {
 		base: () => modalHeaderLayoutClass,
-		title: () => modalHeaderTitleLayoutClass,
+		title: {
+			wrapper: () => modalHeaderWrapperClass,
+			base: () => modalHeaderTitleLayoutClass,
+			image: () => modalHeaderDLCImageClass
+		},
 		subtitle: () => modalHeaderSubtitleLayoutClass,
 		image: () => modalHeaderImageLayoutClass,
 		level: () => modalHeaderLevelLayoutClass

@@ -80,6 +80,8 @@ const questImageWrapperLayoutClass = `
   flex items-center justify-center
 `;
 
+const questDlcClass = `h-3 w-auto`;
+
 const questImageContainerLayoutClass = `
   relative
 
@@ -100,7 +102,10 @@ const questImageIconLayoutClass = `
   bottom-0
   right-11
 
-  w-7.5
+  object-contain
+
+  h-7.5
+  w-auto
 `;
 
 // ----------------------------------------
@@ -214,7 +219,8 @@ export const universalStyles = {
 		title: {
 			wrapper: () => questTitleWrapperLayoutClass,
 			base: () => questTitleLayoutClass
-		}
+		},
+		dlc: () => questDlcClass
 	},
 	divider: () => questDividerLayoutClass,
 	image: {

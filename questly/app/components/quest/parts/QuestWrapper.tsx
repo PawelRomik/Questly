@@ -27,7 +27,7 @@ export default function QuestWrapper({ quest }: Props) {
 	const styles = useGameStyles(questVariants);
 	const { filters } = useFilters();
 	const { searchTags, search } = filters;
-	const { uuid, level, quest_type, title, description, tags, rewards, location } = quest;
+	const { uuid, level, dlc, quest_type, title, description, tags, rewards, location } = quest;
 	const completed = isCompleted(uuid);
 	const shortDesc = description.slice(0, 60) + "...";
 	const { default_icon } = useGameAssets();
@@ -41,7 +41,7 @@ export default function QuestWrapper({ quest }: Props) {
 			</QuestMeta>
 
 			<div className={styles.wrapper.content()}>
-				<QuestContent title={title} level={level} shortDesc={shortDesc} tags={tags.map((t) => t.name)} completed={completed} search={search} searchTags={searchTags} />
+				<QuestContent title={title} level={level} dlc={dlc} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
 			</div>
 
 			<QuestRewards rewards={rewards} />

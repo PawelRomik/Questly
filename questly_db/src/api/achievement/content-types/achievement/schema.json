@@ -46,6 +46,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::achievement-group.achievement-group"
+    },
+    "dlc": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dlc.dlc"
     }
   }
 }

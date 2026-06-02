@@ -27,8 +27,11 @@ export type Rewards = {
 	other: string;
 };
 
-export type Tag = {
+export type TagType = {
 	name: string;
+	dlc?: {
+		color: string;
+	};
 };
 
 export type QuestType = {
@@ -103,6 +106,13 @@ export type QuestGroup = {
 		url: string;
 	};
 };
+export type DLC = {
+	title: string;
+	color: string;
+	icon: {
+		url: string;
+	};
+};
 
 export type Quest = {
 	uuid: string;
@@ -115,10 +125,11 @@ export type Quest = {
 	location: Location;
 	map: Map;
 	character: Character;
-	tags: Tag[];
+	tags: TagType[];
 	quest_act: QuestAct;
 	quest_groups: QuestGroup[];
 	rewards: Rewards;
+	dlc: DLC;
 	requirement: Requirement[];
 };
 

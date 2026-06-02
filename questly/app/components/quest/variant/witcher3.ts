@@ -166,7 +166,8 @@ export const witcher3Styles = {
 		title: {
 			wrapper: () => ``,
 			base: () => questTitleClass
-		}
+		},
+		dlc: () => ``
 	},
 	divider: () => questDividerClass,
 	image: {

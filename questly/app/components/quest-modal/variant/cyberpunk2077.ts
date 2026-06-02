@@ -339,7 +339,11 @@ export const cyberpunk2077Styles = {
 	header: {
 		base: () => modalHeaderClass,
 
-		title: () => modalHeaderTitleClass,
+		title: {
+			wrapper: () => ``,
+			base: () => modalHeaderTitleClass,
+			image: () => ``
+		},
 
 		subtitle: () => modalHeaderSubtitleClass,
 

@@ -186,7 +186,8 @@ export const defaultQuestStyles = {
 		title: {
 			wrapper: () => ``,
 			base: () => questTitleClass
-		}
+		},
+		dlc: () => ``
 	},
 	divider: () => questDividerClass,
 	image: {
