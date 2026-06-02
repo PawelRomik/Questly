@@ -169,7 +169,11 @@ export const defaultAchievementStyles = {
 
 	achievement: (completed: boolean) => achievementClass(completed),
 
-	title: (completed: boolean) => achievementTitleVariant(completed),
+	title: {
+		wrapper: () => ``,
+		base: (completed: boolean) => achievementTitleVariant(completed),
+		icon: () => ``
+	},
 
 	hidden: () => achievementHiddenClass,
 

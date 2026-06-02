@@ -18,6 +18,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
+    },
+    "dlc": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dlc.dlc"
     }
   }
 }

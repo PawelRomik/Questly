@@ -15,10 +15,14 @@ export function ModalHeader({ quest }: Props) {
 			<FixedImage src={quest.location?.banner?.url ?? default_banner} className={styles.header.image()} alt={quest.location.name} />
 
 			<div>
-				<h2 className={styles.header.title()}>{quest.title}</h2>
+				<div className={styles.header.title.wrapper()}>
+					<h2 className={styles.header.title.base()}>{quest.title}</h2>
+					{quest.dlc && <FixedImage src={quest.dlc?.icon?.url} alt='dlc' className={styles.header.title.image()} />}
+				</div>
 
-				<p className={styles.header.subtitle()}>
-					{quest.location.name} | {quest.quest_type.name}
+				<p style={{ color: quest.dlc?.color }} className={styles.header.subtitle()}>
+					{quest.location.name} | <span></span>
+					{quest.quest_type.name}
 				</p>
 
 				<p className={styles.header.level()}>Suggested level {quest.level}</p>

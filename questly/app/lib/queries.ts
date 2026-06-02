@@ -50,6 +50,9 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			tags {
 				name
+				dlc {
+					color
+				}
 			}
 			requirement {
 				level
@@ -157,6 +160,9 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			tags {
 				name
+				dlc {
+					color
+				}
 			}
 			requirement {
 				level
@@ -247,6 +253,13 @@ export const GET_ACHIEVEMENTS = gql`
 			}
 			achievement_group {
 				name
+				icon {
+					url
+				}
+			}
+			dlc {
+				title
+				color
 				icon {
 					url
 				}

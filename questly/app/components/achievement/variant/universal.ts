@@ -13,6 +13,11 @@ const achievementTitleLayoutClass = `
   text-lg uppercase tracking-wide
 `;
 
+const achievementTitleWrapperClass = `flex items-center justify-center gap-3
+`;
+
+const achievementTitleIconClass = `h-4 w-auto`;
+
 const achievementDescriptionLayoutClass = `
   text-sm
 `;
@@ -54,7 +59,11 @@ export const universalStyles = {
 	root: () => AchievementListContainerClass,
 	achievement: () => achievementClass,
 	container: () => AchievementContentContainerClass,
-	title: () => achievementTitleLayoutClass,
+	title: {
+		wrapper: () => achievementTitleWrapperClass,
+		base: () => achievementTitleLayoutClass,
+		icon: () => achievementTitleIconClass
+	},
 	hidden: () => achievementHiddenClass,
 	description: () => achievementDescriptionLayoutClass,
 	image: {

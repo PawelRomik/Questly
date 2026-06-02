@@ -69,8 +69,11 @@ export const witcher3Styles = {
 	root: () => ``,
 	achievement: (completed: boolean) => achievementClass(completed),
 
-	title: (completed: boolean) => achievementTitleVariant(completed),
-
+	title: {
+		wrapper: () => ``,
+		base: (completed: boolean) => achievementTitleVariant(completed),
+		icon: () => ``
+	},
 	hidden: () => achievementHiddenClass,
 
 	description: achievementDescriptionClass,

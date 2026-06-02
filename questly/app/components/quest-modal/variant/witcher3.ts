@@ -235,7 +235,11 @@ export const witcher3Styles = {
 	},
 	header: {
 		base: () => modalHeaderClass,
-		title: () => modalHeaderTitleClass,
+		title: {
+			wrapper: () => ``,
+			base: () => modalHeaderTitleClass,
+			image: () => ``
+		},
 		subtitle: () => modalHeaderSubtitleClass,
 		image: () => ``,
 		level: () => modalHeaderLevelClass

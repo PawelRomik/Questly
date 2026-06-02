@@ -27,8 +27,11 @@ export type Rewards = {
 	other: string;
 };
 
-export type Tag = {
+export type TagType = {
 	name: string;
+	dlc?: {
+		color: string;
+	};
 };
 
 export type QuestType = {
@@ -122,7 +125,7 @@ export type Quest = {
 	location: Location;
 	map: Map;
 	character: Character;
-	tags: Tag[];
+	tags: TagType[];
 	quest_act: QuestAct;
 	quest_groups: QuestGroup[];
 	rewards: Rewards;

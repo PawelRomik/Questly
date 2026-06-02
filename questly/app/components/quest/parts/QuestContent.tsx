@@ -6,11 +6,12 @@ import { QuestDescription } from "./QuestDescription";
 import { QuestTags } from "@/app/components/quest/parts/QuestTags";
 import { questVariants } from "@/app/components/quest/variant/questVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { TagType } from "@/app/types/quest";
 
 type Props = {
 	title: string;
 	shortDesc: string;
-	tags: string[];
+	tags: TagType[];
 	completed: boolean;
 	search: string;
 	searchTags: boolean;
@@ -32,7 +33,7 @@ export function QuestContent({ title, shortDesc, dlc, tags, searchTags, complete
 
 			<QuestDescription description={shortDesc} />
 
-			<QuestTags tags={tags} dlc={dlc} search={search} searchTags={searchTags} completed={completed} />
+			<QuestTags tags={tags} search={search} searchTags={searchTags} completed={completed} />
 		</div>
 	);
 }

@@ -286,7 +286,11 @@ export const defaultModalStyles = {
 	},
 	header: {
 		base: () => modalHeaderClass,
-		title: () => modalHeaderTitleClass,
+		title: {
+			wrapper: () => ``,
+			base: () => modalHeaderTitleClass,
+			image: () => ``
+		},
 		subtitle: () => modalHeaderSubtitleClass,
 		image: () => ``,
 		level: () => modalHeaderLevelClass

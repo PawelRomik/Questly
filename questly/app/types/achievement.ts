@@ -1,3 +1,5 @@
+import { DLC } from "@/app/types/quest";
+
 export type AchievementType = {
 	title: string;
 	description: string;
@@ -7,6 +9,7 @@ export type AchievementType = {
 	game: string;
 	uuid: string;
 	secret: boolean;
+	dlc?: DLC;
 	achievement_group: {
 		name: string;
 		icon: {

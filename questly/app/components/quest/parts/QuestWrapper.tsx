@@ -41,7 +41,7 @@ export default function QuestWrapper({ quest }: Props) {
 			</QuestMeta>
 
 			<div className={styles.wrapper.content()}>
-				<QuestContent title={title} level={level} dlc={dlc} shortDesc={shortDesc} tags={tags.map((t) => t.name)} completed={completed} search={search} searchTags={searchTags} />
+				<QuestContent title={title} level={level} dlc={dlc} shortDesc={shortDesc} tags={tags} completed={completed} search={search} searchTags={searchTags} />
 			</div>
 
 			<QuestRewards rewards={rewards} />

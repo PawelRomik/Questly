@@ -13,12 +13,12 @@ type Props = {
 };
 
 export function AchievementContent({ achievement, completed, revealed, search }: Props) {
-	const { title, description, secret } = achievement;
+	const { title, description, secret, dlc } = achievement;
 	const styles = useGameStyles(achievementVariants);
 
 	return (
 		<div className={styles.container()}>
-			<AchievementTitle title={title} completed={completed} search={search} />
+			<AchievementTitle dlc={dlc} title={title} completed={completed} search={search} />
 			<AchievementDescription description={description} revealed={revealed} secret={secret} />
 
 			{completed && <CompletedTag />}
