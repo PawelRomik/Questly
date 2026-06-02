@@ -20,8 +20,8 @@ export function QuestTitle({ title, search, dlc }: Props) {
 
 	return (
 		<div className={styles.content.title.wrapper()}>
-			{dlc && <FixedImage src={dlc?.icon?.url} alt='dlc' className={styles.content.dlc()} />}
 			<h2 className={styles.content.title.base()}>{highlightText(title, search)}</h2>
+			{dlc && <FixedImage src={dlc?.icon?.url} alt='dlc' className={styles.content.dlc()} />}
 		</div>
 	);
 }
