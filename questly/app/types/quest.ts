@@ -1,6 +1,7 @@
 export type Item = {
 	uuid: string;
 	name: string;
+	missable: boolean;
 	image: {
 		url: string;
 	};
@@ -17,6 +18,7 @@ export type Item = {
 		name: string;
 		color: string;
 	};
+	dlc?: DLC;
 	game: string;
 };
 

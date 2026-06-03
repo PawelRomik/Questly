@@ -69,6 +69,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::item-type.item-type"
+    },
+    "missable": {
+      "type": "boolean"
+    },
+    "dlc": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dlc.dlc"
     }
   }
 }

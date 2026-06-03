@@ -109,11 +109,19 @@ export const witcher3Styles = {
 			base: () => ``,
 			row: () => ``,
 			title: () => collectionHeaderTitleClass,
-			counter: () => collectionHeaderCounterClass
+			counter: () => collectionHeaderCounterClass,
+			missable: () => ``,
+			wrapper: () => ``,
+			dlc: {
+				base: () => ``,
+				icon: () => ``
+			}
 		},
 		item: {
 			base: (completed: boolean) => collectionItemClass(completed),
-			image: () => collectionItemImageClass
+			image: () => collectionItemImageClass,
+			wrapper: () => ``,
+			missableIcon: () => ``
 		}
 	},
 	group: {

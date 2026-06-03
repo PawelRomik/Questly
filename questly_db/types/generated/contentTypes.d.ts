@@ -526,6 +526,7 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
       'api::achievement.achievement'
     > &
       Schema.Attribute.Private;
+    missable: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     secret: Schema.Attribute.Boolean;
     title: Schema.Attribute.String;
@@ -625,7 +626,6 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -814,6 +814,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     damage: Schema.Attribute.Integer;
     description: Schema.Attribute.RichText;
+    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     effects: Schema.Attribute.RichText;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
@@ -825,6 +826,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
       Schema.Attribute.Private;
+    missable: Schema.Attribute.Boolean;
     name: Schema.Attribute.String;
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
@@ -998,6 +1000,7 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
     map: Schema.Attribute.Component<'map.map', false>;
+    missable: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     quest_act: Schema.Attribute.Relation<
       'oneToOne',

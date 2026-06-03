@@ -56,9 +56,19 @@ const collectionHeaderLayoutClass = `
 `;
 
 const collectionHeaderRowLayoutClass = `
-  flex justify-between items-center
+  flex justify-between flex-col items-center gap-2
 `;
 
+const collectionHeaderDLCWrapperClass = `
+w-full flex gap-3`;
+
+const collectionHeaderDLCIconClass = `h-4 w-auto`;
+
+const collectionHeaderWrapperClass = `
+flex w-full justify-between`;
+
+const collectionHeaderMissableClass = `text-white lett bg-gradient-to-r font-bold from-red-900 via-red-800 to-red-700 tracking-wider -skew-x-15 px-2 italic  text-xs
+`;
 const collectionHeaderTitleLayoutClass = `
   text-lg font-bold tracking-wide
 `;
@@ -79,6 +89,10 @@ const collectionItemImageLayoutClass = `
   w-28 h-28 object-contain
   transition
 `;
+
+const collectionItemWrapperClass = `relative`;
+
+const collectionMissableIconClass = "h-8 w-auto absolute bottom-0 right-[35%] translate-x-[50%]";
 
 // ----------------------------------------
 
@@ -115,11 +129,19 @@ export const universalStyles = {
 			base: () => collectionHeaderLayoutClass,
 			row: () => collectionHeaderRowLayoutClass,
 			title: () => collectionHeaderTitleLayoutClass,
-			counter: () => collectionHeaderCounterLayoutClass
+			counter: () => collectionHeaderCounterLayoutClass,
+			missable: () => collectionHeaderMissableClass,
+			wrapper: () => collectionHeaderWrapperClass,
+			dlc: {
+				base: () => collectionHeaderDLCWrapperClass,
+				icon: () => collectionHeaderDLCIconClass
+			}
 		},
 		item: {
 			base: () => collectionItemLayoutClass,
-			image: () => collectionItemImageLayoutClass
+			image: () => collectionItemImageLayoutClass,
+			wrapper: () => collectionItemWrapperClass,
+			missableIcon: () => collectionMissableIconClass
 		}
 	},
 	group: {
