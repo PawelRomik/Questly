@@ -11,6 +11,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 				}
 				color
 			}
+			missable
 			quest_act {
 				title
 				order
@@ -121,6 +122,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				}
 				color
 			}
+			missable
 			quest_act {
 				title
 				order
@@ -251,6 +253,7 @@ export const GET_ACHIEVEMENTS = gql`
 			icon {
 				url
 			}
+			missable
 			achievement_group {
 				name
 				icon {
@@ -286,8 +289,16 @@ export const GET_COLLECTIONS = gql`
 					image {
 						url
 					}
+					missable
 					name
 					description
+					dlc {
+						title
+						color
+						icon {
+							url
+						}
+					}
 				}
 				type
 				title

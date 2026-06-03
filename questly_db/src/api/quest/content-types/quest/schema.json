@@ -84,6 +84,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::dlc.dlc"
+    },
+    "missable": {
+      "type": "boolean"
     }
   }
 }

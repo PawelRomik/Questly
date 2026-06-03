@@ -55,17 +55,21 @@ export default function Collection({ collection }: Props) {
 		});
 	};
 
+	const dlcs = useMemo(() => Array.from(new Map(items.filter((item) => item.dlc).map((item) => [item.dlc!.title, item.dlc!])).values()), [items]);
+	const hasMissable = useMemo(() => items.some((item) => item.missable), [items]);
+
 	return (
 		<div className={styles.collection.base(isComplete)}>
 			<CollectionAccent completed={isComplete} />
 
-			<CollectionHeader title={title} completed={completedCount} total={total} />
+			<CollectionHeader dlcs={dlcs} title={title} hasMissable={hasMissable} completed={completedCount} total={total} />
 
 			<div className={styles.collection.grid()}>
 				{items.map((item) => (
 					<CollectionItem
 						key={item.uuid}
 						name={item.name}
+						missable={item.missable}
 						src={item?.image?.url ?? item_icon}
 						completed={!!completedMap.get(item.uuid)}
 						onClick={() => handleItemClick(item.uuid)}

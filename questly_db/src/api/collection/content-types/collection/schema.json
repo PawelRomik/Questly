@@ -37,11 +37,6 @@
       "options": {
         "uuid-format": "^C[a-zA-Z0-9]{5}$"
       }
-    },
-    "dlc": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::dlc.dlc"
     }
   }
 }
