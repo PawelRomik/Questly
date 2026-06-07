@@ -1,6 +1,7 @@
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import FixedImage from "@/app/components/common/FixedImage";
 import ProgressBar from "@/app/components/section/ProgressBar";
+import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { DLC } from "@/app/types/quest";
 
@@ -14,6 +15,7 @@ type Props = {
 
 export function CollectionHeader({ title, completed, dlcs, total, hasMissable }: Props) {
 	const styles = useGameStyles(collectionVariants);
+	const { missable_logo } = useGameAssets();
 
 	return (
 		<div className={styles.collection.header.base()}>
@@ -23,7 +25,7 @@ export function CollectionHeader({ title, completed, dlcs, total, hasMissable }:
 						{dlcs?.map((dlc) => (
 							<FixedImage key={dlc.title} src={dlc.icon.url} alt={dlc.title} className={styles.collection.header.dlc.icon()} />
 						))}
-						{hasMissable && <p className={styles.collection.header.missable()}>MISSABLE</p>}
+						{hasMissable && <FixedImage src={missable_logo} alt='dlc' className={styles.collection.header.missable()} />}
 					</div>
 				)}
 

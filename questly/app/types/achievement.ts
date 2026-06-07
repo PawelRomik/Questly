@@ -6,6 +6,7 @@ export type AchievementType = {
 	icon: {
 		url: string;
 	};
+	missable?: boolean;
 	game: string;
 	uuid: string;
 	secret: boolean;

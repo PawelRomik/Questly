@@ -17,6 +17,11 @@ export type Icons = {
 	default_icon: ImageAsset;
 	achievement_icon: ImageAsset;
 	search_icon: ImageAsset;
+	missable: {
+		missable_icon: ImageAsset;
+		missable_logo: ImageAsset;
+		missable_color: string;
+	};
 };
 
 export type GameAssetsContextType = {
@@ -36,7 +41,9 @@ export type GameAssetsContextType = {
 	default_icon: string | StaticImageData;
 	achievement_icon: string | StaticImageData;
 	search_icon: string | StaticImageData;
-
+	missable_icon: string | StaticImageData;
+	missable_logo: string | StaticImageData;
+	missable_color: string;
 	loading: boolean;
 	error?: Error;
 };
