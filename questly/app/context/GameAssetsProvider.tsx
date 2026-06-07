@@ -15,6 +15,8 @@ import default_quest from "../../public/assets/quest.png";
 import default_money from "../../public/assets/money.png";
 import default_exp from "../../public/assets/exp.png";
 import default_check from "../../public/assets/check.png";
+import default_missable from "../../public/assets/missable.png";
+import default_miss from "../../public/assets/miss.png";
 
 const GameAssetsContext = createContext<GameAssetsContextType | null>(null);
 
@@ -54,6 +56,9 @@ export function GameAssetsProvider({ children }: Props) {
 			default_icon: icons?.default_icon?.url ?? default_quest,
 			achievement_icon: icons?.achievement_icon?.url ?? default_trophy,
 			search_icon: icons?.search_icon?.url ?? default_search,
+			missable_icon: icons?.missable?.missable_icon?.url ?? default_miss,
+			missable_logo: icons?.missable?.missable_logo?.url ?? default_missable,
+			missable_color: icons?.missable?.missable_color ?? "red",
 
 			loading,
 			error

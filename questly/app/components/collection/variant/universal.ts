@@ -67,7 +67,7 @@ const collectionHeaderDLCIconClass = `h-4 w-auto`;
 const collectionHeaderWrapperClass = `
 flex w-full justify-between`;
 
-const collectionHeaderMissableClass = `text-white lett bg-gradient-to-r font-bold from-red-900 via-red-800 to-red-700 tracking-wider -skew-x-15 px-2 italic  text-xs
+const collectionHeaderMissableClass = `h-4 w-auto
 `;
 const collectionHeaderTitleLayoutClass = `
   text-lg font-bold tracking-wide

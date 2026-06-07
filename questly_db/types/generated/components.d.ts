@@ -14,6 +14,24 @@ export interface MapMap extends Struct.ComponentSchema {
   };
 }
 
+export interface MissableMissable extends Struct.ComponentSchema {
+  collectionName: 'components_missable_missables';
+  info: {
+    displayName: 'missable';
+    icon: 'thumbDown';
+  };
+  attributes: {
+    missable_color: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    missable_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    missable_logo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+  };
+}
+
 export interface RequirementRequirement extends Struct.ComponentSchema {
   collectionName: 'components_requirement_requirements';
   info: {
@@ -54,6 +72,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'map.map': MapMap;
+      'missable.missable': MissableMissable;
       'requirement.requirement': RequirementRequirement;
       'reward.reward': RewardReward;
     }

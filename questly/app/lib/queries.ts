@@ -371,6 +371,15 @@ export const GET_ICONS = gql`
 			search_icon {
 				url
 			}
+			missable {
+				missable_icon {
+					url
+				}
+				missable_logo {
+					url
+				}
+				missable_color
+			}
 		}
 	}
 `;

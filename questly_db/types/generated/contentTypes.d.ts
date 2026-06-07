@@ -751,6 +751,7 @@ export interface ApiIconIcon extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::icon.icon'> &
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    missable: Schema.Attribute.Component<'missable.missable', false>;
     nav_icons: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true

@@ -118,6 +118,7 @@ export type DLC = {
 
 export type Quest = {
 	uuid: string;
+	missable?: boolean;
 	game: Game;
 	quest_type: QuestType;
 	title: string;
