@@ -5,6 +5,7 @@ import { SortSelect } from "./SortSelect";
 import { Filters } from "./types";
 import { filterVariants } from "@/app/components/filters/variant/filterVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { MissableSelect } from "@/app/components/filters/MissableSelect";
 
 type Props = {
 	filters: Filters;
@@ -25,12 +26,19 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 
 	return (
 		<div className={styles.settings()}>
-			{isQuestPage && <Checkbox label='Group by type' checked={filters.groupByType} disabled={isLocked} onChange={(v) => update("groupByType", v)} />}
-			{isQuestPage && <Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />}
-			{(isAchievementPage || isQuestPage) && <Checkbox label={`Group by ${content} group`} checked={filters.groupByQuestGroup} onChange={(v) => update("groupByQuestGroup", v)} />}
-			{isQuestPage && <Checkbox label='Group by act' checked={filters.groupByAct} disabled={isLocked} onChange={(v) => update("groupByAct", v)} />}
-			{isQuestPage && <Checkbox label='Group by location' checked={filters.groupByLocation} disabled={isLocked} onChange={(v) => update("groupByLocation", v)} />}
-			{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />}
+			<div className={styles.checkboxWrapper()}>
+				{isQuestPage && <Checkbox label='Group by type' checked={filters.groupByType} disabled={isLocked} onChange={(v) => update("groupByType", v)} />}
+				{isQuestPage && <Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />}
+				{(isAchievementPage || isQuestPage) && (
+					<Checkbox label={`Group by ${content} group`} checked={filters.groupByQuestGroup} onChange={(v) => update("groupByQuestGroup", v)} />
+				)}
+				{isQuestPage && <Checkbox label='Group by act' checked={filters.groupByAct} disabled={isLocked} onChange={(v) => update("groupByAct", v)} />}
+				{isQuestPage && <Checkbox label='Group by location' checked={filters.groupByLocation} disabled={isLocked} onChange={(v) => update("groupByLocation", v)} />}
+			</div>
+			<div className={styles.selectWrapper()}>
+				{isQuestPage && <MissableSelect value={filters.missables} onChange={(v) => update("missables", v)} />}
+				{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />}
+			</div>
 		</div>
 	);
 }

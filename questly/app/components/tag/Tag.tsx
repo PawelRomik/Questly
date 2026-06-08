@@ -1,5 +1,6 @@
 "use client";
 
+import { MissableOption } from "@/app/components/filters/types";
 import { tagVariants } from "@/app/components/tag/variant/tagVariants";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
@@ -26,21 +27,20 @@ export function Tag({ tag, search, searchTags, type, color }: Props) {
 		e.stopPropagation();
 
 		if (type === "dlc") {
-			/*
-        setFilters({
-            ...filters,
-            dlc: !filters.dlc
-        });*/
+			setFilters({
+				...filters,
+				searchTags: !isActive,
+				search: isActive ? "" : tag
+			});
 
 			return;
 		}
 
 		if (type === "missable") {
-			/*
-        setFilters({
-            ...filters,
-            missable: !filters.missable
-        });*/
+			setFilters({
+				...filters,
+				missables: filters.missables === MissableOption.SHOW_ONLY ? MissableOption.DEFAULT : MissableOption.SHOW_ONLY
+			});
 
 			return;
 		}

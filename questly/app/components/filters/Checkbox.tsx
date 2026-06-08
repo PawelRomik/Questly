@@ -20,7 +20,7 @@ export function Checkbox({ label, checked, disabled, onChange }: Props) {
 			<div className={styles.checkbox.inputWrapper()}>
 				<input type='checkbox' disabled={disabled} checked={checked} onChange={(e) => onChange(e.target.checked)} className={styles.checkbox.input()} />
 
-				<div className={styles.checkbox.base()}>{checked && <FixedImage src={checkbox_image?.url || ""} alt='check' className={styles.checkbox.icon()} />}</div>
+				<div className={styles.checkbox.base()}>{checked && <FixedImage src={checkbox_image} alt='check' className={styles.checkbox.icon()} />}</div>
 			</div>
 
 			<span className={styles.checkbox.label()}>{label}</span>

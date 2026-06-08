@@ -21,16 +21,6 @@ export type Getters = {
 };
 
 export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters): GroupNode[] {
-	if (!keys.length) {
-		return [
-			{
-				title: "All quests",
-				items: quests,
-				icon: default_quest
-			}
-		];
-	}
-
 	const groupRecursive = (list: Quest[], depth: number): GroupNode[] => {
 		const key = keys[depth];
 

@@ -1,14 +1,23 @@
-export const searchBarHeaderClass = `
+import { PT_Sans } from "next/font/google";
+
+const ptSans = PT_Sans({
+	subsets: ["latin", "latin-ext"],
+	weight: ["400", "700"]
+});
+
+// ----------------------------------------
+
+const searchBarHeaderClass = `
   bg-linear-to-r
 `;
 
-export const searchBarInputWrapperClass = `
+const searchBarInputWrapperClass = `
   border border-[rgb(40,37,28)]
 
   bg-black/40
 `;
 
-export const searchBarCharacterClass = `
+const searchBarCharacterClass = `
   opacity-60
 `;
 
@@ -36,7 +45,7 @@ const searchInputWrapperClass = `
   bg-linear-to-b
   from-[#1a1a1a]
   to-[#0f0f0f]
-
+  ${ptSans.className}
   shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]
 `;
 
@@ -59,9 +68,11 @@ const sortSelectWrapperClass = `
   bg-linear-to-b
   from-[#1a1a1a]
   to-[#0f0f0f]
-
+  ${ptSans.className}
   shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]
 `;
+
+const selectLabelClass = `border ${ptSans.className} border-[rgb(40,37,28)] text-[rgb(40,37,28)] font-bold bg-[#c6a85a] uppercase border-r-0`;
 
 const sortSelectFieldClass = `
   bg-transparent
@@ -83,7 +94,7 @@ const sortSelectGlowClass = `
 
 const searchSettingsClass = `
   border border-[rgb(40,37,28)]
-
+  ${ptSans.className}
   bg-linear-to-b
   from-[#1a1a1a]
   to-[#0f0f0f]
@@ -93,6 +104,8 @@ const searchSettingsClass = `
 
 export const witcher3Styles = {
 	settings: () => searchSettingsClass,
+	checkboxWrapper: () => ``,
+	selectWrapper: () => ``,
 	base: () => ``,
 	header: {
 		base: () => searchBarHeaderClass,
@@ -117,10 +130,12 @@ export const witcher3Styles = {
 		glow: () => searchInputGlowClass
 	},
 	select: {
+		container: () => ``,
 		wrapper: () => sortSelectWrapperClass,
 		base: () => sortSelectFieldClass,
 		icon: () => sortSelectIconClass,
 		accent: () => ``,
-		glow: () => sortSelectGlowClass
+		glow: () => sortSelectGlowClass,
+		label: () => selectLabelClass
 	}
 };

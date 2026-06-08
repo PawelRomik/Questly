@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function Section({ title, count, level = 0, icon, children, completed }: Props) {
-	const [open, setOpen] = useState(level === 0);
+	const [open, setOpen] = useState(true);
 	const styles = useGameStyles(sectionVariants);
 
 	const indentStyle = {

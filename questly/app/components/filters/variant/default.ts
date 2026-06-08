@@ -92,6 +92,8 @@ const sortSelectWrapperClass = `
   focus-within:border-white/20
 `;
 
+const selectLabelClass = `border border-white/10 text-black/70 font-bold bg-[white]/85 uppercase border-r-0`;
+
 const sortSelectFieldClass = `
   bg-transparent
 
@@ -126,6 +128,8 @@ const searchSettingsClass = `
 
 export const defaultFiltersStyles = {
 	settings: () => searchSettingsClass,
+	checkboxWrapper: () => ``,
+	selectWrapper: () => ``,
 	base: () => ``,
 	header: {
 		base: () => searchBarHeaderClass,
@@ -150,10 +154,12 @@ export const defaultFiltersStyles = {
 		glow: () => searchInputGlowClass
 	},
 	select: {
+		container: () => ``,
 		wrapper: () => sortSelectWrapperClass,
 		base: () => sortSelectFieldClass,
 		icon: () => sortSelectIconClass,
 		accent: () => ``,
-		glow: () => sortSelectGlowClass
+		glow: () => sortSelectGlowClass,
+		label: () => selectLabelClass
 	}
 };

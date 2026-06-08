@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { Filters, SortOption } from "@/app/components/filters/types";
+import { Filters, MissableOption, SortOption } from "@/app/components/filters/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
@@ -34,7 +34,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 		groupByAct: searchParams.get("groupByAct") === "true",
 
-		groupByQuestGroup: searchParams.get("groupByQuestGroup") === "true"
+		groupByQuestGroup: searchParams.get("groupByQuestGroup") === "true",
+
+		missables: (searchParams.get("missables") as MissableOption) ?? MissableOption.DEFAULT
 	});
 
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
@@ -66,6 +68,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 			if (filters.searchTags) params.set("searchTags", "true");
 			else params.delete("searchTags");
 
+			if (filters.missables !== MissableOption.DEFAULT) params.set("missables", filters.missables);
+			else params.delete("missables");
+
 			const next = params.toString();
 
 			if (current !== next) {
@@ -91,7 +96,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 				groupByAct: false,
 
-				groupByQuestGroup: false
+				groupByQuestGroup: false,
+
+				missables: MissableOption.DEFAULT
 			});
 		});
 
