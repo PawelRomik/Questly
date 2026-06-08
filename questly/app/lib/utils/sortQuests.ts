@@ -1,25 +1,37 @@
+import { MissableOption, SortOption } from "@/app/components/filters/types";
 import { Quest } from "@/app/types/quest";
 
-export function sortQuests(list: Quest[], sort: string, isCompleted: (id: string) => boolean) {
-	const copy = [...list];
+function compareBySort(a: Quest, b: Quest, sort: string) {
+	switch (sort) {
+		case SortOption.ZA:
+			return b.title.localeCompare(a.title);
 
-	return copy.sort((a, b) => {
-		const aDone = isCompleted(a.uuid);
-		const bDone = isCompleted(b.uuid);
+		case SortOption.LEVEL_ASC:
+			return (a.level ?? 0) - (b.level ?? 0);
 
-		if (aDone !== bDone) return aDone ? 1 : -1;
+		case SortOption.LEVEL_DESC:
+			return (b.level ?? 0) - (a.level ?? 0);
 
-		switch (sort) {
-			case "az":
-				return a.title.localeCompare(b.title);
-			case "za":
-				return b.title.localeCompare(a.title);
-			case "levelAsc":
-				return a.level - b.level;
-			case "levelDesc":
-				return b.level - a.level;
-			default:
-				return 0;
+		case SortOption.AZ:
+		default:
+			return a.title.localeCompare(b.title);
+	}
+}
+
+export function sortQuests(quests: Quest[], sort: string, isCompleted: (uuid: string) => boolean, missables: MissableOption = MissableOption.DEFAULT) {
+	const sorted = [...quests];
+
+	sorted.sort((a, b) => {
+		if (missables === MissableOption.SHOW_FIRST) {
+			if (a.missable !== b.missable) {
+				return Number(b.missable) - Number(a.missable);
+			}
+
+			return compareBySort(a, b, sort);
 		}
+
+		return compareBySort(a, b, sort);
 	});
+
+	return sorted;
 }

@@ -5,6 +5,12 @@ export enum SortOption {
 	LEVEL_DESC = "levelDesc"
 }
 
+export enum MissableOption {
+	DEFAULT = "default",
+	SHOW_FIRST = "showFirst",
+	SHOW_ONLY = "showOnly"
+}
+
 export type Filters = {
 	search: string;
 	groupByType: boolean;
@@ -13,4 +19,5 @@ export type Filters = {
 	groupByLocation: boolean;
 	groupByAct: boolean;
 	groupByQuestGroup: boolean;
+	missables: MissableOption;
 };

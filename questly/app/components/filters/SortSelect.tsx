@@ -12,18 +12,19 @@ type Props = {
 export function SortSelect({ value, onChange }: Props) {
 	const styles = useGameStyles(filterVariants);
 	return (
-		<div className={styles.select.wrapper()}>
-			<select value={value} onChange={(e) => onChange(e.target.value as SortOption)} className={styles.select.base()}>
-				<option value={SortOption.AZ}>Title A-Z</option>
-				<option value={SortOption.ZA}>Title Z-A</option>
-				<option value={SortOption.LEVEL_ASC}>Level ↑</option>
-				<option value={SortOption.LEVEL_DESC}>Level ↓</option>
-			</select>
+		<div className={styles.select.container()}>
+			<label className={styles.select.label()}>Sort</label>
+			<div className={styles.select.wrapper()}>
+				<select value={value} onChange={(e) => onChange(e.target.value as SortOption)} className={styles.select.base()}>
+					<option value={SortOption.AZ}>Title A-Z</option>
+					<option value={SortOption.ZA}>Title Z-A</option>
+					<option value={SortOption.LEVEL_ASC}>Level ↑</option>
+					<option value={SortOption.LEVEL_DESC}>Level ↓</option>
+				</select>
 
-			<div className={styles.select.icon()}>▼</div>
-
+				<div className={styles.select.icon()}>▼</div>
+			</div>
 			<div className={styles.select.accent()} />
-
 			<div className={styles.select.glow()} />
 		</div>
 	);

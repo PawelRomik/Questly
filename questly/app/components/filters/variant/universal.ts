@@ -1,4 +1,4 @@
-export const searchBarLayoutClass = `
+const searchBarLayoutClass = `
   w-full
 
   mt-30 mx-auto
@@ -8,7 +8,7 @@ export const searchBarLayoutClass = `
   px-3
 `;
 
-export const searchBarHeaderLayoutClass = `
+const searchBarHeaderLayoutClass = `
   relative
 
   flex items-center gap-4
@@ -16,13 +16,13 @@ export const searchBarHeaderLayoutClass = `
   px-4 py-3
 `;
 
-export const searchBarLogoLayoutClass = `
+const searchBarLogoLayoutClass = `
   h-30
 
   object-contain
 `;
 
-export const searchBarInputWrapperLayoutClass = `
+const searchBarInputWrapperLayoutClass = `
   relative
 
   w-full
@@ -30,7 +30,7 @@ export const searchBarInputWrapperLayoutClass = `
   p-3
 `;
 
-export const searchBarCharacterLayoutClass = `
+const searchBarCharacterLayoutClass = `
   absolute bottom-full
 
   w-30
@@ -42,14 +42,14 @@ export const searchBarCharacterLayoutClass = `
 
 const checkboxWrapperLayoutClass = `
   flex items-center gap-3
-
+  
   text-sm
 
   transition
 `;
 
 const checkboxInputWrapperLayoutClass = `
-  relative w-5 h-5
+  relative w-5 h-5 min-w-5 min-h-5
 `;
 
 const checkboxInputLayoutClass = `
@@ -146,6 +146,12 @@ const sortSelectWrapperLayoutClass = `
   group
 `;
 
+const selectContainerLayoutClass = `flex items-center relative
+`;
+
+const selectLabelLayoutClass = `px-2 py-2 text-sm
+`;
+
 const sortSelectFieldLayoutClass = `
   appearance-none
 
@@ -204,10 +210,16 @@ const searchSettingsLayoutClass = `
   p-4
 `;
 
+const checkboxSettingsWrapperLayoutClass = `grid grid-cols-3 auto-rows-[40px] text-sm transition`;
+
+const selectSettingsWrapperLayoutClass = `flex gap-3 items-center justify-start flex-wrap w-full`;
+
 // ----------------------------------------
 
 export const universalStyles = {
 	settings: () => searchSettingsLayoutClass,
+	checkboxWrapper: () => checkboxSettingsWrapperLayoutClass,
+	selectWrapper: () => selectSettingsWrapperLayoutClass,
 	base: () => searchBarLayoutClass,
 	header: {
 		base: () => searchBarHeaderLayoutClass,
@@ -232,10 +244,12 @@ export const universalStyles = {
 		glow: () => searchInputGlowLayoutClass
 	},
 	select: {
+		container: () => selectContainerLayoutClass,
 		wrapper: () => sortSelectWrapperLayoutClass,
 		base: () => sortSelectFieldLayoutClass,
 		icon: () => sortSelectIconLayoutClass,
 		accent: () => sortSelectAccentLayoutClass,
-		glow: () => sortSelectGlowLayoutClass
+		glow: () => sortSelectGlowLayoutClass,
+		label: () => selectLabelLayoutClass
 	}
 };

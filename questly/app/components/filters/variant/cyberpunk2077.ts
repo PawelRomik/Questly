@@ -47,7 +47,7 @@ const checkboxWrapperClass = (disabled?: boolean) => `${checkboxWrapperVariant(d
 
 const checkboxBoxClass = `
   border border-[#ff003c]
-
+${rajdhani.className}
   bg-linear-to-b
   from-[#190707]
   to-[#090b12]
@@ -66,7 +66,7 @@ const searchInputWrapperClass = `
   bg-linear-to-b
   from-[#16090b]
   to-[#090b12]
- 
+ ${rajdhani.className}
 
   shadow-[inset_0_0_12px_rgba(255,0,60,0.08)]
 
@@ -92,12 +92,12 @@ const searchInputGlowClass = `
 // ----------------------------------------
 
 const sortSelectWrapperClass = `
-  border border-[#00d9ff]/30
+  border border-l-0 border-[#00d9ff]/30
 
   bg-linear-to-b
   from-[#10131d]
   to-[#090b12]
-
+${rajdhani.className}
   shadow-[inset_0_0_12px_rgba(0,217,255,0.08)]
 
   backdrop-blur-sm
@@ -109,6 +109,15 @@ const sortSelectFieldClass = `
   text-[#00d9ff]
 
   focus:bg-[#111827]
+`;
+
+const selectLabelClass = `border ${rajdhani.className} border-[#ff003c] text-[white] bg-linear-to-b
+  from-[#190707]
+  to-[#090b12]
+
+  shadow-[0_0_14px_rgba(255,0,60,0.25)]
+  
+  shadow-[inset_0_0_10px_rgba(255,0,60,0.12)] uppercase border-r-0
 `;
 
 const sortSelectIconClass = `
@@ -125,7 +134,7 @@ const sortSelectGlowClass = `
 
 const searchSettingsClass = `
   border border-[#ff003c]/30
-
+${rajdhani.className}
   bg-linear-to-b
   from-[#120909]
   to-[#090b12]
@@ -139,6 +148,8 @@ const searchSettingsClass = `
 
 export const cyberpunk2077Styles = {
 	settings: () => searchSettingsClass,
+	checkboxWrapper: () => ``,
+	selectWrapper: () => ``,
 	base: () => ``,
 	header: {
 		base: () => searchBarHeaderClass,
@@ -174,10 +185,12 @@ export const cyberpunk2077Styles = {
 		glow: () => searchInputGlowClass
 	},
 	select: {
+		container: () => ``,
 		wrapper: () => sortSelectWrapperClass,
 		base: () => sortSelectFieldClass,
 		icon: () => sortSelectIconClass,
-		accent: () => `bg-[#00d9ff]`,
-		glow: () => sortSelectGlowClass
+		accent: () => ``,
+		glow: () => sortSelectGlowClass,
+		label: () => selectLabelClass
 	}
 };

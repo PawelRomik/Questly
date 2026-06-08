@@ -31,9 +31,6 @@ export type Rewards = {
 
 export type TagType = {
 	name: string;
-	dlc?: {
-		color: string;
-	};
 };
 
 export type QuestType = {

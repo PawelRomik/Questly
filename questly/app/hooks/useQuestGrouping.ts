@@ -1,10 +1,15 @@
 import { useMemo } from "react";
 import { Quest } from "@/app/types/quest";
 import { buildQuestTree, Getters, GroupKey } from "@/app/lib/utils/buildQuestTree";
-import { Filters } from "@/app/components/filters/types";
+import { Filters, MissableOption } from "@/app/components/filters/types";
 import { StaticImageData } from "next/image";
 
-export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Getters, icons: { defaultIcon: string | StaticImageData; searchIcon: string | StaticImageData }) {
+export function useQuestGrouping(
+	quests: Quest[],
+	filters: Filters,
+	getters: Getters,
+	icons: { defaultIcon: string | StaticImageData; searchIcon: string | StaticImageData; missableIcon: string | StaticImageData }
+) {
 	return useMemo(() => {
 		if (filters.search) {
 			return [
@@ -26,11 +31,13 @@ export function useQuestGrouping(quests: Quest[], filters: Filters, getters: Get
 		if (filters.groupByLocation) keys.push("location");
 		if (filters.groupByType) keys.push("type");
 
+		const isMissable = filters.missables === MissableOption.SHOW_ONLY;
+
 		if (!keys.length) {
 			return [
 				{
-					title: "All quests",
-					icon: icons.defaultIcon,
+					title: isMissable ? "Missables " : "All quests",
+					icon: isMissable ? icons.missableIcon : icons.defaultIcon,
 					items: quests
 				}
 			];

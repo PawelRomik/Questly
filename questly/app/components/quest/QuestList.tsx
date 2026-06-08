@@ -13,6 +13,7 @@ import { useParams } from "next/navigation";
 import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { MissableOption } from "@/app/components/filters/types";
 
 export default function QuestList() {
 	const params = useParams();
@@ -21,15 +22,18 @@ export default function QuestList() {
 	const { search, sort } = filters;
 
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
+	const missables = filters.missables;
 	const { data } = useApollo(query, { search, game });
 	const quests = useMemo(() => extractList<Quest>(data, "quests"), [data]);
 	const styles = useGameStyles(questModalVariants);
 
 	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
-	const { default_icon, search_icon } = useGameAssets();
+	const { default_icon, search_icon, missable_icon } = useGameAssets();
+
+	const visibleQuests = filters.missables === MissableOption.SHOW_ONLY ? quests.filter((q) => q.missable) : quests;
 
 	const tree = useQuestGrouping(
-		quests,
+		visibleQuests,
 		filters,
 		{
 			getTypeIcon,
@@ -37,12 +41,12 @@ export default function QuestList() {
 			getGroupIcon,
 			getActIcon
 		},
-		{ searchIcon: search_icon, defaultIcon: default_icon }
+		{ searchIcon: search_icon, defaultIcon: default_icon, missableIcon: missable_icon }
 	);
 
 	return (
 		<div className={styles.list()}>
-			<QuestTreeRenderer nodes={tree} sort={sort} />
+			<QuestTreeRenderer missables={missables} nodes={tree} sort={sort} />
 		</div>
 	);
 }

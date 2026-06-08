@@ -1083,7 +1083,6 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &

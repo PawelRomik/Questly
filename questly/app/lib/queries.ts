@@ -51,9 +51,6 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			tags {
 				name
-				dlc {
-					color
-				}
 			}
 			requirement {
 				level
@@ -113,7 +110,9 @@ export const GET_QUESTS_NO_TAGS = gql`
 
 export const GET_QUESTS_WITH_TAGS = gql`
 	query GetQuests($search: String, $game: String!) {
-		quests(filters: { game: { slug: { eq: $game } }, or: [{ title: { containsi: $search } }, { tags: { name: { containsi: $search } } }] }) {
+		quests(
+			filters: { game: { slug: { eq: $game } }, or: [{ title: { containsi: $search } }, { tags: { name: { containsi: $search } } }, { dlc: { title: { containsi: $search } } }] }
+		) {
 			title
 			quest_type {
 				name
@@ -162,9 +161,6 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			tags {
 				name
-				dlc {
-					color
-				}
 			}
 			requirement {
 				level
