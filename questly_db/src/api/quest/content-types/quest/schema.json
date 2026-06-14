@@ -9,22 +9,51 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "level": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "description": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "short_desc": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "map": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "component": "map.map",
       "repeatable": false
     },
@@ -35,11 +64,21 @@
     },
     "rewards": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "component": "reward.reward",
       "repeatable": false
     },
     "requirement": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "component": "requirement.requirement",
       "repeatable": true
     },
@@ -77,7 +116,8 @@
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid",
       "options": {
-        "uuid-format": "^Q[a-zA-Z0-9]{5}$"
+        "uuid-format": "^Q[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
       }
     },
     "dlc": {
@@ -86,7 +126,12 @@
       "target": "api::dlc.dlc"
     },
     "missable": {
-      "type": "boolean"
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

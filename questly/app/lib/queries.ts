@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_QUESTS_NO_TAGS = gql`
-	query GetQuests($search: String, $game: String!) {
-		quests(filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
+	query GetQuests($search: String, $game: String!, $locale: I18NLocaleCode) {
+		quests(locale: $locale, filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
 			title
 			quest_type {
 				name
@@ -109,8 +109,9 @@ export const GET_QUESTS_NO_TAGS = gql`
 `;
 
 export const GET_QUESTS_WITH_TAGS = gql`
-	query GetQuests($search: String, $game: String!) {
+	query GetQuests($search: String, $game: String!, $locale: I18NLocaleCode) {
 		quests(
+			locale: $locale
 			filters: { game: { slug: { eq: $game } }, or: [{ title: { containsi: $search } }, { tags: { name: { containsi: $search } } }, { dlc: { title: { containsi: $search } } }] }
 		) {
 			title
@@ -219,8 +220,8 @@ export const GET_QUESTS_WITH_TAGS = gql`
 `;
 
 export const GET_NEXT_QUEST = gql`
-	query GetNextQuest($currentUuid: String!) {
-		quests(filters: { requirement: { quest: { uuid: { eq: $currentUuid } } } }) {
+	query GetNextQuest($currentUuid: String!, $locale: I18NLocaleCode) {
+		quests(locale: $locale, filters: { requirement: { quest: { uuid: { eq: $currentUuid } } } }) {
 			title
 			uuid
 			quest_type {
@@ -240,8 +241,8 @@ export const GET_NEXT_QUEST = gql`
 `;
 
 export const GET_ACHIEVEMENTS = gql`
-	query GetAchievements($game: String!, $search: String) {
-		achievements(filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
+	query GetAchievements($game: String!, $search: String, $locale: I18NLocaleCode) {
+		achievements(locale: $locale, filters: { game: { slug: { eq: $game } }, title: { containsi: $search } }) {
 			title
 			description
 			secret
@@ -268,16 +269,16 @@ export const GET_ACHIEVEMENTS = gql`
 `;
 
 export const GET_COLLECTION_GROUPS = gql`
-	query GetCollectionGroups($game: String!) {
-		collectionGroups(filters: { game: { slug: { eq: $game } } }) {
+	query GetCollectionGroups($game: String!, $locale: I18NLocaleCode) {
+		collectionGroups(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
 			title
 		}
 	}
 `;
 
 export const GET_COLLECTIONS = gql`
-	query GetCollections($collectionGroup: String!) {
-		collectionGroups(filters: { title: { eq: $collectionGroup } }) {
+	query GetCollections($collectionGroup: String!, $locale: I18NLocaleCode) {
+		collectionGroups(locale: $locale, filters: { title: { eq: $collectionGroup } }) {
 			collections {
 				uuid
 				items {
@@ -304,8 +305,8 @@ export const GET_COLLECTIONS = gql`
 `;
 
 export const SEARCH_COLLECTIONS = gql`
-	query SearchCollections($search: String!, $game: String!) {
-		collections(filters: { title: { containsi: $search }, game: { slug: { eq: $game } } }) {
+	query SearchCollections($search: String!, $game: String!, $locale: I18NLocaleCode) {
+		collections(locale: $locale, filters: { title: { containsi: $search }, game: { slug: { eq: $game } } }) {
 			uuid
 			type
 			title

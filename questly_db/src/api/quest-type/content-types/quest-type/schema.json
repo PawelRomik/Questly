@@ -9,10 +9,19 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "game": {
       "type": "relation",
@@ -21,6 +30,11 @@
     },
     "icon": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images",
@@ -31,8 +45,26 @@
     },
     "color": {
       "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "customField": "plugin::color-picker.color",
       "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "uuid": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^Qt[a-zA-Z0-9]{4}$",
+        "disable-auto-fill": true
+      }
     }
   }
 }

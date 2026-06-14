@@ -9,13 +9,27 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "image": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images",
@@ -25,13 +39,28 @@
       ]
     },
     "amount": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "price": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "description": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "rarity": {
       "type": "relation",
@@ -44,19 +73,44 @@
       "target": "api::game.game"
     },
     "level": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "effects": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "armor": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "damage": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "console_id": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "uuid": {
       "type": "customField",
@@ -71,7 +125,12 @@
       "target": "api::item-type.item-type"
     },
     "missable": {
-      "type": "boolean"
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "dlc": {
       "type": "relation",

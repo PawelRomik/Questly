@@ -478,23 +478,56 @@ export interface ApiAchievementGroupAchievementGroup
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::achievement-group.achievement-group'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Ag[a-zA-Z0-9]{4}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Ag[a-zA-Z0-9]{4}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -508,6 +541,11 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     achievement_group: Schema.Attribute.Relation<
       'oneToOne',
@@ -516,32 +554,58 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::achievement.achievement'
-    > &
-      Schema.Attribute.Private;
-    missable: Schema.Attribute.Boolean;
+    >;
+    missable: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    secret: Schema.Attribute.Boolean;
-    title: Schema.Attribute.String;
+    secret: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     uuid: Schema.Attribute.UID<
       undefined,
       {
+        'disable-auto-fill': true;
         'uuid-format': '^A[a-zA-Z0-9]{5}$';
       }
     > &
       Schema.Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
+          'disable-auto-fill': true;
           'uuid-format': '^A[a-zA-Z0-9]{5}$';
         }
       >;
@@ -558,19 +622,33 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::character.character'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -589,6 +667,11 @@ export interface ApiCollectionGroupCollectionGroup
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     collections: Schema.Attribute.Relation<
       'oneToMany',
@@ -598,17 +681,40 @@ export interface ApiCollectionGroupCollectionGroup
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::collection-group.collection-group'
-    > &
-      Schema.Attribute.Private;
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Cg[a-zA-Z0-9]{4}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Cg[a-zA-Z0-9]{4}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -622,21 +728,35 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::collection.collection'
-    > &
-      Schema.Attribute.Private;
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['single', 'group']>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Schema.Attribute.Enumeration<['single', 'group']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -665,19 +785,38 @@ export interface ApiDlcDlc extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     color: Schema.Attribute.String &
-      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+      Schema.Attribute.CustomField<'plugin::color-picker.color'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::dlc.dlc'> &
-      Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::dlc.dlc'>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -694,17 +833,36 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
-      Schema.Attribute.Private;
-    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'>;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.String;
-    title: Schema.Attribute.String;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -777,19 +935,33 @@ export interface ApiItemTypeItemType extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::item-type.item-type'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -807,30 +979,89 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    amount: Schema.Attribute.Integer;
-    armor: Schema.Attribute.Integer;
-    console_id: Schema.Attribute.String;
+    amount: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    armor: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    console_id: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    damage: Schema.Attribute.Integer;
-    description: Schema.Attribute.RichText;
+    damage: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
-    effects: Schema.Attribute.RichText;
+    effects: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     item_type: Schema.Attribute.Relation<
       'oneToOne',
       'api::item-type.item-type'
     >;
-    level: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
-      Schema.Attribute.Private;
-    missable: Schema.Attribute.Boolean;
-    name: Schema.Attribute.String;
-    price: Schema.Attribute.Integer;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
+    missable: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Relation<'oneToOne', 'api::rarity.rarity'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -861,24 +1092,62 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::location.location'
-    > &
-      Schema.Attribute.Private;
-    minimap: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    name: Schema.Attribute.String;
+    >;
+    minimap: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^L[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^L[a-zA-Z0-9]{5}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -892,24 +1161,62 @@ export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::quest-act.quest-act'
-    > &
-      Schema.Attribute.Private;
-    order: Schema.Attribute.Integer;
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Qa[a-zA-Z0-9]{4}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Qa[a-zA-Z0-9]{4}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -923,23 +1230,58 @@ export interface ApiQuestGroupQuestGroup extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::quest-group.quest-group'
-    > &
-      Schema.Attribute.Private;
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'disable-regenerate': false;
+        'uuid-format': '^Qg[a-zA-Z0-9]{4}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'disable-regenerate': false;
+          'uuid-format': '^Qg[a-zA-Z0-9]{4}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -953,25 +1295,63 @@ export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     color: Schema.Attribute.String &
-      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+      Schema.Attribute.CustomField<'plugin::color-picker.color'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::quest-type.quest-type'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Qt[a-zA-Z0-9]{4}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Qt[a-zA-Z0-9]{4}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -985,6 +1365,11 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     character: Schema.Attribute.Relation<
       'oneToOne',
@@ -993,16 +1378,35 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.RichText;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    level: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'> &
-      Schema.Attribute.Private;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
-    map: Schema.Attribute.Component<'map.map', false>;
-    missable: Schema.Attribute.Boolean;
+    map: Schema.Attribute.Component<'map.map', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    missable: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     quest_act: Schema.Attribute.Relation<
       'oneToOne',
@@ -1016,23 +1420,45 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::quest-type.quest-type'
     >;
-    requirement: Schema.Attribute.Component<'requirement.requirement', true>;
-    rewards: Schema.Attribute.Component<'reward.reward', false>;
-    short_desc: Schema.Attribute.String;
+    requirement: Schema.Attribute.Component<'requirement.requirement', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    rewards: Schema.Attribute.Component<'reward.reward', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    short_desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     uuid: Schema.Attribute.UID<
       undefined,
       {
+        'disable-auto-fill': true;
         'uuid-format': '^Q[a-zA-Z0-9]{5}$';
       }
     > &
       Schema.Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
+          'disable-auto-fill': true;
           'uuid-format': '^Q[a-zA-Z0-9]{5}$';
         }
       >;
@@ -1049,20 +1475,31 @@ export interface ApiRarityRarity extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     color: Schema.Attribute.String &
-      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+      Schema.Attribute.CustomField<'plugin::color-picker.color'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::rarity.rarity'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::rarity.rarity'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1080,15 +1517,24 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

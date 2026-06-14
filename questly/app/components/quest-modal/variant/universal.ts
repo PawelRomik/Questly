@@ -131,7 +131,7 @@ const modalHeaderLayoutClass = `
 `;
 
 const modalHeaderWrapperClass = `
-flex items-center justify-center gap-3`;
+flex items-center justify-start gap-3`;
 
 const modalHeaderDLCImageClass = `h-4 w-auto`;
 

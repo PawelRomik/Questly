@@ -30,10 +30,10 @@ export default function GameSwitcher() {
 						{games.map((game) => {
 							let href = `/${game.slug}/quests`;
 
-							if (currentSegments.length > 0) {
+							if (currentSegments.length > 1) {
 								const segments = [...currentSegments];
 
-								segments[0] = game.slug;
+								segments[1] = game.slug;
 
 								href = `/${segments.join("/")}`;
 							}

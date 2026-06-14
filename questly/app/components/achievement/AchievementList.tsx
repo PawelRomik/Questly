@@ -11,16 +11,15 @@ import Section from "@/app/components/section/Section";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useCompleted } from "@/app/context/CompletedContext";
 
-import { useApollo } from "@/app/hooks/useApollo";
-import { extractList } from "@/app/hooks/extractList";
-
-import { AchievementType, GetAchievementsData, GetAchievementsVars } from "@/app/types/achievement";
+import { AchievementType, GetAchievementsVars } from "@/app/types/achievement";
 
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 
 import { buildAchievementTree } from "@/app/lib/utils/buildAchievementTree";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { useLocale } from "next-intl";
+import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
@@ -31,16 +30,22 @@ export default function AchievementList() {
 	const styles = useGameStyles(achievementVariants);
 
 	const { toggle, isCompleted } = useCompleted(game, "achievements");
+	const locale = useLocale();
 
-	const { data } = useApollo<GetAchievementsData, GetAchievementsVars>(GET_ACHIEVEMENTS, {
-		game,
-		search
+	const achievements = useLocalizedList<AchievementType, GetAchievementsVars>({
+		query: GET_ACHIEVEMENTS,
+		vars: {
+			game,
+			search
+		},
+		locale,
+		dataKey: "achievements",
+		getId: (a) => a.uuid
 	});
-	const { achievement_icon, search_icon } = useGameAssets();
-
-	const achievements = useMemo(() => extractList<AchievementType>(data, "achievements"), [data]);
 
 	const grouped = useMemo(() => buildAchievementTree(achievements, groupByQuestGroup), [achievements, groupByQuestGroup]);
+
+	const { achievement_icon, search_icon } = useGameAssets();
 
 	return (
 		<div className={styles.root()}>
