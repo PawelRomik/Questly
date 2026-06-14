@@ -9,13 +9,27 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "minimap": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images",
@@ -26,6 +40,11 @@
     },
     "banner": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images",
@@ -38,6 +57,19 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
+    },
+    "uuid": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^L[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
+      }
     }
   }
 }

@@ -9,10 +9,19 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "collections": {
       "type": "relation",
@@ -23,6 +32,19 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
+    },
+    "uuid": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^Cg[a-zA-Z0-9]{4}$",
+        "disable-auto-fill": true
+      }
     }
   }
 }

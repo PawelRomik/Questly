@@ -9,16 +9,35 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "icon": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images",
@@ -33,13 +52,19 @@
       "target": "api::game.game"
     },
     "secret": {
-      "type": "boolean"
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "uuid": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid",
       "options": {
-        "uuid-format": "^A[a-zA-Z0-9]{5}$"
+        "uuid-format": "^A[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
       }
     },
     "achievement_group": {
@@ -53,7 +78,12 @@
       "target": "api::dlc.dlc"
     },
     "missable": {
-      "type": "boolean"
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
