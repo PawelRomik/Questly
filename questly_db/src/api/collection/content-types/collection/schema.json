@@ -49,7 +49,8 @@
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid",
       "options": {
-        "uuid-format": "^C[a-zA-Z0-9]{5}$"
+        "uuid-format": "^C[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
       }
     }
   }

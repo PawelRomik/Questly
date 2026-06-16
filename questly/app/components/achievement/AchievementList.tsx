@@ -39,7 +39,7 @@ export default function AchievementList() {
 			search
 		},
 		locale,
-		dataKey: "achievements",
+		getItems: (data) => data?.achievements ?? [],
 		getId: (a) => a.uuid
 	});
 

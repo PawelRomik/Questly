@@ -30,7 +30,7 @@ export default function QuestList() {
 			search
 		},
 		locale,
-		dataKey: "quests",
+		getItems: (data) => data?.quests ?? [],
 		getId: (q) => q.uuid
 	});
 	const styles = useGameStyles(questModalVariants);

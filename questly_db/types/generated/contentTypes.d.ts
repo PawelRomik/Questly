@@ -763,12 +763,14 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     uuid: Schema.Attribute.UID<
       undefined,
       {
+        'disable-auto-fill': true;
         'uuid-format': '^C[a-zA-Z0-9]{5}$';
       }
     > &
       Schema.Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
+          'disable-auto-fill': true;
           'uuid-format': '^C[a-zA-Z0-9]{5}$';
         }
       >;
@@ -1070,12 +1072,14 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     uuid: Schema.Attribute.UID<
       undefined,
       {
+        'disable-auto-fill': true;
         'uuid-format': '^I[a-zA-Z0-9]{5}$';
       }
     > &
       Schema.Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
+          'disable-auto-fill': true;
           'uuid-format': '^I[a-zA-Z0-9]{5}$';
         }
       >;

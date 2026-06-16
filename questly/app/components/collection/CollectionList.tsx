@@ -7,20 +7,19 @@ import { useEffect, useMemo } from "react";
 import Collection from "@/app/components/collection/item/Collection";
 import CollectionGroup from "@/app/components/collection/group/CollectionGroup";
 
-type SearchCollectionsData = {
-	collections: CollectionType[];
-};
+import { CollectionType, GetCollectionGroupsData, GetCollectionsVars } from "@/app/types/collection";
 
-import { CollectionType, GetCollectionGroupsData, GetCollectionsData, GetCollectionsVars } from "@/app/types/collection";
-
-import { useApollo } from "@/app/hooks/useApollo";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useLocalizedList } from "@/app/hooks/useLocalizedList";
+import { useLocale } from "next-intl";
 
 export default function CollectionList() {
 	const params = useParams();
 	const game = params.game as string;
+
+	const locale = useLocale();
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -34,13 +33,19 @@ export default function CollectionList() {
 
 	const styles = useGameStyles(collectionVariants);
 
-	const { data: groupsData } = useApollo<GetCollectionGroupsData, { game: string }>(GET_COLLECTION_GROUPS, { game });
+	const collectionGroups = useLocalizedList({
+		locale,
+		query: GET_COLLECTION_GROUPS,
+		vars: { game },
+		getItems: (data: GetCollectionGroupsData) => data?.collectionGroups ?? [],
+		getId: (group) => group.uuid
+	});
 
 	useEffect(() => {
 		if (isSearching) return;
 
-		if (!selectedCollection && groupsData?.collectionGroups?.length) {
-			const first = groupsData.collectionGroups[0].title;
+		if (!selectedCollection && collectionGroups.length) {
+			const first = collectionGroups[0].uuid;
 
 			const params = new URLSearchParams(searchParams.toString());
 
@@ -48,31 +53,43 @@ export default function CollectionList() {
 
 			router.replace(`?${params.toString()}`);
 		}
-	}, [selectedCollection, groupsData, router, searchParams, isSearching]);
+	}, [selectedCollection, collectionGroups, router, searchParams, isSearching]);
 
-	const { data: collectionsData } = useApollo<GetCollectionsData, GetCollectionsVars>(GET_COLLECTIONS, {
-		collectionGroup: selectedCollection as string
+	const collections = useLocalizedList<CollectionType, GetCollectionsVars>({
+		locale,
+		query: GET_COLLECTIONS,
+		vars: {
+			collectionGroup: selectedCollection as string
+		},
+		getItems: (data) => data?.collectionGroups?.[0]?.collections ?? [],
+		getId: (collection) => collection.uuid
 	});
 
-	const { data: searchData } = useApollo<SearchCollectionsData, { search: string; game: string }>(SEARCH_COLLECTIONS, {
-		search,
-		game
+	const searchCollections = useLocalizedList<CollectionType, { search: string; game: string }>({
+		locale,
+		query: SEARCH_COLLECTIONS,
+		vars: {
+			search,
+			game
+		},
+		getItems: (data) => data?.collections ?? [],
+		getId: (collection) => collection.uuid
 	});
 
-	const collections = useMemo(() => {
+	const displayedCollections = useMemo(() => {
 		if (isSearching) {
-			return searchData?.collections ?? [];
+			return searchCollections;
 		}
 
-		return collectionsData?.collectionGroups?.[0]?.collections ?? [];
-	}, [isSearching, searchData, collectionsData]);
+		return collections;
+	}, [isSearching, searchCollections, collections]);
 
 	const activeGroup = isSearching ? "Search Results" : selectedCollection;
 
-	const handleSelectGroup = (title: string) => {
+	const handleSelectGroup = (uuid: string) => {
 		const params = new URLSearchParams(searchParams.toString());
 
-		params.set("collection", title);
+		params.set("collection", uuid);
 
 		router.push(`?${params.toString()}`);
 	};
@@ -80,12 +97,12 @@ export default function CollectionList() {
 	return (
 		<div className={styles.list.base()}>
 			<div className={styles.list.group()}>
-				<CollectionGroup groups={groupsData?.collectionGroups ?? []} onSelect={handleSelectGroup} active={activeGroup} />
+				<CollectionGroup groups={collectionGroups} onSelect={handleSelectGroup} active={activeGroup} />
 			</div>
 
 			<div className={styles.list.grid()}>
-				{collections.map((c: CollectionType) => (
-					<Collection key={c.uuid} collection={c} />
+				{displayedCollections.map((collection) => (
+					<Collection key={collection.uuid} collection={collection} />
 				))}
 			</div>
 		</div>

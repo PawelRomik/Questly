@@ -17,6 +17,7 @@ export type CollectionGroup = {
 export type GetCollectionGroupsData = {
 	collectionGroups: {
 		title: string;
+		uuid: string;
 	}[];
 };
 

@@ -116,7 +116,8 @@
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid",
       "options": {
-        "uuid-format": "^I[a-zA-Z0-9]{5}$"
+        "uuid-format": "^I[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
       }
     },
     "item_type": {

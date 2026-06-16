@@ -272,13 +272,14 @@ export const GET_COLLECTION_GROUPS = gql`
 	query GetCollectionGroups($game: String!, $locale: I18NLocaleCode) {
 		collectionGroups(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
 			title
+			uuid
 		}
 	}
 `;
 
 export const GET_COLLECTIONS = gql`
 	query GetCollections($collectionGroup: String!, $locale: I18NLocaleCode) {
-		collectionGroups(locale: $locale, filters: { title: { eq: $collectionGroup } }) {
+		collectionGroups(locale: $locale, filters: { uuid: { eq: $collectionGroup } }) {
 			collections {
 				uuid
 				items {
