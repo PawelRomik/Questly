@@ -7,7 +7,7 @@ export type AchievementGroupNode = {
 	icon?: string;
 };
 
-export function buildAchievementTree(achievements: AchievementType[], groupByQuestGroup: boolean): AchievementGroupNode[] {
+export function buildAchievementTree(achievements: AchievementType[], groupByQuestGroup: boolean, locale = "en"): AchievementGroupNode[] {
 	if (!groupByQuestGroup) {
 		return [
 			{
@@ -17,10 +17,21 @@ export function buildAchievementTree(achievements: AchievementType[], groupByQue
 		];
 	}
 
-	const grouped = groupBy(achievements, (a) => a.achievement_group?.name || "Other");
+	const groupTitles = new Map<string, string>();
 
-	return Object.entries(grouped).map(([title, items]) => ({
-		title,
+	for (const achievement of achievements) {
+		const group = achievement.achievement_group;
+
+		if (group?.uuid && group?.locale === locale) {
+			groupTitles.set(group.uuid, group.name);
+		}
+	}
+
+	const grouped = groupBy(achievements, (a) => a.achievement_group?.uuid ?? "other");
+
+	return Object.entries(grouped).map(([uuid, items]) => ({
+		title: uuid === "other" ? "Other" : (groupTitles.get(uuid) ?? items[0]?.achievement_group?.name ?? uuid),
+
 		items,
 
 		icon: items[0]?.achievement_group?.icon?.url

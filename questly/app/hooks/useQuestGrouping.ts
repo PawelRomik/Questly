@@ -8,6 +8,7 @@ export function useQuestGrouping(
 	quests: Quest[],
 	filters: Filters,
 	getters: Getters,
+	locale: string,
 	icons: { defaultIcon: string | StaticImageData; searchIcon: string | StaticImageData; missableIcon: string | StaticImageData }
 ) {
 	return useMemo(() => {
@@ -22,7 +23,7 @@ export function useQuestGrouping(
 		}
 
 		if (filters.groupByQuestGroup) {
-			return buildQuestTree(quests, ["quest_group"], getters);
+			return buildQuestTree(quests, ["quest_group"], getters, locale);
 		}
 
 		const keys: GroupKey[] = [];
@@ -43,6 +44,6 @@ export function useQuestGrouping(
 			];
 		}
 
-		return buildQuestTree(quests, keys, getters);
-	}, [quests, filters, getters, icons]);
+		return buildQuestTree(quests, keys, getters, locale);
+	}, [quests, filters, getters, icons, locale]);
 }

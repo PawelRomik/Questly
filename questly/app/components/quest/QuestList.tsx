@@ -49,6 +49,7 @@ export default function QuestList() {
 			getGroupIcon,
 			getActIcon
 		},
+		locale,
 		{ searchIcon: search_icon, defaultIcon: default_icon, missableIcon: missable_icon }
 	);
 

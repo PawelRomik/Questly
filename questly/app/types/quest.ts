@@ -35,6 +35,8 @@ export type TagType = {
 
 export type QuestType = {
 	name: string;
+	uuid: string;
+	locale: string;
 	icon: {
 		url: string;
 	};
@@ -43,6 +45,8 @@ export type QuestType = {
 
 export type Location = {
 	name: string;
+	uuid: string;
+	locale: string;
 	minimap: {
 		url: string;
 	};
@@ -94,6 +98,8 @@ export type Requirement = {
 export type QuestAct = {
 	title: string;
 	order: number;
+	locale: string;
+	uuid: string;
 	icon: {
 		url: string;
 	};
@@ -101,6 +107,8 @@ export type QuestAct = {
 
 export type QuestGroup = {
 	title: string;
+	uuid: string;
+	locale: string;
 	icon: {
 		url: string;
 	};

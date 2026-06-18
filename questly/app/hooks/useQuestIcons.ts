@@ -7,7 +7,7 @@ export function useQuestIcons() {
 
 	const getActIcon = (list: Quest[]) => list[0]?.quest_act?.icon?.url || default_icon;
 
-	const getGroupIcon = (list: Quest[]) => list[0]?.quest_groups[0]?.icon?.url || default_icon;
+	const getGroupIcon = (list: Quest[], groupUuid: string) => list[0]?.quest_groups?.find((g) => g.uuid === groupUuid)?.icon?.url || default_icon;
 
 	const getLocationIcon = (list: Quest[]) => list[0]?.location?.banner?.url || default_icon;
 

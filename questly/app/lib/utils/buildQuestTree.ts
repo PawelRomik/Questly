@@ -16,15 +16,70 @@ type GroupNode = {
 export type Getters = {
 	getTypeIcon: (list: Quest[]) => string | StaticImageData;
 	getLocationIcon: (list: Quest[]) => string | StaticImageData;
-	getGroupIcon: (list: Quest[]) => string | StaticImageData;
+	getGroupIcon: (list: Quest[], groupUuid: string) => string | StaticImageData;
 	getActIcon: (list: Quest[]) => string | StaticImageData;
 };
 
-export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters): GroupNode[] {
+export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters, locale = "en"): GroupNode[] {
+	const actTitles = new Map<string, string>();
+	const locationTitles = new Map<string, string>();
+	const groupTitles = new Map<string, string>();
+	const typeTitles = new Map<string, string>();
+
+	for (const quest of quests) {
+		if (quest.quest_act?.uuid && quest.quest_act?.locale === locale) {
+			actTitles.set(quest.quest_act.uuid, quest.quest_act.title);
+		}
+
+		if (quest.quest_type?.uuid && quest.quest_type?.locale === locale) {
+			typeTitles.set(quest.quest_type.uuid, quest.quest_type.name);
+		}
+
+		if (quest.location?.uuid && quest.location?.locale === locale) {
+			locationTitles.set(quest.location.uuid, quest.location.name);
+		}
+
+		for (const group of quest.quest_groups ?? []) {
+			if (group.locale === locale) {
+				groupTitles.set(group.uuid, group.title);
+			}
+		}
+	}
+
 	const groupRecursive = (list: Quest[], depth: number): GroupNode[] => {
 		const key = keys[depth];
+		let map: Record<string, Quest[]> = {};
 
-		const map = groupBy(list, (q) => getKeyValue(q, key));
+		if (key === "quest_group") {
+			for (const quest of list) {
+				const groups = quest.quest_groups ?? [];
+
+				if (groups.length === 0) {
+					(map.other ??= []).push(quest);
+					continue;
+				}
+
+				for (const group of groups) {
+					(map[group.uuid] ??= []).push(quest);
+				}
+			}
+		} else {
+			map = groupBy(list, (q) => {
+				switch (key) {
+					case "act":
+						return q.quest_act?.uuid ?? "unknown";
+
+					case "location":
+						return q.location?.uuid ?? "unknown";
+
+					case "type":
+						return q.quest_type?.uuid ?? "unknown";
+
+					default:
+						return getKeyValue(q, key);
+				}
+			});
+		}
 
 		const entries = Object.entries(map);
 
@@ -37,7 +92,27 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 			});
 		}
 
-		return entries.map(([title, grouped]) => {
+		return entries.map(([uuid, grouped]) => {
+			let title = uuid;
+
+			switch (key) {
+				case "act":
+					title = actTitles.get(uuid) ?? grouped[0]?.quest_act?.title ?? uuid;
+					break;
+
+				case "location":
+					title = locationTitles.get(uuid) ?? grouped[0]?.location?.name ?? uuid;
+					break;
+
+				case "quest_group":
+					title = uuid === "other" ? "Other" : (groupTitles.get(uuid) ?? grouped[0]?.quest_groups?.find((g) => g.uuid === uuid)?.title ?? uuid);
+					break;
+
+				case "type":
+					title = typeTitles.get(uuid) ?? grouped[0]?.quest_type?.name ?? uuid;
+					break;
+			}
+
 			const node: GroupNode = {
 				title,
 				icon: default_quest
@@ -58,7 +133,7 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 			}
 
 			if (key === "quest_group") {
-				node.icon = getters.getGroupIcon(grouped);
+				node.icon = getters.getGroupIcon(grouped, uuid);
 			}
 
 			if (key === "type") {

@@ -6,6 +6,8 @@ export const GET_QUESTS_NO_TAGS = gql`
 			title
 			quest_type {
 				name
+				locale
+				uuid
 				icon {
 					url
 				}
@@ -14,6 +16,8 @@ export const GET_QUESTS_NO_TAGS = gql`
 			missable
 			quest_act {
 				title
+				locale
+				uuid
 				order
 				icon {
 					url
@@ -21,6 +25,8 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			quest_groups {
 				title
+				locale
+				uuid
 				icon {
 					url
 				}
@@ -36,6 +42,8 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			location {
 				name
+				uuid
+				locale
 				minimap {
 					url
 				}
@@ -116,6 +124,8 @@ export const GET_QUESTS_WITH_TAGS = gql`
 		) {
 			title
 			quest_type {
+				uuid
+				locale
 				name
 				icon {
 					url
@@ -124,6 +134,8 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			missable
 			quest_act {
+				uuid
+				locale
 				title
 				order
 				icon {
@@ -132,6 +144,8 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			quest_groups {
 				title
+				locale
+				uuid
 				icon {
 					url
 				}
@@ -147,6 +161,9 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			location {
 				name
+				locale
+				uuid
+				locale
 				minimap {
 					url
 				}
@@ -250,9 +267,12 @@ export const GET_ACHIEVEMENTS = gql`
 			icon {
 				url
 			}
+
 			missable
 			achievement_group {
 				name
+				uuid
+				locale
 				icon {
 					url
 				}

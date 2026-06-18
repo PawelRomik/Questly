@@ -43,7 +43,7 @@ export default function AchievementList() {
 		getId: (a) => a.uuid
 	});
 
-	const grouped = useMemo(() => buildAchievementTree(achievements, groupByQuestGroup), [achievements, groupByQuestGroup]);
+	const grouped = useMemo(() => buildAchievementTree(achievements, groupByQuestGroup, locale), [achievements, groupByQuestGroup, locale]);
 
 	const { achievement_icon, search_icon } = useGameAssets();
 
