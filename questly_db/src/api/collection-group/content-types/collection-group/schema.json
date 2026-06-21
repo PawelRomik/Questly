@@ -23,11 +23,6 @@
         }
       }
     },
-    "collections": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::collection.collection"
-    },
     "game": {
       "type": "relation",
       "relation": "oneToOne",

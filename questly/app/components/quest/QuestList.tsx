@@ -14,6 +14,8 @@ import { useLocale } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { Quest } from "@/app/types/quest";
 
+import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
+
 export default function QuestList() {
 	const params = useParams();
 	const game = params.game as string;
@@ -23,22 +25,29 @@ export default function QuestList() {
 
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 	const missables = filters.missables;
-	const quests = useLocalizedList<Quest, { game: string; search: string }>({
+	const quests = useLocalizedList<Quest, { game: string; locale: string }>({
 		query,
 		vars: {
 			game,
-			search
+			locale
 		},
 		locale,
-		dataKey: "quests",
+		getItems: (data) => data?.quests ?? [],
 		getId: (q) => q.uuid
 	});
+
+	const searchedQuests = useFuzzySearch({
+		items: quests,
+		search,
+		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.name"] : [])],
+		extraMatches: (q, term) => q.missable && "missable".includes(term)
+	});
+
+	const visibleQuests = filters.missables === MissableOption.SHOW_ONLY ? searchedQuests.filter((q) => q.missable) : searchedQuests;
 	const styles = useGameStyles(questModalVariants);
 
 	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
 	const { default_icon, search_icon, missable_icon } = useGameAssets();
-
-	const visibleQuests = filters.missables === MissableOption.SHOW_ONLY ? quests.filter((q) => q.missable) : quests;
 
 	const tree = useQuestGrouping(
 		visibleQuests,
@@ -49,6 +58,7 @@ export default function QuestList() {
 			getGroupIcon,
 			getActIcon
 		},
+		locale,
 		{ searchIcon: search_icon, defaultIcon: default_icon, missableIcon: missable_icon }
 	);
 

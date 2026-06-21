@@ -5,7 +5,7 @@ import { CollectionGroupButton } from "./CollectionGroupButton";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type Props = {
-	groups: { title: string }[];
+	groups: { uuid: string; title: string }[];
 	onSelect: (title: string) => void;
 	active: string | null;
 };
@@ -20,7 +20,7 @@ export default function CollectionGroup({ groups, onSelect, active }: Props) {
 			{isSearching && <CollectionGroupButton title='Search Results' active />}
 
 			{groups.map((g) => (
-				<CollectionGroupButton key={g.title} title={g.title} active={active === g.title} disabled={isSearching} onClick={() => !isSearching && onSelect(g.title)} />
+				<CollectionGroupButton key={g.title} title={g.title} active={active === g.uuid} disabled={isSearching} onClick={() => !isSearching && onSelect(g.uuid)} />
 			))}
 		</div>
 	);

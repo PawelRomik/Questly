@@ -11,8 +11,11 @@ export type AchievementType = {
 	uuid: string;
 	secret: boolean;
 	dlc?: DLC;
+
 	achievement_group: {
 		name: string;
+		locale: string;
+		uuid: string;
 		icon: {
 			url: string;
 		};
@@ -25,6 +28,5 @@ export type GetAchievementsData = {
 
 export type GetAchievementsVars = {
 	game: string;
-
-	search: string;
+	locale: string;
 };

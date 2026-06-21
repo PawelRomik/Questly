@@ -1,18 +1,18 @@
-import { extractList } from "@/app/hooks/extractList";
 import { useApollo } from "@/app/hooks/useApollo";
 import { DocumentNode } from "@apollo/client";
 import { useMemo } from "react";
 
-type FallbackOptions<T, TVars> = {
+type LocalizedListOptions<T, TVars> = {
 	locale: string;
 	defaultLocale?: string;
 	query: DocumentNode;
 	vars: TVars;
-	dataKey: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getItems: (data: any) => T[];
 	getId: (item: T) => string;
 };
 
-export function useLocalizedList<T, TVars>({ locale, defaultLocale = "en", query, vars, dataKey, getId }: FallbackOptions<T, TVars>) {
+export function useLocalizedList<T, TVars>({ locale, defaultLocale = "en", query, vars, getItems, getId }: LocalizedListOptions<T, TVars>) {
 	const { data: localizedData } = useApollo(query, {
 		...vars,
 		locale
@@ -24,16 +24,16 @@ export function useLocalizedList<T, TVars>({ locale, defaultLocale = "en", query
 	});
 
 	return useMemo(() => {
-		const localized = extractList<T>(localizedData, dataKey);
+		const localized = getItems(localizedData);
 
 		if (locale === defaultLocale) {
 			return localized;
 		}
 
-		const fallback = extractList<T>(fallbackData, dataKey);
+		const fallback = getItems(fallbackData);
 
 		const localizedIds = new Set(localized.map(getId));
 
 		return [...localized, ...fallback.filter((item) => !localizedIds.has(getId(item)))];
-	}, [localizedData, fallbackData, locale, defaultLocale, dataKey, getId]);
+	}, [localizedData, fallbackData, locale, defaultLocale, getItems, getId]);
 }
