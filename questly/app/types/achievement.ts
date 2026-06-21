@@ -28,6 +28,5 @@ export type GetAchievementsData = {
 
 export type GetAchievementsVars = {
 	game: string;
-
-	search: string;
+	locale: string;
 };

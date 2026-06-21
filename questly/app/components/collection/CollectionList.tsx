@@ -1,19 +1,20 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { GET_COLLECTION_GROUPS, GET_COLLECTIONS, SEARCH_COLLECTIONS } from "@/app/lib/queries";
+import { GET_COLLECTION_GROUPS, GET_COLLECTIONS } from "@/app/lib/queries";
 import { useEffect, useMemo } from "react";
 
 import Collection from "@/app/components/collection/item/Collection";
 import CollectionGroup from "@/app/components/collection/group/CollectionGroup";
 
-import { CollectionType, GetCollectionGroupsData, GetCollectionsVars } from "@/app/types/collection";
+import { CollectionType, GetCollectionGroupsData } from "@/app/types/collection";
 
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useLocale } from "next-intl";
+import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 
 export default function CollectionList() {
 	const params = useParams();
@@ -55,34 +56,30 @@ export default function CollectionList() {
 		}
 	}, [selectedCollection, collectionGroups, router, searchParams, isSearching]);
 
-	const collections = useLocalizedList<CollectionType, GetCollectionsVars>({
+	const collections = useLocalizedList<CollectionType, { game: string; locale: string }>({
 		locale,
 		query: GET_COLLECTIONS,
 		vars: {
-			collectionGroup: selectedCollection as string
-		},
-		getItems: (data) => data?.collectionGroups?.[0]?.collections ?? [],
-		getId: (collection) => collection.uuid
-	});
-
-	const searchCollections = useLocalizedList<CollectionType, { search: string; game: string }>({
-		locale,
-		query: SEARCH_COLLECTIONS,
-		vars: {
-			search,
-			game
+			game,
+			locale
 		},
 		getItems: (data) => data?.collections ?? [],
 		getId: (collection) => collection.uuid
 	});
 
+	const searchedCollections = useFuzzySearch({
+		items: collections,
+		search,
+		keys: ["title"]
+	});
+
 	const displayedCollections = useMemo(() => {
 		if (isSearching) {
-			return searchCollections;
+			return searchedCollections;
 		}
 
-		return collections;
-	}, [isSearching, searchCollections, collections]);
+		return collections.filter((collection) => collection.collection_groups?.some((group) => group.uuid === selectedCollection));
+	}, [isSearching, searchedCollections, collections, selectedCollection]);
 
 	const activeGroup = isSearching ? "Search Results" : selectedCollection;
 

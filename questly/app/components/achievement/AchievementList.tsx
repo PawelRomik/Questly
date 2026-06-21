@@ -20,6 +20,7 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useLocale } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
+import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
@@ -36,14 +37,20 @@ export default function AchievementList() {
 		query: GET_ACHIEVEMENTS,
 		vars: {
 			game,
-			search
+			locale
 		},
 		locale,
 		getItems: (data) => data?.achievements ?? [],
 		getId: (a) => a.uuid
 	});
 
-	const grouped = useMemo(() => buildAchievementTree(achievements, groupByQuestGroup, locale), [achievements, groupByQuestGroup, locale]);
+	const searchedAchievements = useFuzzySearch({
+		items: achievements,
+		search,
+		keys: ["title"]
+	});
+
+	const grouped = useMemo(() => buildAchievementTree(searchedAchievements, groupByQuestGroup, locale), [searchedAchievements, groupByQuestGroup, locale]);
 
 	const { achievement_icon, search_icon } = useGameAssets();
 

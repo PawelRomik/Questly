@@ -6,11 +6,12 @@ export type CollectionType = {
 	uuid: string;
 	game: Game;
 	type: "single" | "group";
+	collection_groups: CollectionGroup[];
 };
 
 export type CollectionGroup = {
 	title: string;
-	collections: CollectionType[];
+	uuid: string;
 	game: Game;
 };
 

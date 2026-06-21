@@ -673,10 +673,6 @@ export interface ApiCollectionGroupCollectionGroup
     };
   };
   attributes: {
-    collections: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::collection.collection'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -734,6 +730,10 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    collection_groups: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::collection-group.collection-group'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
