@@ -9,6 +9,12 @@ export type CollectionType = {
 	collection_groups: CollectionGroup[];
 };
 
+type FuzzyIndices = readonly [number, number][];
+
+export type CollectionWithMatches = CollectionType & {
+	_titleMatch?: FuzzyIndices;
+};
+
 export type CollectionGroup = {
 	title: string;
 	uuid: string;

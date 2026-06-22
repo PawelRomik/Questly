@@ -8,17 +8,16 @@ import { AchievementType } from "@/app/types/achievement";
 type Props = {
 	achievement: AchievementType;
 	completed: boolean;
-	search: string;
 	revealed: boolean;
 };
 
-export function AchievementContent({ achievement, completed, revealed, search }: Props) {
-	const { title, description, secret, dlc, missable } = achievement;
+export function AchievementContent({ achievement, completed, revealed }: Props) {
+	const { description, secret } = achievement;
 	const styles = useGameStyles(achievementVariants);
 
 	return (
 		<div className={styles.container()}>
-			<AchievementTitle missable={missable} dlc={dlc} title={title} completed={completed} search={search} />
+			<AchievementTitle achievement={achievement} completed={completed} />
 			<AchievementDescription description={description} revealed={revealed} secret={secret} />
 
 			{completed && <CompletedTag />}

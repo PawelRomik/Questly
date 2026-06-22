@@ -17,8 +17,7 @@ type Props = {
 };
 
 export default function Collection({ collection }: Props) {
-	console.log(collection.uuid);
-	const { title, items, uuid } = collection;
+	const { items, uuid } = collection;
 	const { game } = useParams() as { game: string };
 	const styles = useGameStyles(collectionVariants);
 	const { toggleCollectionItem, isCollectionItemCompleted } = useCompleted(game, "collections");
@@ -62,7 +61,7 @@ export default function Collection({ collection }: Props) {
 		<div className={styles.collection.base(isComplete)}>
 			<CollectionAccent completed={isComplete} />
 
-			<CollectionHeader dlcs={dlcs} title={title} hasMissable={hasMissable} completed={completedCount} total={total} />
+			<CollectionHeader dlcs={dlcs} collection={collection} hasMissable={hasMissable} completed={completedCount} total={total} />
 
 			<div className={styles.collection.grid()}>
 				{items.map((item) => (

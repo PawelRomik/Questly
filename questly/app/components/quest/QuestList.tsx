@@ -15,6 +15,7 @@ import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { Quest } from "@/app/types/quest";
 
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
+import { useDebounce } from "@/app/lib/utils/useDebounce";
 
 export default function QuestList() {
 	const params = useParams();
@@ -36,11 +37,14 @@ export default function QuestList() {
 		getId: (q) => q.uuid
 	});
 
+	const debouncedSearch = useDebounce(search, 250);
+
 	const searchedQuests = useFuzzySearch({
 		items: quests,
-		search,
-		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.name"] : [])],
-		extraMatches: (q, term) => q.missable && "missable".includes(term)
+		search: debouncedSearch,
+		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.title"] : [])],
+		getId: (q) => q.uuid,
+		extraMatches: filters.searchTags ? (q, term) => q.missable && "missable".includes(term) : undefined
 	});
 
 	const visibleQuests = filters.missables === MissableOption.SHOW_ONLY ? searchedQuests.filter((q) => q.missable) : searchedQuests;

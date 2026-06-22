@@ -21,6 +21,7 @@ import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useLocale } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
+import { useDebounce } from "@/app/lib/utils/useDebounce";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
@@ -43,11 +44,13 @@ export default function AchievementList() {
 		getItems: (data) => data?.achievements ?? [],
 		getId: (a) => a.uuid
 	});
+	const debouncedSearch = useDebounce(search, 250);
 
 	const searchedAchievements = useFuzzySearch({
 		items: achievements,
-		search,
-		keys: ["title"]
+		search: debouncedSearch,
+		keys: ["title"],
+		getId: (a) => a.uuid
 	});
 
 	const grouped = useMemo(() => buildAchievementTree(searchedAchievements, groupByQuestGroup, locale), [searchedAchievements, groupByQuestGroup, locale]);
@@ -63,7 +66,7 @@ export default function AchievementList() {
 				return (
 					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
-							<Achievement key={achievement.uuid} achievement={achievement} completed={isCompleted(achievement.uuid)} search={search} onToggle={() => toggle(achievement.uuid)} />
+							<Achievement key={achievement.uuid} achievement={achievement} completed={isCompleted(achievement.uuid)} onToggle={() => toggle(achievement.uuid)} />
 						))}
 					</Section>
 				);

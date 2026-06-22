@@ -15,6 +15,7 @@ import { useFilters } from "@/app/context/FiltersContext";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useLocale } from "next-intl";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
+import { useDebounce } from "@/app/lib/utils/useDebounce";
 
 export default function CollectionList() {
 	const params = useParams();
@@ -30,7 +31,9 @@ export default function CollectionList() {
 	const { filters } = useFilters();
 
 	const search = filters.search?.trim() ?? "";
-	const isSearching = search.length > 0;
+	const debouncedSearch = useDebounce(search, 250);
+
+	const isSearching = debouncedSearch.length > 0;
 
 	const styles = useGameStyles(collectionVariants);
 
@@ -69,8 +72,9 @@ export default function CollectionList() {
 
 	const searchedCollections = useFuzzySearch({
 		items: collections,
-		search,
-		keys: ["title"]
+		search: debouncedSearch,
+		keys: ["title"],
+		getId: (c) => c.uuid
 	});
 
 	const displayedCollections = useMemo(() => {

@@ -1,16 +1,23 @@
-export function highlightText(text: string, query: string) {
-	if (!query) return text;
+export function highlightText(text: string, indices?: readonly [number, number][]) {
+	if (!indices?.length) {
+		return text;
+	}
 
-	const regex = new RegExp(`(${query})`, "gi");
-	const parts = text.split(regex);
+	const highlighted = new Set<number>();
 
-	return parts.map((part, i) =>
-		part.toLowerCase() === query.toLowerCase() ? (
-			<span key={i} className='text-[#c6a85a] font-semibold '>
-				{part}
+	indices.forEach(([start, end]) => {
+		for (let i = start; i <= end; i++) {
+			highlighted.add(i);
+		}
+	});
+
+	return text.split("").map((char, index) =>
+		highlighted.has(index) ? (
+			<span key={index} className='text-[#c6a85a] font-semibold'>
+				{char}
 			</span>
 		) : (
-			part
+			char
 		)
 	);
 }

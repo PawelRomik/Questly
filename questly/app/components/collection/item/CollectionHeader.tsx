@@ -3,17 +3,19 @@ import FixedImage from "@/app/components/common/FixedImage";
 import ProgressBar from "@/app/components/section/ProgressBar";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { highlightText } from "@/app/lib/utils/highlightText";
+import { CollectionWithMatches } from "@/app/types/collection";
 import { DLC } from "@/app/types/quest";
 
 type Props = {
-	title: string;
 	completed: number;
 	total: number;
 	dlcs?: DLC[];
 	hasMissable: boolean;
+	collection: CollectionWithMatches;
 };
 
-export function CollectionHeader({ title, completed, dlcs, total, hasMissable }: Props) {
+export function CollectionHeader({ collection, completed, dlcs, total, hasMissable }: Props) {
 	const styles = useGameStyles(collectionVariants);
 	const { missable_logo } = useGameAssets();
 
@@ -30,7 +32,7 @@ export function CollectionHeader({ title, completed, dlcs, total, hasMissable }:
 				)}
 
 				<div className={styles.collection.header.wrapper()}>
-					<h2 className={styles.collection.header.title()}>{title}</h2>
+					<h2 className={styles.collection.header.title()}>{highlightText(collection.title, collection._titleMatch)}</h2>
 
 					<span className={styles.collection.header.counter()}>
 						{completed} / {total}

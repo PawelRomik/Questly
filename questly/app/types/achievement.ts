@@ -22,6 +22,12 @@ export type AchievementType = {
 	};
 };
 
+type FuzzyIndices = readonly [number, number][];
+
+export type AchievementWithMatches = AchievementType & {
+	_titleMatch?: FuzzyIndices;
+};
+
 export type GetAchievementsData = {
 	achievements: AchievementType[];
 };
