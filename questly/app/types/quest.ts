@@ -43,6 +43,16 @@ export type QuestType = {
 	color: string;
 };
 
+type FuzzyIndices = readonly [number, number][];
+
+export type QuestWithMatches = Quest & {
+	_titleMatch?: FuzzyIndices;
+	_tagMatchValue?: string;
+	_tagMatchIndices?: FuzzyIndices;
+	_dlcMatch?: FuzzyIndices;
+	_missableMatch?: FuzzyIndices;
+};
+
 export type Location = {
 	name: string;
 	uuid: string;

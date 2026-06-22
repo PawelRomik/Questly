@@ -10,23 +10,21 @@ import { Quest } from "@/app/types/quest";
 
 type Props = {
 	completed: boolean;
-	search: string;
 	searchTags: boolean;
-
 	quest: Quest;
 };
 
-export function QuestContent({ quest, searchTags, completed, search }: Props) {
+export function QuestContent({ quest, searchTags, completed }: Props) {
 	const styles = useGameStyles(questVariants);
 	const { description } = quest;
 	const shortDesc = description.slice(0, 60) + "...";
 	return (
 		<div className={styles.content.base()}>
-			<QuestTitle title={quest.title} dlc={quest.dlc} missable={quest.missable} search={search} />
+			<QuestTitle quest={quest} />
 
 			<QuestDescription description={shortDesc} />
 
-			<QuestTags quest={quest} search={search} searchTags={searchTags} completed={completed} />
+			<QuestTags quest={quest} searchTags={searchTags} completed={completed} />
 		</div>
 	);
 }

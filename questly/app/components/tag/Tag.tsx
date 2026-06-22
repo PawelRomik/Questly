@@ -10,14 +10,13 @@ import { highlightText } from "@/app/lib/utils/highlightText";
 
 type Props = {
 	tag: string;
-
-	search: string;
 	searchTags: boolean;
 	type?: "tag" | "dlc" | "missable";
 	color?: string;
+	match?: readonly [number, number][];
 };
 
-export function Tag({ tag, search, searchTags, type, color }: Props) {
+export function Tag({ tag, match, searchTags, type, color }: Props) {
 	const { filters, setFilters } = useFilters();
 	const styles = useGameStyles(tagVariants);
 
@@ -58,7 +57,7 @@ export function Tag({ tag, search, searchTags, type, color }: Props) {
 			style={color ? { borderColor: color, background: `linear-gradient( to bottom, ${adjustColor(color, -30)}, ${adjustColor(color, -120)} )` } : undefined}
 			className={styles.tag(isActive, color)}
 		>
-			{searchTags ? highlightText(tag, search) : tag}
+			{searchTags ? highlightText(tag, match) : tag}
 		</span>
 	);
 }

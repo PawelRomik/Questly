@@ -13,11 +13,11 @@ import { useGameAssets } from "@/app/context/GameAssetsProvider";
 type Props = {
 	achievement: AchievementType;
 	completed: boolean;
-	search: string;
+
 	onToggle: () => void;
 };
 
-export default function Achievement({ achievement, completed, search, onToggle }: Props) {
+export default function Achievement({ achievement, completed, onToggle }: Props) {
 	const [revealed, setRevealed] = useState(completed);
 	const { secret, icon } = achievement;
 	const styles = useGameStyles(achievementVariants);
@@ -41,7 +41,7 @@ export default function Achievement({ achievement, completed, search, onToggle }
 
 			<AchievementImage completed={completed} src={icon?.url ?? achievement_icon} />
 
-			<AchievementContent search={search} revealed={revealed} achievement={achievement} completed={completed} />
+			<AchievementContent revealed={revealed} achievement={achievement} completed={completed} />
 
 			<AchievementButton completed={completed} onClick={handleToggle} />
 		</div>

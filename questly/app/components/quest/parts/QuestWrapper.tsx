@@ -26,7 +26,7 @@ export default function QuestWrapper({ quest }: Props) {
 
 	const styles = useGameStyles(questVariants);
 	const { filters } = useFilters();
-	const { searchTags, search } = filters;
+	const { searchTags } = filters;
 	const { uuid, level, quest_type, rewards, location } = quest;
 	const completed = isCompleted(uuid);
 
@@ -41,7 +41,7 @@ export default function QuestWrapper({ quest }: Props) {
 			</QuestMeta>
 
 			<div className={styles.wrapper.content()}>
-				<QuestContent quest={quest} completed={completed} search={search} searchTags={searchTags} />
+				<QuestContent quest={quest} completed={completed} searchTags={searchTags} />
 			</div>
 
 			<QuestRewards rewards={rewards} />
