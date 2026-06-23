@@ -18,11 +18,12 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 	const section = params.content as string;
 	const isQuestPage = section === "quests";
 	const isAchievementPage = section === "achievements";
+	const isCollectionPage = section === "collectibles";
 
 	const styles = useGameStyles(filterVariants);
 	const { content } = params;
 
-	if (!isQuestPage && !isAchievementPage) return null;
+	if (!isQuestPage && !isAchievementPage && !isCollectionPage) return null;
 
 	return (
 		<div className={styles.settings()}>
@@ -34,6 +35,7 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 				)}
 				{isQuestPage && <Checkbox label='Group by act' checked={filters.groupByAct} disabled={isLocked} onChange={(v) => update("groupByAct", v)} />}
 				{isQuestPage && <Checkbox label='Group by location' checked={filters.groupByLocation} disabled={isLocked} onChange={(v) => update("groupByLocation", v)} />}
+				{isCollectionPage && <Checkbox label='Search in Items' checked={filters.searchItems} onChange={(v) => update("searchItems", v)} />}
 			</div>
 			<div className={styles.selectWrapper()}>
 				{isQuestPage && <MissableSelect value={filters.missables} onChange={(v) => update("missables", v)} />}

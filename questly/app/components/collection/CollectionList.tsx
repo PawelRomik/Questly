@@ -70,10 +70,12 @@ export default function CollectionList() {
 		getId: (collection) => collection.uuid
 	});
 
+	const searchKeys = useMemo(() => ["title", ...(filters.searchItems ? ["items.name"] : [])], [filters.searchItems]);
+
 	const searchedCollections = useFuzzySearch({
 		items: collections,
 		search: debouncedSearch,
-		keys: ["title"],
+		keys: searchKeys,
 		getId: (c) => c.uuid
 	});
 

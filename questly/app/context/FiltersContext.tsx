@@ -30,6 +30,8 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 		searchTags: searchParams.get("searchTags") === "true",
 
+		searchItems: searchParams.get("searchItems") === "true",
+
 		groupByLocation: searchParams.get("groupByLocation") === "true",
 
 		groupByAct: searchParams.get("groupByAct") === "true",
@@ -49,6 +51,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 			if (filters.groupByAct) params.set("groupByAct", "true");
 			else params.delete("groupByAct");
+
+			if (filters.searchItems) params.set("searchItems", "true");
+			else params.delete("searchItems");
 
 			if (filters.groupByQuestGroup) params.set("groupByQuestGroup", "true");
 			else params.delete("groupByQuestGroup");
@@ -97,6 +102,8 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 				groupByAct: false,
 
 				groupByQuestGroup: false,
+
+				searchItems: false,
 
 				missables: MissableOption.DEFAULT
 			});
