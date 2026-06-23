@@ -586,6 +586,7 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
+    tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

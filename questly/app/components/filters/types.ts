@@ -19,5 +19,6 @@ export type Filters = {
 	groupByLocation: boolean;
 	groupByAct: boolean;
 	groupByQuestGroup: boolean;
+	searchItems: boolean;
 	missables: MissableOption;
 };
