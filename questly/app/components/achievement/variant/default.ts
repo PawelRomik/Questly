@@ -196,7 +196,7 @@ export const defaultAchievementStyles = {
 
 		overlay: achievementImageOverlayClass
 	},
-
+	tags: () => ``,
 	button: {
 		root: (completed: boolean) => `
       ${achievementButtonBaseClass}

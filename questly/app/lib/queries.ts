@@ -264,7 +264,9 @@ export const GET_ACHIEVEMENTS = gql`
 			icon {
 				url
 			}
-
+			tags {
+				name
+			}
 			missable
 			achievement_group {
 				name

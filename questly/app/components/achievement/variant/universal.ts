@@ -55,6 +55,16 @@ const achievementButtonIconLayoutClass = `
 `;
 //-----------------------------------------
 
+const achievementTagsLayoutClass = `
+  flex flex-wrap
+
+  gap-2
+
+  mt-2
+`;
+
+//-----------------------------------------
+
 export const universalStyles = {
 	root: () => AchievementListContainerClass,
 	achievement: () => achievementClass,
@@ -76,6 +86,7 @@ export const universalStyles = {
 		},
 		overlay: () => ""
 	},
+	tags: () => achievementTagsLayoutClass,
 	button: {
 		root: () => achievementButtonLayoutClass,
 		icon: () => achievementButtonIconLayoutClass

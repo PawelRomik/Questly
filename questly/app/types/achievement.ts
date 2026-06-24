@@ -1,4 +1,4 @@
-import { DLC } from "@/app/types/quest";
+import { DLC, TagType } from "@/app/types/quest";
 
 export type AchievementType = {
 	title: string;
@@ -11,6 +11,7 @@ export type AchievementType = {
 	uuid: string;
 	secret: boolean;
 	dlc?: DLC;
+	tags: TagType[];
 
 	achievement_group: {
 		name: string;
@@ -26,6 +27,10 @@ type FuzzyIndices = readonly [number, number][];
 
 export type AchievementWithMatches = AchievementType & {
 	_titleMatch?: FuzzyIndices;
+	_tagMatchValue?: string;
+	_tagMatchIndices?: FuzzyIndices;
+	_dlcMatch?: FuzzyIndices;
+	_missableMatch?: FuzzyIndices;
 };
 
 export type GetAchievementsData = {
