@@ -22,7 +22,7 @@ export function AchievementContent({ achievement, completed, revealed }: Props) 
 		<div className={styles.container()}>
 			<AchievementTitle achievement={achievement} completed={completed} />
 			<AchievementDescription description={description} revealed={revealed} secret={secret} />
-			{!secret || (secret && revealed && <AchievementTags searchTags={filters.searchTags} completed={completed} achievement={achievement} />)}
+			{(!secret || revealed) && <AchievementTags searchTags={filters.searchTags} completed={completed} achievement={achievement} />}
 		</div>
 	);
 }
