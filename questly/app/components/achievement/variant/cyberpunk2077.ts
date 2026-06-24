@@ -237,7 +237,11 @@ export const cyberpunk2077Styles = {
 
 		overlay: achievementImageOverlayClass
 	},
+	tags: () => `text-[#ff204e]
 
+    uppercase
+
+    tracking-widest`,
 	button: {
 		root: (completed: boolean) => `${achievementButtonBaseClass} ${achievementButtonVariant(completed)}`,
 

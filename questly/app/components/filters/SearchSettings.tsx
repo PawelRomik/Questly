@@ -29,7 +29,7 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 		<div className={styles.settings()}>
 			<div className={styles.checkboxWrapper()}>
 				{isQuestPage && <Checkbox label='Group by type' checked={filters.groupByType} disabled={isLocked} onChange={(v) => update("groupByType", v)} />}
-				{isQuestPage && <Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />}
+				{(isQuestPage || isAchievementPage) && <Checkbox label='Search in tags' checked={filters.searchTags} onChange={(v) => update("searchTags", v)} />}
 				{(isAchievementPage || isQuestPage) && (
 					<Checkbox label={`Group by ${content} group`} checked={filters.groupByQuestGroup} onChange={(v) => update("groupByQuestGroup", v)} />
 				)}
@@ -38,8 +38,8 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 				{isCollectionPage && <Checkbox label='Search in Items' checked={filters.searchItems} onChange={(v) => update("searchItems", v)} />}
 			</div>
 			<div className={styles.selectWrapper()}>
-				{isQuestPage && <MissableSelect value={filters.missables} onChange={(v) => update("missables", v)} />}
-				{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} />}
+				{(isQuestPage || isAchievementPage) && <MissableSelect value={filters.missables} onChange={(v) => update("missables", v)} />}
+				{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} values={isQuestPage ? ["title", "level"] : ["title"]} />}
 			</div>
 		</div>
 	);

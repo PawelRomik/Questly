@@ -91,7 +91,7 @@ export const witcher3Styles = {
 
 		overlay: achievementImageOverlayClass
 	},
-
+	tags: () => ``,
 	button: {
 		root: (completed: boolean) => `${achievementButtonBaseClass} ${achievementButtonVariant(completed)}`,
 

@@ -1,7 +1,9 @@
 import AchievementDescription from "@/app/components/achievement/content/AchievementDescription";
+import { AchievementTags } from "@/app/components/achievement/content/AchievementTags";
 import AchievementTitle from "@/app/components/achievement/content/AchievementTitle";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-import CompletedTag from "@/app/components/tag/CompletedTag";
+
+import { useFilters } from "@/app/context/FiltersContext";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { AchievementType } from "@/app/types/achievement";
 
@@ -14,13 +16,13 @@ type Props = {
 export function AchievementContent({ achievement, completed, revealed }: Props) {
 	const { description, secret } = achievement;
 	const styles = useGameStyles(achievementVariants);
+	const { filters } = useFilters();
 
 	return (
 		<div className={styles.container()}>
 			<AchievementTitle achievement={achievement} completed={completed} />
 			<AchievementDescription description={description} revealed={revealed} secret={secret} />
-
-			{completed && <CompletedTag />}
+			{(!secret || revealed) && <AchievementTags searchTags={filters.searchTags} completed={completed} achievement={achievement} />}
 		</div>
 	);
 }

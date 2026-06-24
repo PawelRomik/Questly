@@ -22,12 +22,14 @@ import { useLocale } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
+import { MissableOption } from "@/app/components/filters/types";
+import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
 
 	const { filters } = useFilters();
-	const { search, groupByQuestGroup } = filters;
+	const { search, groupByQuestGroup, sort, missables } = filters;
 
 	const styles = useGameStyles(achievementVariants);
 
@@ -49,13 +51,29 @@ export default function AchievementList() {
 	const searchedAchievements = useFuzzySearch({
 		items: achievements,
 		search: debouncedSearch,
-		keys: ["title"],
-		getId: (a) => a.uuid
+		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.title"] : [])],
+		getId: (a) => a.uuid,
+		extraMatches: filters.searchTags ? (a, term) => a.missable && "missable".includes(term) : undefined
 	});
 
-	const grouped = useMemo(() => buildAchievementTree(searchedAchievements, groupByQuestGroup, locale), [searchedAchievements, groupByQuestGroup, locale]);
+	const visibleAchievements = filters.missables === MissableOption.SHOW_ONLY ? searchedAchievements.filter((a) => a.missable) : searchedAchievements;
 
+	const sortedAchievements = useMemo(() => sortAchievements(visibleAchievements, sort, missables), [visibleAchievements, sort, missables]);
 	const { achievement_icon, search_icon } = useGameAssets();
+
+	const grouped = useMemo(() => {
+		if (search.trim()) {
+			return [
+				{
+					title: "Search results",
+					items: sortedAchievements,
+					icon: search_icon
+				}
+			];
+		}
+
+		return buildAchievementTree(sortedAchievements, groupByQuestGroup, locale);
+	}, [search, sortedAchievements, groupByQuestGroup, locale, search_icon]);
 
 	return (
 		<div className={styles.root()}>
