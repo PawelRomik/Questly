@@ -6,6 +6,7 @@ import { Filters } from "./types";
 import { filterVariants } from "@/app/components/filters/variant/filterVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { MissableSelect } from "@/app/components/filters/MissableSelect";
+import { HiddenAchievementSelect } from "@/app/components/filters/HiddenAchievementSelect";
 
 type Props = {
 	filters: Filters;
@@ -40,6 +41,7 @@ export function SearchSettings({ filters, isLocked, update }: Props) {
 			<div className={styles.selectWrapper()}>
 				{(isQuestPage || isAchievementPage) && <MissableSelect value={filters.missables} onChange={(v) => update("missables", v)} />}
 				{(isQuestPage || isAchievementPage) && <SortSelect value={filters.sort} onChange={(v) => update("sort", v)} values={isQuestPage ? ["title", "level"] : ["title"]} />}
+				{isAchievementPage && <HiddenAchievementSelect value={filters.hiddenAchievements} onChange={(v) => update("hiddenAchievements", v)} />}
 			</div>
 		</div>
 	);

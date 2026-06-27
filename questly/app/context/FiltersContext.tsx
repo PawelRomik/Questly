@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { Filters, MissableOption, SortOption } from "@/app/components/filters/types";
+import { Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
@@ -25,6 +25,8 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		search: searchParams.get("search") ?? "",
 
 		groupByType: searchParams.get("groupByType") === "true",
+
+		hiddenAchievements: (searchParams.get("hiddenAchievements") as HiddenAchievementsOption) ?? HiddenAchievementsOption.HIDE,
 
 		sort: (searchParams.get("sort") as SortOption) ?? SortOption.AZ,
 
@@ -61,6 +63,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 			if (filters.search) params.set("search", filters.search);
 			else params.delete("search");
 
+			if (filters.hiddenAchievements !== HiddenAchievementsOption.HIDE) params.set("hiddenAchievements", filters.hiddenAchievements);
+			else params.delete("hiddenAchievements");
+
 			if (filters.groupByType) params.set("groupByType", "true");
 			else params.delete("groupByType");
 
@@ -90,7 +95,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		const timeout = setTimeout(() => {
 			setFilters({
 				search: "",
-
+				hiddenAchievements: HiddenAchievementsOption.HIDE,
 				groupByType: false,
 
 				sort: SortOption.AZ,

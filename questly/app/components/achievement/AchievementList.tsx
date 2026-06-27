@@ -84,7 +84,12 @@ export default function AchievementList() {
 				return (
 					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
-							<Achievement key={achievement.uuid} achievement={achievement} completed={isCompleted(achievement.uuid)} onToggle={() => toggle(achievement.uuid)} />
+							<Achievement
+								key={`${achievement.uuid}-${filters.hiddenAchievements}`}
+								achievement={achievement}
+								completed={isCompleted(achievement.uuid)}
+								onToggle={() => toggle(achievement.uuid)}
+							/>
 						))}
 					</Section>
 				);

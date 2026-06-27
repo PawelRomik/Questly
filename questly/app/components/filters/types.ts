@@ -11,8 +11,14 @@ export enum MissableOption {
 	SHOW_ONLY = "showOnly"
 }
 
+export enum HiddenAchievementsOption {
+	HIDE = "hide",
+	REVEAL = "reveal"
+}
+
 export type Filters = {
 	search: string;
+	hiddenAchievements: HiddenAchievementsOption;
 	groupByType: boolean;
 	sort: SortOption;
 	searchTags: boolean;
