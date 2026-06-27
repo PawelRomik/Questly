@@ -9,6 +9,8 @@ import { AchievementType } from "@/app/types/achievement";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { HiddenAchievementsOption } from "@/app/components/filters/types";
+import { useFilters } from "@/app/context/FiltersContext";
 
 type Props = {
 	achievement: AchievementType;
@@ -18,15 +20,19 @@ type Props = {
 };
 
 export default function Achievement({ achievement, completed, onToggle }: Props) {
-	const [revealed, setRevealed] = useState(completed);
+	const { filters } = useFilters();
+	const [revealed, setRevealed] = useState(completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL);
 	const { secret, icon } = achievement;
 	const styles = useGameStyles(achievementVariants);
 
 	const isSecretLocked = secret && !completed;
+
 	const isHidden = isSecretLocked && !revealed;
 
 	const handleReveal = () => {
-		if (isSecretLocked) setRevealed(true);
+		if (isSecretLocked) {
+			setRevealed(true);
+		}
 	};
 
 	const handleToggle = (e: React.MouseEvent) => {
