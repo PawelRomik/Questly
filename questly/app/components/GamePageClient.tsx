@@ -2,7 +2,7 @@
 
 import AchievementList from "@/app/components/achievement/AchievementList";
 import CollectionList from "@/app/components/collection/CollectionList";
-import { SearchBar } from "@/app/components/filters/SearchBar";
+import { FiltersContainer } from "@/app/components/filters/FiltersContainer";
 import Navbar from "@/app/components/navbar/Navbar";
 import QuestList from "@/app/components/quest/QuestList";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
@@ -90,7 +90,7 @@ export default function GamePageClient() {
 							${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 						`}
 					>
-						<SearchBar />
+						<FiltersContainer />
 					</div>
 				</div>
 
