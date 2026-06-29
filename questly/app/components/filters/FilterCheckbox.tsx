@@ -12,7 +12,7 @@ type Props = {
 	onChange: (value: boolean) => void;
 };
 
-export function Checkbox({ label, checked, disabled, onChange }: Props) {
+export function FilterCheckbox({ label, checked, disabled, onChange }: Props) {
 	const { checkbox_image } = useGameAssets();
 	const styles = useGameStyles(filterVariants);
 	return (

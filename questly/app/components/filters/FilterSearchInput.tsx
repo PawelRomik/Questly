@@ -9,7 +9,7 @@ type Props = {
 	onChange: (value: string) => void;
 };
 
-export function SearchInput({ value, onChange }: Props) {
+export function FilterSearchInput({ value, onChange }: Props) {
 	const styles = useGameStyles(filterVariants);
 	const params = useParams();
 	const { content } = params;
