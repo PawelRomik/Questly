@@ -16,6 +16,9 @@ import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useLocale } from "next-intl";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
+import { useCompleted } from "@/app/context/CompletedContext";
+import { CompletedOption, MissableOption } from "@/app/components/filters/types";
+import compareCollections from "@/app/lib/utils/compareCollections";
 
 export default function CollectionList() {
 	const params = useParams();
@@ -34,7 +37,7 @@ export default function CollectionList() {
 	const debouncedSearch = useDebounce(search, 250);
 
 	const isSearching = debouncedSearch.length > 0;
-
+	const { isCollectionItemCompleted } = useCompleted(game, "collections");
 	const styles = useGameStyles(collectionVariants);
 
 	const collectionGroups = useLocalizedList({
@@ -80,12 +83,56 @@ export default function CollectionList() {
 	});
 
 	const displayedCollections = useMemo(() => {
-		if (isSearching) {
-			return searchedCollections;
+		let list = isSearching ? searchedCollections : collections.filter((collection) => collection.collection_groups?.some((group) => group.uuid === selectedCollection));
+
+		if (filters.dlc !== "all") {
+			list = list.filter((collection) => collection.items.some((item) => item.dlc?.uuid === filters.dlc));
 		}
 
-		return collections.filter((collection) => collection.collection_groups?.some((group) => group.uuid === selectedCollection));
-	}, [isSearching, searchedCollections, collections, selectedCollection]);
+		const completedMap = new Map(
+			list.map((collection) => [collection.uuid, collection.items.length > 0 && collection.items.every((item) => isCollectionItemCompleted(collection.uuid, item.uuid))])
+		);
+
+		const missableMap = new Map(list.map((collection) => [collection.uuid, collection.items.some((item) => item.missable)]));
+
+		if (filters.completed === CompletedOption.HIDE) {
+			list = list.filter((collection) => !completedMap.get(collection.uuid));
+		}
+
+		if (filters.missables === MissableOption.SHOW_ONLY) {
+			list = list.filter((collection) => missableMap.get(collection.uuid));
+		}
+
+		list = [...list].sort((a, b) => {
+			if (filters.completed !== CompletedOption.DEFAULT) {
+				const completedA = completedMap.get(a.uuid)!;
+				const completedB = completedMap.get(b.uuid)!;
+
+				if (completedA !== completedB) {
+					if (filters.completed === CompletedOption.SHOW_FIRST) {
+						return Number(completedB) - Number(completedA);
+					}
+
+					if (filters.completed === CompletedOption.SHOW_LAST) {
+						return Number(completedA) - Number(completedB);
+					}
+				}
+			}
+
+			if (filters.missables === MissableOption.SHOW_FIRST) {
+				const missableA = missableMap.get(a.uuid)!;
+				const missableB = missableMap.get(b.uuid)!;
+
+				if (missableA !== missableB) {
+					return Number(missableB) - Number(missableA);
+				}
+			}
+
+			return compareCollections(a, b, filters.sort);
+		});
+
+		return list;
+	}, [isSearching, searchedCollections, collections, selectedCollection, filters.dlc, filters.completed, filters.missables, isCollectionItemCompleted, filters.sort]);
 
 	const activeGroup = isSearching ? "Search Results" : selectedCollection;
 

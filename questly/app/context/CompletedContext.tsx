@@ -147,14 +147,28 @@ export function useCompleted(game: string, type: "quests" | "achievements" | "co
 
 	const { state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted } = context;
 
-	const gameData = state[game] || {
-		quests: [],
-		achievements: [],
-		collections: {}
-	};
+	const gameData = useMemo(
+		() =>
+			state[game] ?? {
+				quests: [],
+				achievements: [],
+				collections: {}
+			},
+		[state, game]
+	);
+
+	const completedSet = useMemo(() => {
+		if (type === "collections") {
+			return new Set<string>();
+		}
+
+		return new Set(gameData[type]);
+	}, [gameData, type]);
 
 	return {
 		completed: type === "collections" ? [] : gameData[type],
+
+		completedSet,
 
 		toggle: (id: string) => {
 			if (type === "collections") return;

@@ -22,7 +22,7 @@ import { useLocale } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
-import { MissableOption } from "@/app/components/filters/types";
+import { CompletedOption, MissableOption } from "@/app/components/filters/types";
 import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 
 export default function AchievementList() {
@@ -33,7 +33,7 @@ export default function AchievementList() {
 
 	const styles = useGameStyles(achievementVariants);
 
-	const { toggle, isCompleted } = useCompleted(game, "achievements");
+	const { toggle, completedSet } = useCompleted(game, "achievements");
 	const locale = useLocale();
 
 	const achievements = useLocalizedList<AchievementType, GetAchievementsVars>({
@@ -56,9 +56,24 @@ export default function AchievementList() {
 		extraMatches: filters.searchTags ? (a, term) => a.missable && "missable".includes(term) : undefined
 	});
 
-	const visibleAchievements = filters.missables === MissableOption.SHOW_ONLY ? searchedAchievements.filter((a) => a.missable) : searchedAchievements;
+	const visibleAchievements = useMemo(() => {
+		let list = filters.missables === MissableOption.SHOW_ONLY ? searchedAchievements.filter((a) => a.missable) : searchedAchievements;
 
-	const sortedAchievements = useMemo(() => sortAchievements(visibleAchievements, sort, missables), [visibleAchievements, sort, missables]);
+		if (filters.dlc !== "all") {
+			list = list.filter((a) => a.dlc?.uuid === filters.dlc);
+		}
+
+		if (filters.completed === CompletedOption.HIDE) {
+			list = list.filter((a) => !completedSet.has(a.uuid));
+		}
+
+		return list;
+	}, [searchedAchievements, filters, completedSet]);
+
+	const sortedAchievements = useMemo(
+		() => sortAchievements(visibleAchievements, sort, completedSet, filters.completed, missables),
+		[visibleAchievements, sort, completedSet, filters.completed, missables]
+	);
 	const { achievement_icon, search_icon } = useGameAssets();
 
 	const grouped = useMemo(() => {
@@ -78,7 +93,7 @@ export default function AchievementList() {
 	return (
 		<div className={styles.root()}>
 			{grouped.map((group) => {
-				const completedCount = group.items.filter((a) => isCompleted(a.uuid)).length;
+				const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
 				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
@@ -87,7 +102,7 @@ export default function AchievementList() {
 							<Achievement
 								key={`${achievement.uuid}-${filters.hiddenAchievements}`}
 								achievement={achievement}
-								completed={isCompleted(achievement.uuid)}
+								completed={completedSet.has(achievement.uuid)}
 								onToggle={() => toggle(achievement.uuid)}
 							/>
 						))}

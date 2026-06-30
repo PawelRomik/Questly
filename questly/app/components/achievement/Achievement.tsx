@@ -11,6 +11,7 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { HiddenAchievementsOption } from "@/app/components/filters/types";
 import { useFilters } from "@/app/context/FiltersContext";
+import { motion } from "framer-motion";
 
 type Props = {
 	achievement: AchievementType;
@@ -42,14 +43,25 @@ export default function Achievement({ achievement, completed, onToggle }: Props)
 	const { achievement_icon } = useGameAssets();
 
 	return (
-		<div onClick={handleReveal} className={styles.achievement(completed)}>
-			{isHidden && <AchievementHidden />}
+		<motion.div
+			variants={{
+				hidden: { opacity: 0, y: -5 },
+				visible: { opacity: 1, y: 0 }
+			}}
+			transition={{ type: "spring", stiffness: 300, damping: 25 }}
+			whileTap={{ scale: 0.97 }}
+			layout
+			onClick={handleReveal}
+		>
+			<div className={styles.achievement(completed)}>
+				{isHidden && <AchievementHidden />}
 
-			<AchievementImage completed={completed} src={icon?.url ?? achievement_icon} />
+				<AchievementImage completed={completed} src={icon?.url ?? achievement_icon} />
 
-			<AchievementContent revealed={revealed} achievement={achievement} completed={completed} />
+				<AchievementContent revealed={revealed} achievement={achievement} completed={completed} />
 
-			<AchievementButton completed={completed} onClick={handleToggle} />
-		</div>
+				<AchievementButton completed={completed} onClick={handleToggle} />
+			</div>
+		</motion.div>
 	);
 }
