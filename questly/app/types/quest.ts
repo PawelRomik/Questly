@@ -125,6 +125,7 @@ export type QuestGroup = {
 };
 export type DLC = {
 	title: string;
+	uuid: string;
 	color: string;
 	icon: {
 		url: string;
@@ -159,4 +160,13 @@ export type GetQuestsVars = {
 	search?: string;
 	searchTags?: boolean;
 	game?: string;
+};
+
+export type getDLCsData = {
+	dlcs: DLC[];
+};
+
+export type getDLCsVars = {
+	locale: string;
+	game: string;
 };

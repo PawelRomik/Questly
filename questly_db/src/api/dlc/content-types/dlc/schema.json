@@ -52,6 +52,19 @@
         "videos",
         "audios"
       ]
+    },
+    "uuid": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^D[a-zA-Z0-9]{4}$",
+        "disable-auto-fill": true
+      }
     }
   }
 }

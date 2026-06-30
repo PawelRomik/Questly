@@ -1,4 +1,5 @@
-import { Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
+import { CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
+import { DLC } from "@/app/types/quest";
 
 export type Page = "quests" | "achievements" | "collectibles";
 
@@ -9,7 +10,7 @@ type CheckboxConfig = {
 	disabled?: boolean;
 };
 
-type SelectKey = "missables" | "sort" | "hiddenAchievements";
+type SelectKey = "missables" | "sort" | "hiddenAchievements" | "completed" | "dlc";
 
 type SelectConfig = {
 	key: SelectKey;
@@ -21,6 +22,13 @@ type SelectConfig = {
 const HIDDEN_OPTIONS = [
 	{ value: HiddenAchievementsOption.HIDE, label: "Hide" },
 	{ value: HiddenAchievementsOption.REVEAL, label: "Show" }
+];
+
+const COMPLETED_OPTIONS = [
+	{ value: CompletedOption.DEFAULT, label: "Default" },
+	{ value: CompletedOption.SHOW_FIRST, label: "Show first" },
+	{ value: CompletedOption.SHOW_LAST, label: "Show last" },
+	{ value: CompletedOption.HIDE, label: "Hide" }
 ];
 
 const MISSABLE_OPTIONS = [
@@ -46,11 +54,20 @@ export function getSortOptions(hasLevel: boolean) {
 export default function getFilterConfig(
 	page: Page,
 	isLocked: boolean,
-	filters: Filters
+	filters: Filters,
+	dlcs: DLC[]
 ): {
 	checkboxes: CheckboxConfig[];
 	selects: SelectConfig[];
 } {
+	const dlcOptions = [
+		{ value: "all", label: "All DLCs" },
+		...dlcs.map((dlc) => ({
+			value: dlc.uuid,
+			label: dlc.title
+		}))
+	];
+
 	switch (page) {
 		case "quests":
 			return {
@@ -97,6 +114,18 @@ export default function getFilterConfig(
 						label: "Sort",
 						options: getSortOptions(true),
 						value: filters.sort
+					},
+					{
+						key: "completed",
+						label: "Completed",
+						options: COMPLETED_OPTIONS,
+						value: filters.completed
+					},
+					{
+						key: "dlc",
+						label: "DLC",
+						options: dlcOptions,
+						value: filters.dlc
 					}
 				]
 			};
@@ -133,6 +162,18 @@ export default function getFilterConfig(
 						label: "Secret achievements",
 						options: HIDDEN_OPTIONS,
 						value: filters.hiddenAchievements
+					},
+					{
+						key: "completed",
+						label: "Completed",
+						options: COMPLETED_OPTIONS,
+						value: filters.completed
+					},
+					{
+						key: "dlc",
+						label: "DLC",
+						options: dlcOptions,
+						value: filters.dlc
 					}
 				]
 			};
@@ -146,7 +187,32 @@ export default function getFilterConfig(
 						value: filters.searchItems
 					}
 				],
-				selects: []
+				selects: [
+					{
+						key: "missables",
+						label: "Missables",
+						options: MISSABLE_OPTIONS,
+						value: filters.missables
+					},
+					{
+						key: "completed",
+						label: "Completed",
+						options: COMPLETED_OPTIONS,
+						value: filters.completed
+					},
+					{
+						key: "dlc",
+						label: "DLC",
+						options: dlcOptions,
+						value: filters.dlc
+					},
+					{
+						key: "sort",
+						label: "Sort",
+						options: getSortOptions(false),
+						value: filters.sort
+					}
+				]
 			};
 	}
 }

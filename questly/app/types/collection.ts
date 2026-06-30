@@ -1,9 +1,10 @@
-import { Game, Item } from "@/app/types/quest";
+import { DLC, Game, Item } from "@/app/types/quest";
 
 export type CollectionType = {
 	title: string;
 	items: Item[];
 	uuid: string;
+	dlc?: DLC;
 	game: Game;
 	type: "single" | "group";
 	collection_groups: CollectionGroup[];

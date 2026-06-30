@@ -16,7 +16,16 @@ export enum HiddenAchievementsOption {
 	REVEAL = "reveal"
 }
 
+export enum CompletedOption {
+	DEFAULT = "default",
+	SHOW_FIRST = "showFirst",
+	SHOW_LAST = "showLast",
+	HIDE = "hide"
+}
+
 export type Filters = {
+	completed: CompletedOption;
+	dlc: string;
 	search: string;
 	hiddenAchievements: HiddenAchievementsOption;
 	groupByType: boolean;

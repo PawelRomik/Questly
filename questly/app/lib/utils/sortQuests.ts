@@ -1,4 +1,4 @@
-import { MissableOption, SortOption } from "@/app/components/filters/types";
+import { CompletedOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { Quest } from "@/app/types/quest";
 
 function compareBySort(a: Quest, b: Quest, sort: string) {
@@ -18,16 +18,33 @@ function compareBySort(a: Quest, b: Quest, sort: string) {
 	}
 }
 
-export function sortQuests(quests: Quest[], sort: string, isCompleted: (uuid: string) => boolean, missables: MissableOption = MissableOption.DEFAULT) {
+export function sortQuests(
+	quests: Quest[],
+	sort: string,
+	isCompleted: (uuid: string) => boolean,
+	completed: CompletedOption = CompletedOption.DEFAULT,
+	missables: MissableOption = MissableOption.DEFAULT
+) {
 	const sorted = [...quests];
 
 	sorted.sort((a, b) => {
-		if (missables === MissableOption.SHOW_FIRST) {
-			if (a.missable !== b.missable) {
-				return Number(b.missable) - Number(a.missable);
-			}
+		if (completed !== CompletedOption.DEFAULT) {
+			const completedA = isCompleted(a.uuid);
+			const completedB = isCompleted(b.uuid);
 
-			return compareBySort(a, b, sort);
+			if (completedA !== completedB) {
+				if (completed === CompletedOption.SHOW_FIRST) {
+					return Number(completedB) - Number(completedA);
+				}
+
+				if (completed === CompletedOption.SHOW_LAST) {
+					return Number(completedA) - Number(completedB);
+				}
+			}
+		}
+
+		if (missables === MissableOption.SHOW_FIRST && a.missable !== b.missable) {
+			return Number(b.missable) - Number(a.missable);
 		}
 
 		return compareBySort(a, b, sort);

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
+import { CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
@@ -23,6 +23,10 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 	const [filters, setFilters] = useState<Filters>({
 		search: searchParams.get("search") ?? "",
+
+		completed: (searchParams.get("completed") as CompletedOption) ?? CompletedOption.DEFAULT,
+
+		dlc: searchParams.get("dlc") ?? "all",
 
 		groupByType: searchParams.get("groupByType") === "true",
 
@@ -56,6 +60,12 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 			if (filters.searchItems) params.set("searchItems", "true");
 			else params.delete("searchItems");
+
+			if (filters.completed !== CompletedOption.DEFAULT) params.set("completed", filters.completed);
+			else params.delete("completed");
+
+			if (filters.dlc !== "all") params.set("dlc", filters.dlc);
+			else params.delete("dlc");
 
 			if (filters.groupByQuestGroup) params.set("groupByQuestGroup", "true");
 			else params.delete("groupByQuestGroup");
@@ -110,7 +120,11 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 				searchItems: false,
 
-				missables: MissableOption.DEFAULT
+				missables: MissableOption.DEFAULT,
+
+				completed: CompletedOption.DEFAULT,
+
+				dlc: "all"
 			});
 		});
 

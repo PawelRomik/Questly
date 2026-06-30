@@ -107,6 +107,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 			}
 			dlc {
 				title
+				uuid
 				color
 				icon {
 					url
@@ -224,6 +225,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			}
 			dlc {
 				title
+				uuid
 				color
 				icon {
 					url
@@ -245,6 +247,7 @@ export const GET_NEXT_QUEST = gql`
 			}
 			dlc {
 				title
+				uuid
 				color
 				icon {
 					url
@@ -278,6 +281,7 @@ export const GET_ACHIEVEMENTS = gql`
 			}
 			dlc {
 				title
+				uuid
 				color
 				icon {
 					url
@@ -310,6 +314,7 @@ export const GET_COLLECTIONS = gql`
 				description
 				dlc {
 					title
+					uuid
 					color
 					icon {
 						url
@@ -378,6 +383,15 @@ export const GET_ICONS = gql`
 				}
 				missable_color
 			}
+		}
+	}
+`;
+
+export const GET_DLCS = gql`
+	query GetDLCS($locale: I18NLocaleCode, $game: String) {
+		dlcs(filters: { game: { slug: { eq: $game } } }, locale: $locale) {
+			title
+			uuid
 		}
 	}
 `;

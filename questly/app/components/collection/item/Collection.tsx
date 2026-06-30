@@ -11,6 +11,7 @@ import { collectionVariants } from "@/app/components/collection/variant/collecti
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { motion } from "framer-motion";
 
 type Props = {
 	collection: CollectionType;
@@ -58,25 +59,35 @@ export default function Collection({ collection }: Props) {
 	const hasMissable = useMemo(() => items.some((item) => item.missable), [items]);
 
 	return (
-		<div className={styles.collection.base(isComplete)}>
-			<CollectionAccent completed={isComplete} />
+		<motion.div
+			variants={{
+				hidden: { opacity: 0, y: -5 },
+				visible: { opacity: 1, y: 0 }
+			}}
+			transition={{ type: "spring", stiffness: 300, damping: 25 }}
+			whileTap={{ scale: 0.97 }}
+			layout
+		>
+			<div className={styles.collection.base(isComplete)}>
+				<CollectionAccent completed={isComplete} />
 
-			<CollectionHeader dlcs={dlcs} collection={collection} hasMissable={hasMissable} completed={completedCount} total={total} />
+				<CollectionHeader dlcs={dlcs} collection={collection} hasMissable={hasMissable} completed={completedCount} total={total} />
 
-			<div className={styles.collection.grid()}>
-				{items.map((item) => (
-					<CollectionItem
-						key={item.uuid}
-						name={item.name}
-						missable={item.missable}
-						src={item?.image?.url ?? item_icon}
-						completed={!!completedMap.get(item.uuid)}
-						onClick={() => handleItemClick(item.uuid)}
-					/>
-				))}
+				<div className={styles.collection.grid()}>
+					{items.map((item) => (
+						<CollectionItem
+							key={item.uuid}
+							name={item.name}
+							missable={item.missable}
+							src={item?.image?.url ?? item_icon}
+							completed={!!completedMap.get(item.uuid)}
+							onClick={() => handleItemClick(item.uuid)}
+						/>
+					))}
+				</div>
+
+				<CollectionButton completed={isComplete} onCompleteAll={handleCompleteAll} onReset={handleReset} />
 			</div>
-
-			<CollectionButton completed={isComplete} onCompleteAll={handleCompleteAll} onReset={handleReset} />
-		</div>
+		</motion.div>
 	);
 }

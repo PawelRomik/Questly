@@ -8,6 +8,9 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import getFilterConfig, { Page } from "@/app/lib/utils/getFilterConfig";
 import { useFilters } from "@/app/context/FiltersContext";
 import { FilterCheckbox } from "@/app/components/filters/FilterCheckbox";
+import { useApollo } from "@/app/hooks/useApollo";
+import { GET_DLCS } from "@/app/lib/queries";
+import { getDLCsData, getDLCsVars } from "@/app/types/quest";
 
 type Props = {
 	isLocked: boolean;
@@ -19,9 +22,14 @@ export function FiltersOptions({ isLocked, update }: Props) {
 	const styles = useGameStyles(filterVariants);
 	const { filters } = useFilters();
 
+	const { data } = useApollo<getDLCsData, getDLCsVars>(GET_DLCS, {
+		locale: "pl",
+		game: "witcher3"
+	});
+
 	if (!["quests", "achievements", "collectibles"].includes(content as string)) return null;
 
-	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters);
+	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters, data?.dlcs ?? []);
 
 	return (
 		<div className={styles.settings()}>
