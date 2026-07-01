@@ -7,7 +7,6 @@ const navbarLayoutClass = `
 
   w-full
 
-  h-24
 
   text-2xl font-bold
 
