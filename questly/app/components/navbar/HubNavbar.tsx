@@ -2,7 +2,7 @@
 
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 
-import GameSwitcher from "@/app/components/game-switcher/GameSwitcher";
+import GameSwitcher from "@/app/components/switchers/GameSwitcher";
 import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
 
 export default function HubNavbar() {

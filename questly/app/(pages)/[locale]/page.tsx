@@ -14,7 +14,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 	setRequestLocale(locale);
 
 	return (
-		<div style={{ backgroundImage: `url(${background.src})` }} className='flex flex-col gap-5 h-screen overflow-y-scroll'>
+		<div style={{ backgroundImage: `url(${background.src})` }} className='flex flex-col justify-between gap-5 h-screen overflow-y-scroll'>
 			<HubNavbar />
 		</div>
 	);

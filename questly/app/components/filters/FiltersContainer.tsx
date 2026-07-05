@@ -9,6 +9,7 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import FixedImage from "@/app/components/common/FixedImage";
 import { FiltersOptions } from "@/app/components/filters/FiltersOptions";
+import LocaleSwitcher from "@/app/components/switchers/LocaleSwitcher";
 
 export function FiltersContainer() {
 	const { filters, setFilters } = useFilters();
@@ -37,6 +38,7 @@ export function FiltersContainer() {
 
 			{<FiltersOptions isLocked={isLocked} update={update} />}
 			<StatisticList stats={[{ label: "Quests" }, { label: "Achievements" }, { label: "Collectibles" }, { label: "Map Markers" }]} />
+			<LocaleSwitcher />
 		</div>
 	);
 }
