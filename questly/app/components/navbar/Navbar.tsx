@@ -6,7 +6,7 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 import { NavMenu } from "./NavMenu";
-import GameSwitcher from "@/app/components/game-switcher/GameSwitcher";
+import GameSwitcher from "@/app/components/switchers/GameSwitcher";
 import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
 import { motion } from "framer-motion";
 
