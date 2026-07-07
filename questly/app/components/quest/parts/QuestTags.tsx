@@ -4,6 +4,7 @@ import { questVariants } from "@/app/components/quest/variant/questVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { QuestWithMatches } from "@/app/types/quest";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	quest: QuestWithMatches;
@@ -15,11 +16,12 @@ export function QuestTags({ quest, searchTags, completed }: Props) {
 	const styles = useGameStyles(questVariants);
 	const { tags, dlc, missable } = quest;
 	const { missable_color } = useGameAssets();
+	const t = useTranslations("tags");
 
 	return (
 		<div className={styles.tags()}>
 			{dlc && <Tag tag={dlc.title} type='dlc' match={quest._dlcMatch} color={dlc.color} searchTags={searchTags} />}
-			{missable && <Tag tag={"Missable"} type='missable' match={quest._missableMatch} color={missable_color} searchTags={searchTags} />}
+			{missable && <Tag tag={t("missable")} type='missable' match={quest._missableMatch} color={missable_color} searchTags={searchTags} />}
 			{tags.map((tag) => (
 				<Tag key={tag.name} match={tag.name === quest._tagMatchValue ? quest._tagMatchIndices : undefined} tag={tag.name} searchTags={searchTags} />
 			))}

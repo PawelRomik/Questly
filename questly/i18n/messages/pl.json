@@ -1,5 +1,54 @@
 {
-	"HomePage": {
-		"title": "Czesc!"
+	"achievements": {
+		"achievements": "Osiągnięcia",
+		"hidden": "Ukryte osiągnięcie",
+		"hiddenClick": "Ukryte - kliknij, aby odkryć",
+		"icon": "Ikona {title}"
+	},
+	"collections": {
+		"collectibles": "Znajdźki",
+		"resetBtn": "Resetuj",
+		"completeBtn": "Ukończ"
+	},
+	"tags": {
+		"missable": "Możliwe do pominięcia",
+		"dlc": "DLC",
+		"completed": "✔ Ukończono"
+	},
+	"filters": {
+		"searchResults": "Wyniki wyszukiwania",
+		"check": "zaznacz",
+		"missables": "Możliwe do pominięcia",
+		"search": "Szukaj: {content}..."
+	},
+	"common": {
+		"character": "postać",
+		"logo": "logo",
+		"currency": "waluta",
+		"location": "lokalizacja",
+		"levelShort": "poz.",
+		"level": "Poziom",
+		"reset": "Resetuj",
+		"selectGame": "Wybierz grę",
+		"selectLocale": "Wybierz język",
+		"other": "Inne"
+	},
+	"quests": {
+		"quests": "Zadania",
+		"allQuests": "Wszystkie zadania",
+		"nextQuest": "Następne zadanie:",
+		"icon": "Ikona zadania",
+		"suggestedLevel": "Zalecany poziom: {level}",
+		"completedQuest": "Ukończone zadanie:",
+		"rewards": {
+			"reward": "Nagroda",
+			"xp": "PD",
+			"money": "pieniądze",
+			"item": "przedmiot"
+		}
+	},
+	"map": {
+		"mapMarkers": "Znaczniki mapy",
+		"map": "Mapa"
 	}
 }

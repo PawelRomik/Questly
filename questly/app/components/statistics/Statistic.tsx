@@ -1,5 +1,6 @@
 import { statisticVariants } from "@/app/components/statistics/variant/statisticVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	label: string;
@@ -7,6 +8,7 @@ type Props = {
 
 export function Statistic({ label }: Props) {
 	const styles = useGameStyles(statisticVariants);
+	const t = useTranslations("common");
 
 	return (
 		<li className={styles.stat.base()}>
@@ -19,7 +21,7 @@ export function Statistic({ label }: Props) {
 			<div className={styles.stat.item.right()}>
 				<span className={styles.stat.item.counter()}>0/13</span>
 
-				<button className={styles.stat.item.button()}>Reset</button>
+				<button className={styles.stat.item.button()}>{t("reset")}</button>
 			</div>
 		</li>
 	);

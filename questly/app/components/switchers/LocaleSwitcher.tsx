@@ -2,13 +2,14 @@
 
 import { Dialog } from "radix-ui";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { LOCALES } from "@/app/data/locales";
 
 export default function LocaleSwitcher() {
 	const locale = useLocale();
 	const pathname = usePathname();
+	const t = useTranslations("common");
 
 	const currentLocale = LOCALES.find((l) => l.code === locale)!;
 
@@ -22,7 +23,7 @@ export default function LocaleSwitcher() {
 				<Dialog.Overlay className='fixed inset-0 z-40 bg-black/70 backdrop-blur-sm' />
 
 				<Dialog.Content className='fixed top-1/2 left-1/2 z-50 w-[90vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border border-neutral-800 bg-[#0b0b0f] p-6 shadow-2xl'>
-					<Dialog.Title className='mb-6 text-center text-xl font-semibold text-white'>Select language</Dialog.Title>
+					<Dialog.Title className='mb-6 text-center text-xl font-semibold text-white'>{t("selectLocale")}</Dialog.Title>
 
 					<div className='grid grid-cols-3 gap-4'>
 						{LOCALES.map((item) => (

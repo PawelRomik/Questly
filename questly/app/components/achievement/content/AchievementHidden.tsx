@@ -1,7 +1,10 @@
+"use client";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useTranslations } from "next-intl";
 
 export default function AchievementHidden() {
 	const styles = useGameStyles(achievementVariants);
-	return <div className={styles.hidden()}>Hidden — click to reveal</div>;
+	const t = useTranslations("achievements");
+	return <div className={styles.hidden()}>{t("hiddenClick")}</div>;
 }

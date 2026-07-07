@@ -1,5 +1,6 @@
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	completed: boolean;
@@ -9,7 +10,8 @@ type Props = {
 
 export function CollectionButton({ completed, onCompleteAll, onReset }: Props) {
 	const styles = useGameStyles(collectionVariants);
-	const buttonText = completed ? "RESET" : "COMPLETE";
+	const t = useTranslations("collections");
+	const buttonText = completed ? t("resetBtn") : t("completeBtn");
 	const onClick = completed ? onReset : onCompleteAll;
 
 	return (

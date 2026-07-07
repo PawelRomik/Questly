@@ -11,6 +11,7 @@ import { FilterCheckbox } from "@/app/components/filters/FilterCheckbox";
 import { useApollo } from "@/app/hooks/useApollo";
 import { GET_DLCS } from "@/app/lib/queries";
 import { getDLCsData, getDLCsVars } from "@/app/types/quest";
+import { useLocale } from "next-intl";
 
 type Props = {
 	isLocked: boolean;
@@ -18,13 +19,15 @@ type Props = {
 };
 
 export function FiltersOptions({ isLocked, update }: Props) {
-	const { content } = useParams();
+	const { content, game } = useParams();
+	const gameParam = Array.isArray(game) ? (game[0] ?? "") : (game ?? "");
 	const styles = useGameStyles(filterVariants);
 	const { filters } = useFilters();
+	const locale = useLocale();
 
 	const { data } = useApollo<getDLCsData, getDLCsVars>(GET_DLCS, {
-		locale: "pl",
-		game: "witcher3"
+		locale,
+		game: gameParam
 	});
 
 	if (!["quests", "achievements", "collectibles"].includes(content as string)) return null;

@@ -1,5 +1,54 @@
 {
-	"HomePage": {
-		"title": "Hello world!"
+	"achievements": {
+		"achievements": "Achievements",
+		"hidden": "Hidden Achievement",
+		"hiddenClick": "Hidden - Click to reveal",
+		"icon": "{title} icon"
+	},
+	"collections": {
+		"collectibles": "Collectibles",
+		"resetBtn": "Reset",
+		"completeBtn": "Complete"
+	},
+	"tags": {
+		"missable": "Missable",
+		"dlc": "dlc",
+		"completed": "✔ Completed"
+	},
+	"filters": {
+		"searchResults": "Search results",
+		"check": "check",
+		"missables": "Missables",
+		"search": "Search {content}..."
+	},
+	"common": {
+		"character": "character",
+		"logo": "logo",
+		"currency": "currency",
+		"location": "location",
+		"levelShort": "lvl",
+		"level": "Level",
+		"reset": "Reset",
+		"selectGame": "Select game",
+		"selectLocale": "Select locale",
+		"other": "Other"
+	},
+	"quests": {
+		"quests": "Quests",
+		"allQuests": "All Quests",
+		"nextQuest": "Next quest:",
+		"icon": "Quest Icon",
+		"suggestedLevel": "Suggested Level {level}",
+		"completedQuest": "Completed quest:",
+		"rewards": {
+			"reward": "Reward",
+			"xp": "xp",
+			"money": "money",
+			"item": "item"
+		}
+	},
+	"map": {
+		"mapMarkers": "Map Markers",
+		"map": "Map"
 	}
 }
