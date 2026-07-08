@@ -25,7 +25,9 @@ export function useQuestGrouping(
 		}
 
 		if (filters.groupByQuestGroup) {
-			return buildQuestTree(quests, ["quest_group"], getters, locale);
+			return buildQuestTree(quests, ["quest_group"], getters, locale, {
+				other: t("common.other")
+			});
 		}
 
 		const keys: GroupKey[] = [];
@@ -46,6 +48,8 @@ export function useQuestGrouping(
 			];
 		}
 
-		return buildQuestTree(quests, keys, getters, locale);
+		return buildQuestTree(quests, keys, getters, locale, {
+			other: t("common.other")
+		});
 	}, [quests, filters, t, getters, icons, locale]);
 }

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import Fuse from "fuse.js";
+import { useTranslations } from "next-intl";
 type FuzzyMatch = readonly [number, number][];
 
 export type FuzzySearchItem<T> = T & {
@@ -14,14 +15,7 @@ type UseFuzzySearchOptions<T> = {
 	extraMatches?: (item: T, search: string) => boolean | undefined;
 };
 
-const missableFuse = new Fuse([{ value: "missable" }], {
-	keys: ["value"],
-	threshold: 0.3,
-	includeMatches: true,
-	ignoreLocation: true
-});
-
-export function getMissableIndices(search: string) {
+export function getMissableIndices(search: string, missableFuse: Fuse<{ value: string }>) {
 	const result = missableFuse.search(search)[0];
 
 	return result?.matches?.[0]?.indices ?? [];
@@ -33,6 +27,19 @@ type SearchableItem = {
 };
 
 export function useFuzzySearch<T extends SearchableItem>({ items, search, getId, keys, extraMatches }: UseFuzzySearchOptions<T>): FuzzySearchItem<T>[] {
+	const t = useTranslations("tags");
+
+	const missableFuse = useMemo(
+		() =>
+			new Fuse([{ value: t("missable") }], {
+				keys: ["value"],
+				threshold: 0.3,
+				includeMatches: true,
+				ignoreLocation: true
+			}),
+		[t]
+	);
+
 	return useMemo(() => {
 		const term = search.trim();
 
@@ -69,13 +76,13 @@ export function useFuzzySearch<T extends SearchableItem>({ items, search, getId,
 
 				const searchTerm = term.toLowerCase();
 
-				return "missable".includes(searchTerm) || searchTerm.includes("mis");
+				return t("missable").toLowerCase().includes(searchTerm) || searchTerm.includes(t("missable").toLowerCase().slice(0, 3));
 			})
 			.map((item) => ({
 				...item,
-				_missableMatch: getMissableIndices(term)
+				_missableMatch: getMissableIndices(term, missableFuse)
 			}));
 
 		return [...new Map([...fuzzyResults, ...additionalResults].map((item) => [getId(item), item])).values()];
-	}, [items, search, keys, extraMatches, getId]);
+	}, [items, search, keys, t, extraMatches, getId, missableFuse]);
 }

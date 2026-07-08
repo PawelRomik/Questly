@@ -5,13 +5,25 @@ export type AchievementGroupNode = {
 	title: string;
 	items: AchievementType[];
 	icon?: string;
+	labels?: {
+		allAchievements: string;
+		other: string;
+	};
 };
 
-export function buildAchievementTree(achievements: AchievementType[], groupByQuestGroup: boolean, locale = "en"): AchievementGroupNode[] {
+export function buildAchievementTree(
+	achievements: AchievementType[],
+	groupByQuestGroup: boolean,
+	locale = "en",
+	labels = {
+		allAchievements: "All achievements",
+		other: "Other"
+	}
+): AchievementGroupNode[] {
 	if (!groupByQuestGroup) {
 		return [
 			{
-				title: "All achievements",
+				title: labels.allAchievements,
 				items: achievements
 			}
 		];
@@ -30,7 +42,7 @@ export function buildAchievementTree(achievements: AchievementType[], groupByQue
 	const grouped = groupBy(achievements, (a) => a.achievement_group?.uuid ?? "other");
 
 	return Object.entries(grouped).map(([uuid, items]) => ({
-		title: uuid === "other" ? "Other" : (groupTitles.get(uuid) ?? items[0]?.achievement_group?.name ?? uuid),
+		title: uuid === "other" ? labels.other : (groupTitles.get(uuid) ?? items[0]?.achievement_group?.name ?? uuid),
 
 		items,
 

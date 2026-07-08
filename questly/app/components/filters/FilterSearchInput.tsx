@@ -13,9 +13,15 @@ type Props = {
 export function FilterSearchInput({ value, onChange }: Props) {
 	const styles = useGameStyles(filterVariants);
 	const params = useParams();
-	const t = useTranslations("filters");
+	const t = useTranslations();
 	const { content } = params;
 	const contentParam = Array.isArray(content) ? (content[0] ?? "") : (content ?? "");
+
+	const contentLabel = {
+		achievements: t("achievements.achievements"),
+		quests: t("quests.quests"),
+		collectibles: t("collections.collectibles")
+	}[contentParam];
 
 	return (
 		<div className={styles.searchInput.wrapper()}>
@@ -23,7 +29,7 @@ export function FilterSearchInput({ value, onChange }: Props) {
 				type='text'
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
-				placeholder={t("search", { content: contentParam })}
+				placeholder={t("filters.search", { content: contentLabel || "" })}
 				className={styles.searchInput.inputField()}
 			/>
 

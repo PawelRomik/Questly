@@ -17,9 +17,37 @@
 	},
 	"filters": {
 		"searchResults": "Search results",
-		"check": "check",
+		"check": "Check",
+		"search": "Search {content}...",
 		"missables": "Missables",
-		"search": "Search {content}..."
+
+		"hide": "Hide",
+		"show": "Show",
+
+		"default": "Default",
+		"showFirst": "Show first",
+		"showLast": "Show last",
+		"showOnly": "Show only",
+
+		"titleAZ": "Title A-Z",
+		"titleZA": "Title Z-A",
+		"levelAsc": "Level ↑",
+		"levelDesc": "Level ↓",
+
+		"allDlcs": "All DLCs",
+		"dlc": "DLC",
+		"sort": "Sort",
+		"completed": "Completed",
+
+		"groupByType": "Group by type",
+		"searchInTags": "Search in tags",
+		"groupByQuestGroup": "Group by quest group",
+		"groupByAchievementGroup": "Group by achievement group",
+		"groupByAct": "Group by act",
+		"groupByLocation": "Group by location",
+
+		"searchInItems": "Search in items",
+		"secretAchievements": "Secret achievements"
 	},
 	"common": {
 		"character": "character",

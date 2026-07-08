@@ -1,5 +1,6 @@
 import { CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { DLC } from "@/app/types/quest";
+import { TranslationValues } from "next-intl";
 
 export type Page = "quests" | "achievements" | "collectibles";
 
@@ -10,6 +11,8 @@ type CheckboxConfig = {
 	disabled?: boolean;
 };
 
+type TFunction = (key: string, values?: TranslationValues) => string;
+
 type SelectKey = "missables" | "sort" | "hiddenAchievements" | "completed" | "dlc";
 
 type SelectConfig = {
@@ -19,33 +22,32 @@ type SelectConfig = {
 	value: string;
 };
 
-const HIDDEN_OPTIONS = [
-	{ value: HiddenAchievementsOption.HIDE, label: "Hide" },
-	{ value: HiddenAchievementsOption.REVEAL, label: "Show" }
+const HIDDEN_OPTIONS = (t: TFunction) => [
+	{ value: HiddenAchievementsOption.HIDE, label: t("hide") },
+	{ value: HiddenAchievementsOption.REVEAL, label: t("show") }
 ];
 
-const COMPLETED_OPTIONS = [
-	{ value: CompletedOption.DEFAULT, label: "Default" },
-	{ value: CompletedOption.SHOW_FIRST, label: "Show first" },
-	{ value: CompletedOption.SHOW_LAST, label: "Show last" },
-	{ value: CompletedOption.HIDE, label: "Hide" }
+const COMPLETED_OPTIONS = (t: TFunction) => [
+	{ value: CompletedOption.DEFAULT, label: t("default") },
+	{ value: CompletedOption.SHOW_FIRST, label: t("showFirst") },
+	{ value: CompletedOption.SHOW_LAST, label: t("showLast") },
+	{ value: CompletedOption.HIDE, label: t("hide") }
 ];
 
-const MISSABLE_OPTIONS = [
-	{ value: MissableOption.DEFAULT, label: "Default" },
-	{ value: MissableOption.SHOW_FIRST, label: "Show first" },
-	{ value: MissableOption.SHOW_ONLY, label: "Show only" }
+const MISSABLE_OPTIONS = (t: TFunction) => [
+	{ value: MissableOption.DEFAULT, label: t("default") },
+	{ value: MissableOption.SHOW_FIRST, label: t("showFirst") },
+	{ value: MissableOption.SHOW_ONLY, label: t("showOnly") }
 ];
 
-export function getSortOptions(hasLevel: boolean) {
+export function getSortOptions(hasLevel: boolean, t: TFunction) {
 	return [
-		{ value: SortOption.AZ, label: "Title A-Z" },
-		{ value: SortOption.ZA, label: "Title Z-A" },
-
+		{ value: SortOption.AZ, label: t("titleAZ") },
+		{ value: SortOption.ZA, label: t("titleZA") },
 		...(hasLevel
 			? [
-					{ value: SortOption.LEVEL_ASC, label: "Level ↑" },
-					{ value: SortOption.LEVEL_DESC, label: "Level ↓" }
+					{ value: SortOption.LEVEL_ASC, label: t("levelAsc") },
+					{ value: SortOption.LEVEL_DESC, label: t("levelDesc") }
 				]
 			: [])
 	];
@@ -55,13 +57,14 @@ export default function getFilterConfig(
 	page: Page,
 	isLocked: boolean,
 	filters: Filters,
-	dlcs: DLC[]
+	dlcs: DLC[],
+	t: TFunction
 ): {
 	checkboxes: CheckboxConfig[];
 	selects: SelectConfig[];
 } {
 	const dlcOptions = [
-		{ value: "all", label: "All DLCs" },
+		{ value: "all", label: t("allDlcs") },
 		...dlcs.map((dlc) => ({
 			value: dlc.uuid,
 			label: dlc.title
@@ -74,56 +77,56 @@ export default function getFilterConfig(
 				checkboxes: [
 					{
 						key: "groupByType",
-						label: "Group by type",
+						label: t("groupByType"),
 						value: filters.groupByType,
 						disabled: isLocked
 					},
 					{
 						key: "searchTags",
 						value: filters.searchTags,
-						label: "Search in tags",
+						label: t("searchInTags"),
 						disabled: isLocked
 					},
 					{
 						key: "groupByQuestGroup",
 						value: filters.groupByQuestGroup,
-						label: "Group by quests group"
+						label: t("groupByQuestGroup")
 					},
 					{
 						key: "groupByAct",
 						value: filters.groupByAct,
-						label: "Group by act",
+						label: t("groupByAct"),
 						disabled: isLocked
 					},
 					{
 						key: "groupByLocation",
 						value: filters.groupByLocation,
-						label: "Group by location",
+						label: t("groupByLocation"),
 						disabled: isLocked
 					}
 				],
 				selects: [
 					{
 						key: "missables",
-						label: "Missables",
-						options: MISSABLE_OPTIONS,
+						label: t("missables"),
+						options: MISSABLE_OPTIONS(t),
 						value: filters.missables
 					},
 					{
 						key: "sort",
-						label: "Sort",
-						options: getSortOptions(true),
+						label: t("sort"),
+						options: getSortOptions(true, t),
 						value: filters.sort
 					},
 					{
 						key: "completed",
-						label: "Completed",
-						options: COMPLETED_OPTIONS,
+						label: t("completed"),
+						options: COMPLETED_OPTIONS(t),
 						value: filters.completed
 					},
 					{
 						key: "dlc",
-						label: "DLC",
+						label: t("dlc"),
 						options: dlcOptions,
 						value: filters.dlc
 					}
@@ -135,43 +138,43 @@ export default function getFilterConfig(
 				checkboxes: [
 					{
 						key: "searchTags",
-						label: "Search in tags",
+						label: t("searchInTags"),
 						value: filters.searchTags
 					},
 					{
 						key: "groupByQuestGroup",
-						label: "Group by achievements group",
+						label: t("groupByAchievementGroup"),
 						value: filters.groupByQuestGroup
 					}
 				],
 				selects: [
 					{
 						key: "missables",
-						label: "Missables",
-						options: MISSABLE_OPTIONS,
+						label: t("missables"),
+						options: MISSABLE_OPTIONS(t),
 						value: filters.missables
 					},
 					{
 						key: "sort",
-						label: "Sort",
-						options: getSortOptions(false),
+						label: t("sort"),
+						options: getSortOptions(false, t),
 						value: filters.sort
 					},
 					{
 						key: "hiddenAchievements",
-						label: "Secret achievements",
-						options: HIDDEN_OPTIONS,
+						label: t("secretAchievements"),
+						options: HIDDEN_OPTIONS(t),
 						value: filters.hiddenAchievements
 					},
 					{
 						key: "completed",
-						label: "Completed",
-						options: COMPLETED_OPTIONS,
+						label: t("completed"),
+						options: COMPLETED_OPTIONS(t),
 						value: filters.completed
 					},
 					{
 						key: "dlc",
-						label: "DLC",
+						label: t("dlc"),
 						options: dlcOptions,
 						value: filters.dlc
 					}
@@ -183,33 +186,33 @@ export default function getFilterConfig(
 				checkboxes: [
 					{
 						key: "searchItems",
-						label: "Search in items",
+						label: t("searchInItems"),
 						value: filters.searchItems
 					}
 				],
 				selects: [
 					{
 						key: "missables",
-						label: "Missables",
-						options: MISSABLE_OPTIONS,
+						label: t("missables"),
+						options: MISSABLE_OPTIONS(t),
 						value: filters.missables
 					},
 					{
 						key: "completed",
-						label: "Completed",
-						options: COMPLETED_OPTIONS,
+						label: t("completed"),
+						options: COMPLETED_OPTIONS(t),
 						value: filters.completed
 					},
 					{
 						key: "dlc",
-						label: "DLC",
+						label: t("dlc"),
 						options: dlcOptions,
 						value: filters.dlc
 					},
 					{
 						key: "sort",
-						label: "Sort",
-						options: getSortOptions(false),
+						label: t("sort"),
+						options: getSortOptions(false, t),
 						value: filters.sort
 					}
 				]

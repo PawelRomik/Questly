@@ -27,7 +27,7 @@ import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
-	const t = useTranslations("filters");
+	const t = useTranslations();
 
 	const { filters } = useFilters();
 	const { search, groupByQuestGroup, sort, missables } = filters;
@@ -88,7 +88,10 @@ export default function AchievementList() {
 			];
 		}
 
-		return buildAchievementTree(sortedAchievements, groupByQuestGroup, locale);
+		return buildAchievementTree(sortedAchievements, groupByQuestGroup, locale, {
+			allAchievements: t("achievements.achievements"),
+			other: t("common.other")
+		});
 	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon]);
 
 	return (
@@ -98,7 +101,7 @@ export default function AchievementList() {
 				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
-					<Section key={group.title} title={search ? t("searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
+					<Section key={group.title} title={search ? t("filters.searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
 							<Achievement
 								key={`${achievement.uuid}-${filters.hiddenAchievements}`}

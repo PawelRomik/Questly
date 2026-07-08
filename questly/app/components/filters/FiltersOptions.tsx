@@ -11,7 +11,7 @@ import { FilterCheckbox } from "@/app/components/filters/FilterCheckbox";
 import { useApollo } from "@/app/hooks/useApollo";
 import { GET_DLCS } from "@/app/lib/queries";
 import { getDLCsData, getDLCsVars } from "@/app/types/quest";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type Props = {
 	isLocked: boolean;
@@ -24,6 +24,7 @@ export function FiltersOptions({ isLocked, update }: Props) {
 	const styles = useGameStyles(filterVariants);
 	const { filters } = useFilters();
 	const locale = useLocale();
+	const t = useTranslations("filters");
 
 	const { data } = useApollo<getDLCsData, getDLCsVars>(GET_DLCS, {
 		locale,
@@ -32,7 +33,7 @@ export function FiltersOptions({ isLocked, update }: Props) {
 
 	if (!["quests", "achievements", "collectibles"].includes(content as string)) return null;
 
-	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters, data?.dlcs ?? []);
+	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters, data?.dlcs ?? [], t);
 
 	return (
 		<div className={styles.settings()}>

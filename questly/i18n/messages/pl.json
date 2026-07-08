@@ -11,15 +11,43 @@
 		"completeBtn": "Ukończ"
 	},
 	"tags": {
-		"missable": "Możliwe do pominięcia",
+		"missable": "Przegapialne",
 		"dlc": "DLC",
 		"completed": "✔ Ukończono"
 	},
 	"filters": {
 		"searchResults": "Wyniki wyszukiwania",
-		"check": "zaznacz",
-		"missables": "Możliwe do pominięcia",
-		"search": "Szukaj: {content}..."
+		"check": "Zaznacz",
+		"search": "Szukaj: {content}...",
+		"missables": "Przegapialne",
+
+		"hide": "Ukryj",
+		"show": "Pokaż",
+
+		"default": "Domyślnie",
+		"showFirst": "Pokaż na początku",
+		"showLast": "Pokaż na końcu",
+		"showOnly": "Pokaż tylko",
+
+		"titleAZ": "Tytuł A-Z",
+		"titleZA": "Tytuł Z-A",
+		"levelAsc": "Poziom ↑",
+		"levelDesc": "Poziom ↓",
+
+		"allDlcs": "Wszystkie DLC",
+		"dlc": "DLC",
+		"sort": "Sortowanie",
+		"completed": "Ukończone",
+
+		"groupByType": "Grupuj według typu",
+		"searchInTags": "Szukaj w tagach",
+		"groupByQuestGroup": "Grupuj według grup zadań",
+		"groupByAchievementGroup": "Grupuj według grup osiągnięć",
+		"groupByAct": "Grupuj według aktu",
+		"groupByLocation": "Grupuj według lokacji",
+
+		"searchInItems": "Szukaj w przedmiotach",
+		"secretAchievements": "Sekretne osiągnięcia"
 	},
 	"common": {
 		"character": "postać",
