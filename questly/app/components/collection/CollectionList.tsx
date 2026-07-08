@@ -134,7 +134,7 @@ export default function CollectionList() {
 		return list;
 	}, [isSearching, searchedCollections, collections, selectedCollection, filters.dlc, filters.completed, filters.missables, isCollectionItemCompleted, filters.sort]);
 
-	const activeGroup = isSearching ? "Search Results" : selectedCollection;
+	const activeGroup = isSearching ? "search" : selectedCollection;
 
 	const handleSelectGroup = (uuid: string) => {
 		const params = new URLSearchParams(searchParams.toString());

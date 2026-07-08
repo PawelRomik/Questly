@@ -18,7 +18,7 @@ import { achievementVariants } from "@/app/components/achievement/variant/achiev
 import { buildAchievementTree } from "@/app/lib/utils/buildAchievementTree";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
@@ -27,6 +27,7 @@ import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 
 export default function AchievementList() {
 	const { game } = useParams() as { game: string };
+	const t = useTranslations();
 
 	const { filters } = useFilters();
 	const { search, groupByQuestGroup, sort, missables } = filters;
@@ -80,15 +81,18 @@ export default function AchievementList() {
 		if (search.trim()) {
 			return [
 				{
-					title: "Search results",
+					title: t("searchResults"),
 					items: sortedAchievements,
 					icon: search_icon
 				}
 			];
 		}
 
-		return buildAchievementTree(sortedAchievements, groupByQuestGroup, locale);
-	}, [search, sortedAchievements, groupByQuestGroup, locale, search_icon]);
+		return buildAchievementTree(sortedAchievements, groupByQuestGroup, locale, {
+			allAchievements: t("achievements.achievements"),
+			other: t("common.other")
+		});
+	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon]);
 
 	return (
 		<div className={styles.root()}>
@@ -97,7 +101,7 @@ export default function AchievementList() {
 				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
-					<Section key={group.title} title={search ? "Search results" : group.title} count={group.items.length} completed={completedCount} icon={icon}>
+					<Section key={group.title} title={search ? t("filters.searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
 							<Achievement
 								key={`${achievement.uuid}-${filters.hiddenAchievements}`}

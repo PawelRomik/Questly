@@ -6,6 +6,7 @@ import Image from "next/image";
 import NavLogo from "@/app/components/navbar/NavLogo";
 import { GAME_THEME } from "@/app/data/games";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function GameSwitcher() {
 	const games = Object.values(GAME_THEME);
@@ -13,6 +14,7 @@ export default function GameSwitcher() {
 	const pathname = usePathname();
 
 	const currentSegments = pathname.split("/").filter(Boolean);
+	const t = useTranslations("common");
 
 	return (
 		<Dialog.Root>
@@ -24,7 +26,7 @@ export default function GameSwitcher() {
 				<Dialog.Overlay className='fixed inset-0 bg-black/70 backdrop-blur-sm z-40' />
 
 				<Dialog.Content className='fixed z-50 top-1/2 left-1/2 w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl bg-[#0b0b0f] border border-neutral-800 shadow-2xl p-6'>
-					<Dialog.Title className='text-xl font-semibold text-white mb-6 text-center tracking-wide'>Select Game</Dialog.Title>
+					<Dialog.Title className='text-xl font-semibold text-white mb-6 text-center tracking-wide'>{t("selectGame")}</Dialog.Title>
 
 					<div className='grid grid-cols-2 sm:grid-cols-3 gap-6'>
 						{games.map((game) => {

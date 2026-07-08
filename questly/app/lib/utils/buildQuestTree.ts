@@ -20,7 +20,19 @@ export type Getters = {
 	getActIcon: (list: Quest[]) => string | StaticImageData;
 };
 
-export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Getters, locale = "en"): GroupNode[] {
+type Labels = {
+	other: string;
+};
+
+export function buildQuestTree(
+	quests: Quest[],
+	keys: GroupKey[],
+	getters: Getters,
+	locale = "en",
+	labels: Labels = {
+		other: "Other"
+	}
+): GroupNode[] {
 	const actTitles = new Map<string, string>();
 	const locationTitles = new Map<string, string>();
 	const groupTitles = new Map<string, string>();
@@ -76,7 +88,7 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 						return q.quest_type?.uuid ?? "unknown";
 
 					default:
-						return getKeyValue(q, key);
+						return getKeyValue(q, key, { other: labels.other });
 				}
 			});
 		}
@@ -105,7 +117,7 @@ export function buildQuestTree(quests: Quest[], keys: GroupKey[], getters: Gette
 					break;
 
 				case "quest_group":
-					title = uuid === "other" ? "Other" : (groupTitles.get(uuid) ?? grouped[0]?.quest_groups?.find((g) => g.uuid === uuid)?.title ?? uuid);
+					title = uuid === "other" ? labels.other : (groupTitles.get(uuid) ?? grouped[0]?.quest_groups?.find((g) => g.uuid === uuid)?.title ?? uuid);
 					break;
 
 				case "type":

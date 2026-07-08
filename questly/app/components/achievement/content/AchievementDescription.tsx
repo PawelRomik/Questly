@@ -1,5 +1,7 @@
+"use client";
 import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	secret: boolean;
@@ -9,5 +11,6 @@ type Props = {
 
 export default function AchievementDescription({ secret, description, revealed }: Props) {
 	const styles = useGameStyles(achievementVariants);
-	return <p className={styles.description}>{secret && !revealed ? "Hidden Achievement " : description}</p>;
+	const t = useTranslations("achievements");
+	return <p className={styles.description}>{secret && !revealed ? t("hidden") : description}</p>;
 }

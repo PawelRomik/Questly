@@ -1,7 +1,9 @@
+"use client";
 import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import FixedImage from "@/app/components/common/FixedImage";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	name: string;
@@ -14,12 +16,13 @@ type Props = {
 export function CollectionItem({ name, src, completed, onClick, missable }: Props) {
 	const styles = useGameStyles(collectionVariants);
 	const { missable_icon } = useGameAssets();
+	const t = useTranslations("tags");
 
 	return (
 		<div onClick={onClick} className={styles.collection.item.base(completed)}>
 			<div className={styles.collection.item.wrapper()}>
 				<FixedImage src={src} alt={name} className={styles.collection.item.image()} />
-				{missable && <FixedImage src={missable_icon} alt='missable' className={styles.collection.item.missableIcon()} />}
+				{missable && <FixedImage src={missable_icon} alt={t("missable")} className={styles.collection.item.missableIcon()} />}
 			</div>
 		</div>
 	);

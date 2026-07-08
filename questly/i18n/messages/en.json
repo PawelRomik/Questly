@@ -1,5 +1,82 @@
 {
-	"HomePage": {
-		"title": "Hello world!"
+	"achievements": {
+		"achievements": "Achievements",
+		"hidden": "Hidden Achievement",
+		"hiddenClick": "Hidden - Click to reveal",
+		"icon": "{title} icon"
+	},
+	"collections": {
+		"collectibles": "Collectibles",
+		"resetBtn": "Reset",
+		"completeBtn": "Complete"
+	},
+	"tags": {
+		"missable": "Missable",
+		"dlc": "dlc",
+		"completed": "✔ Completed"
+	},
+	"filters": {
+		"searchResults": "Search results",
+		"check": "Check",
+		"search": "Search {content}...",
+		"missables": "Missables",
+
+		"hide": "Hide",
+		"show": "Show",
+
+		"default": "Default",
+		"showFirst": "Show first",
+		"showLast": "Show last",
+		"showOnly": "Show only",
+
+		"titleAZ": "Title A-Z",
+		"titleZA": "Title Z-A",
+		"levelAsc": "Level ↑",
+		"levelDesc": "Level ↓",
+
+		"allDlcs": "All DLCs",
+		"dlc": "DLC",
+		"sort": "Sort",
+		"completed": "Completed",
+
+		"groupByType": "Group by type",
+		"searchInTags": "Search in tags",
+		"groupByQuestGroup": "Group by quest group",
+		"groupByAchievementGroup": "Group by achievement group",
+		"groupByAct": "Group by act",
+		"groupByLocation": "Group by location",
+
+		"searchInItems": "Search in items",
+		"secretAchievements": "Secret achievements"
+	},
+	"common": {
+		"character": "character",
+		"logo": "logo",
+		"currency": "currency",
+		"location": "location",
+		"levelShort": "lvl",
+		"level": "Level",
+		"reset": "Reset",
+		"selectGame": "Select game",
+		"selectLocale": "Select locale",
+		"other": "Other"
+	},
+	"quests": {
+		"quests": "Quests",
+		"allQuests": "All Quests",
+		"nextQuest": "Next quest:",
+		"icon": "Quest Icon",
+		"suggestedLevel": "Suggested Level {level}",
+		"completedQuest": "Completed quest:",
+		"rewards": {
+			"reward": "Reward",
+			"xp": "xp",
+			"money": "money",
+			"item": "item"
+		}
+	},
+	"map": {
+		"mapMarkers": "Map Markers",
+		"map": "Map"
 	}
 }
