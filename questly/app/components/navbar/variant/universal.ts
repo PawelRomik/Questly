@@ -1,13 +1,23 @@
-const navbarLayoutClass = `
+const navbarExpandableLayoutClass = `
   sticky
 
-  top-0 left-0
+  top-0
+
+  z-50
+`;
+
+const navbarLayoutClass = (isOpen: boolean) => `
+  ${isOpen ? "sticky translate-y-0" : "fixed -translate-y-full"}
+
+  top-0 right-0 left-0
 
   z-10
 
   w-full
 
   h-24
+
+  transition-transform duration-300
 
   text-2xl font-bold
 
@@ -166,10 +176,39 @@ const navButtonLayoutClass = `
   hover:after:opacity-100
 `;
 
+const navbarToggleButtonLayoutClass = `
+  absolute
+
+  left-1/2
+  -bottom-5
+
+  -translate-x-1/2
+
+  z-50
+
+  flex
+  items-center
+  justify-center
+
+  px-3
+  py-1
+
+  rounded-b-lg
+
+  border-t-0
+
+  cursor-pointer
+
+  transition-all
+  duration-200
+`;
+
 // ----------------------------------------
 
 export const universalStyles = {
-	base: () => navbarLayoutClass,
+	base: (isOpen: boolean) => navbarLayoutClass(isOpen),
+	expandable: () => navbarExpandableLayoutClass,
+	toggle: () => navbarToggleButtonLayoutClass,
 	leftSideWrapper: () => navbarSideLayoutClass,
 	content: {
 		base: () => navbarContentLayoutClass,

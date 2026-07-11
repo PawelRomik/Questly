@@ -66,12 +66,48 @@ const navLogoImageClass = `
   group-hover:scale-105
 `;
 
+const navToggleButtonClass = `
+  bg-linear-to-b
+  from-[#151515]
+  to-[#090909]
+
+  border
+  border-white/50
+  border-t-0
+
+  text-white/80
+
+  shadow-lg
+
+  hover:text-white
+
+  hover:from-[#1a1a1a]
+  hover:to-[#0d0d0d]
+
+  after:content-['']
+  after:absolute
+  after:inset-0
+
+  after:bg-linear-to-r
+  after:from-transparent
+  after:via-white/5
+  after:to-transparent
+
+  after:translate-x-[-120%]
+
+  after:transition-transform
+  after:duration-700
+
+  hover:after:translate-x-[120%]
+`;
+
 // ----------------------------------------
 
 const itemColors = [
 	`
-    from-[#111111]
-    to-[#050505]
+    bg-linear-to-b
+  from-[#151515]
+  to-[#090909]
 
     hover:from-[#1a1a1a]
     hover:to-[#0d0d0d]
@@ -82,6 +118,7 @@ const itemColors = [
 	`
     from-[#101010]
     to-[#060606]
+    bg-linear-to-b
 
     hover:from-[#181818]
     hover:to-[#0c0c0c]
@@ -90,8 +127,9 @@ const itemColors = [
   `,
 
 	`
-    from-[#121212]
-    to-[#080808]
+    from-[#101010]
+    to-[#060606]
+    bg-linear-to-b
 
     hover:from-[#1b1b1b]
     hover:to-[#101010]
@@ -100,8 +138,9 @@ const itemColors = [
   `,
 
 	`
-    from-[#0f0f0f]
-    to-[#050505]
+    bg-linear-to-b
+  from-[#151515]
+  to-[#090909]
 
     hover:from-[#191919]
     hover:to-[#0d0d0d]
@@ -150,6 +189,7 @@ border-b-2
 
 export const defaultNavbarStyles = {
 	base: () => ``,
+	toggle: () => navToggleButtonClass,
 	leftSideWrapper: () => ``,
 	content: {
 		base: () => navbarBackgroundClass,

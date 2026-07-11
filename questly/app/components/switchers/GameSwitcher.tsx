@@ -1,62 +1,51 @@
 "use client";
 
-import { Dialog } from "radix-ui";
 import Link from "next/link";
 import Image from "next/image";
 import NavLogo from "@/app/components/navbar/NavLogo";
 import { GAME_THEME } from "@/app/data/games";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import SwitcherDialog from "@/app/components/switchers/SwitcherDialog";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { switcherVariants } from "@/app/components/switchers/variant/switcherVariants";
 
 export default function GameSwitcher() {
 	const games = Object.values(GAME_THEME);
 
 	const pathname = usePathname();
+	const { game } = useParams();
 
 	const currentSegments = pathname.split("/").filter(Boolean);
 	const t = useTranslations("common");
 
+	const styles = useGameStyles(switcherVariants);
+
 	return (
-		<Dialog.Root>
-			<Dialog.Trigger className='flex flex-1'>
-				<NavLogo />
-			</Dialog.Trigger>
+		<SwitcherDialog trigger={<NavLogo />} title={t("selectGame")}>
+			<div className={styles.switcher.grid()}>
+				{games.map((g) => {
+					let href = `/${g.slug}/quests`;
 
-			<Dialog.Portal>
-				<Dialog.Overlay className='fixed inset-0 bg-black/70 backdrop-blur-sm z-40' />
+					if (currentSegments.length > 1) {
+						const segments = [...currentSegments];
 
-				<Dialog.Content className='fixed z-50 top-1/2 left-1/2 w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl bg-[#0b0b0f] border border-neutral-800 shadow-2xl p-6'>
-					<Dialog.Title className='text-xl font-semibold text-white mb-6 text-center tracking-wide'>{t("selectGame")}</Dialog.Title>
+						segments[1] = g.slug;
 
-					<div className='grid grid-cols-2 sm:grid-cols-3 gap-6'>
-						{games.map((game) => {
-							let href = `/${game.slug}/quests`;
+						href = `/${segments.join("/")}`;
+					}
 
-							if (currentSegments.length > 1) {
-								const segments = [...currentSegments];
+					return (
+						<Link key={g.slug} href={href} className={styles.switcher.link(g.slug === game)}>
+							<div className={styles.switcher.item()}>
+								<Image src={g.logo} alt={g.name} fill className={styles.switcher.image()} />
+							</div>
 
-								segments[1] = game.slug;
-
-								href = `/${segments.join("/")}`;
-							}
-
-							return (
-								<Link key={game.slug} href={href} className='group flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-neutral-900 transition'>
-									<div className='relative w-16 h-16'>
-										<Image src={game.logo} alt={game.name} fill className='object-contain group-hover:scale-110 transition' />
-									</div>
-
-									<span className='text-sm text-white group-hover:brightness-125 text-center'>{game.name}</span>
-								</Link>
-							);
-						})}
-					</div>
-
-					<Dialog.Close asChild>
-						<button className='absolute top-3 right-3 text-neutral-400 hover:text-white'>✕</button>
-					</Dialog.Close>
-				</Dialog.Content>
-			</Dialog.Portal>
-		</Dialog.Root>
+							<span className={styles.switcher.label()}>{g.name}</span>
+						</Link>
+					);
+				})}
+			</div>
+		</SwitcherDialog>
 	);
 }

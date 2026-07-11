@@ -185,10 +185,59 @@ const navButtonClass = (id: number) => `
   after:transition
 `;
 
+const navToggleButtonClass = `
+  overflow-hidden
+
+  border
+  border-[#00e0ff]/30
+  border-t-0
+
+  bg-linear-to-b
+  from-[#111827]
+  to-[#07090f]
+
+  text-[#f5f7ff]
+
+  shadow-[0_0_18px_rgba(0,0,0,0.7)]
+
+  transition-all
+  duration-200
+
+  hover:border-[#00e0ff]
+
+  hover:text-[#00e0ff]
+
+  hover:shadow-[0_0_20px_rgba(0,224,255,0.35)]
+
+  after:content-['']
+
+  after:absolute
+  after:bottom-0
+  after:left-1/2
+
+  after:-translate-x-1/2
+
+  after:w-2/3
+  after:h-full
+
+  after:bg-linear-to-t
+  after:from-[#00e0ff]/40
+  after:to-transparent
+
+  after:blur-xl
+
+  after:opacity-0
+
+  hover:after:opacity-100
+
+  after:transition-all
+`;
+
 // ----------------------------------------
 
 export const cyberpunk2077Styles = {
 	base: () => ``,
+	toggle: () => navToggleButtonClass,
 
 	leftSideWrapper: () => ``,
 
