@@ -98,12 +98,52 @@ const navButtonClass = (id: number) => `
   bg-linear-to-b
 
   ${itemColors[id]}
+  `;
+
+const navToggleButtonClass = `
+  border
+  border-[#c97a00]
+  border-t-0
+
+  bg-linear-to-b
+  from-[#202020]
+  to-[#161616]
+
+  text-[#f2ede3]
+
+  shadow-2xl
+
+  transition
+
+  hover:border-yellow-500
+
+  after:content-['']
+
+  after:absolute
+  after:bottom-0
+  after:left-1/2
+
+  after:-translate-x-1/2
+
+  after:w-3/5
+  after:h-full
+
+  after:bg-linear-to-t
+  after:from-yellow-500/70
+  after:to-transparent
+
+  after:blur-xl
+
+  after:opacity-0
+
+  hover:after:opacity-100
 `;
 
 // ----------------------------------------
 
 export const witcher3Styles = {
 	base: () => ``,
+	toggle: () => navToggleButtonClass,
 	leftSideWrapper: () => ``,
 	content: {
 		base: () => navbarBackgroundClass,

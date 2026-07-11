@@ -16,24 +16,14 @@ export default function Navbar() {
 
 	return (
 		<motion.div
-			className='sticky top-0 z-50'
+			className={styles.expandable()}
 			animate={{
 				height: isOpen ? "100px" : 0
 			}}
 			transition={{ duration: 0.3 }}
 		>
-			<nav
-				className={`
-		top-0 left-0 right-0 z-50
-		${styles.base()}
-		transition-transform duration-300
-		${isOpen ? "sticky translate-y-0" : "fixed -translate-y-full"}
-	`}
-			>
-				<button
-					onClick={() => setIsOpen((prev) => !prev)}
-					className='absolute left-1/2 -bottom-5 z-50 flex -translate-x-1/2 items-center justify-center rounded-b-lg border border-t-0 bg-zinc-800 px-3 py-1 hover:bg-zinc-700 transition-colors'
-				>
+			<nav className={styles.base(isOpen)}>
+				<button onClick={() => setIsOpen((prev) => !prev)} className={styles.toggle()}>
 					{isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
 				</button>
 
