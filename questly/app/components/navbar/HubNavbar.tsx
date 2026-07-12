@@ -9,7 +9,7 @@ export default function HubNavbar() {
 	const styles = useGameStyles(navbarVariants);
 
 	return (
-		<nav className={styles.base()}>
+		<nav className={styles.base(true)}>
 			<div className={styles.content.base()}>
 				<div className={styles.content.contentWrapper()}>
 					<GameSwitcher />

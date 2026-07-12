@@ -1,7 +1,7 @@
 const searchBarLayoutClass = `
   w-full
 
-  mt-30 mx-auto
+   mx-auto
 
   flex flex-col gap-5
 
@@ -10,6 +10,7 @@ const searchBarLayoutClass = `
 
 const searchBarHeaderLayoutClass = `
   relative
+ 
 
   flex items-center gap-4
 
@@ -26,6 +27,7 @@ const searchBarInputWrapperLayoutClass = `
   relative
 
   w-full
+  
 
   p-3
 `;
@@ -41,7 +43,7 @@ const searchBarCharacterLayoutClass = `
 // ----------------------------------------
 
 const checkboxWrapperLayoutClass = `
-  flex items-center gap-3
+  flex items-start gap-3 px-3 justify-start
   
   text-sm
 
@@ -206,11 +208,11 @@ const sortSelectGlowLayoutClass = `
 
 const searchSettingsLayoutClass = `
   flex flex-wrap items-center gap-4
-
+ 
   p-4
 `;
 
-const checkboxSettingsWrapperLayoutClass = `grid grid-cols-3 auto-rows-[40px] text-sm transition`;
+const checkboxSettingsWrapperLayoutClass = `grid grid-cols-3 auto-rows-[50px] text-sm transition`;
 
 const selectSettingsWrapperLayoutClass = `flex gap-3 items-center justify-start flex-wrap w-full`;
 

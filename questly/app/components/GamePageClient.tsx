@@ -44,11 +44,15 @@ export default function GamePageClient() {
 				}}
 			/>
 
-			<div className='flex flex-1  overflow-hidden relative'>
+			<div className='flex flex-1   overflow-hidden relative'>
 				<div
 					className={`
 						relative
-						h-[110vh]
+					
+						flex
+						flex-col
+						items-center
+						justify-center
 						top-0
 						bg-[rgba(0,0,0,0.5)]
 						backdrop-blur-md
@@ -86,7 +90,7 @@ export default function GamePageClient() {
 					<div
 						className={`
 							h-full
-							transition-opacity duration-200
+							transition-opacity duration-200 flex items-center justify-center
 							${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 						`}
 					>
