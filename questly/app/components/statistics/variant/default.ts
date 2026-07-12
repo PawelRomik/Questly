@@ -44,12 +44,14 @@ const searchStatLabelClass = `
   text-white/75
 `;
 
-const searchStatCounterClass = `
-  border border-white/10
+const searchStatCounterClass = (completed: boolean) => `
+  border
 
-  bg-black/40
+  ${completed ? "border-white bg-white/80 text-black/80 font-bold" : "text-white/85 bg-black-40 border-white/10"}
 
-  text-white/85
+
+
+  
 
   backdrop-blur-sm
 `;
@@ -85,7 +87,7 @@ export const defaultStatisticsStyles = {
 			right: () => ``,
 			dot: () => searchStatDotClass,
 			label: () => searchStatLabelClass,
-			counter: () => searchStatCounterClass,
+			counter: (completed: boolean) => searchStatCounterClass(completed),
 			button: () => searchStatButtonClass
 		}
 	}

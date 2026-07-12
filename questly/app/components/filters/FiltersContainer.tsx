@@ -40,7 +40,14 @@ export function FiltersContainer() {
 			</div>
 
 			{<FiltersOptions isLocked={isLocked} update={update} />}
-			<StatisticList stats={[{ label: t("quests.quests") }, { label: t("achievements.achievements") }, { label: t("collections.collectibles") }, { label: t("map.mapMarkers") }]} />
+			<StatisticList
+				stats={[
+					{ id: "quests", label: t("quests.quests") },
+					{ id: "achievements", label: t("achievements.achievements") },
+					{ id: "collections", label: t("collections.collectibles") },
+					{ id: "map", label: t("map.mapMarkers") }
+				]}
+			/>
 			<LocaleSwitcher />
 		</div>
 	);

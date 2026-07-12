@@ -60,10 +60,10 @@ const searchStatLabelClass = `
   tracking-wide
 `;
 
-const searchStatCounterClass = `
-  border border-[#00e0ff]/20
+const searchStatCounterClass = (completed: boolean) => `
+  border 
 
-  bg-black/40
+  ${completed ? "border-[#00e0ff] bg-linear-to-b from-[#143747] to-[#0b1b2a] shadow-[0_0_18px_rgba(0,224,255,0.25)]" : "border-[#00e0ff]/20 bg-black/40"}
 
   text-[#ffe600]
 
@@ -113,7 +113,7 @@ export const cyberpunk2077Styles = {
 
 			label: () => searchStatLabelClass,
 
-			counter: () => searchStatCounterClass,
+			counter: (completed: boolean) => searchStatCounterClass(completed),
 
 			button: () => searchStatButtonClass
 		}

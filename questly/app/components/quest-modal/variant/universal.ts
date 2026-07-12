@@ -294,7 +294,7 @@ export const universalStyles = {
 		base: () => modalNextQuestButtonLayoutClass,
 		icon: () => modalNextQuestButtonImageLayoutClass,
 		wrapper: () => modalNextQuestLinkLayoutClass,
-		title: () => ``
+		title: () => ` max-w-20 break-all overflow-hidden truncate`
 	},
 	header: {
 		base: () => modalHeaderLayoutClass,

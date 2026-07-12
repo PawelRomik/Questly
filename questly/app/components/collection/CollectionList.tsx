@@ -90,7 +90,7 @@ export default function CollectionList() {
 		}
 
 		const completedMap = new Map(
-			list.map((collection) => [collection.uuid, collection.items.length > 0 && collection.items.every((item) => isCollectionItemCompleted(collection.uuid, item.uuid))])
+			list.map((collection) => [collection.uuid, (collection.items?.length ?? 0) > 0 && (collection.items ?? []).every((item) => isCollectionItemCompleted(item.uuid))])
 		);
 
 		const missableMap = new Map(list.map((collection) => [collection.uuid, collection.items.some((item) => item.missable)]));

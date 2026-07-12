@@ -129,6 +129,8 @@ const modalCompleteButtonIconVariant = (completed: boolean) => (completed ? "opa
 
 const modalNextQuestLinkClass = `
   text-xs
+  
+  
 `;
 
 const modalNextQuestButtonClass = `
@@ -138,6 +140,8 @@ const modalNextQuestButtonClass = `
   bg-linear-to-b
   from-[#1a1a1a]
   to-[#0b0b0b]
+  
+  
 
   text-white/70
 
@@ -150,6 +154,7 @@ const modalNextQuestButtonClass = `
 
 const modalNextQuestButtonTitleClass = `
   italic
+  
 
   text-white/40
 `;

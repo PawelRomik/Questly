@@ -21,7 +21,7 @@ export function ModalNextQuestButton({ quest }: Props) {
 	const styles = useGameStyles(questModalVariants);
 	const t = useTranslations("quests");
 	return (
-		<Link href={`?activeQuest=${quest.uuid}`} className={styles.nextButton.wrapper()}>
+		<Link title={quest.title} href={`?activeQuest=${quest.uuid}`} className={styles.nextButton.wrapper()}>
 			<button className={styles.nextButton.base()}>
 				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon?.url || ""} className={styles.nextButton.icon()} />
 				{t("nextQuest")}
