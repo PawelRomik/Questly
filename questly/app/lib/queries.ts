@@ -395,3 +395,20 @@ export const GET_DLCS = gql`
 		}
 	}
 `;
+
+export const GET_STAT_COUNTS = gql`
+	query ($game: String!) {
+		quests(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
+			uuid
+		}
+
+		achievements(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
+			uuid
+		}
+		collections(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
+			items {
+				uuid
+			}
+		}
+	}
+`;

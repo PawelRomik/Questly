@@ -18,16 +18,16 @@ type Props = {
 };
 
 export default function Collection({ collection }: Props) {
-	const { items, uuid } = collection;
+	const { items } = collection;
 	const { game } = useParams() as { game: string };
 	const styles = useGameStyles(collectionVariants);
 	const { toggleCollectionItem, isCollectionItemCompleted } = useCompleted(game, "collections");
 
 	const completedMap = useMemo(() => {
 		const map = new Map<string, boolean>();
-		items.forEach((item) => map.set(item.uuid, isCollectionItemCompleted(uuid, item.uuid)));
+		items.forEach((item) => map.set(item.uuid, isCollectionItemCompleted(item.uuid)));
 		return map;
-	}, [items, uuid, isCollectionItemCompleted]);
+	}, [items, isCollectionItemCompleted]);
 
 	const completedCount = useMemo(() => Array.from(completedMap.values()).filter(Boolean).length, [completedMap]);
 
@@ -36,13 +36,13 @@ export default function Collection({ collection }: Props) {
 	const { item_icon } = useGameAssets();
 
 	const handleItemClick = (itemUuid: string) => {
-		toggleCollectionItem(uuid, itemUuid);
+		toggleCollectionItem(itemUuid);
 	};
 
 	const handleCompleteAll = () => {
 		items.forEach((item) => {
 			if (!completedMap.get(item.uuid)) {
-				toggleCollectionItem(uuid, item.uuid);
+				toggleCollectionItem(item.uuid);
 			}
 		});
 	};
@@ -50,7 +50,7 @@ export default function Collection({ collection }: Props) {
 	const handleReset = () => {
 		items.forEach((item) => {
 			if (completedMap.get(item.uuid)) {
-				toggleCollectionItem(uuid, item.uuid);
+				toggleCollectionItem(item.uuid);
 			}
 		});
 	};

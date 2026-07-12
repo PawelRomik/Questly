@@ -26,10 +26,10 @@ const searchStatLabelClass = `
   text-[#e6d3a3]
 `;
 
-const searchStatCounterClass = `
-  border border-[rgb(40,37,28)]
+const searchStatCounterClass = (completed: boolean) => `
+  border 
+  ${completed ? "border-[#1f6b2b] bg-linear-to-b from-[#0f2a14] to-[#07150a] hover:border-[#2fa34a]" : "border-[rgb(40,37,28)]   bg-black/40"}
 
-  bg-black/40
 
   text-[#cfc6a4]
 `;
@@ -60,7 +60,7 @@ export const witcher3Styles = {
 			right: () => ``,
 			dot: () => searchStatDotClass,
 			label: () => searchStatLabelClass,
-			counter: () => searchStatCounterClass,
+			counter: (completed: boolean) => searchStatCounterClass(completed),
 			button: () => searchStatButtonClass
 		}
 	}

@@ -10,7 +10,7 @@ type CompletedState = Record<
 	{
 		quests: string[];
 		achievements: string[];
-		collections: Record<string, string[]>;
+		collections: string[];
 	}
 >;
 
@@ -21,9 +21,11 @@ type CompletedContextType = {
 
 	isCompleted: (game: string, type: "quests" | "achievements", id: string) => boolean;
 
-	toggleCollectionItem: (game: string, collectionId: string, itemId: string) => void;
+	reset: (game: string, type: "quests" | "achievements" | "collections") => void;
 
-	isCollectionItemCompleted: (game: string, collectionId: string, itemId: string) => boolean;
+	toggleCollectionItem: (game: string, itemId: string) => void;
+
+	isCollectionItemCompleted: (game: string, itemId: string) => boolean;
 };
 
 const CompletedContext = createContext<CompletedContextType | null>(null);
@@ -37,7 +39,7 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 
 		for (const g in parsed) {
 			if (!parsed[g].collections || Array.isArray(parsed[g].collections)) {
-				parsed[g].collections = {};
+				parsed[g].collections = [];
 			}
 
 			if (!Array.isArray(parsed[g].achievements)) {
@@ -63,7 +65,7 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 			const gameData = {
 				quests: existing.quests ?? [],
 				achievements: existing.achievements ?? [],
-				collections: existing.collections ?? {}
+				collections: existing.collections ?? []
 			};
 
 			const list = gameData[type];
@@ -88,51 +90,58 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 		[state]
 	);
 
-	const toggleCollectionItem = useCallback((game: string, collectionId: string, itemId: string) => {
+	const reset = useCallback((game: string, type: "quests" | "achievements" | "collections") => {
 		setState((prev) => {
-			const existing = prev[game] || {};
+			const existing = prev[game];
 
-			const gameData = {
-				quests: existing.quests ?? [],
-				achievements: existing.achievements ?? [],
-				collections: existing.collections ?? {}
-			};
-
-			const collection = gameData.collections[collectionId] ?? [];
-
-			const exists = collection.includes(itemId);
-
-			const next = exists ? collection.filter((x) => x !== itemId) : [...collection, itemId];
+			if (!existing) {
+				return prev;
+			}
 
 			return {
 				...prev,
 				[game]: {
-					...gameData,
-					collections: {
-						...gameData.collections,
-						[collectionId]: next
-					}
+					...existing,
+					[type]: []
 				}
 			};
 		});
 	}, []);
 
-	const isCollectionItemCompleted = useCallback(
-		(game: string, collectionId: string, itemId: string) => {
-			return state[game]?.collections?.[collectionId]?.includes(itemId) ?? false;
-		},
-		[state]
-	);
+	const toggleCollectionItem = useCallback((game: string, itemId: string) => {
+		setState((prev) => {
+			const existing = prev[game];
+
+			const gameData = {
+				quests: existing?.quests ?? [],
+				achievements: existing?.achievements ?? [],
+				collections: existing?.collections ?? []
+			};
+
+			const exists = gameData.collections.includes(itemId);
+
+			return {
+				...prev,
+				[game]: {
+					...gameData,
+					collections: exists ? gameData.collections.filter((id) => id !== itemId) : [...gameData.collections, itemId]
+				}
+			};
+		});
+	}, []);
+
+	const isCollectionItemCompleted = useCallback((game: string, itemId: string) => state[game]?.collections?.includes(itemId) ?? false, [state]);
 
 	const value = useMemo(
 		() => ({
 			state,
 			toggle,
+			reset,
 			isCompleted,
 			toggleCollectionItem,
 			isCollectionItemCompleted
 		}),
-		[state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted]
+		[state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted, reset]
 	);
 
 	return <CompletedContext.Provider value={value}>{children}</CompletedContext.Provider>;
@@ -145,28 +154,24 @@ export function useCompleted(game: string, type: "quests" | "achievements" | "co
 		throw new Error("useCompleted must be used inside CompletedProvider");
 	}
 
-	const { state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted } = context;
+	const { state, toggle, isCompleted, reset, toggleCollectionItem, isCollectionItemCompleted } = context;
 
 	const gameData = useMemo(
 		() =>
 			state[game] ?? {
 				quests: [],
 				achievements: [],
-				collections: {}
+				collections: []
 			},
 		[state, game]
 	);
 
 	const completedSet = useMemo(() => {
-		if (type === "collections") {
-			return new Set<string>();
-		}
-
 		return new Set(gameData[type]);
 	}, [gameData, type]);
 
 	return {
-		completed: type === "collections" ? [] : gameData[type],
+		completed: gameData[type],
 
 		completedSet,
 
@@ -175,17 +180,21 @@ export function useCompleted(game: string, type: "quests" | "achievements" | "co
 			toggle(game, type, id);
 		},
 
+		reset: () => {
+			reset(game, type);
+		},
+
 		isCompleted: (id: string) => {
 			if (type === "collections") return false;
 			return isCompleted(game, type, id);
 		},
 
-		toggleCollectionItem: (collectionId: string, itemId: string) => {
-			toggleCollectionItem(game, collectionId, itemId);
+		toggleCollectionItem: (itemId: string) => {
+			toggleCollectionItem(game, itemId);
 		},
 
-		isCollectionItemCompleted: (collectionId: string, itemId: string) => {
-			return isCollectionItemCompleted(game, collectionId, itemId);
+		isCollectionItemCompleted: (itemId: string) => {
+			return isCollectionItemCompleted(game, itemId);
 		},
 
 		collections: gameData.collections
