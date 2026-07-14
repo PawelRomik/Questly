@@ -26,7 +26,6 @@ export function useStatisticCounts() {
 	const { completed: completedAchievements } = useCompleted(game, "achievements");
 	const { completed: completedCollections } = useCompleted(game, "collections");
 
-	console.log(completedCollections);
 
 	const { data, loading, error } = useQuery<StatCountsQuery>(GET_STAT_COUNTS, {
 		variables: {

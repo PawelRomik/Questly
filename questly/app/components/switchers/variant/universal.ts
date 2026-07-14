@@ -1,15 +1,15 @@
 const switcherGridStyles = "grid grid-cols-2 sm:grid-cols-3 gap-6";
 
-const switcherLinkStyles = "group flex flex-col items-center gap-2 p-4 rounded-lg transition";
+const switcherLinkStyles = "group flex flex-col  items-center justify-between  p-4 rounded-lg transition";
 
 const switcherItemStyles = "relative w-16 h-16";
 
-const switcherImageStyles = "object-contain group-hover:scale-110 transition";
+const switcherImageStyles = "object-contain w-20 h-20 group-hover:scale-110  transition";
 
 const switcherFlagStyles = (flag: string) => `
 fi fi-${flag} text-4xl transition group-hover:scale-120`;
 
-const switcherLabelStyles = "text-sm text-white group-hover:translate-y-2 group-hover:scale-110 transition group-hover:brightness-125 text-center";
+const switcherLabelStyles = "text-sm text-white pt-2 group-hover:translate-y-2 group-hover:scale-110 transition group-hover:brightness-125 text-center";
 
 const switcherFlagTriggerStyles = (flag: string) => `fi fi-${flag} rounded-sm text-2xl`;
 
