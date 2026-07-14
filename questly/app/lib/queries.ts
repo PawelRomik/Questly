@@ -412,3 +412,15 @@ export const GET_STAT_COUNTS = gql`
 		}
 	}
 `;
+
+export const GET_GAMES = gql`
+	query ($locale: I18NLocaleCode) {
+		games(locale: $locale) {
+			title
+			slug
+			logo {
+				url
+			}
+		}
+	}
+`;
