@@ -3,7 +3,7 @@ const navbarExpandableLayoutClass = `
 
   top-0
 
-  z-50
+  z-100
 `;
 
 const navbarLayoutClass = (isOpen: boolean) => `
