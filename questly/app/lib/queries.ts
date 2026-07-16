@@ -35,11 +35,6 @@ export const GET_QUESTS_NO_TAGS = gql`
 			level
 			description
 			short_desc
-			map {
-				x
-				y
-				z
-			}
 			location {
 				name
 				uuid
@@ -152,11 +147,6 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			level
 			description
 			short_desc
-			map {
-				x
-				y
-				z
-			}
 			location {
 				name
 				locale
@@ -420,6 +410,145 @@ export const GET_GAMES = gql`
 			slug
 			logo {
 				url
+			}
+		}
+	}
+`;
+
+export const GET_MAP_MARKERS = gql`
+	query ($location: String) {
+		mapMarkers(filters: { location: { name: { eq: $location } } }) {
+			map_icon {
+				icon {
+					url
+				}
+				title
+			}
+			quest {
+				uuid
+				title
+				quest_type {
+					icon {
+						url
+					}
+					name
+				}
+			}
+			lat
+			lng
+		}
+	}
+`;
+
+export const GET_QUEST_BY_UUID = gql`
+	query ($locale: I18NLocaleCode, $uuid: String) {
+		quests(locale: $locale, filters: { uuid: { eq: $uuid } }) {
+			title
+			quest_type {
+				uuid
+				locale
+				name
+				icon {
+					url
+				}
+				color
+			}
+			missable
+			quest_act {
+				uuid
+				locale
+				title
+				order
+				icon {
+					url
+				}
+			}
+			quest_groups {
+				title
+				locale
+				uuid
+				icon {
+					url
+				}
+			}
+			uuid
+			level
+			description
+			short_desc
+
+			location {
+				name
+				locale
+				uuid
+				locale
+				minimap {
+					url
+				}
+				banner {
+					url
+				}
+			}
+			character {
+				name
+				image {
+					url
+				}
+			}
+			tags {
+				name
+			}
+			requirement {
+				level
+				type
+				quest {
+					title
+					uuid
+					quest_type {
+						icon {
+							url
+						}
+					}
+				}
+				desc
+				character {
+					name
+				}
+				item {
+					name
+				}
+				item_amount
+			}
+			rewards {
+				experience
+				money
+				items {
+					image {
+						url
+					}
+					name
+					rarity {
+						name
+						color
+					}
+					description
+					amount
+					price
+					item_type {
+						name
+						icon {
+							url
+						}
+					}
+				}
+				other
+			}
+			dlc {
+				title
+				uuid
+				color
+				icon {
+					url
+				}
 			}
 		}
 	}

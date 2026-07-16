@@ -104,6 +104,7 @@ export default function GamePageClient() {
 						flex
 						${content !== "map" && "p-5"}
 						justify-center
+					
 						overflow-y-auto
 						transition-all
 						duration-300 

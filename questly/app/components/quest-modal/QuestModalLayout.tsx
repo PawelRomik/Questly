@@ -14,16 +14,17 @@ import default_map from "../../../public/assets/map.png";
 
 type Props = {
 	quest: Quest;
+	hideMap?: boolean;
 };
 
-export function QuestModalLayout({ quest }: Props) {
+export function QuestModalLayout({ quest, hideMap = false }: Props) {
 	const styles = useGameStyles(questModalVariants);
 
 	return (
 		<div className={styles.base()}>
 			<ModalCharacter src={quest.character?.image?.url || default_character} />
 
-			<ModalMap src={quest.location?.minimap?.url || default_map} />
+			{!hideMap && <ModalMap src={quest.location?.minimap?.url || default_map} />}
 
 			<ModalHeader quest={quest} />
 
@@ -31,7 +32,7 @@ export function QuestModalLayout({ quest }: Props) {
 
 			<ModalRequirements requirements={quest.requirement} />
 
-			<ModalRewards rewards={quest.rewards} />
+			<ModalRewards hideMap={hideMap} rewards={quest.rewards} />
 
 			<ModalFooter uuid={quest.uuid} />
 

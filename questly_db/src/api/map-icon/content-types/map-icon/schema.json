@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "map_icons",
+  "info": {
+    "singularName": "map-icon",
+    "pluralName": "map-icons",
+    "displayName": "map-icon"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
+    },
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

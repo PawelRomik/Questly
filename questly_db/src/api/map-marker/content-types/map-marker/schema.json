@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "map_markers",
+  "info": {
+    "singularName": "map-marker",
+    "pluralName": "map-markers",
+    "displayName": "map-marker"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    },
+    "quest": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quest.quest"
+    },
+    "lat": {
+      "type": "float"
+    },
+    "lng": {
+      "type": "float"
+    },
+    "map_icon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::map-icon.map-icon"
+    }
+  }
+}

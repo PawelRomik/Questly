@@ -43,8 +43,6 @@ export default function GameSwitcher() {
 		getId: (g) => g.slug
 	});
 
-	console.log(games);
-
 	return (
 		<SwitcherDialog trigger={<NavLogo />} title={t("selectGame")}>
 			<div className={styles.switcher.grid()}>

@@ -47,16 +47,6 @@
         }
       }
     },
-    "map": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "component": "map.map",
-      "repeatable": false
-    },
     "tags": {
       "type": "relation",
       "relation": "oneToMany",

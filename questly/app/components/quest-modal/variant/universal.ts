@@ -219,8 +219,8 @@ const requirementTagLayoutClass = `
 
 // ----------------------------------------
 
-const modalRewardsLayoutClass = `
-  col-2 row-4
+const modalRewardsLayoutClass = (hideMap: boolean) => `
+  ${hideMap ? "col-[1/3]" : "col-2"} row-4
 
   flex flex-col
   
@@ -328,7 +328,7 @@ export const universalStyles = {
 		secondary: () => ``
 	},
 	rewards: {
-		base: () => modalRewardsLayoutClass,
+		base: (hideMap: boolean) => modalRewardsLayoutClass(hideMap),
 		title: () => modalRewardsTitleLayoutClass,
 		content: () => modalRewardsContentLayoutClass,
 		list: () => modalRewardsListLayoutClass,

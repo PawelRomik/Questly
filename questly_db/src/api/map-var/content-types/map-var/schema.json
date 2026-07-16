@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "map_vars",
+  "info": {
+    "singularName": "map-var",
+    "pluralName": "map-vars",
+    "displayName": "map-var"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    },
+    "config": {
+      "type": "json"
+    }
+  }
+}
