@@ -41,7 +41,12 @@ type GetMapMarkersResponse = {
 	mapMarkers: MapMarker[];
 };
 
-export default function Map() {
+type Props = {
+	bigZoom?: boolean;
+	questMarker?: string;
+};
+
+export default function Map({ bigZoom = false, questMarker }: Props) {
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
 		variables: { location: "Skellige" },
 		fetchPolicy: "cache-first",
@@ -59,21 +64,37 @@ export default function Map() {
 		[data?.mapMarkers, completedSet]
 	);
 
+	const visibleMarkers = useMemo(() => {
+		if (!questMarker) return markers;
+
+		return markers.filter((m) => m.quest?.uuid === questMarker);
+	}, [markers, questMarker]);
+
+	console.log(markers);
+
+	const center = useMemo<[number, number]>(() => {
+		if (visibleMarkers.length === 1) {
+			return [visibleMarkers[0].lat, visibleMarkers[0].lng];
+		}
+
+		return [-35, -10];
+	}, [visibleMarkers]);
+
 	return (
 		<div className='relative h-full w-full'>
 			<MapContainer
-				center={[-35, -10]}
+				center={center}
 				zoomControl={false}
 				maxBounds={bounds}
 				attributionControl={false}
 				maxBoundsViscosity={1}
-				minZoom={2}
+				minZoom={bigZoom ? 3 : 2}
 				maxZoom={6}
-				zoom={3}
+				zoom={bigZoom ? 4 : 3}
 				className='h-full z-3! bg-transparent!  w-full'
 			>
 				<TileLayer tms={true} url='/assets/maps/skellige/{z}/{x}/{y}.png' tileSize={256} noWrap />
-				<DisableDragOnMinZoom />
+				{!bigZoom && <DisableDragOnMinZoom />}
 				<Rectangle
 					bounds={bounds}
 					pathOptions={{
@@ -82,14 +103,26 @@ export default function Map() {
 						fill: false
 					}}
 				/>
-				{markers.map((m) => {
+				{visibleMarkers.map((m) => {
 					const hasQuest = !!m.quest;
 
-					const title = hasQuest ? m.quest?.title || "" : m.map_icon.title || "";
+					const title = hasQuest ? m.quest?.title || "" : m.map_icon?.title || "";
 
-					const iconUrl = hasQuest ? `http://localhost:1337${m.quest?.quest_type.icon.url || ""}` : `http://localhost:1337${m.map_icon?.icon.url || ""}`;
+					const iconUrl = hasQuest ? `http://localhost:1337${m.quest?.quest_type.icon.url ?? ""}` : `http://localhost:1337${m.map_icon.icon.url}`;
 
-					return <MapMarker completed={m.completed} key={m.id} title={title} position={[m.lat, m.lng]} iconUrl={iconUrl} onClick={() => setSelectedMarker(m)} />;
+					const isQuestMarker = !!questMarker;
+
+					return (
+						<MapMarker
+							completed={m.completed}
+							key={m.id}
+							title={title}
+							questMarker={questMarker}
+							position={[m.lat, m.lng]}
+							iconUrl={iconUrl}
+							onClick={isQuestMarker ? undefined : () => setSelectedMarker(m)}
+						/>
+					);
 				})}
 				<MapClickHandler onClick={() => setSelectedMarker(null)} />
 			</MapContainer>

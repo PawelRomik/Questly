@@ -11,12 +11,14 @@ type MapMarkerProps = {
 	completed?: boolean;
 	onClick?: (title: string) => void;
 	title: string;
+	questMarker?: string;
 };
 
-export default function MapMarker({ title, position, iconUrl, iconSize = [32, 32], onClick, completed }: MapMarkerProps) {
+export default function MapMarker({ title, position, iconUrl, iconSize = [32, 32], onClick, completed, questMarker }: MapMarkerProps) {
 	const [manualOpacity, setManualOpacity] = useState<number | null>(null);
+	const interactive = !questMarker;
 
-	const opacity = manualOpacity ?? (completed ? 0.5 : 1);
+	const opacity = questMarker ? 1 : (manualOpacity ?? (completed ? 0.5 : 1));
 
 	const icon = useMemo(
 		() =>
@@ -33,20 +35,25 @@ export default function MapMarker({ title, position, iconUrl, iconSize = [32, 32
 			position={position}
 			icon={icon}
 			opacity={opacity}
-			eventHandlers={{
-				click: (e) => {
-					e.originalEvent.stopPropagation();
-					onClick?.(title);
-				},
-				contextmenu: (e) => {
-					e.originalEvent.preventDefault();
+			interactive={interactive}
+			eventHandlers={
+				interactive
+					? {
+							click: (e) => {
+								e.originalEvent.stopPropagation();
+								onClick?.(title);
+							},
+							contextmenu: (e) => {
+								e.originalEvent.preventDefault();
 
-					setManualOpacity((prev) => {
-						const current = prev ?? (completed ? 0.5 : 1);
-						return current === 1 ? 0.5 : 1;
-					});
-				}
-			}}
+								setManualOpacity((prev) => {
+									const current = prev ?? (completed ? 0.5 : 1);
+									return current === 1 ? 0.5 : 1;
+								});
+							}
+						}
+					: undefined
+			}
 		/>
 	);
 }

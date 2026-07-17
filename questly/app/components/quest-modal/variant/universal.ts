@@ -1,4 +1,4 @@
-const questModalLayoutClass = `
+const questModalLayoutClass = (showMap: boolean) => `
   fixed left-1/2 top-1/2
   -translate-x-1/2 -translate-y-1/2
 
@@ -6,10 +6,8 @@ const questModalLayoutClass = `
   w-250 min-h-150
 
   overflow-hidden
-
-  grid
-  grid-cols-[220px_2fr_1fr]
-  grid-rows-[auto_auto_1fr_100px_70px]
+  ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_100px_70px]"}
+  
 `;
 
 // ----------------------------------------
@@ -274,7 +272,7 @@ const questListClass = `w-full px-3 gap-8 flex flex-col items-center`;
 // ----------------------------------------
 
 export const universalStyles = {
-	base: () => questModalLayoutClass,
+	base: (showMap: boolean) => questModalLayoutClass(showMap),
 	trigger: () => questModalTriggerLayoutClass,
 	overlay: () => questModalOverlayLayoutClass,
 	closeButton: () => modalCloseButtonLayoutClass,
