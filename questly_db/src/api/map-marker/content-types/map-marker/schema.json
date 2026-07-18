@@ -31,6 +31,19 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::map-icon.map-icon"
+    },
+    "uuid": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^Mm[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
+      }
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
     }
   }
 }

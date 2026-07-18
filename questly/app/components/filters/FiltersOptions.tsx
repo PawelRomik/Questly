@@ -12,6 +12,7 @@ import { useApollo } from "@/app/hooks/useApollo";
 import { GET_DLCS } from "@/app/lib/queries";
 import { getDLCsData, getDLCsVars } from "@/app/types/quest";
 import { useLocale, useTranslations } from "next-intl";
+import SyncMarkersButton from "@/app/components/filters/SyncMarkersButton";
 
 type Props = {
 	isLocked: boolean;
@@ -31,7 +32,7 @@ export function FiltersOptions({ isLocked, update }: Props) {
 		game: gameParam
 	});
 
-	if (!["quests", "achievements", "collectibles"].includes(content as string)) return null;
+	if (!["quests", "achievements", "collectibles", "map"].includes(content as string)) return null;
 
 	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters, data?.dlcs ?? [], t);
 
@@ -47,6 +48,7 @@ export function FiltersOptions({ isLocked, update }: Props) {
 				{selects.map(({ key, label, value, options }) => (
 					<FilterSelect key={key} label={label} value={value} options={options} onChange={(v) => update(key, v as Filters[typeof key])} />
 				))}
+				{content == "map" && <SyncMarkersButton />}
 			</div>
 		</div>
 	);

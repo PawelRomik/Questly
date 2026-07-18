@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
+import { CompletedMarkersOption, CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type FiltersContextType = {
@@ -27,6 +27,12 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		completed: (searchParams.get("completed") as CompletedOption) ?? CompletedOption.DEFAULT,
 
 		dlc: searchParams.get("dlc") ?? "all",
+
+		mapLocation: searchParams.get("mapLocation") ?? "none",
+
+		completedMarkers: (searchParams.get("completedMarkers") as CompletedMarkersOption) ?? CompletedMarkersOption.SHOW,
+
+		mapMarkers: [],
 
 		groupByType: searchParams.get("groupByType") === "true",
 
@@ -57,6 +63,12 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 			if (filters.groupByAct) params.set("groupByAct", "true");
 			else params.delete("groupByAct");
+
+			if (filters.mapLocation !== "none") params.set("mapLocation", filters.mapLocation);
+			else params.delete("mapLocation");
+
+			if (filters.completedMarkers !== CompletedMarkersOption.SHOW) params.set("completedMarkers", filters.completedMarkers);
+			else params.delete("completedMarkers");
 
 			if (filters.searchItems) params.set("searchItems", "true");
 			else params.delete("searchItems");
@@ -103,29 +115,24 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			setFilters({
+			setFilters((prev) => ({
+				...prev,
 				search: "",
 				hiddenAchievements: HiddenAchievementsOption.HIDE,
 				groupByType: false,
-
 				sort: SortOption.AZ,
-
 				searchTags: false,
-
 				groupByLocation: false,
-
 				groupByAct: false,
-
 				groupByQuestGroup: false,
-
 				searchItems: false,
+				mapLocation: "none",
+				completedMarkers: CompletedMarkersOption.SHOW,
 
 				missables: MissableOption.DEFAULT,
-
 				completed: CompletedOption.DEFAULT,
-
 				dlc: "all"
-			});
+			}));
 		});
 
 		return () => clearTimeout(timeout);

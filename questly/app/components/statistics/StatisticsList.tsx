@@ -21,7 +21,7 @@ export function StatisticList({ stats }: Props) {
 			{stats.map((item) => (
 				<Statistic
 					key={item.id}
-					type={item.id as "quests" | "achievements" | "collections"}
+					type={item.id as "quests" | "achievements" | "collections" | "mapMarkers"}
 					label={item.label}
 					completed={counts[item.id as keyof typeof counts].completed}
 					total={counts[item.id as keyof typeof counts].total}

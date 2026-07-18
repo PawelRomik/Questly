@@ -1,8 +1,8 @@
-import { CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
+import { CompletedMarkersOption, CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { DLC } from "@/app/types/quest";
 import { TranslationValues } from "next-intl";
 
-export type Page = "quests" | "achievements" | "collectibles";
+export type Page = "quests" | "achievements" | "collectibles" | "map";
 
 type CheckboxConfig = {
 	key: keyof Filters;
@@ -13,7 +13,7 @@ type CheckboxConfig = {
 
 type TFunction = (key: string, values?: TranslationValues) => string;
 
-type SelectKey = "missables" | "sort" | "hiddenAchievements" | "completed" | "dlc";
+type SelectKey = "missables" | "sort" | "hiddenAchievements" | "completed" | "dlc" | "completedMarkers" | "mapLocation";
 
 type SelectConfig = {
 	key: SelectKey;
@@ -38,6 +38,17 @@ const MISSABLE_OPTIONS = (t: TFunction) => [
 	{ value: MissableOption.DEFAULT, label: t("default") },
 	{ value: MissableOption.SHOW_FIRST, label: t("showFirst") },
 	{ value: MissableOption.SHOW_ONLY, label: t("showOnly") }
+];
+
+const COMPLETED_MARKERS_OPTIONS = (t: TFunction) => [
+	{
+		value: CompletedMarkersOption.SHOW,
+		label: t("show")
+	},
+	{
+		value: CompletedMarkersOption.HIDE,
+		label: t("hide")
+	}
 ];
 
 export function getSortOptions(hasLevel: boolean, t: TFunction) {
@@ -214,6 +225,29 @@ export default function getFilterConfig(
 						label: t("sort"),
 						options: getSortOptions(false, t),
 						value: filters.sort
+					}
+				]
+			};
+		case "map":
+			return {
+				checkboxes: [],
+				selects: [
+					{
+						key: "mapLocation",
+						label: "Location",
+						options: [
+							{
+								value: "all",
+								label: "none"
+							}
+						],
+						value: filters.mapLocation
+					},
+					{
+						key: "completedMarkers",
+						label: "Completed",
+						options: COMPLETED_MARKERS_OPTIONS(t),
+						value: filters.completedMarkers
 					}
 				]
 			};

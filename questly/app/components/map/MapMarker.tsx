@@ -1,24 +1,29 @@
 "use client";
 
+import { useCompleted } from "@/app/context/CompletedContext";
 import L from "leaflet";
 import { Marker } from "react-leaflet";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 type MapMarkerProps = {
+	uuid: string;
 	position: [number, number];
 	iconUrl: string;
 	iconSize?: [number, number];
-	completed?: boolean;
 	onClick?: (title: string) => void;
+	onToggle?: () => void;
 	title: string;
 	questMarker?: string;
 };
 
-export default function MapMarker({ title, position, iconUrl, iconSize = [32, 32], onClick, completed, questMarker }: MapMarkerProps) {
-	const [manualOpacity, setManualOpacity] = useState<number | null>(null);
+export default function MapMarker({ uuid, title, position, iconUrl, onToggle, iconSize = [32, 32], onClick, questMarker }: MapMarkerProps) {
+	const { isCompleted } = useCompleted("witcher3", "mapMarkers");
+
+	const completed = isCompleted(uuid);
+
 	const interactive = !questMarker;
 
-	const opacity = questMarker ? 1 : (manualOpacity ?? (completed ? 0.5 : 1));
+	const opacity = questMarker ? 1 : completed ? 0.5 : 1;
 
 	const icon = useMemo(
 		() =>
@@ -46,10 +51,7 @@ export default function MapMarker({ title, position, iconUrl, iconSize = [32, 32
 							contextmenu: (e) => {
 								e.originalEvent.preventDefault();
 
-								setManualOpacity((prev) => {
-									const current = prev ?? (completed ? 0.5 : 1);
-									return current === 1 ? 0.5 : 1;
-								});
+								onToggle?.();
 							}
 						}
 					: undefined

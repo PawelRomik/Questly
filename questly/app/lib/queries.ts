@@ -400,6 +400,10 @@ export const GET_STAT_COUNTS = gql`
 				uuid
 			}
 		}
+
+		mapMarkers(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
+			uuid
+		}
 	}
 `;
 
@@ -436,6 +440,7 @@ export const GET_MAP_MARKERS = gql`
 			}
 			lat
 			lng
+			uuid
 		}
 	}
 `;

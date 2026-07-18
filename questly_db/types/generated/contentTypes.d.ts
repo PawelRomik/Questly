@@ -1219,6 +1219,7 @@ export interface ApiMapMarkerMapMarker extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
     lat: Schema.Attribute.Float;
     lng: Schema.Attribute.Float;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1234,6 +1235,20 @@ export interface ApiMapMarkerMapMarker extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Mm[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Mm[a-zA-Z0-9]{5}$';
+        }
+      >;
   };
 }
 

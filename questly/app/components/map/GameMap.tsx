@@ -1,14 +1,16 @@
 "use client";
 
+import { CompletedMarkersOption } from "@/app/components/filters/types";
 import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
 import { useCompleted } from "@/app/context/CompletedContext";
+import { useFilters } from "@/app/context/FiltersContext";
 import { GET_MAP_MARKERS } from "@/app/lib/queries";
-import DisableDragOnMinZoom from "@/app/lib/utils/disableDragOnMinZoom";
+
 import { useQuery } from "@apollo/client/react";
 import "leaflet/dist/leaflet.css";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Rectangle, TileLayer } from "react-leaflet";
 
 const bounds: L.LatLngBoundsExpression = [
@@ -20,6 +22,7 @@ type MapMarker = {
 	id: number;
 	lat: number;
 	lng: number;
+	uuid: string;
 	map_icon: {
 		title: string;
 		icon: {
@@ -33,11 +36,12 @@ type MapMarker = {
 			icon: {
 				url: string;
 			};
+			name: string;
 		};
 	} | null;
 };
 
-type GetMapMarkersResponse = {
+export type GetMapMarkersResponse = {
 	mapMarkers: MapMarker[];
 };
 
@@ -46,7 +50,16 @@ type Props = {
 	questMarker?: string;
 };
 
-export default function Map({ bigZoom = false, questMarker }: Props) {
+type markerGroup = {
+	title: string;
+	icon: string;
+	count: number;
+	visible: boolean;
+	isQuest: boolean;
+	uuids: string[];
+};
+
+export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
 		variables: { location: "Skellige" },
 		fetchPolicy: "cache-first",
@@ -54,23 +67,80 @@ export default function Map({ bigZoom = false, questMarker }: Props) {
 	});
 
 	const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
-	const { completedSet } = useCompleted("witcher3", "quests");
+	const { filters, setFilters } = useFilters();
+	const { completedSet, toggle } = useCompleted("witcher3", "mapMarkers");
 	const markers = useMemo(
 		() =>
 			(data?.mapMarkers ?? []).map((m) => ({
 				...m,
-				completed: !!m.quest && completedSet.has(m.quest.uuid)
+				completed: completedSet.has(m.uuid)
 			})),
 		[data?.mapMarkers, completedSet]
 	);
 
 	const visibleMarkers = useMemo(() => {
-		if (!questMarker) return markers;
+		if (questMarker) {
+			return markers.filter((m) => m.quest?.uuid === questMarker);
+		}
 
-		return markers.filter((m) => m.quest?.uuid === questMarker);
-	}, [markers, questMarker]);
+		const hidden = new Set(filters.mapMarkers.filter((m) => !m.visible).map((m) => m.title));
 
-	console.log(markers);
+		return markers.filter((marker) => {
+			if (filters.completedMarkers === CompletedMarkersOption.HIDE && marker.completed) {
+				return false;
+			}
+
+			const type = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
+
+			if (!type) return true;
+
+			return !hidden.has(type);
+		});
+	}, [markers, questMarker, filters.mapMarkers, filters.completedMarkers]);
+
+	useEffect(() => {
+		if (!data?.mapMarkers) return;
+
+		setFilters((prev) => {
+			if (prev.mapMarkers.length) return prev;
+
+			const grouped = new Map<string, markerGroup>();
+
+			data.mapMarkers.forEach((marker) => {
+				const title = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
+
+				const icon = marker.quest ? marker.quest.quest_type.icon.url : marker.map_icon?.icon.url;
+
+				if (!title || !icon) return;
+
+				if (!grouped.has(title)) {
+					grouped.set(title, {
+						title,
+						icon,
+						count: 1,
+						visible: true,
+						isQuest: !!marker.quest,
+						uuids: [marker.uuid]
+					});
+				} else {
+					const group = grouped.get(title)!;
+					group.count++;
+					group.uuids.push(marker.uuid);
+				}
+			});
+
+			return {
+				...prev,
+				mapMarkers: [...grouped.values()].sort((a, b) => {
+					if (a.isQuest !== b.isQuest) {
+						return a.isQuest ? -1 : 1;
+					}
+
+					return a.title.localeCompare(b.title);
+				})
+			};
+		});
+	}, [data?.mapMarkers, setFilters]);
 
 	const center = useMemo<[number, number]>(() => {
 		if (visibleMarkers.length === 1) {
@@ -88,13 +158,13 @@ export default function Map({ bigZoom = false, questMarker }: Props) {
 				maxBounds={bounds}
 				attributionControl={false}
 				maxBoundsViscosity={1}
-				minZoom={bigZoom ? 3 : 2}
+				minZoom={3}
 				maxZoom={6}
 				zoom={bigZoom ? 4 : 3}
 				className='h-full z-3! bg-transparent!  w-full'
 			>
 				<TileLayer tms={true} url='/assets/maps/skellige/{z}/{x}/{y}.png' tileSize={256} noWrap />
-				{!bigZoom && <DisableDragOnMinZoom />}
+
 				<Rectangle
 					bounds={bounds}
 					pathOptions={{
@@ -114,13 +184,14 @@ export default function Map({ bigZoom = false, questMarker }: Props) {
 
 					return (
 						<MapMarker
-							completed={m.completed}
-							key={m.id}
+							uuid={m.uuid}
+							key={m.uuid}
 							title={title}
 							questMarker={questMarker}
 							position={[m.lat, m.lng]}
 							iconUrl={iconUrl}
 							onClick={isQuestMarker ? undefined : () => setSelectedMarker(m)}
+							onToggle={() => toggle(m.uuid)}
 						/>
 					);
 				})}

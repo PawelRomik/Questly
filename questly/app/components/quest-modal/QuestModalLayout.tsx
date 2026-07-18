@@ -11,8 +11,8 @@ import { questModalVariants } from "@/app/components/quest-modal/variant/questMo
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import default_character from "../../../public/assets/chh.png";
 import default_map from "../../../public/assets/map.png";
-import Map from "@/app/components/map/Map";
 import { useState } from "react";
+import { GameMapContainer } from "@/app/components/map";
 
 type Props = {
 	quest: Quest;
@@ -52,7 +52,7 @@ export function QuestModalLayout({ quest, hideMap = false }: Props) {
 						×
 					</button>
 
-					<Map bigZoom questMarker={quest.uuid} />
+					<GameMapContainer bigZoom questMarker={quest.uuid} />
 				</div>
 			)}
 		</div>

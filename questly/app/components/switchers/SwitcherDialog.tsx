@@ -1,3 +1,4 @@
+"use client";
 import { switcherVariants } from "@/app/components/switchers/variant/switcherVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { Dialog } from "radix-ui";
