@@ -24,6 +24,10 @@
 		"hide": "Hide",
 		"show": "Show",
 
+		"syncQuests": "Sync with quests",
+		"location": "Location",
+		"completedMarkers": "Completed Markers",
+
 		"default": "Default",
 		"showFirst": "Show first",
 		"showLast": "Show last",
@@ -77,6 +81,7 @@
 	},
 	"map": {
 		"mapMarkers": "Map Markers",
-		"map": "Map"
+		"map": "Map",
+		"show": "Show"
 	}
 }

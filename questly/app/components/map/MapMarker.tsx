@@ -4,6 +4,7 @@ import { useCompleted } from "@/app/context/CompletedContext";
 import L from "leaflet";
 import { Marker } from "react-leaflet";
 import { useMemo } from "react";
+import { useParams } from "next/navigation";
 
 type MapMarkerProps = {
 	uuid: string;
@@ -17,7 +18,9 @@ type MapMarkerProps = {
 };
 
 export default function MapMarker({ uuid, title, position, iconUrl, onToggle, iconSize = [32, 32], onClick, questMarker }: MapMarkerProps) {
-	const { isCompleted } = useCompleted("witcher3", "mapMarkers");
+	const params = useParams();
+	const game = params.game as string;
+	const { isCompleted } = useCompleted(game, "mapMarkers");
 
 	const completed = isCompleted(uuid);
 

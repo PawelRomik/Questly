@@ -38,13 +38,11 @@ export function FiltersOptions({ isLocked, update }: Props) {
 
 	return (
 		<div className={styles.settings()}>
-			<div className={styles.checkboxWrapper()}>
+			<div className={styles.selectWrapper()}>
 				{checkboxes.map(({ key, label, value, disabled }) => (
 					<FilterCheckbox key={key} label={label} checked={value} disabled={disabled} onChange={(v) => update(key, v)} />
 				))}
-			</div>
 
-			<div className={styles.selectWrapper()}>
 				{selects.map(({ key, label, value, options }) => (
 					<FilterSelect key={key} label={label} value={value} options={options} onChange={(v) => update(key, v as Filters[typeof key])} />
 				))}

@@ -1,6 +1,6 @@
 import { Quest } from "@/app/types/quest";
 import { ModalCharacter } from "@/app/components/quest-modal/parts/ModalCharacter";
-import { ModalMap } from "@/app/components/quest-modal/parts/ModalMap";
+import { ModalMap } from "@/app/components/quest-modal/parts/map/ModalMap";
 import { ModalRewards } from "@/app/components/quest-modal/parts/rewards/ModalRewards";
 import { ModalHeader } from "@/app/components/quest-modal/parts/ModalHeader";
 import { ModalFooter } from "@/app/components/quest-modal/parts/ModalFooter";
@@ -12,7 +12,7 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import default_character from "../../../public/assets/chh.png";
 import default_map from "../../../public/assets/map.png";
 import { useState } from "react";
-import { GameMapContainer } from "@/app/components/map";
+import ModalMapContainer from "@/app/components/quest-modal/parts/map/ModalMapContainer";
 
 type Props = {
 	quest: Quest;
@@ -43,17 +43,7 @@ export function QuestModalLayout({ quest, hideMap = false }: Props) {
 					<ModalCloseButton />
 				</>
 			) : (
-				<div className='relative h-[600px] w-[1000px]'>
-					<button
-						type='button'
-						onClick={() => setMapStateVisible(false)}
-						className='absolute right-4 top-4 z-[1000] flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-xl text-white transition hover:bg-black'
-					>
-						×
-					</button>
-
-					<GameMapContainer bigZoom questMarker={quest.uuid} />
-				</div>
+				<ModalMapContainer uuid={quest.uuid} setMapStateVisible={setMapStateVisible} />
 			)}
 		</div>
 	);

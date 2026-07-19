@@ -25,6 +25,8 @@ const questModalOverlayLayoutClass = `
 const modalCloseButtonLayoutClass = `
   absolute top-3 right-3
 
+  z-40
+
   w-8 h-8
 
   flex items-center justify-center
@@ -173,6 +175,8 @@ const modalMapImageLayoutClass = `
   object-cover
 `;
 
+const modalMapContainerClass = `relative h-[600px] w-[1000px]`;
+
 // ----------------------------------------
 
 const modalRequirementsLayoutClass = `
@@ -309,7 +313,8 @@ export const universalStyles = {
 		wrapper: () => modalMapWrapperLayoutClass,
 		container: () => modalMapContainerLayoutClass,
 		content: () => modalMapContentLayoutClass,
-		image: () => modalMapImageLayoutClass
+		image: () => modalMapImageLayoutClass,
+		modal: () => modalMapContainerClass
 	},
 	requirements: {
 		base: () => modalRequirementsLayoutClass,

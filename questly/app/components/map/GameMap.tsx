@@ -4,21 +4,25 @@ import { CompletedMarkersOption } from "@/app/components/filters/types";
 import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
+import { mapVariants } from "@/app/components/map/variant/mapVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { GET_MAP_MARKERS } from "@/app/lib/queries";
 
 import { useQuery } from "@apollo/client/react";
 import "leaflet/dist/leaflet.css";
+import { useLocale } from "next-intl";
+import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, Rectangle, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 const bounds: L.LatLngBoundsExpression = [
 	[-85.05, -180],
 	[79.3, 135]
 ];
 
-type MapMarker = {
+type MapMarkerType = {
 	id: number;
 	lat: number;
 	lng: number;
@@ -42,7 +46,7 @@ type MapMarker = {
 };
 
 export type GetMapMarkersResponse = {
-	mapMarkers: MapMarker[];
+	mapMarkers: MapMarkerType[];
 };
 
 type Props = {
@@ -60,15 +64,21 @@ type markerGroup = {
 };
 
 export default function GameMap({ bigZoom = false, questMarker }: Props) {
+	const locale = useLocale();
+
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
-		variables: { location: "Skellige" },
+		variables: { location: "Skellige", locale },
 		fetchPolicy: "cache-first",
 		nextFetchPolicy: "cache-first"
 	});
 
-	const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
+	const styles = useGameStyles(mapVariants);
+
+	const [selectedMarker, setSelectedMarker] = useState<MapMarkerType | null>(null);
 	const { filters, setFilters } = useFilters();
-	const { completedSet, toggle } = useCompleted("witcher3", "mapMarkers");
+	const params = useParams();
+	const game = params.game as string;
+	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
 	const markers = useMemo(
 		() =>
 			(data?.mapMarkers ?? []).map((m) => ({
@@ -151,7 +161,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	}, [visibleMarkers]);
 
 	return (
-		<div className='relative h-full w-full'>
+		<div className={styles.map.container()}>
 			<MapContainer
 				center={center}
 				zoomControl={false}
@@ -161,18 +171,10 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				minZoom={3}
 				maxZoom={6}
 				zoom={bigZoom ? 4 : 3}
-				className='h-full z-3! bg-transparent!  w-full'
+				className={styles.map.map()}
 			>
 				<TileLayer tms={true} url='/assets/maps/skellige/{z}/{x}/{y}.png' tileSize={256} noWrap />
 
-				<Rectangle
-					bounds={bounds}
-					pathOptions={{
-						color: "black",
-						weight: 2,
-						fill: false
-					}}
-				/>
 				{visibleMarkers.map((m) => {
 					const hasQuest = !!m.quest;
 
@@ -198,7 +200,14 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				<MapClickHandler onClick={() => setSelectedMarker(null)} />
 			</MapContainer>
 
-			{selectedMarker && <MapInfo selectedQuest={!!selectedMarker.quest} title={selectedMarker.quest?.title ?? selectedMarker.map_icon.title} uuid={selectedMarker.quest?.uuid} />}
+			{selectedMarker && (
+				<MapInfo
+					icon={selectedMarker.quest?.quest_type.icon.url ?? selectedMarker.map_icon.icon.url}
+					selectedQuest={!!selectedMarker.quest}
+					title={selectedMarker.quest?.title ?? selectedMarker.map_icon.title}
+					uuid={selectedMarker.quest?.uuid}
+				/>
+			)}
 		</div>
 	);
 }

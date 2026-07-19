@@ -29,7 +29,7 @@ const searchBarInputWrapperLayoutClass = `
   w-full
   
 
-  p-3
+
 `;
 
 const searchBarCharacterLayoutClass = `
@@ -253,5 +253,16 @@ export const universalStyles = {
 		accent: () => sortSelectAccentLayoutClass,
 		glow: () => sortSelectGlowLayoutClass,
 		label: () => selectLabelLayoutClass
+	},
+	button: () => `px-2 py-2 text-sm flex gap-2 cursor-pointer`,
+	legend: {
+		container: () => `grid grid-cols-2 gap-2`,
+		button: () => `flex items-center gap-2 p-2 `,
+		icon: () => `w-5 h-5`,
+		marker: {
+			container: () => `flex text-sm flex-1 items-center justify-between`,
+			count: () => `text-sm `,
+			label: (visible: boolean) => `${!visible && "line-through opacity-50"}`
+		}
 	}
 };

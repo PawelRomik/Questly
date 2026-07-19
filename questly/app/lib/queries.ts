@@ -420,9 +420,10 @@ export const GET_GAMES = gql`
 `;
 
 export const GET_MAP_MARKERS = gql`
-	query ($location: String) {
-		mapMarkers(filters: { location: { name: { eq: $location } } }) {
+	query ($location: String, $locale: I18NLocaleCode) {
+		mapMarkers(locale: $locale, filters: { location: { name: { eq: $location } } }) {
 			map_icon {
+				uuid
 				icon {
 					url
 				}

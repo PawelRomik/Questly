@@ -234,7 +234,7 @@ export default function getFilterConfig(
 				selects: [
 					{
 						key: "mapLocation",
-						label: "Location",
+						label: t("location"),
 						options: [
 							{
 								value: "all",
@@ -245,7 +245,7 @@ export default function getFilterConfig(
 					},
 					{
 						key: "completedMarkers",
-						label: "Completed",
+						label: t("completedMarkers"),
 						options: COMPLETED_MARKERS_OPTIONS(t),
 						value: filters.completedMarkers
 					}

@@ -1,22 +1,24 @@
+import FixedImage from "@/app/components/common/FixedImage";
+import MapInfoButton from "@/app/components/map/MapInfoButton";
 import MapQuestModal from "@/app/components/map/MapQuestModal";
+import { mapVariants } from "@/app/components/map/variant/mapVariants";
+import { useGameStyles } from "@/app/hooks/useGameStyles";
 
 type MapInfoProps = {
 	selectedQuest: boolean;
 	title: string;
 	uuid?: string;
+	icon: string;
 };
 
-export default function MapInfo({ selectedQuest, title, uuid }: MapInfoProps) {
+export default function MapInfo({ selectedQuest, title, uuid, icon }: MapInfoProps) {
+	const styles = useGameStyles(mapVariants);
 	return (
-		<div className='absolute bottom-4 left-1/2 z-1000 flex -translate-x-1/2 items-center gap-3 rounded-xl border border-zinc-700 bg-zinc-900/95 px-4 py-3 shadow-xl backdrop-blur'>
-			<span className='whitespace-nowrap font-medium text-white'>{title}</span>
+		<div className={styles.info.container()}>
+			<FixedImage className={styles.info.icon()} src={icon} alt='ikon' />
+			<span className={styles.info.title()}>{title}</span>
 
-			{selectedQuest && uuid && (
-				<MapQuestModal
-					uuid={uuid}
-					trigger={<button className='cursor-pointer rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-red-500'>Zobacz szczegóły</button>}
-				/>
-			)}
+			{selectedQuest && uuid && <MapQuestModal uuid={uuid} trigger={<MapInfoButton />} />}
 		</div>
 	);
 }

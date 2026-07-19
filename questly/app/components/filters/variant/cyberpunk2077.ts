@@ -144,7 +144,73 @@ ${rajdhani.className}
   backdrop-blur-md
 `;
 
+const buttonStyles = `
+border ${rajdhani.className} border-[#ff003c] text-[white] bg-linear-to-b
+  from-[#190707]
+  to-[#090b12]
+
+  shadow-[0_0_14px_rgba(255,0,60,0.25)]
+  
+  shadow-[inset_0_0_10px_rgba(255,0,60,0.12)] uppercase
+
+  hover:scale-105 hover:brightness-120 transition
+`;
+
 // ----------------------------------------
+
+const legendContainerClass = `
+  border border-[#ff204e]/30
+
+  bg-linear-to-b
+  from-[#10131d]
+  via-[#090b12]
+  to-[#05070c]
+
+  backdrop-blur-md
+
+  shadow-[0_0_22px_rgba(0,0,0,0.75)]
+`;
+
+const legendButtonClass = `
+  cursor-pointer
+
+  transition-all duration-200
+
+  border border-transparent
+
+ 
+  hover:brightness-120
+
+  hover:shadow-[0_0_14px_rgba(0,224,255,0.15)]
+`;
+
+const legendMarkerLabelClass = (visible: boolean) => `
+  ${
+		visible
+			? `
+   text-[#f5f7ff]
+    opacity-60
+  `
+			: `
+     
+    text-[#6f7b91] 
+  `
+	}
+
+  uppercase
+
+  tracking-wide
+
+  transition-colors
+`;
+
+const legendMarkerCountClass = `
+  text-[#ff204e]
+
+  font-semibold
+
+  tracking-wide
+`;
 
 export const cyberpunk2077Styles = {
 	settings: () => searchSettingsClass,
@@ -192,5 +258,16 @@ export const cyberpunk2077Styles = {
 		accent: () => ``,
 		glow: () => sortSelectGlowClass,
 		label: () => selectLabelClass
+	},
+	button: () => buttonStyles,
+	legend: {
+		container: () => legendContainerClass,
+		button: () => legendButtonClass,
+		icon: () => ``,
+		marker: {
+			container: () => ``,
+			count: () => legendMarkerCountClass,
+			label: (visible: boolean) => legendMarkerLabelClass(visible)
+		}
 	}
 };

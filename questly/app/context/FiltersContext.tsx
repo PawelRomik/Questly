@@ -94,7 +94,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 			if (filters.groupByLocation) params.set("groupByLocation", "true");
 			else params.delete("groupByLocation");
 
-			if (filters.sort) params.set("sort", filters.sort);
+			if (filters.sort !== SortOption.AZ) params.set("sort", filters.sort);
 			else params.delete("sort");
 
 			if (filters.searchTags) params.set("searchTags", "true");
