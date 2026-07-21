@@ -4,7 +4,7 @@ import { CompletedMarkersOption } from "@/app/components/filters/types";
 import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
-import MapResizeObserver from "@/app/components/map/test";
+import MapResizeObserver from "@/app/components/map/MapResizeObserver";
 import { mapVariants } from "@/app/components/map/variant/mapVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
