@@ -11,6 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
+import { GameMapContainer } from "@/app/components/map";
 
 export default function GamePageClient() {
 	const params = useParams<{ game: string; content: string }>();
@@ -101,17 +102,19 @@ export default function GamePageClient() {
 				<div
 					className={`
 						flex
-						p-5
+						${content !== "map" && "p-5"}
 						justify-center
+					
 						overflow-y-auto
 						transition-all
-						duration-300
+						duration-300 
 						${sidebarOpen ? "w-2/3" : "w-[calc(100%-70px)]"}
 					`}
 				>
 					{content === "quests" && <QuestList />}
 					{content === "achievements" && <AchievementList />}
 					{content === "collectibles" && <CollectionList />}
+					{content === "map" && <GameMapContainer />}
 				</div>
 			</div>
 		</div>

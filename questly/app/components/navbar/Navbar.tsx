@@ -18,7 +18,7 @@ export default function Navbar() {
 		<motion.div
 			className={styles.expandable()}
 			animate={{
-				height: isOpen ? "85px" : 0
+				height: isOpen ? "96px" : 0
 			}}
 			transition={{ duration: 0.3 }}
 		>

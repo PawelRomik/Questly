@@ -124,7 +124,57 @@ const searchSettingsClass = `
   backdrop-blur-md
 `;
 
+const buttonStyles = `
+border border-white/10 text-black/70 font-bold bg-[white]/85 uppercase border-r-0
+
+  hover:scale-105 hover:brightness-120 transition
+`;
+
 // ----------------------------------------
+
+const legendContainerClass = `
+  border border-white/10
+
+  bg-linear-to-b
+  from-[#141414]
+  to-[#090909]
+
+  backdrop-blur-md
+
+  shadow-[0_0_18px_rgba(0,0,0,0.45)]
+`;
+
+const legendButtonClass = `
+  cursor-pointer
+
+  transition-all
+  duration-200
+
+  border border-transparent
+
+
+  hover:brightness-120
+`;
+
+const legendMarkerLabelClass = (visible: boolean) => `
+  ${
+		visible
+			? `
+    text-white
+  `
+			: `
+    text-white/35
+  `
+	}
+
+  transition-colors
+`;
+
+const legendMarkerCountClass = `
+  text-white/60
+
+  font-medium
+`;
 
 export const defaultFiltersStyles = {
 	settings: () => searchSettingsClass,
@@ -161,5 +211,16 @@ export const defaultFiltersStyles = {
 		accent: () => ``,
 		glow: () => sortSelectGlowClass,
 		label: () => selectLabelClass
+	},
+	button: () => buttonStyles,
+	legend: {
+		container: () => legendContainerClass,
+		button: () => legendButtonClass,
+		icon: () => ``,
+		marker: {
+			container: () => ``,
+			count: () => legendMarkerCountClass,
+			label: (visible: boolean) => legendMarkerLabelClass(visible)
+		}
 	}
 };

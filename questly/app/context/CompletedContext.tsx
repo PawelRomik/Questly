@@ -11,21 +11,24 @@ type CompletedState = Record<
 		quests: string[];
 		achievements: string[];
 		collections: string[];
+		mapMarkers: string[];
 	}
 >;
 
 type CompletedContextType = {
 	state: CompletedState;
 
-	toggle: (game: string, type: "quests" | "achievements", id: string) => void;
+	toggle: (game: string, type: "quests" | "achievements" | "mapMarkers", id: string) => void;
 
-	isCompleted: (game: string, type: "quests" | "achievements", id: string) => boolean;
+	isCompleted: (game: string, type: "quests" | "achievements" | "mapMarkers", id: string) => boolean;
 
-	reset: (game: string, type: "quests" | "achievements" | "collections") => void;
+	reset: (game: string, type: "quests" | "achievements" | "collections" | "mapMarkers") => void;
 
 	toggleCollectionItem: (game: string, itemId: string) => void;
 
 	isCollectionItemCompleted: (game: string, itemId: string) => boolean;
+
+	syncMapMarkersWithQuests: (game: string, markers: { uuid: string; questUuid: string | null }[]) => void;
 };
 
 const CompletedContext = createContext<CompletedContextType | null>(null);
@@ -49,6 +52,10 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 			if (!Array.isArray(parsed[g].quests)) {
 				parsed[g].quests = [];
 			}
+
+			if (!Array.isArray(parsed[g].mapMarkers)) {
+				parsed[g].mapMarkers = [];
+			}
 		}
 
 		return parsed;
@@ -58,14 +65,38 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 	}, [state]);
 
-	const toggle = useCallback((game: string, type: "quests" | "achievements", id: string) => {
+	const syncMapMarkersWithQuests = useCallback((game: string, markers: { uuid: string; questUuid: string | null }[]) => {
+		setState((prev) => {
+			const existing = prev[game] ?? {
+				quests: [],
+				achievements: [],
+				collections: [],
+				mapMarkers: []
+			};
+
+			const completedQuests = new Set(existing.quests);
+
+			const toAdd = markers.filter((marker) => marker.questUuid && completedQuests.has(marker.questUuid)).map((marker) => marker.uuid);
+
+			return {
+				...prev,
+				[game]: {
+					...existing,
+					mapMarkers: [...new Set([...existing.mapMarkers, ...toAdd])]
+				}
+			};
+		});
+	}, []);
+
+	const toggle = useCallback((game: string, type: "quests" | "achievements" | "mapMarkers", id: string) => {
 		setState((prev) => {
 			const existing = prev[game] || {};
 
 			const gameData = {
 				quests: existing.quests ?? [],
 				achievements: existing.achievements ?? [],
-				collections: existing.collections ?? []
+				collections: existing.collections ?? [],
+				mapMarkers: existing.mapMarkers ?? []
 			};
 
 			const list = gameData[type];
@@ -84,13 +115,13 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 	}, []);
 
 	const isCompleted = useCallback(
-		(game: string, type: "quests" | "achievements", id: string) => {
+		(game: string, type: "quests" | "achievements" | "mapMarkers", id: string) => {
 			return state[game]?.[type]?.includes(id) ?? false;
 		},
 		[state]
 	);
 
-	const reset = useCallback((game: string, type: "quests" | "achievements" | "collections") => {
+	const reset = useCallback((game: string, type: "quests" | "achievements" | "collections" | "mapMarkers") => {
 		setState((prev) => {
 			const existing = prev[game];
 
@@ -115,7 +146,8 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 			const gameData = {
 				quests: existing?.quests ?? [],
 				achievements: existing?.achievements ?? [],
-				collections: existing?.collections ?? []
+				collections: existing?.collections ?? [],
+				mapMarkers: existing?.mapMarkers ?? []
 			};
 
 			const exists = gameData.collections.includes(itemId);
@@ -139,29 +171,31 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 			reset,
 			isCompleted,
 			toggleCollectionItem,
-			isCollectionItemCompleted
+			isCollectionItemCompleted,
+			syncMapMarkersWithQuests
 		}),
-		[state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted, reset]
+		[state, toggle, isCompleted, toggleCollectionItem, isCollectionItemCompleted, reset, syncMapMarkersWithQuests]
 	);
 
 	return <CompletedContext.Provider value={value}>{children}</CompletedContext.Provider>;
 }
 
-export function useCompleted(game: string, type: "quests" | "achievements" | "collections") {
+export function useCompleted(game: string, type: "quests" | "achievements" | "collections" | "mapMarkers") {
 	const context = useContext(CompletedContext);
 
 	if (!context) {
 		throw new Error("useCompleted must be used inside CompletedProvider");
 	}
 
-	const { state, toggle, isCompleted, reset, toggleCollectionItem, isCollectionItemCompleted } = context;
+	const { state, toggle, isCompleted, reset, toggleCollectionItem, isCollectionItemCompleted, syncMapMarkersWithQuests } = context;
 
 	const gameData = useMemo(
 		() =>
 			state[game] ?? {
 				quests: [],
 				achievements: [],
-				collections: []
+				collections: [],
+				mapMarkers: []
 			},
 		[state, game]
 	);
@@ -192,6 +226,8 @@ export function useCompleted(game: string, type: "quests" | "achievements" | "co
 		toggleCollectionItem: (itemId: string) => {
 			toggleCollectionItem(game, itemId);
 		},
+
+		syncMapMarkersWithQuests: (markers: { uuid: string; questUuid: string | null }[]) => syncMapMarkersWithQuests(game, markers),
 
 		isCollectionItemCompleted: (itemId: string) => {
 			return isCollectionItemCompleted(game, itemId);

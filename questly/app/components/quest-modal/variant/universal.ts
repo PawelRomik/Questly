@@ -1,4 +1,4 @@
-const questModalLayoutClass = `
+const questModalLayoutClass = (showMap: boolean) => `
   fixed left-1/2 top-1/2
   -translate-x-1/2 -translate-y-1/2
 
@@ -6,10 +6,8 @@ const questModalLayoutClass = `
   w-250 min-h-150
 
   overflow-hidden
-
-  grid
-  grid-cols-[220px_2fr_1fr]
-  grid-rows-[auto_auto_1fr_100px_70px]
+  ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_100px_70px]"}
+  
 `;
 
 // ----------------------------------------
@@ -26,6 +24,8 @@ const questModalOverlayLayoutClass = `
 
 const modalCloseButtonLayoutClass = `
   absolute top-3 right-3
+
+  z-40
 
   w-8 h-8
 
@@ -175,6 +175,8 @@ const modalMapImageLayoutClass = `
   object-cover
 `;
 
+const modalMapContainerClass = `relative h-[600px] w-[1000px]`;
+
 // ----------------------------------------
 
 const modalRequirementsLayoutClass = `
@@ -219,8 +221,8 @@ const requirementTagLayoutClass = `
 
 // ----------------------------------------
 
-const modalRewardsLayoutClass = `
-  col-2 row-4
+const modalRewardsLayoutClass = (hideMap: boolean) => `
+  ${hideMap ? "col-[1/3]" : "col-2"} row-4
 
   flex flex-col
   
@@ -274,7 +276,7 @@ const questListClass = `w-full px-3 gap-8 flex flex-col items-center`;
 // ----------------------------------------
 
 export const universalStyles = {
-	base: () => questModalLayoutClass,
+	base: (showMap: boolean) => questModalLayoutClass(showMap),
 	trigger: () => questModalTriggerLayoutClass,
 	overlay: () => questModalOverlayLayoutClass,
 	closeButton: () => modalCloseButtonLayoutClass,
@@ -311,7 +313,8 @@ export const universalStyles = {
 		wrapper: () => modalMapWrapperLayoutClass,
 		container: () => modalMapContainerLayoutClass,
 		content: () => modalMapContentLayoutClass,
-		image: () => modalMapImageLayoutClass
+		image: () => modalMapImageLayoutClass,
+		modal: () => modalMapContainerClass
 	},
 	requirements: {
 		base: () => modalRequirementsLayoutClass,
@@ -328,7 +331,7 @@ export const universalStyles = {
 		secondary: () => ``
 	},
 	rewards: {
-		base: () => modalRewardsLayoutClass,
+		base: (hideMap: boolean) => modalRewardsLayoutClass(hideMap),
 		title: () => modalRewardsTitleLayoutClass,
 		content: () => modalRewardsContentLayoutClass,
 		list: () => modalRewardsListLayoutClass,

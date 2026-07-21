@@ -100,7 +100,53 @@ const searchSettingsClass = `
   to-[#0f0f0f]
 `;
 
+const buttonStyles = `
+border ${ptSans.className} border-[rgb(40,37,28)] hover:scale-105 transition hover:brightness-120 text-[rgb(40,37,28)] font-bold bg-[#c6a85a] uppercase border-r-0
+`;
 // ----------------------------------------
+
+const legendButtonClass = `
+  cursor-pointer
+
+  transition-all
+
+  border border-transparent
+hover:brightness-120
+
+  hover:brightness-110
+`;
+
+const legendMarkerLabelClass = (visible: boolean) => `
+  ${
+		visible
+			? `
+			text-[#e6d3a3] opacity-60
+    
+  `
+			: `
+    
+     text-[#7d7257] 
+  `
+	}
+
+  transition-colors
+`;
+
+const legendMarkerCountClass = `
+  text-[#a68b5b]
+
+  font-medium
+`;
+
+const legendContainerClass = `
+  border border-[rgb(40,37,28)]
+
+  bg-linear-to-b
+  from-[#1a1a1a]
+  to-[#0f0f0f]
+
+  shadow-[0_0_20px_rgba(0,0,0,0.7)]
+`;
 
 export const witcher3Styles = {
 	settings: () => searchSettingsClass,
@@ -137,5 +183,16 @@ export const witcher3Styles = {
 		accent: () => ``,
 		glow: () => sortSelectGlowClass,
 		label: () => selectLabelClass
+	},
+	button: () => buttonStyles,
+	legend: {
+		container: () => legendContainerClass,
+		button: () => legendButtonClass,
+		icon: () => ``,
+		marker: {
+			container: () => ``,
+			count: () => legendMarkerCountClass,
+			label: (visible: boolean) => legendMarkerLabelClass(visible)
+		}
 	}
 };

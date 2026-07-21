@@ -20,7 +20,8 @@ export function FilterSearchInput({ value, onChange }: Props) {
 	const contentLabel = {
 		achievements: t("achievements.achievements"),
 		quests: t("quests.quests"),
-		collectibles: t("collections.collectibles")
+		collectibles: t("collections.collectibles"),
+		map: "Map"
 	}[contentParam];
 
 	return (

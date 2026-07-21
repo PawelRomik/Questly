@@ -8,7 +8,7 @@ type Props = {
 	label: string;
 	total: number;
 	completed: number;
-	type: "quests" | "achievements" | "collections";
+	type: "quests" | "achievements" | "collections" | "mapMarkers";
 };
 
 export function Statistic({ label, total, completed, type }: Props) {

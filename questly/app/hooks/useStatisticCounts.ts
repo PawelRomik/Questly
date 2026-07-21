@@ -17,6 +17,9 @@ type StatCountsQuery = {
 			uuid: string;
 		}[];
 	}[];
+	mapMarkers: {
+		uuid: string;
+	}[];
 };
 
 export function useStatisticCounts() {
@@ -25,7 +28,7 @@ export function useStatisticCounts() {
 	const { completed: completedQuests } = useCompleted(game, "quests");
 	const { completed: completedAchievements } = useCompleted(game, "achievements");
 	const { completed: completedCollections } = useCompleted(game, "collections");
-
+	const { completed: completedMapMarkers } = useCompleted(game, "mapMarkers");
 
 	const { data, loading, error } = useQuery<StatCountsQuery>(GET_STAT_COUNTS, {
 		variables: {
@@ -48,7 +51,7 @@ export function useStatisticCounts() {
 					total: 0,
 					completed: 0
 				},
-				map: {
+				mapMarkers: {
 					total: 0,
 					completed: 0
 				}
@@ -68,12 +71,12 @@ export function useStatisticCounts() {
 				total: new Set(data.collections.flatMap((collection) => collection.items.map((item) => item.uuid))).size,
 				completed: completedCollections.length
 			},
-			map: {
-				total: 0,
-				completed: 0
+			mapMarkers: {
+				total: new Set(data.mapMarkers.map((marker) => marker.uuid)).size,
+				completed: completedMapMarkers.length
 			}
 		};
-	}, [data, completedQuests, completedAchievements, completedCollections]);
+	}, [data, completedQuests, completedAchievements, completedCollections, completedMapMarkers]);
 
 	return {
 		counts,

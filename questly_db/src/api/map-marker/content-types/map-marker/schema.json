@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "map_markers",
+  "info": {
+    "singularName": "map-marker",
+    "pluralName": "map-markers",
+    "displayName": "map-marker"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    },
+    "quest": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quest.quest"
+    },
+    "lat": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "lng": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "map_icon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::map-icon.map-icon"
+    },
+    "uuid": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^Mm[a-zA-Z0-9]{5}$",
+        "disable-auto-fill": true
+      }
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
+    }
+  }
+}

@@ -23,6 +23,19 @@ export enum CompletedOption {
 	HIDE = "hide"
 }
 
+export enum CompletedMarkersOption {
+	SHOW = "show",
+	HIDE = "hide"
+}
+
+export type MapMarkerFilter = {
+	title: string;
+	icon: string;
+	count: number;
+	visible: boolean;
+	uuids: string[];
+};
+
 export type Filters = {
 	completed: CompletedOption;
 	dlc: string;
@@ -36,4 +49,7 @@ export type Filters = {
 	groupByQuestGroup: boolean;
 	searchItems: boolean;
 	missables: MissableOption;
+	mapLocation: string;
+	completedMarkers: CompletedMarkersOption;
+	mapMarkers: MapMarkerFilter[];
 };

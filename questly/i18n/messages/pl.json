@@ -24,6 +24,10 @@
 		"hide": "Ukryj",
 		"show": "Pokaż",
 
+		"syncQuests": "Synchronizuj z zadaniami",
+		"location": "Lokalizacja",
+		"completedMarkers": "Ukończone Znaczniki",
+
 		"default": "Domyślnie",
 		"showFirst": "Pokaż na początku",
 		"showLast": "Pokaż na końcu",
@@ -77,6 +81,7 @@
 	},
 	"map": {
 		"mapMarkers": "Znaczniki mapy",
-		"map": "Mapa"
+		"map": "Mapa",
+		"show": "Zobacz"
 	}
 }

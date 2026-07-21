@@ -1175,6 +1175,159 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMapIconMapIcon extends Struct.CollectionTypeSchema {
+  collectionName: 'map_icons';
+  info: {
+    displayName: 'map-icon';
+    pluralName: 'map-icons';
+    singularName: 'map-icon';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::map-icon.map-icon'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Mi[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Mi[a-zA-Z0-9]{5}$';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+  };
+}
+
+export interface ApiMapMarkerMapMarker extends Struct.CollectionTypeSchema {
+  collectionName: 'map_markers';
+  info: {
+    displayName: 'map-marker';
+    pluralName: 'map-markers';
+    singularName: 'map-marker';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    lat: Schema.Attribute.Float &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    lng: Schema.Attribute.Float &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::map-marker.map-marker'
+    >;
+    location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    map_icon: Schema.Attribute.Relation<'oneToOne', 'api::map-icon.map-icon'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quest: Schema.Attribute.Relation<'oneToOne', 'api::quest.quest'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    uuid: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-auto-fill': true;
+        'uuid-format': '^Mm[a-zA-Z0-9]{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-auto-fill': true;
+          'uuid-format': '^Mm[a-zA-Z0-9]{5}$';
+        }
+      >;
+  };
+}
+
+export interface ApiMapVarMapVar extends Struct.CollectionTypeSchema {
+  collectionName: 'map_vars';
+  info: {
+    displayName: 'map-var';
+    pluralName: 'map-vars';
+    singularName: 'map-var';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    config: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::map-var.map-var'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
   collectionName: 'quest_acts';
   info: {
@@ -1419,12 +1572,6 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
-    map: Schema.Attribute.Component<'map.map', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
     missable: Schema.Attribute.Boolean &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2089,6 +2236,9 @@ declare module '@strapi/strapi' {
       'api::item-type.item-type': ApiItemTypeItemType;
       'api::item.item': ApiItemItem;
       'api::location.location': ApiLocationLocation;
+      'api::map-icon.map-icon': ApiMapIconMapIcon;
+      'api::map-marker.map-marker': ApiMapMarkerMapMarker;
+      'api::map-var.map-var': ApiMapVarMapVar;
       'api::quest-act.quest-act': ApiQuestActQuestAct;
       'api::quest-group.quest-group': ApiQuestGroupQuestGroup;
       'api::quest-type.quest-type': ApiQuestTypeQuestType;
