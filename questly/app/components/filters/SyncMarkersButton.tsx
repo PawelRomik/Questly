@@ -5,13 +5,12 @@ import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { GET_MAP_MARKERS } from "@/app/lib/queries";
 import { useQuery } from "@apollo/client/react";
 import { MousePointerClick } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
 export default function SyncMarkersButton() {
-	const locale = useLocale();
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
-		variables: { location: "Skellige", locale: locale }
+		variables: { location: "Skellige", locale: "en" }
 	});
 
 	const styles = useGameStyles(filterVariants);

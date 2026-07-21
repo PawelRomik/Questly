@@ -4,13 +4,13 @@ import { CompletedMarkersOption } from "@/app/components/filters/types";
 import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
+import MapResizeObserver from "@/app/components/map/test";
 import { mapVariants } from "@/app/components/map/variant/mapVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { useLocalizedMarkersList } from "@/app/hooks/useLocalizedMarkersList";
 import { GET_MAP_MARKERS } from "@/app/lib/queries";
-
-import { useQuery } from "@apollo/client/react";
 import "leaflet/dist/leaflet.css";
 import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
@@ -29,6 +29,7 @@ type MapMarkerType = {
 	uuid: string;
 	map_icon: {
 		title: string;
+		uuid: string;
 		icon: {
 			url: string;
 		};
@@ -37,6 +38,7 @@ type MapMarkerType = {
 		uuid: string;
 		title: string;
 		quest_type: {
+			uuid: string;
 			icon: {
 				url: string;
 			};
@@ -66,26 +68,28 @@ type markerGroup = {
 export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	const locale = useLocale();
 
-	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
-		variables: { location: "Skellige", locale },
-		fetchPolicy: "cache-first",
-		nextFetchPolicy: "cache-first"
-	});
-
 	const styles = useGameStyles(mapVariants);
-
 	const [selectedMarker, setSelectedMarker] = useState<MapMarkerType | null>(null);
 	const { filters, setFilters } = useFilters();
 	const params = useParams();
 	const game = params.game as string;
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
+	const { markers: markersData, loading } = useLocalizedMarkersList<MapMarkerType, { location: string }>({
+		locale,
+		query: GET_MAP_MARKERS,
+		vars: {
+			location: "Skellige"
+		},
+		getItems: (data) => data?.mapMarkers ?? []
+	});
+
 	const markers = useMemo(
 		() =>
-			(data?.mapMarkers ?? []).map((m) => ({
+			markersData.map((m) => ({
 				...m,
 				completed: completedSet.has(m.uuid)
 			})),
-		[data?.mapMarkers, completedSet]
+		[markersData, completedSet]
 	);
 
 	const visibleMarkers = useMemo(() => {
@@ -109,14 +113,14 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	}, [markers, questMarker, filters.mapMarkers, filters.completedMarkers]);
 
 	useEffect(() => {
-		if (!data?.mapMarkers) return;
+		if (loading || !markers.length) return;
 
 		setFilters((prev) => {
 			if (prev.mapMarkers.length) return prev;
 
 			const grouped = new Map<string, markerGroup>();
 
-			data.mapMarkers.forEach((marker) => {
+			markers.forEach((marker) => {
 				const title = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
 
 				const icon = marker.quest ? marker.quest.quest_type.icon.url : marker.map_icon?.icon.url;
@@ -150,7 +154,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				})
 			};
 		});
-	}, [data?.mapMarkers, setFilters]);
+	}, [markers, loading, setFilters]);
 
 	const center = useMemo<[number, number]>(() => {
 		if (visibleMarkers.length === 1) {
@@ -168,11 +172,12 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				maxBounds={bounds}
 				attributionControl={false}
 				maxBoundsViscosity={1}
-				minZoom={3}
+				minZoom={2}
 				maxZoom={6}
-				zoom={bigZoom ? 4 : 3}
+				zoom={bigZoom ? 3 : 2}
 				className={styles.map.map()}
 			>
+				<MapResizeObserver />
 				<TileLayer tms={true} url='/assets/maps/skellige/{z}/{x}/{y}.png' tileSize={256} noWrap />
 
 				{visibleMarkers.map((m) => {

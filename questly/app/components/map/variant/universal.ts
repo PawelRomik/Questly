@@ -1,6 +1,6 @@
 export const universalStyles = {
 	map: {
-		container: () => `relative h-full w-full`,
+		container: () => `relative bg-[rgba(0,0,0,0.5)]  h-full w-full`,
 		map: () => `h-full z-3! bg-transparent!  w-full`
 	},
 	info: {

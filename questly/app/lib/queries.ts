@@ -433,6 +433,7 @@ export const GET_MAP_MARKERS = gql`
 				uuid
 				title
 				quest_type {
+					uuid
 					icon {
 						url
 					}
