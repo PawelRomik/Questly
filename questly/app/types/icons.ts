@@ -1,25 +1,21 @@
 import { StaticImageData } from "next/image";
 
-type ImageAsset = {
-	url: string;
-};
-
 export type Icons = {
-	checkbox_image: ImageAsset;
-	logo: ImageAsset;
-	character: ImageAsset;
-	backgrounds: ImageAsset[];
-	nav_icons: ImageAsset[];
-	currency_icon: ImageAsset;
-	experience_icon: ImageAsset;
-	item_icon: ImageAsset;
-	game_icon: ImageAsset;
-	default_icon: ImageAsset;
-	achievement_icon: ImageAsset;
-	search_icon: ImageAsset;
+	checkbox_image: string;
+	logo: string;
+	character: string;
+	backgrounds: string[];
+	nav_icons: string[];
+	currency_icon: string;
+	experience_icon: string;
+	item_icon: string;
+	game_icon: string;
+	default_icon: string;
+	achievement_icon: string;
+	search_icon: string;
 	missable: {
-		missable_icon: ImageAsset;
-		missable_logo: ImageAsset;
+		missable_icon: string;
+		missable_logo: string;
 		missable_color: string;
 	};
 };
@@ -31,8 +27,8 @@ export type GameAssetsContextType = {
 	logo: string | StaticImageData;
 	character: string | null;
 
-	backgrounds: ImageAsset[] | { url: StaticImageData }[];
-	nav_icons: ImageAsset[];
+	backgrounds: string[];
+	nav_icons: string[];
 
 	currency_icon: string | StaticImageData;
 	experience_icon: string | StaticImageData;

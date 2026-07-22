@@ -18,7 +18,7 @@ export function QuestTitle({ quest }: Props) {
 	return (
 		<div className={styles.content.title.wrapper()}>
 			<h2 className={styles.content.title.base()}>{highlightText(quest.title, quest._titleMatch)}</h2>
-			{quest.dlc && <FixedImage src={quest.dlc?.icon?.url} alt={t("dlc")} className={styles.content.dlc()} />}
+			{quest.dlc && <FixedImage src={quest.dlc?.icon} alt={t("dlc")} className={styles.content.dlc()} />}
 			{quest.missable && <FixedImage src={missable_logo} alt={t("missable")} className={styles.content.dlc()} />}
 		</div>
 	);

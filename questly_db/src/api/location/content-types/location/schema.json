@@ -23,36 +23,6 @@
         }
       }
     },
-    "minimap": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "banner": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "game": {
       "type": "relation",
       "relation": "oneToOne",
@@ -69,6 +39,22 @@
       "options": {
         "uuid-format": "^L[a-zA-Z0-9]{5}$",
         "disable-auto-fill": true
+      }
+    },
+    "minimap": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "banner": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
       }
     }
   }

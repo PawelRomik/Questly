@@ -2,14 +2,10 @@ export type Item = {
 	uuid: string;
 	name: string;
 	missable: boolean;
-	image: {
-		url: string;
-	};
+	image: string;
 	item_type: {
 		name: string;
-		icon: {
-			url: string;
-		};
+		icon: string;
 	};
 	amount: number;
 	price: number;
@@ -37,9 +33,7 @@ export type QuestType = {
 	name: string;
 	uuid: string;
 	locale: string;
-	icon: {
-		url: string;
-	};
+	icon: string;
 	color: string;
 };
 
@@ -57,19 +51,13 @@ export type Location = {
 	name: string;
 	uuid: string;
 	locale: string;
-	minimap: {
-		url: string;
-	};
-	banner: {
-		url: string;
-	};
+	minimap: string;
+	banner: string;
 };
 
 export type Character = {
 	name: string;
-	image: {
-		url: string;
-	};
+	image: string;
 } | null;
 
 export type Game = {
@@ -90,9 +78,7 @@ export type Requirement = {
 		title: string;
 		uuid: string;
 		quest_type: {
-			icon: {
-				url: string;
-			};
+			icon: string;
 		};
 	};
 	description: string;
@@ -110,26 +96,20 @@ export type QuestAct = {
 	order: number;
 	locale: string;
 	uuid: string;
-	icon: {
-		url: string;
-	};
+	icon: string;
 };
 
 export type QuestGroup = {
 	title: string;
 	uuid: string;
 	locale: string;
-	icon: {
-		url: string;
-	};
+	icon: string;
 };
 export type DLC = {
 	title: string;
 	uuid: string;
 	color: string;
-	icon: {
-		url: string;
-	};
+	icon: string;
 };
 
 export type Quest = {

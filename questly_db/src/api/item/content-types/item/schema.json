@@ -23,21 +23,6 @@
         }
       }
     },
-    "image": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "amount": {
       "type": "integer",
       "pluginOptions": {
@@ -137,6 +122,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::dlc.dlc"
+    },
+    "image": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

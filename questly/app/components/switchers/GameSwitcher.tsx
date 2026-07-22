@@ -14,9 +14,7 @@ import FixedImage from "@/app/components/common/FixedImage";
 type GameType = {
 	slug: string;
 	title: string;
-	logo: {
-		url: string;
-	};
+	logo: string;
 };
 
 type getGameVars = {
@@ -60,7 +58,7 @@ export default function GameSwitcher() {
 					return (
 						<Link key={g.slug} href={href} className={styles.switcher.link(g.slug === game)}>
 							<div className={styles.switcher.item()}>
-								<FixedImage src={g.logo.url} alt={g.title} className={styles.switcher.image()} />
+								<FixedImage src={g.logo} alt={g.title} className={styles.switcher.image()} />
 							</div>
 
 							<span className={styles.switcher.label()}>{g.title}</span>

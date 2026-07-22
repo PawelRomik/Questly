@@ -16,12 +16,12 @@ export function ModalHeader({ quest }: Props) {
 	const t = useTranslations();
 	return (
 		<div className={styles.header.base()}>
-			<FixedImage src={quest.location?.banner?.url ?? default_banner} className={styles.header.image()} alt={quest.location.name} />
+			<FixedImage src={quest.location?.banner ?? default_banner} className={styles.header.image()} alt={quest.location.name} />
 
 			<div>
 				<div className={styles.header.title.wrapper()}>
 					<h2 className={styles.header.title.base()}>{quest.title}</h2>
-					{quest.dlc && <FixedImage src={quest.dlc?.icon?.url} alt={t("tags.dlc")} className={styles.header.title.image()} />}
+					{quest.dlc && <FixedImage src={quest.dlc?.icon} alt={t("tags.dlc")} className={styles.header.title.image()} />}
 					{quest.missable && <FixedImage src={missable_logo} alt={t("tags.dlc")} className={styles.header.title.image()} />}
 				</div>
 

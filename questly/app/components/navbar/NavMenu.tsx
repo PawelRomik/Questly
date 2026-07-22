@@ -24,24 +24,24 @@ export function NavMenu({ side }: Props) {
 			{isLeft ? (
 				<>
 					<NavButton id={0} href={`/${game}/quests`}>
-						<FixedImage src={nav_icons[0]?.url || ""} alt={t("quests.quests")} className={styles.menu.item()} />
+						<FixedImage src={nav_icons[0] || ""} alt={t("quests.quests")} className={styles.menu.item()} />
 						<span className={styles.menu.label()}>{t("quests.quests")}</span>
 					</NavButton>
 
 					<NavButton id={1} href={`/${game}/collectibles`}>
-						<FixedImage src={nav_icons[1]?.url || ""} alt={t("collections.collectibles")} className={styles.menu.item()} />
+						<FixedImage src={nav_icons[1] || ""} alt={t("collections.collectibles")} className={styles.menu.item()} />
 						<span className={styles.menu.label()}>{t("collections.collectibles")}</span>
 					</NavButton>
 				</>
 			) : (
 				<>
 					<NavButton id={2} href={`/${game}/map`}>
-						<FixedImage src={nav_icons[2]?.url || ""} alt={t("map.map")} className={styles.menu.item()} />
+						<FixedImage src={nav_icons[2] || ""} alt={t("map.map")} className={styles.menu.item()} />
 						<span className={styles.menu.label()}>{t("map.map")}</span>
 					</NavButton>
 
 					<NavButton id={3} href={`/${game}/achievements`}>
-						<FixedImage src={nav_icons[3]?.url || ""} alt={t("achievements.achievements")} className={styles.menu.item()} />
+						<FixedImage src={nav_icons[3] || ""} alt={t("achievements.achievements")} className={styles.menu.item()} />
 						<span className={styles.menu.label()}>{t("achievements.achievements")}</span>
 					</NavButton>
 				</>

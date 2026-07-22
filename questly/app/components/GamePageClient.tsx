@@ -20,19 +20,18 @@ export default function GamePageClient() {
 
 	const { backgrounds } = useGameAssets();
 
+	console.log(backgrounds);
+
 	const { sidebarOpen, setSidebarOpen } = useFilters();
 
 	const background = useMemo(() => {
-		if (!backgrounds.length) return "";
-
 		const array = new Uint32Array(1);
-
 		crypto.getRandomValues(array);
 
-		const randomIndex = array[0] % backgrounds.length;
-
-		return backgrounds[randomIndex]?.url || "";
+		return backgrounds[array[0] % backgrounds.length];
 	}, [backgrounds]);
+
+	const backgroundUrl = background.startsWith("/_next/") ? background : `${process.env.NEXT_PUBLIC_STORAGE_URL}/${background}`;
 
 	return (
 		<div className='h-screen flex relative flex-col bg-[rgba(0,0,0,0.8)] overflow-hidden'>
@@ -41,7 +40,7 @@ export default function GamePageClient() {
 			<div
 				className='w-full h-full absolute -z-10 bg-repeat'
 				style={{
-					backgroundImage: `url(${typeof background === "string" ? `http://localhost:1337${background}` : background.src})`
+					backgroundImage: `url(${backgroundUrl})`
 				}}
 			/>
 

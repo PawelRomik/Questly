@@ -32,19 +32,12 @@
       }
     },
     "logo": {
-      "type": "media",
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      }
     }
   }
 }

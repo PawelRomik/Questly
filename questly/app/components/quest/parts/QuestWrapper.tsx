@@ -37,7 +37,7 @@ export default function QuestWrapper({ quest }: Props) {
 			<QuestAccent completed={completed} color={quest_type.color} />
 
 			<QuestMeta level={level}>
-				<QuestImage icon={quest_type?.icon?.url ?? default_icon} src={location?.banner?.url ?? default_banner} />
+				<QuestImage icon={quest_type?.icon ?? default_icon} src={location?.banner ?? default_banner} />
 			</QuestMeta>
 
 			<div className={styles.wrapper.content()}>

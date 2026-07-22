@@ -23,25 +23,18 @@
         }
       }
     },
-    "image": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "game": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::game.game"
+    },
+    "image": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

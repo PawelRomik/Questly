@@ -7,18 +7,14 @@ type MarkerWithRelations = {
 	map_icon: {
 		title: string;
 		uuid: string;
-		icon: {
-			url: string;
-		};
+		icon: string;
 	};
 	quest: {
 		uuid: string;
 		title: string;
 		quest_type: {
 			uuid: string;
-			icon: {
-				url: string;
-			};
+			icon: string;
 			name: string;
 		};
 	} | null;

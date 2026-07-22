@@ -10,9 +10,7 @@ type Props = {
 	quest: {
 		uuid: string;
 		quest_type: {
-			icon: {
-				url: string;
-			};
+			icon: string;
 		};
 		title: string;
 	};
@@ -24,7 +22,7 @@ export function RequirementQuest({ quest }: Props) {
 	const t = useTranslations("quests");
 	return (
 		<div className={styles.requirements.quest.base()}>
-			<FixedImage src={quest?.quest_type?.icon?.url || default_icon} className={styles.requirements.quest.icon()} alt='quest' />
+			<FixedImage src={quest?.quest_type?.icon || default_icon} className={styles.requirements.quest.icon()} alt='quest' />
 
 			<span className={styles.requirements.quest.label()}>{t("completedQuest")}</span>
 

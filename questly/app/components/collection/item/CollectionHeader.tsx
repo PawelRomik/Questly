@@ -25,7 +25,7 @@ export function CollectionHeader({ collection, completed, dlcs, total, hasMissab
 				{((dlcs?.length ?? 0) > 0 || hasMissable) && (
 					<div className={styles.collection.header.dlc.base()}>
 						{dlcs?.map((dlc) => (
-							<FixedImage key={dlc.title} src={dlc.icon.url} alt={dlc.title} className={styles.collection.header.dlc.icon()} />
+							<FixedImage key={dlc.title} src={dlc.icon} alt={dlc.title} className={styles.collection.header.dlc.icon()} />
 						))}
 						{hasMissable && <FixedImage src={missable_logo} alt='dlc' className={styles.collection.header.missable()} />}
 					</div>

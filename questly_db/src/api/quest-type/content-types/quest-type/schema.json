@@ -28,21 +28,6 @@
       "relation": "oneToOne",
       "target": "api::game.game"
     },
-    "icon": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "color": {
       "type": "customField",
       "pluginOptions": {
@@ -64,6 +49,14 @@
       "options": {
         "uuid-format": "^Qt[a-zA-Z0-9]{4}$",
         "disable-auto-fill": true
+      }
+    },
+    "icon": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
       }
     }
   }

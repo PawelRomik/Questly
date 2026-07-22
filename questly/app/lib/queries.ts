@@ -8,9 +8,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 				name
 				locale
 				uuid
-				icon {
-					url
-				}
+				icon
 				color
 			}
 			missable
@@ -19,17 +17,13 @@ export const GET_QUESTS_NO_TAGS = gql`
 				locale
 				uuid
 				order
-				icon {
-					url
-				}
+				icon
 			}
 			quest_groups {
 				title
 				locale
 				uuid
-				icon {
-					url
-				}
+				icon
 			}
 			uuid
 			level
@@ -39,18 +33,12 @@ export const GET_QUESTS_NO_TAGS = gql`
 				name
 				uuid
 				locale
-				minimap {
-					url
-				}
-				banner {
-					url
-				}
+				minimap
+				banner
 			}
 			character {
 				name
-				image {
-					url
-				}
+				image
 			}
 			tags {
 				name
@@ -62,9 +50,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 					title
 					uuid
 					quest_type {
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				desc
@@ -80,9 +66,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 				experience
 				money
 				items {
-					image {
-						url
-					}
+					image
 					name
 					rarity {
 						name
@@ -93,9 +77,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 					price
 					item_type {
 						name
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				other
@@ -104,9 +86,7 @@ export const GET_QUESTS_NO_TAGS = gql`
 				title
 				uuid
 				color
-				icon {
-					url
-				}
+				icon
 			}
 		}
 	}
@@ -120,9 +100,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				uuid
 				locale
 				name
-				icon {
-					url
-				}
+				icon
 				color
 			}
 			missable
@@ -131,17 +109,13 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				locale
 				title
 				order
-				icon {
-					url
-				}
+				icon
 			}
 			quest_groups {
 				title
 				locale
 				uuid
-				icon {
-					url
-				}
+				icon
 			}
 			uuid
 			level
@@ -152,18 +126,12 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				locale
 				uuid
 				locale
-				minimap {
-					url
-				}
-				banner {
-					url
-				}
+				minimap
+				banner
 			}
 			character {
 				name
-				image {
-					url
-				}
+				image
 			}
 			tags {
 				name
@@ -175,9 +143,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 					title
 					uuid
 					quest_type {
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				desc
@@ -193,9 +159,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				experience
 				money
 				items {
-					image {
-						url
-					}
+					image
 					name
 					rarity {
 						name
@@ -206,9 +170,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 					price
 					item_type {
 						name
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				other
@@ -217,9 +179,7 @@ export const GET_QUESTS_WITH_TAGS = gql`
 				title
 				uuid
 				color
-				icon {
-					url
-				}
+				icon
 			}
 		}
 	}
@@ -231,17 +191,13 @@ export const GET_NEXT_QUEST = gql`
 			title
 			uuid
 			quest_type {
-				icon {
-					url
-				}
+				icon
 			}
 			dlc {
 				title
 				uuid
 				color
-				icon {
-					url
-				}
+				icon
 			}
 		}
 	}
@@ -254,9 +210,7 @@ export const GET_ACHIEVEMENTS = gql`
 			description
 			secret
 			uuid
-			icon {
-				url
-			}
+			icon
 			tags {
 				name
 			}
@@ -265,17 +219,13 @@ export const GET_ACHIEVEMENTS = gql`
 				name
 				uuid
 				locale
-				icon {
-					url
-				}
+				icon
 			}
 			dlc {
 				title
 				uuid
 				color
-				icon {
-					url
-				}
+				icon
 			}
 		}
 	}
@@ -296,9 +246,7 @@ export const GET_COLLECTIONS = gql`
 			uuid
 			items {
 				uuid
-				image {
-					url
-				}
+				image
 				missable
 				name
 				description
@@ -306,9 +254,7 @@ export const GET_COLLECTIONS = gql`
 					title
 					uuid
 					color
-					icon {
-						url
-					}
+					icon
 				}
 			}
 			type
@@ -324,53 +270,25 @@ export const GET_COLLECTIONS = gql`
 export const GET_ICONS = gql`
 	query GetCollectionGroups($game: String!) {
 		icons(filters: { game: { slug: { eq: $game } } }) {
-			checkbox_image {
-				url
-			}
+			checkbox_image
 			game {
 				title
 				slug
 			}
-			logo {
-				url
-			}
-			character {
-				url
-			}
-			backgrounds {
-				url
-			}
-			nav_icons {
-				url
-			}
-			currency_icon {
-				url
-			}
-			experience_icon {
-				url
-			}
-			default_icon {
-				url
-			}
-			item_icon {
-				url
-			}
-			game_icon {
-				url
-			}
-			achievement_icon {
-				url
-			}
-			search_icon {
-				url
-			}
+			logo
+			character
+			backgrounds
+			nav_icons
+			currency_icon
+			experience_icon
+			default_icon
+			item_icon
+			game_icon
+			achievement_icon
+			search_icon
 			missable {
-				missable_icon {
-					url
-				}
-				missable_logo {
-					url
-				}
+				missable_icon
+				missable_logo
 				missable_color
 			}
 		}
@@ -412,9 +330,7 @@ export const GET_GAMES = gql`
 		games(locale: $locale) {
 			title
 			slug
-			logo {
-				url
-			}
+			logo
 		}
 	}
 `;
@@ -424,9 +340,7 @@ export const GET_MAP_MARKERS = gql`
 		mapMarkers(locale: $locale, filters: { location: { name: { eq: $location } } }) {
 			map_icon {
 				uuid
-				icon {
-					url
-				}
+				icon
 				title
 			}
 			quest {
@@ -434,9 +348,7 @@ export const GET_MAP_MARKERS = gql`
 				title
 				quest_type {
 					uuid
-					icon {
-						url
-					}
+					icon
 					name
 				}
 			}
@@ -455,9 +367,7 @@ export const GET_QUEST_BY_UUID = gql`
 				uuid
 				locale
 				name
-				icon {
-					url
-				}
+				icon
 				color
 			}
 			missable
@@ -466,17 +376,13 @@ export const GET_QUEST_BY_UUID = gql`
 				locale
 				title
 				order
-				icon {
-					url
-				}
+				icon
 			}
 			quest_groups {
 				title
 				locale
 				uuid
-				icon {
-					url
-				}
+				icon
 			}
 			uuid
 			level
@@ -488,18 +394,12 @@ export const GET_QUEST_BY_UUID = gql`
 				locale
 				uuid
 				locale
-				minimap {
-					url
-				}
-				banner {
-					url
-				}
+				minimap
+				banner
 			}
 			character {
 				name
-				image {
-					url
-				}
+				image
 			}
 			tags {
 				name
@@ -511,9 +411,7 @@ export const GET_QUEST_BY_UUID = gql`
 					title
 					uuid
 					quest_type {
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				desc
@@ -529,9 +427,7 @@ export const GET_QUEST_BY_UUID = gql`
 				experience
 				money
 				items {
-					image {
-						url
-					}
+					image
 					name
 					rarity {
 						name
@@ -542,9 +438,7 @@ export const GET_QUEST_BY_UUID = gql`
 					price
 					item_type {
 						name
-						icon {
-							url
-						}
+						icon
 					}
 				}
 				other
@@ -553,9 +447,7 @@ export const GET_QUEST_BY_UUID = gql`
 				title
 				uuid
 				color
-				icon {
-					url
-				}
+				icon
 			}
 		}
 	}
