@@ -3,9 +3,7 @@ import { DLC, TagType } from "@/app/types/quest";
 export type AchievementType = {
 	title: string;
 	description: string;
-	icon: {
-		url: string;
-	};
+	icon: string;
 	missable?: boolean;
 	game: string;
 	uuid: string;
@@ -17,9 +15,7 @@ export type AchievementType = {
 		name: string;
 		locale: string;
 		uuid: string;
-		icon: {
-			url: string;
-		};
+		icon: string;
 	};
 };
 

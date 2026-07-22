@@ -14,7 +14,7 @@ export default function FixedImage({ src, className, alt }: Props) {
 
 	if (!src || hidden) return null;
 
-	const imageSrc = typeof src === "string" ? `http://localhost:1337${src}` : src;
+	const imageSrc = typeof src === "string" ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/${src}` : src;
 
 	return <Image width={1000} height={1000} src={imageSrc} className={className} alt={alt} onError={() => setHidden(true)} />;
 }

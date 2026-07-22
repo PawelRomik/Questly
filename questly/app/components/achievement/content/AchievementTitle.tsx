@@ -17,7 +17,7 @@ export default function AchievementTitle({ completed, achievement }: Achievement
 	return (
 		<div className={styles.title.wrapper()}>
 			<h2 className={styles.title.base(completed)}>{highlightText(achievement.title, achievement._titleMatch)}</h2>
-			{dlc && <FixedImage src={dlc?.icon?.url} alt='dlc' className={styles.title.icon()} />}
+			{dlc && <FixedImage src={dlc?.icon} alt='dlc' className={styles.title.icon()} />}
 			{achievement.missable && <FixedImage src={missable_logo} alt='dlc' className={styles.title.icon()} />}
 		</div>
 	);

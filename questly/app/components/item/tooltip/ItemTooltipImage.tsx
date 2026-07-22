@@ -14,7 +14,7 @@ export function ItemTooltipImage({ item }: Props) {
 
 	return (
 		<div className={styles.tooltip.image.wrapper()}>
-			<FixedImage src={item?.image?.url ?? item_icon} alt={item.name} className={styles.tooltip.image.image()} />
+			<FixedImage src={item?.image ?? item_icon} alt={item.name} className={styles.tooltip.image.image()} />
 		</div>
 	);
 }

@@ -6,30 +6,16 @@
   },
   "options": {},
   "attributes": {
-    "missable_icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "missable_logo": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "missable_color": {
       "type": "customField",
       "customField": "plugin::color-picker.color",
       "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "missable_icon": {
+      "type": "string"
+    },
+    "missable_logo": {
+      "type": "string"
     }
   },
   "config": {}

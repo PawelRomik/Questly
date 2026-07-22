@@ -56,7 +56,7 @@ export default function Achievement({ achievement, completed, onToggle }: Props)
 			<div className={styles.achievement(completed)}>
 				{isHidden && <AchievementHidden />}
 
-				<AchievementImage title={achievement.title} completed={completed} src={icon?.url ?? achievement_icon} />
+				<AchievementImage title={achievement.title} completed={completed} src={icon ?? achievement_icon} />
 
 				<AchievementContent revealed={revealed} achievement={achievement} completed={completed} />
 

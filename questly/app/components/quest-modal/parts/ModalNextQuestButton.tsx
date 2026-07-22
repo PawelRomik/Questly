@@ -10,9 +10,7 @@ type Props = {
 		title: string;
 		uuid: string;
 		quest_type: {
-			icon: {
-				url: string;
-			};
+			icon: string;
 		};
 	};
 };
@@ -23,7 +21,7 @@ export function ModalNextQuestButton({ quest }: Props) {
 	return (
 		<Link title={quest.title} href={`?activeQuest=${quest.uuid}`} className={styles.nextButton.wrapper()}>
 			<button className={styles.nextButton.base()}>
-				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon?.url || ""} className={styles.nextButton.icon()} />
+				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon || ""} className={styles.nextButton.icon()} />
 				{t("nextQuest")}
 				<span className={styles.nextButton.title()}>{quest.title}</span>
 			</button>

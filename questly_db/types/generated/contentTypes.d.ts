@@ -488,7 +488,7 @@ export interface ApiAchievementGroupAchievementGroup
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -562,7 +562,7 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
       }>;
     dlc: Schema.Attribute.Relation<'oneToOne', 'api::dlc.dlc'>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -633,7 +633,7 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    image: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -805,7 +805,7 @@ export interface ApiDlcDlc extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -866,7 +866,7 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'>;
-    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    logo: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -902,45 +902,27 @@ export interface ApiIconIcon extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    achievement_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    backgrounds: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    character: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    checkbox_image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
+    achievement_icon: Schema.Attribute.String;
+    backgrounds: Schema.Attribute.JSON;
+    character: Schema.Attribute.String;
+    checkbox_image: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    currency_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    default_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    experience_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
+    currency_icon: Schema.Attribute.String;
+    default_icon: Schema.Attribute.String;
+    experience_icon: Schema.Attribute.String;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    game_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    item_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    game_icon: Schema.Attribute.String;
+    item_icon: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::icon.icon'> &
       Schema.Attribute.Private;
-    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logo: Schema.Attribute.String;
     missable: Schema.Attribute.Component<'missable.missable', false>;
-    nav_icons: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    nav_icons: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    search_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
+    search_icon: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -967,7 +949,7 @@ export interface ApiItemTypeItemType extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1048,7 +1030,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
         };
       }>;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    image: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1122,7 +1104,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    banner: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1137,7 +1119,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::location.location'
     >;
-    minimap: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    minimap: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1195,7 +1177,7 @@ export interface ApiMapIconMapIcon extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1348,7 +1330,7 @@ export interface ApiQuestActQuestAct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1417,7 +1399,7 @@ export interface ApiQuestGroupQuestGroup extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1489,7 +1471,7 @@ export interface ApiQuestTypeQuestType extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;

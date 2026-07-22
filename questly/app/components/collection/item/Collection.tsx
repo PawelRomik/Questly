@@ -79,7 +79,7 @@ export default function Collection({ collection }: Props) {
 							key={item.uuid}
 							name={item.name}
 							missable={item.missable}
-							src={item?.image?.url ?? item_icon}
+							src={item?.image ?? item_icon}
 							completed={!!completedMap.get(item.uuid)}
 							onClick={() => handleItemClick(item.uuid)}
 						/>

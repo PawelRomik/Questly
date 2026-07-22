@@ -31,21 +31,6 @@
         }
       }
     },
-    "icon": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "game": {
       "type": "relation",
       "relation": "oneToOne",
@@ -89,6 +74,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag"
+    },
+    "icon": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

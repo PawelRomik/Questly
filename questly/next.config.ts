@@ -1,16 +1,15 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+const storageHost = process.env.NEXT_PUBLIC_STORAGE_URL ? new URL(process.env.NEXT_PUBLIC_STORAGE_URL).hostname : "";
+
 const nextConfig: NextConfig = {
 	devIndicators: false,
 	images: {
-		dangerouslyAllowLocalIP: true,
-
 		remotePatterns: [
 			{
-				protocol: "http",
-				hostname: "localhost",
-				port: "1337"
+				protocol: "https",
+				hostname: storageHost
 			}
 		]
 	}

@@ -26,9 +26,9 @@ export function QuestModalLayout({ quest, hideMap = false }: Props) {
 		<div className={styles.base(mapStateVisible)}>
 			{!mapStateVisible ? (
 				<>
-					<ModalCharacter src={quest.character?.image?.url || default_character} />
+					<ModalCharacter src={quest.character?.image || default_character} />
 
-					{!hideMap && <ModalMap src={quest.location?.minimap?.url || default_map} setMapStateVisible={setMapStateVisible} />}
+					{!hideMap && <ModalMap src={quest.location?.minimap || default_map} setMapStateVisible={setMapStateVisible} />}
 
 					<ModalHeader quest={quest} />
 

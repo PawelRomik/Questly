@@ -237,8 +237,8 @@ export default function getFilterConfig(
 						label: t("location"),
 						options: [
 							{
-								value: "all",
-								label: "none"
+								value: "Skellige",
+								label: "Skellige"
 							}
 						],
 						value: filters.mapLocation

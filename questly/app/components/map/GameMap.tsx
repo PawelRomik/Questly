@@ -30,18 +30,14 @@ type MapMarkerType = {
 	map_icon: {
 		title: string;
 		uuid: string;
-		icon: {
-			url: string;
-		};
+		icon: string;
 	};
 	quest: {
 		uuid: string;
 		title: string;
 		quest_type: {
 			uuid: string;
-			icon: {
-				url: string;
-			};
+			icon: string;
 			name: string;
 		};
 	} | null;
@@ -123,7 +119,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 			markers.forEach((marker) => {
 				const title = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
 
-				const icon = marker.quest ? marker.quest.quest_type.icon.url : marker.map_icon?.icon.url;
+				const icon = marker.quest ? marker.quest.quest_type.icon : marker.map_icon?.icon;
 
 				if (!title || !icon) return;
 
@@ -178,14 +174,14 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				className={styles.map.map()}
 			>
 				<MapResizeObserver />
-				<TileLayer tms={true} url='/assets/maps/skellige/{z}/{x}/{y}.png' tileSize={256} noWrap />
+				<TileLayer tms={true} url={`${process.env.NEXT_PUBLIC_STORAGE_URL}/witcher3/maps/skellige/{z}/{x}/{y}.png`} tileSize={256} noWrap />
 
 				{visibleMarkers.map((m) => {
 					const hasQuest = !!m.quest;
 
 					const title = hasQuest ? m.quest?.title || "" : m.map_icon?.title || "";
 
-					const iconUrl = hasQuest ? `http://localhost:1337${m.quest?.quest_type.icon.url ?? ""}` : `http://localhost:1337${m.map_icon.icon.url}`;
+					const iconUrl = hasQuest ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/${m.quest?.quest_type.icon ?? ""}` : `${process.env.NEXT_PUBLIC_STORAGE_URL}/${m.map_icon.icon}`;
 
 					const isQuestMarker = !!questMarker;
 
@@ -207,7 +203,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 
 			{selectedMarker && (
 				<MapInfo
-					icon={selectedMarker.quest?.quest_type.icon.url ?? selectedMarker.map_icon.icon.url}
+					icon={selectedMarker.quest?.quest_type.icon ?? selectedMarker.map_icon.icon}
 					selectedQuest={!!selectedMarker.quest}
 					title={selectedMarker.quest?.title ?? selectedMarker.map_icon.title}
 					uuid={selectedMarker.quest?.uuid}

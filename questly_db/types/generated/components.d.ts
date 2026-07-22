@@ -23,12 +23,8 @@ export interface MissableMissable extends Struct.ComponentSchema {
   attributes: {
     missable_color: Schema.Attribute.String &
       Schema.Attribute.CustomField<'plugin::color-picker.color'>;
-    missable_icon: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    missable_logo: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
+    missable_icon: Schema.Attribute.String;
+    missable_logo: Schema.Attribute.String;
   };
 }
 
