@@ -146,7 +146,16 @@ export type getDLCsData = {
 	dlcs: DLC[];
 };
 
+export type getLocationsData = {
+	locations: Location[];
+};
+
 export type getDLCsVars = {
+	locale: string;
+	game: string;
+};
+
+export type getLocationsVars = {
 	locale: string;
 	game: string;
 };

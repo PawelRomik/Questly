@@ -8,9 +8,9 @@ import { MousePointerClick } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
-export default function SyncMarkersButton() {
+export default function SyncMarkersButton({ selectedLocation }: { selectedLocation: string }) {
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
-		variables: { location: "Skellige", locale: "en" }
+		variables: { location: selectedLocation, locale: "en" }
 	});
 
 	const styles = useGameStyles(filterVariants);

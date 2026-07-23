@@ -6,7 +6,7 @@
 		"icon": "{title} icon"
 	},
 	"collections": {
-		"collectibles": "Collectibles",
+		"collectibles": "Collections",
 		"resetBtn": "Reset",
 		"completeBtn": "Complete"
 	},
@@ -14,6 +14,12 @@
 		"missable": "Missable",
 		"dlc": "dlc",
 		"completed": "✔ Completed"
+	},
+	"nav": {
+		"map": "Map",
+		"collectibles": "Collections",
+		"quests": "Quests",
+		"achievements": "Achievements"
 	},
 	"filters": {
 		"searchResults": "Search results",

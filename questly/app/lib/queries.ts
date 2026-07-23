@@ -304,6 +304,15 @@ export const GET_DLCS = gql`
 	}
 `;
 
+export const GET_LOCATIONS = gql`
+	query ($game: String, $locale: I18NLocaleCode) {
+		locations(filters: { game: { slug: { eq: $game } } }, locale: $locale) {
+			name
+			uuid
+		}
+	}
+`;
+
 export const GET_STAT_COUNTS = gql`
 	query ($game: String!) {
 		quests(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
@@ -335,9 +344,17 @@ export const GET_GAMES = gql`
 	}
 `;
 
+export const GET_MAP_VARS = gql`
+	query ($uuid: String) {
+		mapVars(filters: { location: { uuid: { eq: $uuid } } }) {
+			config
+		}
+	}
+`;
+
 export const GET_MAP_MARKERS = gql`
 	query ($location: String, $locale: I18NLocaleCode) {
-		mapMarkers(locale: $locale, filters: { location: { name: { eq: $location } } }) {
+		mapMarkers(locale: $locale, filters: { location: { uuid: { eq: $location } } }) {
 			map_icon {
 				uuid
 				icon

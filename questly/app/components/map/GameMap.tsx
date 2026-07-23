@@ -1,6 +1,5 @@
 "use client";
 
-import { CompletedMarkersOption } from "@/app/components/filters/types";
 import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
@@ -8,21 +7,30 @@ import MapResizeObserver from "@/app/components/map/MapResizeObserver";
 import { mapVariants } from "@/app/components/map/variant/mapVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useGameMapData } from "@/app/hooks/map/useGameMapData";
+import { useLocationSync } from "@/app/hooks/map/useLocationSync";
+import { useMapCenter } from "@/app/hooks/map/useMapCenter";
+import { useMarkerGroups } from "@/app/hooks/map/useMarkerGroups";
+import { useVisibleMarkers } from "@/app/hooks/map/useVisibleMarkers";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
-import { useLocalizedMarkersList } from "@/app/hooks/useLocalizedMarkersList";
-import { GET_MAP_MARKERS } from "@/app/lib/queries";
+import { getMapName } from "@/app/lib/utils/map/getMapName";
+import { getMarkerDisplay } from "@/app/lib/utils/map/getMarkerDisplay";
 import "leaflet/dist/leaflet.css";
 import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
-const bounds: L.LatLngBoundsExpression = [
-	[-85.05, -180],
-	[79.3, 135]
-];
+export type MarkerGroup = {
+	title: string;
+	icon: string;
+	count: number;
+	visible: boolean;
+	isQuest: boolean;
+	uuids: string[];
+};
 
-type MapMarkerType = {
+export type MapMarkerType = {
 	id: number;
 	lat: number;
 	lng: number;
@@ -52,15 +60,6 @@ type Props = {
 	questMarker?: string;
 };
 
-type markerGroup = {
-	title: string;
-	icon: string;
-	count: number;
-	visible: boolean;
-	isQuest: boolean;
-	uuids: string[];
-};
-
 export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	const locale = useLocale();
 
@@ -70,13 +69,13 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	const params = useParams();
 	const game = params.game as string;
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
-	const { markers: markersData, loading } = useLocalizedMarkersList<MapMarkerType, { location: string }>({
-		locale,
-		query: GET_MAP_MARKERS,
-		vars: {
-			location: "Skellige"
-		},
-		getItems: (data) => data?.mapMarkers ?? []
+
+	const { locationData, selectedLocation, markers: markersData, loading, bounds } = useGameMapData(game, locale, filters.mapLocation);
+	useLocationSync({
+		locationData,
+		selectedLocationUuid: selectedLocation?.uuid,
+		mapLocation: filters.mapLocation,
+		setFilters
 	});
 
 	const markers = useMemo(
@@ -88,81 +87,33 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 		[markersData, completedSet]
 	);
 
-	const visibleMarkers = useMemo(() => {
-		if (questMarker) {
-			return markers.filter((m) => m.quest?.uuid === questMarker);
-		}
+	const visibleMarkers = useVisibleMarkers({
+		markers,
+		filters,
+		questMarker
+	});
 
-		const hidden = new Set(filters.mapMarkers.filter((m) => !m.visible).map((m) => m.title));
+	useMarkerGroups({
+		markers,
+		loading,
+		setFilters
+	});
 
-		return markers.filter((marker) => {
-			if (filters.completedMarkers === CompletedMarkersOption.HIDE && marker.completed) {
-				return false;
-			}
+	const center = useMapCenter({
+		visibleMarkers,
+		bounds
+	});
 
-			const type = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
+	if (!selectedLocation || !bounds) {
+		return null;
+	}
 
-			if (!type) return true;
-
-			return !hidden.has(type);
-		});
-	}, [markers, questMarker, filters.mapMarkers, filters.completedMarkers]);
-
-	useEffect(() => {
-		if (loading || !markers.length) return;
-
-		setFilters((prev) => {
-			if (prev.mapMarkers.length) return prev;
-
-			const grouped = new Map<string, markerGroup>();
-
-			markers.forEach((marker) => {
-				const title = marker.quest ? marker.quest.quest_type.name : marker.map_icon?.title;
-
-				const icon = marker.quest ? marker.quest.quest_type.icon : marker.map_icon?.icon;
-
-				if (!title || !icon) return;
-
-				if (!grouped.has(title)) {
-					grouped.set(title, {
-						title,
-						icon,
-						count: 1,
-						visible: true,
-						isQuest: !!marker.quest,
-						uuids: [marker.uuid]
-					});
-				} else {
-					const group = grouped.get(title)!;
-					group.count++;
-					group.uuids.push(marker.uuid);
-				}
-			});
-
-			return {
-				...prev,
-				mapMarkers: [...grouped.values()].sort((a, b) => {
-					if (a.isQuest !== b.isQuest) {
-						return a.isQuest ? -1 : 1;
-					}
-
-					return a.title.localeCompare(b.title);
-				})
-			};
-		});
-	}, [markers, loading, setFilters]);
-
-	const center = useMemo<[number, number]>(() => {
-		if (visibleMarkers.length === 1) {
-			return [visibleMarkers[0].lat, visibleMarkers[0].lng];
-		}
-
-		return [-35, -10];
-	}, [visibleMarkers]);
+	const mapName = getMapName(selectedLocation.name);
 
 	return (
 		<div className={styles.map.container()}>
 			<MapContainer
+				key={bounds[0][0] + bounds[1][1]}
 				center={center}
 				zoomControl={false}
 				maxBounds={bounds}
@@ -174,14 +125,10 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				className={styles.map.map()}
 			>
 				<MapResizeObserver />
-				<TileLayer tms={true} url={`${process.env.NEXT_PUBLIC_STORAGE_URL}/witcher3/maps/skellige/{z}/{x}/{y}.png`} tileSize={256} noWrap />
+				<TileLayer tms={true} url={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${game}/maps/${mapName}/{z}/{x}/{y}.png`} tileSize={256} noWrap />
 
 				{visibleMarkers.map((m) => {
-					const hasQuest = !!m.quest;
-
-					const title = hasQuest ? m.quest?.title || "" : m.map_icon?.title || "";
-
-					const iconUrl = hasQuest ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/${m.quest?.quest_type.icon ?? ""}` : `${process.env.NEXT_PUBLIC_STORAGE_URL}/${m.map_icon.icon}`;
+					const { title, iconUrl } = getMarkerDisplay(m);
 
 					const isQuestMarker = !!questMarker;
 

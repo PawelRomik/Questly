@@ -1,5 +1,5 @@
 import { CompletedMarkersOption, CompletedOption, Filters, HiddenAchievementsOption, MissableOption, SortOption } from "@/app/components/filters/types";
-import { DLC } from "@/app/types/quest";
+import { DLC, Location } from "@/app/types/quest";
 import { TranslationValues } from "next-intl";
 
 export type Page = "quests" | "achievements" | "collectibles" | "map";
@@ -69,6 +69,7 @@ export default function getFilterConfig(
 	isLocked: boolean,
 	filters: Filters,
 	dlcs: DLC[],
+	locations: Location[],
 	t: TFunction
 ): {
 	checkboxes: CheckboxConfig[];
@@ -79,6 +80,13 @@ export default function getFilterConfig(
 		...dlcs.map((dlc) => ({
 			value: dlc.uuid,
 			label: dlc.title
+		}))
+	];
+
+	const locationOptions = [
+		...locations.map((loc) => ({
+			value: loc.uuid,
+			label: loc.name
 		}))
 	];
 
@@ -235,12 +243,7 @@ export default function getFilterConfig(
 					{
 						key: "mapLocation",
 						label: t("location"),
-						options: [
-							{
-								value: "Skellige",
-								label: "Skellige"
-							}
-						],
+						options: locationOptions,
 						value: filters.mapLocation
 					},
 					{
