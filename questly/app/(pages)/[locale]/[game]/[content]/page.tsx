@@ -1,20 +1,47 @@
 import GamePageClient from "@/app/components/GamePageClient";
-import { formatName } from "@/app/lib/utils/formatName";
-import { setRequestLocale } from "next-intl/server";
+import { client } from "@/app/lib/apollo";
+import { GET_GAMES } from "@/app/lib/queries";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
 type Props = {
 	params: {
 		game: string;
 		content: string;
+		locale: string;
 	};
 };
 
 export async function generateMetadata({ params }: Props) {
-	const { game, content } = await params;
+	const { game, content, locale } = await params;
+
+	const { data } = await client.query<
+		{
+			games: {
+				slug: string;
+				title: string;
+			}[];
+		},
+		{
+			locale: string;
+		}
+	>({
+		query: GET_GAMES,
+		variables: {
+			locale
+		}
+	});
+
+	const t = await getTranslations({
+		locale,
+		namespace: "nav"
+	});
+
+	const selectedGame = data?.games.find(({ slug }) => slug === game);
+	const title = selectedGame?.title ?? "";
 
 	return {
-		title: `Questly | ${formatName(game)} ${formatName(content)}`
+		title: `Questly | ${title} ${t(content)}`
 	};
 }
 

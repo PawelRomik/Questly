@@ -6,7 +6,7 @@
 		"icon": "Ikona {title}"
 	},
 	"collections": {
-		"collectibles": "Znajdźki",
+		"collectibles": "Kolekcje",
 		"resetBtn": "Resetuj",
 		"completeBtn": "Ukończ"
 	},
@@ -14,6 +14,12 @@
 		"missable": "Przegapialne",
 		"dlc": "DLC",
 		"completed": "✔ Ukończono"
+	},
+	"nav": {
+		"map": "Mapa",
+		"collectibles": "Kolekcje",
+		"quests": "Zadania",
+		"achievements": "Osiągnięcia"
 	},
 	"filters": {
 		"searchResults": "Wyniki wyszukiwania",

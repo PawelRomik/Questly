@@ -20,8 +20,6 @@ export default function GamePageClient() {
 
 	const { backgrounds } = useGameAssets();
 
-	console.log(backgrounds);
-
 	const { sidebarOpen, setSidebarOpen } = useFilters();
 
 	const background = useMemo(() => {
