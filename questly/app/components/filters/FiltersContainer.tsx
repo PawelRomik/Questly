@@ -45,14 +45,7 @@ export function FiltersContainer() {
 			</div>
 
 			{content == "map" ? <MapMarkerLegend /> : <FiltersOptions isLocked={isLocked} update={update} />}
-			<StatisticList
-				stats={[
-					{ id: "quests", label: t("quests.quests") },
-					{ id: "achievements", label: t("achievements.achievements") },
-					{ id: "collections", label: t("collections.collectibles") },
-					{ id: "mapMarkers", label: t("map.mapMarkers") }
-				]}
-			/>
+			<StatisticList />
 			<LocaleSwitcher />
 		</div>
 	);

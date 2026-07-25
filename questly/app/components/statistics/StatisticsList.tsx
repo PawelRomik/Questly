@@ -2,17 +2,17 @@ import { Statistic } from "@/app/components/statistics/Statistic";
 import { statisticVariants } from "@/app/components/statistics/variant/statisticVariants";
 import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useStatisticCounts } from "@/app/hooks/useStatisticCounts";
+import { useTranslations } from "next-intl";
 
-type Stat = {
-	label: string;
-	id: string;
-};
+export function StatisticList() {
+	const t = useTranslations();
 
-type Props = {
-	stats: Stat[];
-};
-
-export function StatisticList({ stats }: Props) {
+	const stats = [
+		{ id: "quests", label: t("quests.quests") },
+		{ id: "achievements", label: t("achievements.achievements") },
+		{ id: "collections", label: t("collections.collectibles") },
+		{ id: "mapMarkers", label: t("map.mapMarkers") }
+	];
 	const styles = useGameStyles(statisticVariants);
 	const { counts } = useStatisticCounts();
 
