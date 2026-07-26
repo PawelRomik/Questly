@@ -38,10 +38,18 @@ cursor-pointer
 `;
 
 // ----------------------------------------
+const switcherSearchContainer = `mb-4`;
+
+const switcherSearchInput = `w-full px-3 py-2 text-sm outline-none`;
+//---------------------
 
 export const universalStyles = {
 	switcher: {
 		grid: () => switcherGridStyles,
+		searchbar: {
+			container: () => switcherSearchContainer,
+			input: () => switcherSearchInput
+		},
 		link: () => switcherLinkStyles,
 		item: () => switcherItemStyles,
 		image: () => switcherImageStyles,

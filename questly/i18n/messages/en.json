@@ -67,8 +67,6 @@
 		"levelShort": "lvl",
 		"level": "Level",
 		"reset": "Reset",
-		"selectGame": "Select game",
-		"selectLocale": "Select locale",
 		"other": "Other"
 	},
 	"quests": {
@@ -89,5 +87,10 @@
 		"mapMarkers": "Map Markers",
 		"map": "Map",
 		"show": "Show"
+	},
+	"switchers": {
+		"selectGame": "Select game",
+		"selectLocale": "Select locale",
+		"search": "Search"
 	}
 }

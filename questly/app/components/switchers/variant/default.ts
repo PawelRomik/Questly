@@ -44,6 +44,20 @@ const dialogButtonStyles = `
 
   hover:text-white
 `;
+// ----------------------------------------
+
+const switcherSearchContainer = ``;
+
+const switcherSearchInput = `bg-[#101010]
+  to-[#060606]
+  bg-linear-to-b
+
+  border
+  border-white/80
+
+  shadow-2xl
+text-white
+  backdrop-blur-md`;
 
 // ----------------------------------------
 
@@ -55,7 +69,11 @@ export const defaultStyles = {
 		image: () => switcherImageStyles,
 		label: () => switcherLabelStyles,
 		flag: () => switcherFlagStyles,
-		flagTrigger: () => switcherFlagTriggerStyles
+		flagTrigger: () => switcherFlagTriggerStyles,
+		searchbar: {
+			container: () => switcherSearchContainer,
+			input: () => switcherSearchInput
+		}
 	},
 	dialog: {
 		trigger: () => dialogTriggerStyles,

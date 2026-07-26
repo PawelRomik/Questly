@@ -16,6 +16,12 @@ group-hover:brightness-125 text-center`;
 
 const switcherFlagTrigger = (flag: string) => `fi fi-${flag} rounded-sm text-2xl`;
 
+// --SWC----------SEARCHBAR---------------
+
+const switcherSearchContainer = `mb-4`;
+
+const switcherSearchInput = `w-full px-3 py-2 text-sm outline-none`;
+
 // --SWC------------DIALOG-------------------
 
 const dialogTrigger = `flex flex-1`;
@@ -39,7 +45,11 @@ export const switcherStyles = {
 		image: () => switcherImage,
 		label: () => switcherLabel,
 		flag: (flag: string) => switcherFlag(flag),
-		flagTrigger: (flag: string) => switcherFlagTrigger(flag)
+		flagTrigger: (flag: string) => switcherFlagTrigger(flag),
+		searchbar: {
+			container: () => switcherSearchContainer,
+			input: () => switcherSearchInput
+		}
 	},
 	dialog: {
 		trigger: () => dialogTrigger,

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import NavLogo from "@/app/components/navbar/NavLogo";
 import { useParams, usePathname } from "next/navigation";
@@ -10,6 +11,8 @@ import { switcherVariants } from "@/app/components/switchers/variant/switcherVar
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { GET_GAMES } from "@/app/lib/queries";
 import FixedImage from "@/app/components/common/FixedImage";
+import Fuse from "fuse.js";
+import SwitcherSearch from "@/app/components/switchers/SwitcherSearch";
 
 type GameType = {
 	slug: string;
@@ -26,8 +29,10 @@ export default function GameSwitcher() {
 	const { game } = useParams();
 
 	const currentSegments = pathname.split("/").filter(Boolean);
-	const t = useTranslations("common");
+	const t = useTranslations("switchers");
 	const locale = useLocale();
+
+	const [search, setSearch] = useState("");
 
 	const styles = useGameStyles(switcherVariants);
 
@@ -41,10 +46,33 @@ export default function GameSwitcher() {
 		getId: (g) => g.slug
 	});
 
+	const fuse = useMemo(
+		() =>
+			new Fuse(games, {
+				keys: ["title"],
+				threshold: 0.35,
+				ignoreLocation: true,
+				minMatchCharLength: 1
+			}),
+		[games]
+	);
+
+	const filteredGames = useMemo(() => {
+		const query = search.trim();
+
+		if (!query) return games;
+
+		const results = fuse.search(query).map((result) => result.item);
+
+		return results.length > 0 ? results : games;
+	}, [games, fuse, search]);
+
 	return (
 		<SwitcherDialog trigger={<NavLogo />} title={t("selectGame")}>
+			<SwitcherSearch search={search} setSearch={setSearch} />
+
 			<div className={styles.switcher.grid()}>
-				{games.map((g) => {
+				{filteredGames.map((g) => {
 					let href = `/${g.slug}/quests`;
 
 					if (currentSegments.length > 1) {

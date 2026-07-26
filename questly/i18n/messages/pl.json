@@ -67,8 +67,6 @@
 		"levelShort": "poz.",
 		"level": "Poziom",
 		"reset": "Resetuj",
-		"selectGame": "Wybierz grę",
-		"selectLocale": "Wybierz język",
 		"other": "Inne"
 	},
 	"quests": {
@@ -89,5 +87,10 @@
 		"mapMarkers": "Znaczniki mapy",
 		"map": "Mapa",
 		"show": "Zobacz"
+	},
+	"switchers": {
+		"selectGame": "Wybierz grę",
+		"selectLocale": "Wybierz język",
+		"search": "Wyszukaj"
 	}
 }

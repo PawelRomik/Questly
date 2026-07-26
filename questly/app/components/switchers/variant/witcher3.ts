@@ -47,6 +47,28 @@ const dialogButtonStyles = `
 
 // ----------------------------------------
 
+const switcherSearchContainer = ` border-2 rounded-lg
+  border-[#c97a00]
+
+  bg-black/20`;
+
+const switcherSearchInput = ` w-full
+
+
+  bg-transparent
+
+
+  text-[#f1e2b8]
+
+  placeholder:text-[#9c8d63]
+
+
+  transition-colors
+
+  focus:placeholder:text-[#c8b98c]`;
+
+// ----------------------------------------
+
 export const witcher3Styles = {
 	switcher: {
 		grid: () => switcherGridStyles,
@@ -55,7 +77,11 @@ export const witcher3Styles = {
 		image: () => switcherImageStyles,
 		label: () => switcherLabelStyles,
 		flag: () => switcherFlagStyles,
-		flagTrigger: () => switcherFlagTriggerStyles
+		flagTrigger: () => switcherFlagTriggerStyles,
+		searchbar: {
+			container: () => switcherSearchContainer,
+			input: () => switcherSearchInput
+		}
 	},
 	dialog: {
 		trigger: () => dialogTriggerStyles,

@@ -63,6 +63,35 @@ const dialogButtonStyles = `
 
 // ----------------------------------------
 
+const switcherSearchContainer = `
+`;
+
+const switcherSearchInput = `
+
+	rounded-none
+	border
+	border-[#00e0ff]/30
+
+	bg-black/40
+
+	text-[#00e0ff]
+
+	placeholder:text-[#00e0ff]/35
+
+	transition-all
+	duration-200
+
+	caret-[#00e0ff]
+
+	focus:border-[#00e0ff]
+	focus:bg-black/60
+
+
+	hover:border-[#00e0ff]/60
+`;
+
+// ----------------------------------------
+
 export const cyberpunk2077Styles = {
 	switcher: {
 		grid: () => switcherGridStyles,
@@ -71,7 +100,11 @@ export const cyberpunk2077Styles = {
 		image: () => switcherImageStyles,
 		label: () => switcherLabelStyles,
 		flag: () => switcherFlagStyles,
-		flagTrigger: () => switcherFlagTriggerStyles
+		flagTrigger: () => switcherFlagTriggerStyles,
+		searchbar: {
+			container: () => switcherSearchContainer,
+			input: () => switcherSearchInput
+		}
 	},
 	dialog: {
 		trigger: () => dialogTriggerStyles,
