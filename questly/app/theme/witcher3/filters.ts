@@ -11,6 +11,8 @@ const searchBarInputWrapper = `relative w-full`;
 
 const searchBarCharacter = `absolute bottom-full w-30 object-contain`;
 
+const filtersIcon = `w-32 h-auto absolute top-[15px] left-[30px]`;
+
 // --FLT--------------CHECKBOX-------------------
 
 const checkboxWrapper = `flex items-start gap-3 px-3 justify-start text-sm transition`;
@@ -88,6 +90,7 @@ export const filterStyles = {
 	settings: () => searchSettings,
 	checkboxWrapper: () => checkboxSettingsWrapper,
 	selectWrapper: () => selectSettingsWrapper,
+	icon: () => filtersIcon,
 	base: () => searchBarBase,
 	header: {
 		base: () => searchBarHeader,

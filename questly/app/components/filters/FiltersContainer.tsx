@@ -13,6 +13,7 @@ import LocaleSwitcher from "@/app/components/switchers/LocaleSwitcher";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import MapMarkerLegend from "@/app/components/filters/MapMarkerLegend";
+import questlyLogo from "../../../public/assets/logo.png";
 
 export function FiltersContainer() {
 	const { filters, setFilters } = useFilters();
@@ -34,6 +35,7 @@ export function FiltersContainer() {
 
 	return (
 		<div className={styles.base()}>
+			<FixedImage src={questlyLogo} alt='logo' className={styles.icon()} />
 			<div className={styles.header.base()}>
 				<FixedImage src={logo} alt={t("common.logo")} className={styles.header.logo()} />
 			</div>

@@ -12,6 +12,8 @@ import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
 import { GameMapContainer } from "@/app/components/map";
+import FixedImage from "@/app/components/common/FixedImage";
+import questlyIcon from "../../public/assets/game_icon.png";
 
 export default function GamePageClient() {
 	const params = useParams<{ game: string; content: string }>();
@@ -94,6 +96,7 @@ export default function GamePageClient() {
 					>
 						<FiltersContainer />
 					</div>
+					{!sidebarOpen && <FixedImage src={questlyIcon} alt='logo' className='w-32  absolute bottom-0 h-auto' />}
 				</div>
 
 				<div

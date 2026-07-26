@@ -218,8 +218,12 @@ const selectSettingsWrapperLayoutClass = `flex gap-3 items-center justify-start 
 
 // ----------------------------------------
 
+const filtersIcon = `w-32 ml-auto h-auto absolute top-[15px] left-[30px]`;
+//-----------------------------------
+
 export const universalStyles = {
 	settings: () => searchSettingsLayoutClass,
+	icon: () => filtersIcon,
 	checkboxWrapper: () => checkboxSettingsWrapperLayoutClass,
 	selectWrapper: () => selectSettingsWrapperLayoutClass,
 	base: () => searchBarLayoutClass,
