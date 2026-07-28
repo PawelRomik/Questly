@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Quest } from "@/app/types/quest";
 import QuestModal from "@/app/components/quest-modal/QuestModal";
 
-export default function QuestItem({ quest }: { quest: Quest }) {
+export default function QuestItem({ quest, game }: { quest: Quest; game: string }) {
 	return (
 		<motion.div
 			variants={{
@@ -13,7 +13,7 @@ export default function QuestItem({ quest }: { quest: Quest }) {
 			whileTap={{ scale: 0.97 }}
 			layout
 		>
-			<QuestModal quest={quest} />
+			<QuestModal game={game} quest={quest} />
 		</motion.div>
 	);
 }

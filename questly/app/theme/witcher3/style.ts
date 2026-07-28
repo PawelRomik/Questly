@@ -9,6 +9,7 @@ import { statisticsStyles } from "./statistics";
 import { switcherStyles } from "./switchers";
 import { questStyles } from "./quests";
 import { questModalStyles } from "./quest-modal";
+import { tagStyles } from "./tags";
 
 export const witcher3Styles = {
 	achievement: achievementStyles,
@@ -21,5 +22,6 @@ export const witcher3Styles = {
 	questModal: questModalStyles,
 	section: sectionStyles,
 	statistic: statisticsStyles,
-	switcher: switcherStyles
+	switcher: switcherStyles,
+	tag: tagStyles
 };

@@ -1,10 +1,13 @@
 "use client";
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 
-export default function AchievementHidden() {
-	const styles = useGameStyles(achievementVariants);
+type Props = {
+	game?: string;
+};
+
+export default function AchievementHidden({ game }: Props) {
 	const t = useTranslations("achievements");
-	return <div className={styles.hidden()}>{t("hiddenClick")}</div>;
+	const theme = getTheme("achievement", game);
+	return <div className={theme.hidden()}>{t("hiddenClick")}</div>;
 }

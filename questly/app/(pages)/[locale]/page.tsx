@@ -12,13 +12,13 @@ export async function generateMetadata() {
 	};
 }
 
-export default function Home({ params }: { params: Promise<{ locale: string }> }) {
-	const { locale } = use(params);
+export default function Home({ params }: { params: Promise<{ locale: string; game: string }> }) {
+	const { locale, game } = use(params);
 	setRequestLocale(locale);
 
 	return (
 		<div style={{ backgroundImage: `url(${background.src})` }} className='flex pb-5 flex-col gap-5 h-screen overflow-y-scroll'>
-			<HubNavbar />
+			<HubNavbar game={game} />
 			<MainSection />
 			<Line />
 			<OtherGamesSection />

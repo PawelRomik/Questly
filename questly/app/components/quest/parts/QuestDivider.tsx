@@ -1,7 +1,10 @@
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export function QuestDivider() {
-	const styles = useGameStyles(questVariants);
-	return <div className={styles.divider()} />;
+type Props = {
+	game?: string;
+};
+
+export function QuestDivider({ game }: Props) {
+	const theme = getTheme("quest", game);
+	return <div className={theme.divider()} />;
 }

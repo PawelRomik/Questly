@@ -3,16 +3,15 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import NavLogo from "@/app/components/navbar/NavLogo";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import SwitcherDialog from "@/app/components/switchers/SwitcherDialog";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
-import { switcherVariants } from "@/app/components/switchers/variant/switcherVariants";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { GET_GAMES } from "@/app/lib/queries";
 import FixedImage from "@/app/components/common/FixedImage";
 import Fuse from "fuse.js";
 import SwitcherSearch from "@/app/components/switchers/SwitcherSearch";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type GameType = {
 	slug: string;
@@ -24,9 +23,12 @@ type getGameVars = {
 	locale: string;
 };
 
-export default function GameSwitcher() {
+type Props = {
+	game?: string;
+};
+
+export default function GameSwitcher({ game }: Props) {
 	const pathname = usePathname();
-	const { game } = useParams();
 
 	const currentSegments = pathname.split("/").filter(Boolean);
 	const t = useTranslations("switchers");
@@ -34,7 +36,7 @@ export default function GameSwitcher() {
 
 	const [search, setSearch] = useState("");
 
-	const styles = useGameStyles(switcherVariants);
+	const theme = getTheme("switcher", game);
 
 	const games = useLocalizedList<GameType, getGameVars>({
 		query: GET_GAMES,
@@ -68,10 +70,10 @@ export default function GameSwitcher() {
 	}, [games, fuse, search]);
 
 	return (
-		<SwitcherDialog trigger={<NavLogo />} title={t("selectGame")}>
-			<SwitcherSearch search={search} setSearch={setSearch} />
+		<SwitcherDialog game={game} trigger={<NavLogo game={game} />} title={t("selectGame")}>
+			<SwitcherSearch game={game} search={search} setSearch={setSearch} />
 
-			<div className={styles.switcher.grid()}>
+			<div className={theme.switcher.grid()}>
 				{filteredGames.map((g) => {
 					let href = `/${g.slug}/quests`;
 
@@ -84,12 +86,12 @@ export default function GameSwitcher() {
 					}
 
 					return (
-						<Link key={g.slug} href={href} className={styles.switcher.link(g.slug === game)}>
-							<div className={styles.switcher.item()}>
-								<FixedImage src={g.logo} alt={g.title} className={styles.switcher.image()} />
+						<Link key={g.slug} href={href} className={theme.switcher.link(g.slug === game)}>
+							<div className={theme.switcher.item()}>
+								<FixedImage src={g.logo} alt={g.title} className={theme.switcher.image()} />
 							</div>
 
-							<span className={styles.switcher.label()}>{g.title}</span>
+							<span className={theme.switcher.label()}>{g.title}</span>
 						</Link>
 					);
 				})}

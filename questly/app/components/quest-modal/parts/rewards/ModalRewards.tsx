@@ -2,30 +2,30 @@ import { Rewards } from "@/app/types/quest";
 
 import { RewardCurrency } from "./RewardCurrency";
 import { RewardItems } from "./RewardItems";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	rewards: Rewards;
 	hideMap?: boolean;
+	game?: string;
 };
 
-export function ModalRewards({ rewards, hideMap = false }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export function ModalRewards({ rewards, hideMap = false, game }: Props) {
 	const { currency_icon, experience_icon } = useGameAssets();
+	const theme = getTheme("questModal", game);
 
 	return (
-		<div className={styles.rewards.base(hideMap)}>
-			<h3 className={styles.rewards.title()}>Rewards</h3>
+		<div className={theme.rewards.base(hideMap)}>
+			<h3 className={theme.rewards.title()}>Rewards</h3>
 
-			<div className={styles.rewards.content()}>
-				<div className={styles.rewards.list()}>
-					<RewardCurrency icon={experience_icon} value={rewards.experience} />
+			<div className={theme.rewards.content()}>
+				<div className={theme.rewards.list()}>
+					<RewardCurrency game={game} icon={experience_icon} value={rewards.experience} />
 
-					<RewardCurrency icon={currency_icon} value={rewards.money} />
+					<RewardCurrency game={game} icon={currency_icon} value={rewards.money} />
 
-					<RewardItems items={rewards.items} />
+					<RewardItems game={game} items={rewards.items} />
 				</div>
 			</div>
 		</div>

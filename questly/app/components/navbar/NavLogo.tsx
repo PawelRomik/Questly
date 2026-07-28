@@ -1,20 +1,22 @@
 "use client";
 
-import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import FixedImage from "@/app/components/common/FixedImage";
 import { useTranslations } from "next-intl";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function NavLogo() {
-	const styles = useGameStyles(navbarVariants);
+type Props = {
+	game?: string;
+};
 
+export default function NavLogo({ game }: Props) {
 	const { game_icon } = useGameAssets();
 	const t = useTranslations("common");
+	const theme = getTheme("navbar", game);
 
 	return (
-		<div className={styles.logo.base()}>
-			<FixedImage src={game_icon} alt={t("logo")} className={styles.logo.image()} />
+		<div className={theme.logo.base()}>
+			<FixedImage src={game_icon} alt={t("logo")} className={theme.logo.image()} />
 		</div>
 	);
 }

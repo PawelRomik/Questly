@@ -1,21 +1,22 @@
 "use client";
 
-import { filterVariants } from "@/app/components/filters/variant/filterVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
 type Props = {
 	value: string;
 	onChange: (value: string) => void;
+	game?: string;
 };
 
-export function FilterSearchInput({ value, onChange }: Props) {
-	const styles = useGameStyles(filterVariants);
+export function FilterSearchInput({ value, onChange, game }: Props) {
 	const params = useParams();
 	const t = useTranslations();
 	const { content } = params;
 	const contentParam = Array.isArray(content) ? (content[0] ?? "") : (content ?? "");
+
+	const theme = getTheme("filter", game);
 
 	const contentLabel = {
 		achievements: t("achievements.achievements"),
@@ -25,18 +26,18 @@ export function FilterSearchInput({ value, onChange }: Props) {
 	}[contentParam];
 
 	return (
-		<div className={styles.searchInput.wrapper()}>
+		<div className={theme.searchInput.wrapper()}>
 			<input
 				type='text'
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				placeholder={t("filters.search", { content: contentLabel || "" })}
-				className={styles.searchInput.inputField()}
+				className={theme.searchInput.inputField()}
 			/>
 
-			<div className={styles.searchInput.accent()} />
+			<div className={theme.searchInput.accent()} />
 
-			<div className={styles.searchInput.glow()} />
+			<div className={theme.searchInput.glow()} />
 		</div>
 	);
 }

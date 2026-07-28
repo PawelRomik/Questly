@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: Props) {
 	};
 }
 
-export default function GamePage({ params }: { params: Promise<{ locale: string }> }) {
-	const { locale } = use(params);
+export default function GamePage({ params }: { params: Promise<{ locale: string; game: string }> }) {
+	const { locale, game } = use(params);
 	setRequestLocale(locale);
-	return <GamePageClient />;
+	return <GamePageClient game={game} />;
 }

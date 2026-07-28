@@ -5,9 +5,6 @@ import { useFilters } from "@/app/context/FiltersContext";
 import { useQuestIcons } from "@/app/hooks/useQuestIcons";
 import QuestTreeRenderer from "@/app/components/quest/QuestTreeRenderer";
 import { useQuestGrouping } from "@/app/hooks/useQuestGrouping";
-import { useParams } from "next/navigation";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { CompletedOption, MissableOption } from "@/app/components/filters/types";
 import { useLocale } from "next-intl";
@@ -18,13 +15,17 @@ import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
 import { useMemo } from "react";
 import { useCompleted } from "@/app/context/CompletedContext";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function QuestList() {
-	const params = useParams();
-	const game = params.game as string;
+type Props = {
+	game: string;
+};
+
+export default function QuestList({ game }: Props) {
 	const { filters } = useFilters();
 	const { search, sort } = filters;
 	const locale = useLocale();
+	const theme = getTheme("questModal", game);
 
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
 	const quests = useLocalizedList<Quest, { game: string; locale: string }>({
@@ -73,7 +74,6 @@ export default function QuestList() {
 
 		return list;
 	}, [searchedQuests, filters, completedSet]);
-	const styles = useGameStyles(questModalVariants);
 
 	const { getTypeIcon, getLocationIcon, getGroupIcon, getActIcon } = useQuestIcons();
 	const { default_icon, search_icon, missable_icon } = useGameAssets();
@@ -92,8 +92,8 @@ export default function QuestList() {
 	);
 
 	return (
-		<div className={styles.list()}>
-			<QuestTreeRenderer nodes={tree} sort={sort} />
+		<div className={theme.list()}>
+			<QuestTreeRenderer game={game} nodes={tree} sort={sort} />
 		</div>
 	);
 }

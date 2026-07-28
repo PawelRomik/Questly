@@ -1,5 +1,4 @@
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 const achievementImageCornerPositions = {
 	tl: "top-0 left-0 border-t border-l",
@@ -10,18 +9,19 @@ const achievementImageCornerPositions = {
 
 type Props = {
 	completed: boolean;
+	game?: string;
 };
 
-export default function AchievementImageCorners({ completed }: Props) {
-	const styles = useGameStyles(achievementVariants);
+export default function AchievementImageCorners({ completed, game }: Props) {
+	const theme = getTheme("achievement", game);
 	return (
-		<div className={styles.image.corners.style(completed)}>
+		<div className={theme.image.corners.style(completed)}>
 			{Object.values(achievementImageCornerPositions).map((pos, i) => (
 				<div
 					key={i}
 					className={`
-            ${styles.image.corners.style(completed)}
-			${styles.image.corners.borders()}
+            ${theme.image.corners.style(completed)}
+			${theme.image.corners.borders()}
             ${pos}
             
           `}

@@ -4,27 +4,27 @@ import { QuestTitle } from "./QuestTitle";
 
 import { QuestDescription } from "./QuestDescription";
 import { QuestTags } from "@/app/components/quest/parts/QuestTags";
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { Quest } from "@/app/types/quest";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	completed: boolean;
 	searchTags: boolean;
 	quest: Quest;
+	game?: string;
 };
 
-export function QuestContent({ quest, searchTags, completed }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestContent({ quest, searchTags, completed, game }: Props) {
 	const { description } = quest;
 	const shortDesc = description.slice(0, 60) + "...";
+	const theme = getTheme("quest", game);
 	return (
-		<div className={styles.content.base()}>
-			<QuestTitle quest={quest} />
+		<div className={theme.content.base()}>
+			<QuestTitle game={game} quest={quest} />
 
-			<QuestDescription description={shortDesc} />
+			<QuestDescription game={game} description={shortDesc} />
 
-			<QuestTags quest={quest} searchTags={searchTags} completed={completed} />
+			<QuestTags game={game} quest={quest} searchTags={searchTags} completed={completed} />
 		</div>
 	);
 }

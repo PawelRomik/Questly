@@ -1,126 +1,594 @@
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+	subsets: ["latin", "latin-ext"],
+	weight: ["400", "500", "600", "700"]
+});
+
 // --QML-----------QUEST MODAL----------
 // --QML-----------BASE----------
 
-const questModal = (showMap: boolean) => `Fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-z-40 w-250 min-h-150 overflow-hidden
+const questModal = (showMap: boolean) => `
+fixed
+
+left-1/2
+top-1/2
+
+-translate-x-1/2
+-translate-y-1/2
+
+z-40
+
+w-250
+min-h-150
+
+overflow-hidden
+
+bg-linear-to-b
+from-[#161616]
+to-[#080808]
+
+border
+border-white/10
+
+shadow-[0_0_40px_rgba(0,0,0,0.7)]
+
+text-white/85
+
+backdrop-blur-xl
+
 ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_100px_70px]"}`;
 
-const questModalTrigger = `w-full`;
+const questModalTrigger = `
+w-full
+`;
 
-const questModalOverlay = `fixed inset-0 z-30`;
+const questModalOverlay = `
+fixed
+inset-0
 
-const modalCloseButton = `absolute top-3 right-3 z-40 w-8 h-8 flex items-center justify-center cursor-pointer`;
+z-30
+
+bg-black/75
+
+backdrop-blur-md
+`;
+
+const modalCloseButton = `
+absolute
+top-3
+right-3
+
+z-40
+
+w-8
+h-8
+
+flex
+items-center
+justify-center
+
+cursor-pointer
+
+bg-black/40
+
+border
+border-white/10
+
+hover:bg-white/10
+hover:border-white/20
+
+transition-all
+duration-200
+`;
 
 // --QML-----------CHARACTER----------
 
-const modalCharacterWrapper = `row-[1/4] col-1`;
+const modalCharacterWrapper = `
+row-[1/4]
+col-1
 
-const modalCharacterContainer = `flex items-center justify-center h-full`;
+border-r
+border-b
+border-white/10
+`;
 
-const modalCharacterImage = `w-full h-full object-cover`;
+const modalCharacterContainer = `
+flex
+items-center
+justify-center
+
+h-full
+
+border-r
+border-white/5
+
+bg-[#0d0d0d]
+`;
+
+const modalCharacterImage = `
+w-full
+h-full
+
+object-cover
+`;
 
 // --QML-----------DESCRIPTION----------
 
-const modalDescription = `col-2 row-3 flex flex-col gap-3 p-3
-text-sm leading-relaxed`;
+const modalDescription = `
+col-2
+row-3
+
+flex
+flex-col
+
+gap-3
+
+p-3
+
+text-sm
+leading-relaxed
+
+border-r
+border-y
+border-white/10
+
+text-white/65
+
+${inter.className}
+`;
 
 // --QML-----------FOOTER----------
 
-const modalFooter = `col-[1/4] row-5 flex items-center justify-end gap-4 px-4`;
+const modalFooter = `
+col-[1/4]
+row-5
+
+flex
+items-center
+justify-end
+
+gap-4
+
+px-4
+
+border-t
+border-white/10
+
+bg-black/20
+`;
 
 // --QML-----------COMPLETE BUTTON----------
 
-const modalCompleteButton = `px-5 py-2 flex items-center gap-2 text-sm tracking-wide border cursor-pointer`;
+const modalCompleteButton = (completed: boolean) => `
+px-5
+py-2
 
-const modalCompleteButtonIconWrapper = `w-5 h-5 p-0.5 flex items-center justify-center
-border border-current`;
+flex
+items-center
 
-const modalCompleteButtonIcon = `fill-current`;
+gap-2
+
+text-sm
+tracking-wide
+
+cursor-pointer
+
+transition-all
+duration-200
+
+border
+
+backdrop-blur-sm
+
+${
+	completed
+		? `
+border-white/20
+
+bg-linear-to-b
+from-[#2a2a2a]
+to-[#151515]
+
+text-white
+
+hover:border-white/35
+`
+		: `
+border-white/10
+
+bg-linear-to-b
+from-[#1a1a1a]
+to-[#0c0c0c]
+
+text-white/80
+
+hover:border-white/20
+hover:text-white
+`
+}
+`;
+
+const modalCompleteButtonIconWrapper = `
+w-5
+h-5
+
+p-0.5
+
+flex
+items-center
+justify-center
+
+border
+border-current
+`;
+
+const modalCompleteButtonIcon = (completed: boolean) => `
+fill-current
+
+${completed ? "opacity-100 text-white transition" : "opacity-0 transition"}
+`;
 
 // --QML--------NEXT QUEST BUTTON----------
 
-const modalNextQuestLink = `flex items-center justify-center`;
+const modalNextQuestLink = `
+flex
+items-center
+justify-center
 
-const modalNextQuestButton = `px-5 py-2 flex items-center justify-center gap-2
-text-sm tracking-wide cursor-pointer`;
+text-xs
+`;
 
-const modalNextQuestButtonImage = `w-5`;
+const modalNextQuestButton = `
+px-5
+py-2
 
-const modalNextQuestTitle = `max-w-20 break-all overflow-hidden truncate`;
+flex
+items-center
+justify-center
+
+gap-2
+
+text-sm
+tracking-wide
+
+cursor-pointer
+
+border
+border-white/10
+
+bg-linear-to-b
+from-[#1a1a1a]
+to-[#0b0b0b]
+
+text-white/70
+
+hover:border-white/20
+hover:text-white
+
+transition-all
+duration-200
+`;
+
+const modalNextQuestButtonImage = `
+w-5
+`;
+
+const modalNextQuestTitle = `
+max-w-20
+
+truncate
+
+break-all
+
+overflow-hidden
+
+italic
+
+text-white/40
+`;
 
 // --QML-----------HEADER----------
 
-const modalHeader = `col-[2/4] row-1 flex items-center gap-3 px-4 py-3
-text-xl uppercase`;
+const modalHeader = `
+col-[2/4]
+row-1
 
-const modalHeaderWrapper = `flex items-center justify-start gap-3`;
+flex
+items-center
 
-const modalHeaderDLCImage = `h-4 w-auto`;
+gap-3
 
-const modalHeaderImage = `w-13.75 object-contain object-bottom-right`;
+px-4
+py-3
 
-const modalHeaderTitle = `tracking-wide`;
+text-xl
 
-const modalHeaderSubtitle = `text-sm`;
+uppercase
 
-const modalHeaderLevel = `text-sm`;
+border-b
+border-white/10
+
+bg-linear-to-r
+from-[#0b0b0b]
+via-[#151515]
+to-[#0b0b0b]
+
+${inter.className}
+`;
+
+const modalHeaderWrapper = `
+flex
+items-center
+justify-start
+
+gap-3
+`;
+
+const modalHeaderDLCImage = `
+h-4
+w-auto
+`;
+
+const modalHeaderImage = `
+w-13.75
+
+object-contain
+object-bottom-right
+`;
+
+const modalHeaderTitle = `
+tracking-wide
+
+text-white
+`;
+
+const modalHeaderSubtitle = `
+text-sm
+
+text-white/50
+`;
+
+const modalHeaderLevel = `
+text-sm
+
+text-white/40
+`;
 
 // --QML-----------MAP----------
 
-const modalMapWrapper = `row-4 col-1`;
+const modalMapWrapper = `
+row-4
+col-1
 
-const modalMapContainer = `h-full w-full overflow-hidden`;
+bg-black/20
 
-const modalMapContent = `h-full p-1 cursor-pointer`;
+border-b
+border-white/10
+`;
 
-const modalMapImage = `h-full w-full object-cover`;
+const modalMapContainer = `
+h-full
+w-full
 
-const modalMapModalContainer = `relative h-[600px] w-[1000px]`;
+overflow-hidden
+`;
+
+const modalMapContent = `
+h-full
+
+p-1
+
+cursor-pointer
+
+text-sm
+
+text-white/35
+
+opacity-60
+
+hover:opacity-100
+
+transition
+`;
+
+const modalMapImage = `
+h-full
+w-full
+
+object-cover
+`;
+
+const modalMapModalContainer = `
+relative
+
+h-[600px]
+w-[1000px]
+`;
 
 // --QML-----------REQUIREMENTS----------
 
-const modalRequirements = `col-3 row-[3/5] p-4`;
+const modalRequirements = `
+col-3
+row-[3/5]
 
-const modalRequirementsTitle = `text-xs uppercase tracking-wider mb-2`;
+p-4
 
-const modalRequirementsList = `flex flex-wrap gap-2 mt-4`;
+border-y
+border-white/10
 
-const requirementQuest = `flex items-center`;
+bg-black/15
+`;
 
-const requirementQuestIcon = `w-4.5`;
+const modalRequirementsTitle = `
+text-xs
 
-const requirementQuestLabel = `pr-2 py-1 text-xs`;
+uppercase
 
-const requirementQuestLink = `py-1 text-xs`;
+tracking-wider
 
-const requirementTag = `flex items-center`;
+mb-2
 
-const requirementPrimary = ``;
+text-white/70
+`;
 
-const requirementSecondary = ``;
+const modalRequirementsList = `
+flex
+flex-wrap
+
+gap-2
+
+mt-4
+`;
+
+const requirementQuest = `
+flex
+items-center
+`;
+
+const requirementQuestIcon = `
+w-4.5
+`;
+
+const requirementQuestLabel = `
+pr-2
+py-1
+
+text-xs
+`;
+
+const requirementQuestLink = `
+py-1
+
+text-xs
+
+text-white/55
+
+underline
+
+hover:text-white
+`;
+
+const requirementTag = `
+flex
+items-center
+`;
+
+const requirementPrimary = `
+px-2
+py-1
+
+text-xs
+
+bg-[#2a2a2a]
+
+text-white/70
+
+rounded-l
+`;
+
+const requirementSecondary = `
+px-2
+py-1
+
+text-xs
+
+bg-[#101010]
+
+text-white/45
+
+rounded-r
+`;
 
 // --QML-----------REWARDS----------
 
-const modalRewards = (hideMap: boolean) => `${hideMap ? "col-[1/3]" : "col-2"} row-4
-flex flex-col p-4`;
+const modalRewards = (hideMap: boolean) => `
+${hideMap ? "col-[1/3]" : "col-2"}
+row-4
 
-const modalRewardsTitle = `text-xs uppercase tracking-wider`;
+flex
+flex-col
 
-const modalRewardsContent = `h-full flex flex-1 flex-col justify-center`;
+p-4
 
-const modalRewardsList = `flex gap-6`;
+border-x
+border-white/10
 
-const rewardCurrency = `flex items-center gap-2 items-center h-full`;
+bg-black/15
+`;
 
-const rewardCurrencyValue = `py-1 text-xs`;
+const modalRewardsTitle = `
+text-xs
 
-const rewardIcon = `w-5 h-5`;
+uppercase
 
-const rewardItems = `flex gap-3 flex-wrap items-end h-full`;
+tracking-wider
+
+text-white/70
+`;
+
+const modalRewardsContent = `
+h-full
+
+flex
+flex-1
+flex-col
+
+justify-center
+`;
+
+const modalRewardsList = `
+flex
+
+gap-6
+`;
+
+const rewardCurrency = `
+flex
+items-center
+
+gap-2
+
+h-full
+`;
+
+const rewardCurrencyValue = `
+py-1
+
+text-xs
+`;
+
+const rewardIcon = `
+w-5
+h-5
+`;
+
+const rewardItems = `
+flex
+
+gap-3
+
+flex-wrap
+
+items-end
+
+h-full
+`;
 
 // --QML-----------LIST----------
 
-const questList = `w-full px-3 gap-8 flex flex-col items-center`;
+const questList = `
+w-full
+
+px-3
+
+gap-8
+
+flex
+flex-col
+
+items-center
+`;
 
 // --QML-----------EXPORT----------
 
@@ -137,9 +605,9 @@ export const questModalStyles = {
 	description: () => modalDescription,
 	footer: () => modalFooter,
 	completeButton: {
-		base: () => modalCompleteButton,
+		base: (completed: boolean) => modalCompleteButton(completed),
 		wrapper: () => modalCompleteButtonIconWrapper,
-		icon: () => modalCompleteButtonIcon
+		icon: (completed: boolean) => modalCompleteButtonIcon(completed)
 	},
 	nextButton: {
 		base: () => modalNextQuestButton,

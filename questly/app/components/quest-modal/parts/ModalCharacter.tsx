@@ -1,16 +1,20 @@
 import FixedImage from "@/app/components/common/FixedImage";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 import { StaticImageData } from "next/image";
 
-export function ModalCharacter({ src }: { src: string | StaticImageData }) {
-	const styles = useGameStyles(questModalVariants);
+type Props = {
+	src: string | StaticImageData;
+	game?: string;
+};
+
+export function ModalCharacter({ src, game }: Props) {
 	const t = useTranslations("common");
+	const theme = getTheme("questModal", game);
 	return (
-		<div className={styles.character.wrapper()}>
-			<div className={styles.character.container()}>
-				<FixedImage src={src} alt={t("character")} className={styles.character.image()} />
+		<div className={theme.character.wrapper()}>
+			<div className={theme.character.container()}>
+				<FixedImage src={src} alt={t("character")} className={theme.character.image()} />
 			</div>
 		</div>
 	);

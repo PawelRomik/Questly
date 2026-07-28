@@ -1,28 +1,27 @@
 import AchievementDescription from "@/app/components/achievement/content/AchievementDescription";
 import { AchievementTags } from "@/app/components/achievement/content/AchievementTags";
 import AchievementTitle from "@/app/components/achievement/content/AchievementTitle";
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-
 import { useFilters } from "@/app/context/FiltersContext";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { AchievementType } from "@/app/types/achievement";
 
 type Props = {
 	achievement: AchievementType;
 	completed: boolean;
 	revealed: boolean;
+	game?: string;
 };
 
-export function AchievementContent({ achievement, completed, revealed }: Props) {
+export function AchievementContent({ achievement, completed, revealed, game }: Props) {
 	const { description, secret } = achievement;
-	const styles = useGameStyles(achievementVariants);
 	const { filters } = useFilters();
+	const theme = getTheme("achievement", game);
 
 	return (
-		<div className={styles.container()}>
-			<AchievementTitle achievement={achievement} completed={completed} />
-			<AchievementDescription description={description} revealed={revealed} secret={secret} />
-			{(!secret || revealed) && <AchievementTags searchTags={filters.searchTags} completed={completed} achievement={achievement} />}
+		<div className={theme.container()}>
+			<AchievementTitle game={game} achievement={achievement} completed={completed} />
+			<AchievementDescription game={game} description={description} revealed={revealed} secret={secret} />
+			{(!secret || revealed) && <AchievementTags game={game} searchTags={filters.searchTags} completed={completed} achievement={achievement} />}
 		</div>
 	);
 }

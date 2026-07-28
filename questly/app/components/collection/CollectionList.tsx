@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { GET_COLLECTION_GROUPS, GET_COLLECTIONS } from "@/app/lib/queries";
 import { useEffect, useMemo } from "react";
 
@@ -9,8 +9,6 @@ import CollectionGroup from "@/app/components/collection/group/CollectionGroup";
 
 import { CollectionType, GetCollectionGroupsData } from "@/app/types/collection";
 
-import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
 import { useLocale } from "next-intl";
@@ -19,11 +17,14 @@ import { useDebounce } from "@/app/lib/utils/useDebounce";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { CompletedOption, MissableOption } from "@/app/components/filters/types";
 import compareCollections from "@/app/lib/utils/compareCollections";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function CollectionList() {
-	const params = useParams();
-	const game = params.game as string;
+type Props = {
+	game: string;
+};
 
+export default function CollectionList({ game }: Props) {
+	const theme = getTheme("collection", game);
 	const locale = useLocale();
 
 	const router = useRouter();
@@ -38,7 +39,6 @@ export default function CollectionList() {
 
 	const isSearching = debouncedSearch.length > 0;
 	const { isCollectionItemCompleted } = useCompleted(game, "collections");
-	const styles = useGameStyles(collectionVariants);
 
 	const collectionGroups = useLocalizedList({
 		locale,
@@ -145,14 +145,14 @@ export default function CollectionList() {
 	};
 
 	return (
-		<div className={styles.list.base()}>
-			<div className={styles.list.group()}>
-				<CollectionGroup groups={collectionGroups} onSelect={handleSelectGroup} active={activeGroup} />
+		<div className={theme.list.base()}>
+			<div className={theme.list.group()}>
+				<CollectionGroup game={game} groups={collectionGroups} onSelect={handleSelectGroup} active={activeGroup} />
 			</div>
 
-			<div className={styles.list.grid()}>
+			<div className={theme.list.grid()}>
 				{displayedCollections.map((collection) => (
-					<Collection key={collection.uuid} collection={collection} />
+					<Collection game={game} key={collection.uuid} collection={collection} />
 				))}
 			</div>
 		</div>

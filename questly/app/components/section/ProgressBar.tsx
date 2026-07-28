@@ -1,24 +1,24 @@
 "use client";
 
-import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	completed: number;
 	total: number;
+	game?: string;
 };
 
-export default function ProgressBar({ completed, total }: Props) {
+export default function ProgressBar({ completed, total, game }: Props) {
 	const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
 
 	const isComplete = percent === 100;
 
-	const styles = useGameStyles(sectionVariants);
+	const theme = getTheme("section", game);
 
 	return (
-		<div className={styles.progressBar.base()}>
-			<div className={styles.progressBar.track()}>
-				<div className={styles.progressBar.fill(isComplete)} style={{ width: `${percent}%` }} />
+		<div className={theme.progressBar.base()}>
+			<div className={theme.progressBar.track()}>
+				<div className={theme.progressBar.fill(isComplete)} style={{ width: `${percent}%` }} />
 			</div>
 		</div>
 	);

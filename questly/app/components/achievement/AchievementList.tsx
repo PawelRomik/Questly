@@ -1,6 +1,4 @@
 "use client";
-
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { GET_ACHIEVEMENTS } from "@/app/lib/queries";
@@ -13,10 +11,7 @@ import { useCompleted } from "@/app/context/CompletedContext";
 
 import { AchievementType, GetAchievementsVars } from "@/app/types/achievement";
 
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-
 import { buildAchievementTree } from "@/app/lib/utils/buildAchievementTree";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { useLocalizedList } from "@/app/hooks/useLocalizedList";
@@ -24,15 +19,17 @@ import { useFuzzySearch } from "@/app/hooks/useFuzzySearch";
 import { useDebounce } from "@/app/lib/utils/useDebounce";
 import { CompletedOption, MissableOption } from "@/app/components/filters/types";
 import { sortAchievements } from "@/app/lib/utils/sortAchievements";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function AchievementList() {
-	const { game } = useParams() as { game: string };
+type Props = {
+	game: string;
+};
+export default function AchievementList({ game }: Props) {
+	const theme = getTheme("achievement", game);
 	const t = useTranslations();
 
 	const { filters } = useFilters();
 	const { search, groupByQuestGroup, sort, missables } = filters;
-
-	const styles = useGameStyles(achievementVariants);
 
 	const { toggle, completedSet } = useCompleted(game, "achievements");
 	const locale = useLocale();
@@ -95,15 +92,16 @@ export default function AchievementList() {
 	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon]);
 
 	return (
-		<div className={styles.root()}>
+		<div className={theme.root()}>
 			{grouped.map((group) => {
 				const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
 				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
-					<Section key={group.title} title={search ? t("filters.searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
+					<Section game={game} key={group.title} title={search ? t("filters.searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
 							<Achievement
+								game={game}
 								key={`${achievement.uuid}-${filters.hiddenAchievements}`}
 								achievement={achievement}
 								completed={completedSet.has(achievement.uuid)}

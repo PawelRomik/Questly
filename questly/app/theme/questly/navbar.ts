@@ -1,53 +1,335 @@
 //--NAV--------------NAVBAR------------------
-//--NAV--------------LAYOUT------------------
-const navbarExpandable = `sticky top-0 z-100`;
 
-const navbarBase = (isOpen: boolean) => `${isOpen ? "sticky translate-y-0" : "fixed -translate-y-full"}
-top-0 right-0 left-0 z-10 w-full h-24 transition-transform duration-300 text-2xl font-bold flex`;
+//--NAV--------------LAYOUT------------------
+
+const navbarExpandable = `
+sticky
+top-0
+z-100
+`;
+
+const navbarBase = (isOpen: boolean) => `
+${isOpen ? "sticky translate-y-0" : "fixed -translate-y-full"}
+
+top-0
+right-0
+left-0
+
+z-10
+
+w-full
+h-24
+
+flex
+
+text-2xl
+font-bold
+
+transition-transform
+duration-300
+`;
 
 const navbarSide = ``;
 
-const navbarContent = `flex-1 flex items-center`;
+const navbarContent = `
+flex-1
 
-const navbarInner = `flex w-full h-full overflow-hidden`;
+flex
+items-center
+
+bg-black/90
+
+border-b
+border-white/10
+
+backdrop-blur-md
+
+shadow-lg
+`;
+
+const navbarInner = `
+flex
+
+w-full
+h-full
+
+overflow-hidden
+`;
 
 // --NAV--------------DECOR-------------------
 
-const navDecorWrapper = `w-32 h-full overflow-hidden`;
+const navDecorWrapper = `
+w-32
+h-full
 
-const navDecor = `w-full h-full scale-x-150`;
+overflow-hidden
+`;
+
+const navDecor = `
+w-full
+h-full
+
+scale-x-150
+
+bg-linear-to-b
+from-[#111111]
+to-[#050505]
+
+border-b
+border-white/5
+
+transition-colors
+`;
 
 // --NAV----------------LOGO-----------------
 
-const navLogoWrapper = `relative w-full flex items-center justify-center p-2 overflow-hidden cursor-pointer group`;
+const navLogoWrapper = `
+relative
 
-const navLogoImage = `h-full w-20 object-contain z-30`;
+w-full
+
+flex
+items-center
+justify-center
+
+p-2
+
+overflow-hidden
+
+cursor-pointer
+
+group
+
+bg-linear-to-b
+from-[#151515]
+to-[#090909]
+
+border-b-2
+border-b-white
+
+transition-all
+duration-300
+
+after:content-['']
+after:absolute
+after:inset-0
+
+after:bg-linear-to-r
+after:from-transparent
+after:via-white/5
+after:to-transparent
+
+after:translate-x-[-120%]
+
+after:transition-transform
+after:duration-700
+
+hover:after:translate-x-[120%]
+`;
+
+const navLogoImage = `
+h-full
+w-20
+
+object-contain
+
+z-30
+
+transition-transform
+duration-300
+
+group-hover:scale-105
+`;
 
 // --NAV-------------MENU-------------------
 
-const navMenu = `flex-2 flex items-center justify-around h-full text-white`;
+const navMenu = `
+flex-2
 
-const navMenuItem = `w-12.5 h-12.5 z-30`;
+flex
+items-center
+justify-around
 
-const navMenuLabel = `z-30`;
+h-full
+
+text-white
+`;
+
+const navMenuItem = `
+w-12.5
+h-12.5
+
+z-30
+`;
+
+const navMenuLabel = `
+z-30
+
+text-white/80
+
+transition-colors
+
+hover:text-white
+`;
 
 // --NAV-----------BUTTON--------------------
 
-const navButtonLink = `w-full h-full`;
-
-const navButton = `relative overflow-hidden w-full h-full flex flex-col items-center justify-center
-px-5 uppercase cursor-pointer transition inset-shadow-2xl
-after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1/2
-after:h-5/6 after:bg-linear-to-t after:to-transparent after:blur-2xl after:opacity-0 after:transition
-hover:after:opacity-100
+const navButtonLink = `
+w-full
+h-full
 `;
 
-const navbarToggleButton = `absolute left-1/2 -bottom-5 -translate-x-1/2 z-50
-flex items-center justify-center px-3 py-1 rounded-b-lg border-t-0 cursor-pointer 
-transition-all duration-200
+const itemColors = [
+	`
+bg-linear-to-b
+from-[#151515]
+to-[#090909]
+
+hover:from-[#1a1a1a]
+hover:to-[#0d0d0d]
+
+border-white/10
+`,
+	`
+bg-linear-to-b
+from-[#101010]
+to-[#060606]
+
+hover:from-[#181818]
+hover:to-[#0c0c0c]
+
+border-white/10
+`,
+	`
+bg-linear-to-b
+from-[#101010]
+to-[#060606]
+
+hover:from-[#1b1b1b]
+hover:to-[#101010]
+
+border-white/10
+`,
+	`
+bg-linear-to-b
+from-[#151515]
+to-[#090909]
+
+hover:from-[#191919]
+hover:to-[#0d0d0d]
+
+border-white/10
+`
+];
+
+const navButton = (id: number) => `
+relative
+
+overflow-hidden
+
+w-full
+h-full
+
+flex
+flex-col
+items-center
+justify-center
+
+px-5
+
+uppercase
+
+cursor-pointer
+
+transition
+duration-300
+
+inset-shadow-2xl
+
+${itemColors[id]}
+
+border-b-2
+border-b-white
+
+hover:bg-[#181818]
+
+after:content-['']
+after:absolute
+after:inset-0
+
+after:bg-linear-to-r
+after:from-transparent
+after:via-white/5
+after:to-transparent
+
+after:translate-x-[-120%]
+
+after:transition-transform
+after:duration-700
+
+hover:after:translate-x-[120%]
+`;
+
+const navbarToggleButton = `
+absolute
+
+left-1/2
+-bottom-5
+
+-z-50
+
+-translate-x-1/2
+
+flex
+items-center
+justify-center
+
+px-3
+py-1
+
+rounded-b-lg
+
+border
+border-white/50
+border-t-0
+
+cursor-pointer
+
+bg-linear-to-b
+from-[#151515]
+to-[#090909]
+
+text-white/80
+
+shadow-lg
+
+transition-all
+duration-200
+
+hover:text-white
+
+hover:from-[#1a1a1a]
+hover:to-[#0d0d0d]
+
+after:content-['']
+after:absolute
+after:inset-0
+
+after:bg-linear-to-r
+after:from-transparent
+after:via-white/5
+after:to-transparent
+
+after:translate-x-[-120%]
+
+after:transition-transform
+after:duration-700
+
+hover:after:translate-x-[120%]
 `;
 
 // --NAV-------EXPORT---------------
+
 export const navbarStyles = {
 	base: (isOpen: boolean) => navbarBase(isOpen),
 	expandable: () => navbarExpandable,
@@ -72,6 +354,6 @@ export const navbarStyles = {
 	},
 	button: {
 		link: () => navButtonLink,
-		base: () => navButton
+		base: (id: number) => navButton(id)
 	}
 };

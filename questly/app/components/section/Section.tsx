@@ -5,9 +5,8 @@ import { useState } from "react";
 import { Collapsible } from "radix-ui";
 import { SectionTrigger } from "@/app/components/section/parts/SectionTrigger";
 import { SectionContent } from "@/app/components/section/parts/SectionContent";
-import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { StaticImageData } from "next/image";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	title: string;
@@ -17,21 +16,24 @@ type Props = {
 	completed?: number;
 	icon: string | StaticImageData;
 	level?: number;
+	game?: string;
 };
 
-export default function Section({ title, count, level = 0, icon, children, completed }: Props) {
+export default function Section({ title, count, level = 0, icon, children, completed, game }: Props) {
 	const [open, setOpen] = useState(true);
-	const styles = useGameStyles(sectionVariants);
+	const theme = getTheme("section", game);
 
 	const indentStyle = {
 		paddingLeft: `${level * 24}px`
 	};
 
 	return (
-		<Collapsible.Root style={indentStyle} className={styles.section.root()} open={open} onOpenChange={setOpen}>
-			<SectionTrigger title={title} count={count} completed={completed} icon={icon} open={open} />
+		<Collapsible.Root style={indentStyle} className={theme.section.root()} open={open} onOpenChange={setOpen}>
+			<SectionTrigger game={game} title={title} count={count} completed={completed} icon={icon} open={open} />
 
-			<SectionContent open={open}>{children}</SectionContent>
+			<SectionContent game={game} open={open}>
+				{children}
+			</SectionContent>
 		</Collapsible.Root>
 	);
 }

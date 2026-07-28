@@ -1,10 +1,9 @@
 import { ChevronUp } from "lucide-react";
 
 import { motion } from "framer-motion";
-import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import FixedImage from "@/app/components/common/FixedImage";
 import { StaticImageData } from "next/image";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	title: string;
@@ -12,13 +11,14 @@ type Props = {
 	completed?: number;
 	icon: string | StaticImageData;
 	open: boolean;
+	game?: string;
 };
 
-export function SectionHeader({ title, count, completed, icon, open }: Props) {
-	const styles = useGameStyles(sectionVariants);
+export function SectionHeader({ title, count, completed, icon, open, game }: Props) {
+	const theme = getTheme("section", game);
 	return (
-		<div className={styles.section.header.base()}>
-			<div className={styles.section.header.content()}>
+		<div className={theme.section.header.base()}>
+			<div className={theme.section.header.content()}>
 				<motion.div
 					animate={{
 						rotate: open ? 180 : 0
@@ -29,15 +29,15 @@ export function SectionHeader({ title, count, completed, icon, open }: Props) {
 						damping: 20
 					}}
 				>
-					<ChevronUp className={styles.section.header.chevron()} />
+					<ChevronUp className={theme.section.header.chevron()} />
 				</motion.div>
 
-				{icon && <FixedImage src={icon} className={styles.section.header.icon()} alt='location' />}
+				{icon && <FixedImage src={icon} className={theme.section.header.icon()} alt='location' />}
 
-				<span className={styles.section.header.title()}>{title}</span>
+				<span className={theme.section.header.title()}>{title}</span>
 			</div>
 
-			<span className={styles.section.header.count()}>
+			<span className={theme.section.header.count()}>
 				{completed ?? 0} / {count}
 			</span>
 		</div>

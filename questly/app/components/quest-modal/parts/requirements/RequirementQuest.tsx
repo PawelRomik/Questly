@@ -1,12 +1,11 @@
 import Link from "next/link";
-
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import FixedImage from "@/app/components/common/FixedImage";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useTranslations } from "next-intl";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
+	game?: string;
 	quest: {
 		uuid: string;
 		quest_type: {
@@ -16,17 +15,17 @@ type Props = {
 	};
 };
 
-export function RequirementQuest({ quest }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export function RequirementQuest({ quest, game }: Props) {
+	const theme = getTheme("questModal", game);
 	const { default_icon } = useGameAssets();
 	const t = useTranslations("quests");
 	return (
-		<div className={styles.requirements.quest.base()}>
-			<FixedImage src={quest?.quest_type?.icon || default_icon} className={styles.requirements.quest.icon()} alt='quest' />
+		<div className={theme.requirements.quest.base()}>
+			<FixedImage src={quest?.quest_type?.icon || default_icon} className={theme.requirements.quest.icon()} alt='quest' />
 
-			<span className={styles.requirements.quest.label()}>{t("completedQuest")}</span>
+			<span className={theme.requirements.quest.label()}>{t("completedQuest")}</span>
 
-			<Link href={`?activeQuest=${quest.uuid}`} className={styles.requirements.quest.link()}>
+			<Link href={`?activeQuest=${quest.uuid}`} className={theme.requirements.quest.link()}>
 				{quest.title}
 			</Link>
 		</div>

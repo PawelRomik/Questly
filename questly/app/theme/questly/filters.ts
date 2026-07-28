@@ -1,90 +1,523 @@
 // --FLT--------------FILTERS------------------
+
 // --FLT-----------SEARCHBAR WRAPPER----------------
 
-const searchBarBase = `w-full mx-auto flex flex-col gap-5 px-3`;
+const searchBarBase = `
+w-full
+mx-auto
 
-const searchBarHeader = `relative flex items-center gap-4 px-4 py-3`;
+flex
+flex-col
+gap-5
 
-const searchBarLogo = `h-30 object-contain`;
+px-3
+`;
 
-const searchBarInputWrapper = `relative w-full`;
+const searchBarHeader = `
+relative
 
-const searchBarCharacter = `absolute bottom-full w-30 object-contain`;
+flex
+items-center
+gap-4
 
-const filtersIcon = `w-32 h-auto absolute top-[15px] left-[30px]`;
+px-4
+py-3
+
+bg-linear-to-r
+from-[#111111]
+to-[#050505]
+
+border-b
+border-white/10
+`;
+
+const searchBarLogo = `
+h-30
+
+object-contain
+`;
+
+const searchBarInputWrapper = `
+relative
+
+w-full
+
+border
+border-white/10
+
+bg-black/50
+
+backdrop-blur-md
+`;
+
+const searchBarCharacter = `
+absolute
+bottom-full
+
+w-30
+
+object-contain
+
+opacity-40
+`;
+
+const filtersIcon = `
+w-32
+h-auto
+
+absolute
+top-[15px]
+left-[30px]
+`;
 
 // --FLT--------------CHECKBOX-------------------
 
-const checkboxWrapper = `flex items-start gap-3 px-3 justify-start text-sm transition`;
+const checkboxWrapper = (disabled?: boolean) => `
+flex
+items-start
+justify-start
 
-const checkboxInputWrapper = `relative w-5 h-5 min-w-5 min-h-5`;
+gap-3
 
-const checkboxInput = `absolute inset-0 opacity-0 peer`;
+px-3
 
-const checkboxBase = `relative w-full h-full flex items-center justify-center`;
+text-sm
 
-const checkboxIcon = `absolute h-5 object-contain select-none pointer-events-none`;
+transition
 
-const checkboxLabel = `uppercase tracking-wide`;
+${
+	disabled
+		? `
+opacity-40
+cursor-not-allowed
+text-white/30
+`
+		: `
+text-white/70
+
+hover:text-white
+
+cursor-pointer
+
+transition-colors
+`
+}
+`;
+
+const checkboxInputWrapper = `
+relative
+
+w-5
+h-5
+
+min-w-5
+min-h-5
+`;
+
+const checkboxInput = `
+absolute
+inset-0
+
+opacity-0
+
+peer
+`;
+
+const checkboxBase = `
+relative
+
+w-full
+h-full
+
+flex
+items-center
+justify-center
+
+border
+border-white/15
+
+bg-linear-to-b
+from-[#181818]
+to-[#0b0b0b]
+
+shadow-[inset_0_0_6px_rgba(255,255,255,0.03)]
+
+transition-all
+duration-200
+
+hover:border-white/25
+`;
+
+const checkboxIcon = `
+absolute
+
+h-5
+
+object-contain
+
+select-none
+
+pointer-events-none
+
+scale-250
+
+text-white
+`;
+
+const checkboxLabel = `
+uppercase
+
+tracking-wide
+`;
 
 // --FLT-------------SEARCH INPUT-----------------
 
-const searchInputWrapper = `relative w-full group`;
+const searchInputWrapper = `
+relative
 
-const searchInputField = `w-full px-4 py-2 text-sm outline-none tracking-wide`;
+w-full
 
-const searchInputAccent = `absolute bottom-0 left-0 w-full h-0.5 opacity-60 transition-all duration-200
-group-focus-within:opacity-100 group-active-within:opacity-100 group-focus-within:brightness-125`;
+group
 
-const searchInputGlow = `pointer-events-none absolute inset-0 opacity-0 transition
-group-hover:opacity-100 group-focus-within:opacity-100
+border
+border-white/10
+
+bg-linear-to-b
+from-[#161616]
+to-[#0a0a0a]
+
+shadow-[inset_0_0_12px_rgba(255,255,255,0.02)]
+
+backdrop-blur-sm
+
+transition-colors
+
+focus-within:border-white/20
+`;
+
+const searchInputField = `
+w-full
+
+px-4
+py-2
+
+text-sm
+
+tracking-wide
+
+outline-none
+
+bg-transparent
+
+text-white
+
+placeholder:text-white/30
+`;
+
+const searchInputAccent = `
+absolute
+
+bottom-0
+left-0
+
+w-full
+h-0.5
+
+opacity-60
+
+transition-all
+duration-200
+
+group-focus-within:opacity-100
+group-active-within:opacity-100
+group-focus-within:brightness-125
+`;
+
+const searchInputGlow = `
+pointer-events-none
+
+absolute
+inset-0
+
+opacity-0
+
+transition
+
+group-hover:opacity-100
+group-focus-within:opacity-100
+
+bg-[radial-gradient(circle_at_left,rgba(255,255,255,0.05),transparent_70%)]
 `;
 
 // --FLT------------SELECT-------------------
 
-const sortSelectWrapper = `relative w-fit group`;
+const sortSelectWrapper = `
+relative
 
-const selectContainer = `flex items-center relative`;
+w-fit
 
-const selectLabel = `px-2 py-2 text-sm`;
+group
 
-const sortSelectField = `appearance-none cursor-pointer px-4 pr-10 py-2 text-sm outline-none tracking-wide`;
+border
+border-white/10
 
-const sortSelectIcon = `pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs`;
+bg-linear-to-b
+from-[#161616]
+to-[#0a0a0a]
 
-const sortSelectAccent = `absolute bottom-0 left-0 w-full h-0.5 opacity-60 transition-all duration-200
-group-focus-within:opacity-100 group-focus-within:brightness-125`;
+shadow-[inset_0_0_12px_rgba(255,255,255,0.02)]
 
-const sortSelectGlow = `pointer-events-none absolute inset-0 opacity-0 transition
-group-hover:opacity-100 group-focus-within:opacity-100`;
+transition-colors
+
+focus-within:border-white/20
+`;
+
+const selectContainer = `
+flex
+items-center
+
+relative
+`;
+
+const selectLabel = `
+px-2
+py-2
+
+text-sm
+
+border
+border-white/10
+
+border-r-0
+
+font-bold
+
+text-black/70
+
+bg-white/85
+
+uppercase
+`;
+
+const sortSelectField = `
+appearance-none
+
+cursor-pointer
+
+px-4
+pr-10
+py-2
+
+text-sm
+
+tracking-wide
+
+outline-none
+
+bg-transparent
+
+text-white
+
+focus:bg-[#101010]
+`;
+
+const sortSelectIcon = `
+pointer-events-none
+
+absolute
+
+right-3
+top-1/2
+
+-text-xs
+
+-translate-y-1/2
+
+text-white/40
+`;
+
+const sortSelectAccent = `
+absolute
+
+bottom-0
+left-0
+
+w-full
+h-0.5
+
+opacity-60
+
+transition-all
+duration-200
+
+group-focus-within:opacity-100
+group-focus-within:brightness-125
+`;
+
+const sortSelectGlow = `
+pointer-events-none
+
+absolute
+inset-0
+
+opacity-0
+
+transition
+
+group-hover:opacity-100
+group-focus-within:opacity-100
+
+bg-[radial-gradient(circle_at_left,rgba(255,255,255,0.05),transparent_70%)]
+`;
 
 // --FLT---------------SETTINGS-----------------
 
-const searchSettings = `flex flex-wrap items-center gap-4 p-4`;
+const searchSettings = `
+flex
+flex-wrap
+items-center
 
-const checkboxSettingsWrapper = `grid grid-cols-3 auto-rows-[50px] text-sm transition`;
+gap-4
 
-const selectSettingsWrapper = `flex gap-3 items-center justify-start flex-wrap w-full`;
+p-4
 
-// --FLT---------------lEGEND-----------------
+border
+border-white/10
 
-const legendContainer = `grid grid-cols-2 gap-2`;
+bg-linear-to-b
+from-[#141414]
+to-[#090909]
 
-const legendButton = `flex items-center gap-2 p-2`;
+backdrop-blur-md
+`;
 
-const legendIcon = `w-5 h-5`;
+const checkboxSettingsWrapper = `
+grid
 
-const legendMarkerContainer = `flex text-sm flex-1 items-center justify-between`;
+grid-cols-3
 
-const legendMarkerCount = `text-sm`;
+auto-rows-[50px]
 
-const legendMarkerLabel = (visible: boolean) => `${!visible && "line-through opacity-50"}`;
+text-sm
+
+transition
+`;
+
+const selectSettingsWrapper = `
+flex
+gap-3
+
+items-center
+justify-start
+
+flex-wrap
+
+w-full
+`;
+
+// --FLT---------------LEGEND-----------------
+
+const legendContainer = `
+grid
+
+grid-cols-2
+
+gap-2
+
+border
+border-white/10
+
+bg-linear-to-b
+from-[#141414]
+to-[#090909]
+
+backdrop-blur-md
+
+shadow-[0_0_18px_rgba(0,0,0,0.45)]
+`;
+
+const legendButton = `
+flex
+items-center
+
+gap-2
+
+p-2
+
+cursor-pointer
+
+transition-all
+duration-200
+
+border
+border-transparent
+
+hover:brightness-120
+`;
+
+const legendIcon = `
+w-5
+h-5
+`;
+
+const legendMarkerContainer = `
+flex
+
+flex-1
+
+items-center
+justify-between
+
+text-sm
+`;
+
+const legendMarkerCount = `
+text-sm
+
+text-white/60
+
+font-medium
+`;
+
+const legendMarkerLabel = (visible: boolean) => `
+${visible ? "text-white" : "text-white/35"}
+
+transition-colors
+`;
 
 // --FLT--------------BUTTON-----------------
 
-const filtersButton = `px-2 py-2 text-sm flex gap-2 cursor-pointer`;
+const filtersButton = `
+px-2
+py-2
 
-//--FLT---------------EXPORT---------------
+text-sm
+
+flex
+gap-2
+
+cursor-pointer
+
+border
+border-white/10
+
+font-bold
+
+text-black/70
+
+bg-white/85
+
+uppercase
+
+border-r-0
+
+hover:scale-105
+hover:brightness-120
+
+transition
+`;
+
+// --FLT---------------EXPORT---------------
 
 export const filterStyles = {
 	settings: () => searchSettings,
@@ -101,7 +534,7 @@ export const filterStyles = {
 		character: () => searchBarCharacter
 	},
 	checkbox: {
-		wrapper: () => checkboxWrapper,
+		wrapper: (disabled?: boolean) => checkboxWrapper(disabled),
 		inputWrapper: () => checkboxInputWrapper,
 		input: () => checkboxInput,
 		base: () => checkboxBase,

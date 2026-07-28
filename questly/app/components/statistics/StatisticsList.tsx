@@ -1,10 +1,13 @@
 import { Statistic } from "@/app/components/statistics/Statistic";
-import { statisticVariants } from "@/app/components/statistics/variant/statisticVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useStatisticCounts } from "@/app/hooks/useStatisticCounts";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 
-export function StatisticList() {
+type Props = {
+	game?: string;
+};
+
+export function StatisticList({ game }: Props) {
 	const t = useTranslations();
 
 	const stats = [
@@ -13,13 +16,14 @@ export function StatisticList() {
 		{ id: "collections", label: t("collections.collectibles") },
 		{ id: "mapMarkers", label: t("map.mapMarkers") }
 	];
-	const styles = useGameStyles(statisticVariants);
+	const theme = getTheme("statistic", game);
 	const { counts } = useStatisticCounts();
 
 	return (
-		<ul className={styles.base()}>
+		<ul className={theme.base()}>
 			{stats.map((item) => (
 				<Statistic
+					game={game}
 					key={item.id}
 					type={item.id as "quests" | "achievements" | "collections" | "mapMarkers"}
 					label={item.label}

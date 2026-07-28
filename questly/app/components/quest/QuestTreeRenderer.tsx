@@ -7,7 +7,6 @@ import collectQuests from "@/app/hooks/collectQuests";
 import { sortQuests } from "@/app/lib/utils/sortQuests";
 import { Quest } from "@/app/types/quest";
 import { StaticImageData } from "next/image";
-import { useParams } from "next/navigation";
 import { useFilters } from "@/app/context/FiltersContext";
 
 export type GroupNode = {
@@ -21,12 +20,10 @@ type QuestTreeRendererProps = {
 	nodes: GroupNode[];
 	level?: number;
 	sort: string;
+	game: string;
 };
 
-export default function QuestTreeRenderer({ nodes, level = 0, sort }: QuestTreeRendererProps) {
-	const params = useParams();
-	const game = params.game as string;
-
+export default function QuestTreeRenderer({ nodes, level = 0, sort, game }: QuestTreeRendererProps) {
 	const { isCompleted } = useCompleted(game, "quests");
 	const { filters } = useFilters();
 	const { completed, missables } = filters;
@@ -39,11 +36,11 @@ export default function QuestTreeRenderer({ nodes, level = 0, sort }: QuestTreeR
 		const completedCount = allQuests.filter((q) => isCompleted(q.uuid)).length;
 
 		return (
-			<Section key={`${node.title}-${level}`} title={node.title} level={level} count={allQuests.length} completed={completedCount} icon={node.icon}>
-				{node.children && <QuestTreeRenderer nodes={node.children} level={level + 1} sort={sort} />}
+			<Section game={game} key={`${node.title}-${level}`} title={node.title} level={level} count={allQuests.length} completed={completedCount} icon={node.icon}>
+				{node.children && <QuestTreeRenderer game={game} nodes={node.children} level={level + 1} sort={sort} />}
 
 				{sorted.map((quest) => (
-					<QuestItem key={quest.uuid} quest={quest} />
+					<QuestItem game={game} key={quest.uuid} quest={quest} />
 				))}
 			</Section>
 		);

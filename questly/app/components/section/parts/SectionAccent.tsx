@@ -1,19 +1,19 @@
-import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	completed?: number;
 	total: number;
+	game?: string;
 };
 
-export function SectionAccent({ completed, total }: Props) {
-	const styles = useGameStyles(sectionVariants);
+export function SectionAccent({ completed, total, game }: Props) {
+	const theme = getTheme("section", game);
 
 	return (
-		<div className={styles.section.accent.base()}>
-			<div style={{ backgroundColor: styles.section.accent.color(completed, total) }} className={styles.section.accent.bar()} />
+		<div className={theme.section.accent.base()}>
+			<div style={{ backgroundColor: theme.section.accent.color(completed, total) }} className={theme.section.accent.bar()} />
 
-			<div style={{ backgroundColor: styles.section.accent.color(completed, total) }} className={styles.section.accent.glow()} />
+			<div style={{ backgroundColor: theme.section.accent.color(completed, total) }} className={theme.section.accent.glow()} />
 		</div>
 	);
 }

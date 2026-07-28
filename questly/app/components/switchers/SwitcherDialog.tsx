@@ -1,31 +1,31 @@
 "use client";
-import { switcherVariants } from "@/app/components/switchers/variant/switcherVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { Dialog } from "radix-ui";
 
 type SwitcherDialogProps = {
 	trigger: React.ReactNode;
 	title: React.ReactNode;
 	children: React.ReactNode;
+	game?: string;
 };
 
-export default function SwitcherDialog({ trigger, title, children }: SwitcherDialogProps) {
-	const styles = useGameStyles(switcherVariants);
+export default function SwitcherDialog({ trigger, title, children, game }: SwitcherDialogProps) {
+	const theme = getTheme("switcher", game);
 
 	return (
 		<Dialog.Root>
-			<Dialog.Trigger className={styles.dialog.trigger()}>{trigger}</Dialog.Trigger>
+			<Dialog.Trigger className={theme.dialog.trigger()}>{trigger}</Dialog.Trigger>
 
 			<Dialog.Portal>
-				<Dialog.Overlay className={styles.dialog.overlay()} />
+				<Dialog.Overlay className={theme.dialog.overlay()} />
 
-				<Dialog.Content className={styles.dialog.content()}>
-					<Dialog.Title className={styles.dialog.title()}>{title}</Dialog.Title>
+				<Dialog.Content className={theme.dialog.content()}>
+					<Dialog.Title className={theme.dialog.title()}>{title}</Dialog.Title>
 
 					{children}
 
 					<Dialog.Close asChild>
-						<button className={styles.dialog.button()}>✕</button>
+						<button className={theme.dialog.button()}>✕</button>
 					</Dialog.Close>
 				</Dialog.Content>
 			</Dialog.Portal>

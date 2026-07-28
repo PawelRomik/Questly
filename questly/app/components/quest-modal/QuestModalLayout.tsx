@@ -7,43 +7,43 @@ import { ModalFooter } from "@/app/components/quest-modal/parts/ModalFooter";
 import { ModalCloseButton } from "@/app/components/quest-modal/ModalCloseButton";
 import { ModalDescription } from "@/app/components/quest-modal/parts/ModalDescription";
 import { ModalRequirements } from "@/app/components/quest-modal/parts/requirements/ModalRequirements";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import default_character from "../../../public/assets/chh.png";
 import default_map from "../../../public/assets/map.png";
 import { useState } from "react";
 import ModalMapContainer from "@/app/components/quest-modal/parts/map/ModalMapContainer";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	quest: Quest;
 	hideMap?: boolean;
+	game: string;
 };
 
-export function QuestModalLayout({ quest, hideMap = false }: Props) {
+export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 	const [mapStateVisible, setMapStateVisible] = useState(false);
-	const styles = useGameStyles(questModalVariants);
+	const theme = getTheme("questModal", game);
 	return (
-		<div className={styles.base(mapStateVisible)}>
+		<div className={theme.base(mapStateVisible)}>
 			{!mapStateVisible ? (
 				<>
-					<ModalCharacter src={quest.character?.image || default_character} />
+					<ModalCharacter game={game} src={quest.character?.image || default_character} />
 
-					{!hideMap && <ModalMap src={quest.location?.minimap || default_map} setMapStateVisible={setMapStateVisible} />}
+					{!hideMap && <ModalMap game={game} src={quest.location?.minimap || default_map} setMapStateVisible={setMapStateVisible} />}
 
-					<ModalHeader quest={quest} />
+					<ModalHeader game={game} quest={quest} />
 
-					<ModalDescription desc={quest.description} />
+					<ModalDescription game={game} desc={quest.description} />
 
-					<ModalRequirements requirements={quest.requirement} />
+					<ModalRequirements game={game} requirements={quest.requirement} />
 
-					<ModalRewards hideMap={hideMap} rewards={quest.rewards} />
+					<ModalRewards game={game} hideMap={hideMap} rewards={quest.rewards} />
 
-					<ModalFooter uuid={quest.uuid} />
+					<ModalFooter game={game} uuid={quest.uuid} />
 
-					<ModalCloseButton />
+					<ModalCloseButton game={game} />
 				</>
 			) : (
-				<ModalMapContainer uuid={quest.uuid} setMapStateVisible={setMapStateVisible} />
+				<ModalMapContainer game={game} uuid={quest.uuid} setMapStateVisible={setMapStateVisible} />
 			)}
 		</div>
 	);

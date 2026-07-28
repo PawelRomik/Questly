@@ -1,23 +1,23 @@
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 
 type Props = {
 	level: number;
 	children: React.ReactNode;
+	game?: string;
 };
 
-export function QuestMeta({ level, children }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestMeta({ level, children, game }: Props) {
 	const t = useTranslations("common");
+	const theme = getTheme("quest", game);
 	return (
-		<div className={styles.meta.base()}>
+		<div className={theme.meta.base()}>
 			{children}
 
-			<div className={styles.meta.level()}>
-				<span className={styles.meta.label()}>{t("levelShort")}</span>
+			<div className={theme.meta.level()}>
+				<span className={theme.meta.label()}>{t("levelShort")}</span>
 
-				<p className={styles.meta.value()}>{level}</p>
+				<p className={theme.meta.value()}>{level}</p>
 			</div>
 		</div>
 	);

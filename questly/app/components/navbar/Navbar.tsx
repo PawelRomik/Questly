@@ -2,38 +2,39 @@
 
 import { useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
-
-import { useGameStyles } from "@/app/hooks/useGameStyles";
-
 import { NavMenu } from "./NavMenu";
 import GameSwitcher from "@/app/components/switchers/GameSwitcher";
-import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
 import { motion } from "framer-motion";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function Navbar() {
-	const styles = useGameStyles(navbarVariants);
+type Props = {
+	game?: string;
+};
+
+export default function Navbar({ game }: Props) {
 	const [isOpen, setIsOpen] = useState(true);
+	const theme = getTheme("navbar", game);
 
 	return (
 		<motion.div
-			className={styles.expandable()}
+			className={theme.expandable()}
 			animate={{
 				height: isOpen ? "96px" : 0
 			}}
 			transition={{ duration: 0.3 }}
 		>
-			<nav className={styles.base(isOpen)}>
-				<button onClick={() => setIsOpen((prev) => !prev)} className={styles.toggle()}>
+			<nav className={theme.base(isOpen)}>
+				<button onClick={() => setIsOpen((prev) => !prev)} className={theme.toggle()}>
 					{isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
 				</button>
 
-				<div className={styles.content.base()}>
-					<div className={styles.content.contentWrapper()}>
-						<NavMenu side='left' />
+				<div className={theme.content.base()}>
+					<div className={theme.content.contentWrapper()}>
+						<NavMenu game={game} side='left' />
 
-						<GameSwitcher />
+						<GameSwitcher game={game} />
 
-						<NavMenu side='right' />
+						<NavMenu game={game} side='right' />
 					</div>
 				</div>
 			</nav>

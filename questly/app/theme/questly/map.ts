@@ -1,17 +1,105 @@
 // --MAP--------------MAP-------------------
+
 // --MAP--------------BASE-------------------
 
-const mapContainer = `relative bg-[rgba(0,0,0,0.5)] h-full w-full`;
-const mapBase = `h-full z-3! bg-transparent! w-full`;
+const mapContainer = `
+relative
+
+h-full
+w-full
+
+bg-[rgba(0,0,0,0.5)]
+`;
+
+const mapBase = `
+h-full
+
+w-full
+
+z-3!
+
+bg-transparent!
+`;
 
 // --MAP--------------INFO-------------------
 
-const mapInfoContainer = `absolute bottom-4 left-1/2 z-1000 flex -translate-x-1/2 items-center gap-3 px-4 py-3 backdrop-blur`;
-const mapInfoTitle = `whitespace-nowrap`;
-const mapInfoButton = `cursor-pointer px-3 py-1.5 transition`;
-const mapInfoIcon = `w-6 h-6`;
+const mapInfoContainer = `
+absolute
 
-//--MAP-------------EXPORT------------
+bottom-4
+left-1/2
+
+z-1000
+
+flex
+items-center
+
+gap-3
+
+px-4
+py-3
+
+-translate-x-1/2
+
+backdrop-blur
+
+border
+border-white/10
+
+bg-linear-to-b
+from-[#141414]
+to-[#090909]
+
+backdrop-blur-md
+
+shadow-[0_0_18px_rgba(0,0,0,0.45)]
+`;
+
+const mapInfoTitle = `
+whitespace-nowrap
+
+text-white
+
+font-semibold
+
+tracking-wide
+`;
+
+const mapInfoButton = `
+cursor-pointer
+
+px-3
+py-1.5
+
+transition-all
+duration-200
+
+border
+border-white/10
+
+bg-linear-to-b
+from-[#1a1a1a]
+to-[#0d0d0d]
+
+text-white/90
+
+shadow-[inset_0_0_8px_rgba(255,255,255,0.03)]
+
+hover:border-white/20
+
+hover:bg-[#1b1b1b]
+
+hover:text-white
+
+active:brightness-90
+`;
+
+const mapInfoIcon = `
+w-6
+h-6
+`;
+
+// --MAP-------------EXPORT------------
 
 export const mapStyles = {
 	map: {

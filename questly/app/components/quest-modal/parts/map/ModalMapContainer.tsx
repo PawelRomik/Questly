@@ -1,20 +1,20 @@
 import { GameMapContainer } from "@/app/components/map";
 import ModalMapCloseButton from "@/app/components/quest-modal/parts/map/ModalMapCloseButton";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	uuid: string;
 	setMapStateVisible: (val: boolean) => void;
+	game: string;
 };
 
-export default function ModalMapContainer({ uuid, setMapStateVisible }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export default function ModalMapContainer({ uuid, setMapStateVisible, game }: Props) {
+	const theme = getTheme("questModal", game);
 
 	return (
-		<div className={styles.map.modal()}>
-			<ModalMapCloseButton setMapStateVisible={setMapStateVisible} />
-			<GameMapContainer bigZoom questMarker={uuid} />
+		<div className={theme.map.modal()}>
+			<ModalMapCloseButton game={game} setMapStateVisible={setMapStateVisible} />
+			<GameMapContainer game={game} bigZoom questMarker={uuid} />
 		</div>
 	);
 }

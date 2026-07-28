@@ -3,22 +3,22 @@ import { Tooltip } from "radix-ui";
 import { Item } from "@/app/types/quest";
 
 import { ItemDisplay } from "@/app/components/item/ItemDisplay";
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	items?: Item[];
+	game?: string;
 };
 
-export function RewardItems({ items }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export function RewardItems({ items, game }: Props) {
+	const theme = getTheme("questModal", game);
 	if (!items?.length) return null;
 
 	return (
 		<Tooltip.Provider delayDuration={100}>
-			<div className={styles.rewards.items()}>
+			<div className={theme.rewards.items()}>
 				{items.map((item, i) => (
-					<ItemDisplay key={i} item={item} />
+					<ItemDisplay game={game} key={i} item={item} />
 				))}
 			</div>
 		</Tooltip.Provider>

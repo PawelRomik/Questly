@@ -3,8 +3,6 @@
 import { useParams, useSearchParams } from "next/navigation";
 import FilterSelect from "./FilterSelect";
 import { Filters } from "./types";
-import { filterVariants } from "@/app/components/filters/variant/filterVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import getFilterConfig, { Page } from "@/app/lib/utils/getFilterConfig";
 import { useFilters } from "@/app/context/FiltersContext";
 import { FilterCheckbox } from "@/app/components/filters/FilterCheckbox";
@@ -13,16 +11,17 @@ import { GET_DLCS, GET_LOCATIONS } from "@/app/lib/queries";
 import { getDLCsData, getDLCsVars, getLocationsData, getLocationsVars } from "@/app/types/quest";
 import { useLocale, useTranslations } from "next-intl";
 import SyncMarkersButton from "@/app/components/filters/SyncMarkersButton";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	isLocked: boolean;
 	update: <K extends keyof Filters>(key: K, value: Filters[K]) => void;
+	game: string;
 };
 
-export function FiltersOptions({ isLocked, update }: Props) {
-	const { content, game } = useParams();
+export function FiltersOptions({ isLocked, update, game }: Props) {
+	const { content } = useParams();
 	const gameParam = Array.isArray(game) ? (game[0] ?? "") : (game ?? "");
-	const styles = useGameStyles(filterVariants);
 	const { filters } = useFilters();
 	const locale = useLocale();
 	const t = useTranslations("filters");
@@ -46,18 +45,19 @@ export function FiltersOptions({ isLocked, update }: Props) {
 	if (!["quests", "achievements", "collectibles", "map"].includes(content as string)) return null;
 
 	const { checkboxes, selects } = getFilterConfig(content as Page, isLocked, filters, dlcData?.dlcs ?? [], locationData?.locations ?? [], t);
+	const theme = getTheme("filter", game);
 
 	return (
-		<div className={styles.settings()}>
-			<div className={styles.selectWrapper()}>
+		<div className={theme.settings()}>
+			<div className={theme.selectWrapper()}>
 				{checkboxes.map(({ key, label, value, disabled }) => (
-					<FilterCheckbox key={key} label={label} checked={value} disabled={disabled} onChange={(v) => update(key, v)} />
+					<FilterCheckbox game={game} key={key} label={label} checked={value} disabled={disabled} onChange={(v) => update(key, v)} />
 				))}
 
 				{selects.map(({ key, label, value, options }) => (
-					<FilterSelect key={key} label={label} value={value} options={options} onChange={(v) => update(key, v as Filters[typeof key])} />
+					<FilterSelect game={game} key={key} label={label} value={value} options={options} onChange={(v) => update(key, v as Filters[typeof key])} />
 				))}
-				{content == "map" && <SyncMarkersButton selectedLocation={selectedLocation?.uuid ?? ""} />}
+				{content == "map" && <SyncMarkersButton game={game} selectedLocation={selectedLocation?.uuid ?? ""} />}
 			</div>
 		</div>
 	);

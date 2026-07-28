@@ -1,28 +1,29 @@
-import { filterVariants } from "@/app/components/filters/variant/filterVariants";
 import { GetMapMarkersResponse } from "@/app/components/map/GameMap";
 import { useCompleted } from "@/app/context/CompletedContext";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { GET_MAP_MARKERS } from "@/app/lib/queries";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useQuery } from "@apollo/client/react";
 import { MousePointerClick } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 
-export default function SyncMarkersButton({ selectedLocation }: { selectedLocation: string }) {
+type Props = {
+	selectedLocation: string;
+	game: string;
+};
+
+export default function SyncMarkersButton({ selectedLocation, game }: Props) {
 	const { data } = useQuery<GetMapMarkersResponse>(GET_MAP_MARKERS, {
 		variables: { location: selectedLocation, locale: "en" }
 	});
 
-	const styles = useGameStyles(filterVariants);
 	const t = useTranslations("filters");
-	const params = useParams();
-	const game = params.game as string;
+	const theme = getTheme("filter", game);
 	const { syncMapMarkersWithQuests } = useCompleted(game, "mapMarkers");
 
 	return (
 		<button
 			disabled={!data}
-			className={styles.button()}
+			className={theme.button()}
 			onClick={() => {
 				if (!data?.mapMarkers) return;
 

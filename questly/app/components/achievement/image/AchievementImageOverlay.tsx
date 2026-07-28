@@ -1,7 +1,10 @@
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function AchievementImageOverlay() {
-	const styles = useGameStyles(achievementVariants);
-	return <div className={styles.image.overlay} />;
+type Props = {
+	game?: string;
+};
+
+export default function AchievementImageOverlay({ game }: Props) {
+	const theme = getTheme("achievement", game);
+	return <div className={theme.image.overlay()} />;
 }
