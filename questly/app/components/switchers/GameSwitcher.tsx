@@ -12,6 +12,7 @@ import FixedImage from "@/app/components/common/FixedImage";
 import Fuse from "fuse.js";
 import SwitcherSearch from "@/app/components/switchers/SwitcherSearch";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import default_game_icon from "../../../public/assets/game_icon.png";
 
 type GameType = {
 	slug: string;
@@ -88,7 +89,7 @@ export default function GameSwitcher({ game }: Props) {
 					return (
 						<Link key={g.slug} href={href} className={theme.switcher.link(g.slug === game)}>
 							<div className={theme.switcher.item()}>
-								<FixedImage src={g.logo} alt={g.title} className={theme.switcher.image()} />
+								<FixedImage src={g.logo || default_game_icon} alt={g.title} className={theme.switcher.image()} />
 							</div>
 
 							<span className={theme.switcher.label()}>{g.title}</span>
