@@ -1,19 +1,16 @@
+import { Game } from "@/app/(pages)/[locale]/page";
 import { StatisticList } from "@/app/components/statistics/StatisticsList";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function PreviewStatistics() {
+type Props = {
+	game: Game;
+};
+
+export default function PreviewStatistics({ game }: Props) {
+	const theme = getTheme("preview", game.slug);
 	return (
-		<div
-			className='
-					flex-2
-					w-full
-					border-b
-					border-[#00e0ff]/20
-					bg-linear-to-b
-					from-[#10131d]
-					to-[#06080d]
-				'
-		>
-			<StatisticList />
+		<div className={theme.statistics()}>
+			<StatisticList hideBtns={true} game={game.slug} />
 		</div>
 	);
 }

@@ -344,6 +344,18 @@ export const GET_GAMES = gql`
 	}
 `;
 
+export const GET_GAMES_SHOWCASE = gql`
+	query ($locale: I18NLocaleCode) {
+		games(locale: $locale) {
+			title
+			slug
+			logo
+			description
+			background
+		}
+	}
+`;
+
 export const GET_MAP_VARS = gql`
 	query ($uuid: String) {
 		mapVars(filters: { location: { uuid: { eq: $uuid } } }) {

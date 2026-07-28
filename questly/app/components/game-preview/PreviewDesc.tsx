@@ -1,24 +1,16 @@
-export default function PreviewDesc() {
+import { Game } from "@/app/(pages)/[locale]/page";
+import { getTheme } from "@/app/lib/utils/getTheme";
+
+type Props = {
+	game: Game;
+};
+
+export default function PreviewDesc({ game }: Props) {
+	const theme = getTheme("preview", game.slug);
+
 	return (
-		<div
-			className='
-					flex-2
-					flex
-					items-center
-					justify-center
-					border-y
-					border-[#00e0ff]/20
-					bg-linear-to-b
-					from-[#10131d]
-					to-[#06080d]
-					text-[#f5f7ff]
-					shadow-[0_0_18px_rgba(0,224,255,0.08)]
-				'
-		>
-			<p className='px-6 text-center leading-7'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium hic quo dolorem expedita maxime ipsam nisi repudiandae sequi praesentium totam, ad odit, pariatur et a
-				molestiae. Explicabo placeat eius officiis.
-			</p>
+		<div className={theme.description.base()}>
+			<p className={theme.description.text()}>{game.description}</p>
 		</div>
 	);
 }

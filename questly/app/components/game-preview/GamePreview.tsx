@@ -1,33 +1,25 @@
 "use client";
 
+import { Game } from "@/app/(pages)/[locale]/page";
 import PreviewBanner from "@/app/components/game-preview/PreviewBanner";
 import PreviewButton from "@/app/components/game-preview/PreviewButton";
 import PreviewDesc from "@/app/components/game-preview/PreviewDesc";
 import PreviewStatistics from "@/app/components/game-preview/PreviewStatistics";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function GamePreview() {
+type Props = {
+	game: Game;
+};
+
+export default function GamePreview({ game }: Props) {
+	if (!game) return null;
+	const theme = getTheme("preview", game.slug);
 	return (
-		<div
-			className='
-				w-full
-				h-[700px]
-				flex
-				flex-col
-				overflow-hidden
-				border-2
-				border-[#00e0ff]/20
-				bg-linear-to-b
-				from-[#10131d]
-				via-[#090b12]
-				to-[#05070c]
-				backdrop-blur-md
-				shadow-[0_0_24px_rgba(0,0,0,0.75)]
-			'
-		>
-			<PreviewBanner />
-			<PreviewDesc />
-			<PreviewStatistics />
-			<PreviewButton />
+		<div className={theme.container()}>
+			<PreviewBanner game={game} />
+			<PreviewDesc game={game} />
+			<PreviewStatistics game={game} />
+			<PreviewButton game={game} />
 		</div>
 	);
 }

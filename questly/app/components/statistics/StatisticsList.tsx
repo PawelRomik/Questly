@@ -5,9 +5,10 @@ import { useTranslations } from "next-intl";
 
 type Props = {
 	game?: string;
+	hideBtns?: boolean;
 };
 
-export function StatisticList({ game }: Props) {
+export function StatisticList({ game, hideBtns }: Props) {
 	const t = useTranslations();
 
 	const stats = [
@@ -17,7 +18,7 @@ export function StatisticList({ game }: Props) {
 		{ id: "mapMarkers", label: t("map.mapMarkers") }
 	];
 	const theme = getTheme("statistic", game);
-	const { counts } = useStatisticCounts();
+	const { counts } = useStatisticCounts({ game });
 
 	return (
 		<ul className={theme.base()}>
@@ -29,6 +30,7 @@ export function StatisticList({ game }: Props) {
 					label={item.label}
 					completed={counts[item.id as keyof typeof counts].completed}
 					total={counts[item.id as keyof typeof counts].total}
+					hideBtns={hideBtns}
 				/>
 			))}
 		</ul>

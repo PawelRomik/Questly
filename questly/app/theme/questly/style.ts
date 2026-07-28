@@ -10,6 +10,7 @@ import { switcherStyles } from "./switchers";
 import { questStyles } from "./quests";
 import { questModalStyles } from "./quest-modal";
 import { tagStyles } from "./tags";
+import { previewStyles } from "./preview";
 
 export const questlyStyles = {
 	achievement: achievementStyles,
@@ -23,5 +24,6 @@ export const questlyStyles = {
 	section: sectionStyles,
 	statistic: statisticsStyles,
 	switcher: switcherStyles,
-	tag: tagStyles
+	tag: tagStyles,
+	preview: previewStyles
 };

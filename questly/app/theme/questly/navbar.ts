@@ -15,7 +15,7 @@ top-0
 right-0
 left-0
 
-z-10
+z-30
 
 w-full
 h-24
@@ -129,7 +129,7 @@ hover:after:translate-x-[120%]
 
 const navLogoImage = `
 h-full
-w-20
+w-40
 
 object-contain
 

@@ -8,9 +8,10 @@ type Props = {
 	completed: number;
 	type: "quests" | "achievements" | "collections" | "mapMarkers";
 	game?: string;
+	hideBtns?: boolean;
 };
 
-export function Statistic({ label, total, completed, type, game = "questly" }: Props) {
+export function Statistic({ label, total, completed, type, hideBtns, game = "questly" }: Props) {
 	const theme = getTheme("statistic", game);
 	const t = useTranslations("common");
 	const { reset } = useCompleted(game, type);
@@ -28,9 +29,11 @@ export function Statistic({ label, total, completed, type, game = "questly" }: P
 					{completed}/{total}
 				</span>
 
-				<button onClick={reset} className={theme.stat.item.button()}>
-					{t("reset")}
-				</button>
+				{!hideBtns && (
+					<button onClick={reset} className={theme.stat.item.button()}>
+						{t("reset")}
+					</button>
+				)}
 			</div>
 		</li>
 	);
