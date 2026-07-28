@@ -94,6 +94,7 @@ const gamePreviewBannerTitle = `
 text-4xl
 
 uppercase
+text-center
 
 font-bold
 

@@ -76,14 +76,16 @@ export default function GameSwitcher({ game }: Props) {
 
 			<div className={theme.switcher.grid()}>
 				{filteredGames.map((g) => {
-					let href = `/${g.slug}/quests`;
+					const validContent = ["quests", "achievements", "collectibles", "map"];
 
-					if (currentSegments.length > 1) {
-						const segments = [...currentSegments];
+					let href = `/${locale}/${g.slug}/quests`;
 
-						segments[1] = g.slug;
+					const [, currentGame, currentContent] = currentSegments;
 
-						href = `/${segments.join("/")}`;
+					if (currentGame) {
+						const content = validContent.includes(currentContent) ? currentContent : "quests";
+
+						href = `/${locale}/${g.slug}/${content}`;
 					}
 
 					return (

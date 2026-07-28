@@ -1,6 +1,7 @@
 import { Game } from "@/app/(pages)/[locale]/page";
 import FixedImage from "@/app/components/common/FixedImage";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import default_icon from "@/public/assets/game_icon.png";
 
 type Props = {
 	game: Game;
@@ -8,6 +9,7 @@ type Props = {
 
 export default function PreviewBanner({ game }: Props) {
 	const theme = getTheme("preview", game.slug);
+	const logo = game.logo || default_icon;
 	return (
 		<div
 			className={theme.banner.base()}
@@ -18,7 +20,7 @@ export default function PreviewBanner({ game }: Props) {
 			<div className={theme.banner.overlay()} />
 
 			<div className={theme.banner.container()}>
-				<FixedImage src={game.logo} className={theme.banner.logo()} alt={game.title} />
+				<FixedImage src={logo} className={theme.banner.logo()} alt={game.title} />
 
 				<h2 className={theme.banner.title()}>{game.title}</h2>
 			</div>

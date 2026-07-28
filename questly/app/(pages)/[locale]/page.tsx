@@ -1,4 +1,3 @@
-import { setRequestLocale } from "next-intl/server";
 import background from "../../../public/assets/background.png";
 import HubNavbar from "@/app/components/navbar/HubNavbar";
 import OtherGamesSection from "@/app/components/game-preview/OtherGamesSection";
@@ -31,8 +30,6 @@ type PageProps = {
 
 export default async function Home({ params }: PageProps) {
 	const { locale, game } = await params;
-
-	setRequestLocale(locale);
 
 	const cookieStore = await cookies();
 

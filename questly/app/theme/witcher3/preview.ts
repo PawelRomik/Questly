@@ -82,6 +82,7 @@ text-4xl
 font-bold
 
 uppercase
+text-center
 
 tracking-widest
 
