@@ -1,29 +1,29 @@
 import { Rewards } from "@/app/types/quest";
 
 import { QuestRewardItem } from "./QuestRewardItem";
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useTranslations } from "next-intl";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	rewards: Rewards;
+	game?: string;
 };
 
-export function QuestRewards({ rewards }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestRewards({ rewards, game }: Props) {
 	const { currency_icon, item_icon, experience_icon } = useGameAssets();
+	const theme = getTheme("quest", game);
 	const t = useTranslations("quests.rewards");
 	return (
-		<div className={styles.rewards.base()}>
-			<span className={styles.rewards.title()}>{t("reward")}</span>
+		<div className={theme.rewards.base()}>
+			<span className={theme.rewards.title()}>{t("reward")}</span>
 
-			<div className={styles.rewards.list()}>
-				{rewards.experience > 0 && <QuestRewardItem value={`+${rewards.experience}`} icon={experience_icon} alt={t("xp")} />}
+			<div className={theme.rewards.list()}>
+				{rewards.experience > 0 && <QuestRewardItem game={game} value={`+${rewards.experience}`} icon={experience_icon} alt={t("xp")} />}
 
-				{rewards.money > 0 && <QuestRewardItem value={`+${rewards.money}`} icon={currency_icon} alt={t("money")} />}
+				{rewards.money > 0 && <QuestRewardItem game={game} value={`+${rewards.money}`} icon={currency_icon} alt={t("money")} />}
 
-				{rewards.items.length > 0 && <QuestRewardItem value={`+ ${t("item")}`} icon={item_icon} alt={t("item")} />}
+				{rewards.items.length > 0 && <QuestRewardItem game={game} value={`+ ${t("item")}`} icon={item_icon} alt={t("item")} />}
 			</div>
 		</div>
 	);

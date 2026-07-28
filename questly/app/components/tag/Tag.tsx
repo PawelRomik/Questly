@@ -1,10 +1,9 @@
 "use client";
 
 import { MissableOption } from "@/app/components/filters/types";
-import { tagVariants } from "@/app/components/tag/variant/tagVariants";
 import { useFilters } from "@/app/context/FiltersContext";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import adjustColor from "@/app/lib/utils/adjustColor";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 import { highlightText } from "@/app/lib/utils/highlightText";
 
@@ -14,11 +13,12 @@ type Props = {
 	type?: "tag" | "dlc" | "missable";
 	color?: string;
 	match?: readonly [number, number][];
+	game?: string;
 };
 
-export function Tag({ tag, match, searchTags, type, color }: Props) {
+export function Tag({ tag, match, searchTags, type, color, game }: Props) {
 	const { filters, setFilters } = useFilters();
-	const styles = useGameStyles(tagVariants);
+	const theme = getTheme("tag", game);
 
 	const isActive = filters.search.toLowerCase() === tag.toLowerCase() && filters.searchTags;
 
@@ -55,7 +55,7 @@ export function Tag({ tag, match, searchTags, type, color }: Props) {
 		<span
 			onClick={onClick}
 			style={color ? { borderColor: color, background: `linear-gradient( to bottom, ${adjustColor(color, -30)}, ${adjustColor(color, -120)} )` } : undefined}
-			className={styles.tag(isActive, color)}
+			className={theme.tag(isActive)}
 		>
 			{searchTags ? highlightText(tag, match) : tag}
 		</span>

@@ -1,18 +1,17 @@
-import { itemVariants } from "@/app/components/item/variant/itemVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { Item } from "@/app/types/quest";
 
 type Props = {
 	item: Item;
+	game?: string;
 };
 
-export function ItemTooltipHeader({ item }: Props) {
-	const styles = useGameStyles(itemVariants);
-
+export function ItemTooltipHeader({ item, game }: Props) {
+	const theme = getTheme("item", game);
 	return (
 		<>
 			<div
-				className={styles.tooltip.header.name()}
+				className={theme.tooltip.header.name()}
 				style={{
 					color: item.rarity.color,
 					textShadow: `0 0 8px ${item.rarity.color}66`
@@ -21,11 +20,11 @@ export function ItemTooltipHeader({ item }: Props) {
 				{item.name}
 			</div>
 
-			<div className={styles.tooltip.header.rarity()} style={{ color: item.rarity.color }}>
+			<div className={theme.tooltip.header.rarity()} style={{ color: item.rarity.color }}>
 				{item.rarity.name}
 			</div>
 
-			<div className={styles.tooltip.header.type()}>{item.item_type.name}</div>
+			<div className={theme.tooltip.header.type()}>{item.item_type.name}</div>
 		</>
 	);
 }

@@ -1,18 +1,18 @@
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	completed: boolean;
 	color: string;
+	game?: string;
 };
 
-export function QuestAccent({ completed, color }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestAccent({ completed, color, game }: Props) {
+	const theme = getTheme("quest", game);
 	return (
-		<div className={styles.accent.base()}>
-			<div style={{ backgroundColor: styles.accent.color(completed, color) }} className={styles.accent.bar()} />
+		<div className={theme.accent.base()}>
+			<div style={{ backgroundColor: theme.accent.color(completed, color) }} className={theme.accent.bar()} />
 
-			<div style={{ backgroundColor: styles.accent.color(completed, color) }} className={styles.accent.glow()} />
+			<div style={{ backgroundColor: theme.accent.color(completed, color) }} className={theme.accent.glow()} />
 		</div>
 	);
 }

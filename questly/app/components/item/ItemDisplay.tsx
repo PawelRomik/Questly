@@ -8,18 +8,19 @@ import { ItemTooltipContent } from "./tooltip/ItemTooltipContent";
 
 type Props = {
 	item: Item;
+	game?: string;
 };
 
-export function ItemDisplay({ item }: Props) {
+export function ItemDisplay({ item, game }: Props) {
 	return (
 		<Tooltip.Root>
 			<Tooltip.Trigger asChild>
 				<div>
-					<ItemTrigger item={item} />
+					<ItemTrigger game={game} item={item} />
 				</div>
 			</Tooltip.Trigger>
 
-			<ItemTooltipContent item={item} />
+			<ItemTooltipContent game={game} item={item} />
 		</Tooltip.Root>
 	);
 }

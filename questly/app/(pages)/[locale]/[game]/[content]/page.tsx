@@ -1,52 +1,67 @@
 import GamePageClient from "@/app/components/GamePageClient";
-import { client } from "@/app/lib/apollo";
+import { getLocalizedList } from "@/app/hooks/getLocalizedList";
 import { GET_GAMES } from "@/app/lib/queries";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
+import { notFound } from "next/navigation";
 
 type Props = {
-	params: {
+	params: Promise<{
+		locale: string;
 		game: string;
 		content: string;
-		locale: string;
-	};
+	}>;
 };
+
+const validContent = ["achievements", "quests", "collectibles", "map"];
+
+async function getGame(locale: string, game: string) {
+	return (
+		await getLocalizedList<
+			{
+				slug: string;
+				title: string;
+			},
+			Record<string, never>
+		>({
+			locale,
+			query: GET_GAMES,
+			vars: {},
+			getItems: (data) => data.games,
+			getId: (game) => game.slug
+		})
+	).find((g) => g.slug === game);
+}
 
 export async function generateMetadata({ params }: Props) {
 	const { game, content, locale } = await params;
 
-	const { data } = await client.query<
-		{
-			games: {
-				slug: string;
-				title: string;
-			}[];
-		},
-		{
-			locale: string;
-		}
-	>({
-		query: GET_GAMES,
-		variables: {
-			locale
-		}
-	});
-
 	const t = await getTranslations({
-		locale,
-		namespace: "nav"
+		locale
 	});
 
-	const selectedGame = data?.games.find(({ slug }) => slug === game);
-	const title = selectedGame?.title ?? "";
+	const selectedGame = await getGame(locale, game);
+
+	if (!selectedGame || !validContent.includes(content)) {
+		return {
+			title: `Questly | ${t("notFound.title")}`
+		};
+	}
 
 	return {
-		title: `Questly | ${title} ${t(content)}`
+		title: `Questly | ${selectedGame?.title ?? ""} ${t(`nav.${content}`)}`
 	};
 }
 
-export default function GamePage({ params }: { params: Promise<{ locale: string }> }) {
-	const { locale } = use(params);
+export default async function GamePage({ params }: Props) {
+	const { locale, game, content } = await params;
+
+	const selectedGame = await getGame(locale, game);
+
+	if (!selectedGame || !validContent.includes(content)) {
+		notFound();
+	}
+
 	setRequestLocale(locale);
-	return <GamePageClient />;
+
+	return <GamePageClient game={game} />;
 }

@@ -4,7 +4,6 @@ import MapClickHandler from "@/app/components/map/MapClickHandler";
 import MapInfo from "@/app/components/map/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
 import MapResizeObserver from "@/app/components/map/MapResizeObserver";
-import { mapVariants } from "@/app/components/map/variant/mapVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useGameMapData } from "@/app/hooks/map/useGameMapData";
@@ -12,12 +11,11 @@ import { useLocationSync } from "@/app/hooks/map/useLocationSync";
 import { useMapCenter } from "@/app/hooks/map/useMapCenter";
 import { useMarkerGroups } from "@/app/hooks/map/useMarkerGroups";
 import { useVisibleMarkers } from "@/app/hooks/map/useVisibleMarkers";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { getMapName } from "@/app/lib/utils/map/getMapName";
 import { getMarkerDisplay } from "@/app/lib/utils/map/getMarkerDisplay";
 import "leaflet/dist/leaflet.css";
 import { useLocale } from "next-intl";
-import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
@@ -58,16 +56,15 @@ export type GetMapMarkersResponse = {
 type Props = {
 	bigZoom?: boolean;
 	questMarker?: string;
+	game: string;
 };
 
-export default function GameMap({ bigZoom = false, questMarker }: Props) {
+export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const locale = useLocale();
 
-	const styles = useGameStyles(mapVariants);
 	const [selectedMarker, setSelectedMarker] = useState<MapMarkerType | null>(null);
 	const { filters, setFilters } = useFilters();
-	const params = useParams();
-	const game = params.game as string;
+	const theme = getTheme("map", game);
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
 
 	const { locationData, selectedLocation, markers: markersData, loading, bounds } = useGameMapData(game, locale, filters.mapLocation);
@@ -111,7 +108,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 	const mapName = getMapName(selectedLocation.name);
 
 	return (
-		<div className={styles.map.container()}>
+		<div className={theme.map.container()}>
 			<MapContainer
 				key={bounds[0][0] + bounds[1][1]}
 				center={center}
@@ -122,7 +119,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 				minZoom={2}
 				maxZoom={6}
 				zoom={bigZoom ? 3 : 2}
-				className={styles.map.map()}
+				className={theme.map.map()}
 			>
 				<MapResizeObserver />
 				<TileLayer tms={true} url={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${game}/maps/${mapName}/{z}/{x}/{y}.png`} tileSize={256} noWrap />
@@ -150,6 +147,7 @@ export default function GameMap({ bigZoom = false, questMarker }: Props) {
 
 			{selectedMarker && (
 				<MapInfo
+					game={game}
 					icon={selectedMarker.quest?.quest_type.icon ?? selectedMarker.map_icon.icon}
 					selectedQuest={!!selectedMarker.quest}
 					title={selectedMarker.quest?.title ?? selectedMarker.map_icon.title}

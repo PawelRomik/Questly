@@ -1,24 +1,24 @@
 import FixedImage from "@/app/components/common/FixedImage";
 import MapInfoButton from "@/app/components/map/MapInfoButton";
 import MapQuestModal from "@/app/components/map/MapQuestModal";
-import { mapVariants } from "@/app/components/map/variant/mapVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type MapInfoProps = {
 	selectedQuest: boolean;
 	title: string;
 	uuid?: string;
 	icon: string;
+	game: string;
 };
 
-export default function MapInfo({ selectedQuest, title, uuid, icon }: MapInfoProps) {
-	const styles = useGameStyles(mapVariants);
+export default function MapInfo({ selectedQuest, title, uuid, icon, game }: MapInfoProps) {
+	const theme = getTheme("map", game);
 	return (
-		<div className={styles.info.container()}>
-			<FixedImage className={styles.info.icon()} src={icon} alt='ikon' />
-			<span className={styles.info.title()}>{title}</span>
+		<div className={theme.info.container()}>
+			<FixedImage className={theme.info.icon()} src={icon} alt='ikon' />
+			<span className={theme.info.title()}>{title}</span>
 
-			{selectedQuest && uuid && <MapQuestModal uuid={uuid} trigger={<MapInfoButton />} />}
+			{selectedQuest && uuid && <MapQuestModal game={game} uuid={uuid} trigger={<MapInfoButton game={game} />} />}
 		</div>
 	);
 }

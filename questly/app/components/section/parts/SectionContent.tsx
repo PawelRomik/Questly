@@ -1,14 +1,14 @@
-import { sectionVariants } from "@/app/components/section/variant/sectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
 	open: boolean;
 	children: React.ReactNode;
+	game?: string;
 };
 
-export function SectionContent({ open, children }: Props) {
-	const styles = useGameStyles(sectionVariants);
+export function SectionContent({ open, children, game }: Props) {
+	const theme = getTheme("section", game);
 	return (
 		<AnimatePresence initial={false}>
 			{open && (
@@ -37,7 +37,7 @@ export function SectionContent({ open, children }: Props) {
 							duration: 0.2
 						}
 					}}
-					className={styles.section.content.wrapper()}
+					className={theme.section.content.wrapper()}
 				>
 					<motion.div
 						initial='hidden'
@@ -49,7 +49,7 @@ export function SectionContent({ open, children }: Props) {
 								}
 							}
 						}}
-						className={styles.section.content.base()}
+						className={theme.section.content.base()}
 					>
 						{children}
 					</motion.div>

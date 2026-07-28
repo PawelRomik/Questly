@@ -1,17 +1,14 @@
-import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
-	side: "left" | "right";
+	game?: string;
 };
 
-export function NavDecor({ side }: Props) {
-	const isLeft = side === "left";
-	const styles = useGameStyles(navbarVariants);
-
+export function NavDecor({ game }: Props) {
+	const theme = getTheme("navbar", game);
 	return (
-		<div className={styles.decor.base()}>
-			<div className={styles.decor.layout(isLeft)} />
+		<div className={theme.decor.base()}>
+			<div className={theme.decor.layout()} />
 		</div>
 	);
 }

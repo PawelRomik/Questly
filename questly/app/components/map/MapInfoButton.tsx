@@ -1,10 +1,13 @@
-import { mapVariants } from "@/app/components/map/variant/mapVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 
-export default function MapInfoButton() {
-	const styles = useGameStyles(mapVariants);
-	const t = useTranslations("map");
+type Props = {
+	game?: string;
+};
 
-	return <button className={styles.info.button()}>{t("show")}</button>;
+export default function MapInfoButton({ game }: Props) {
+	const t = useTranslations("map");
+	const theme = getTheme("map", game);
+
+	return <button className={theme.info.button()}>{t("show")}</button>;
 }

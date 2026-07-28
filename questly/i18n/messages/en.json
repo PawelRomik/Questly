@@ -67,8 +67,6 @@
 		"levelShort": "lvl",
 		"level": "Level",
 		"reset": "Reset",
-		"selectGame": "Select game",
-		"selectLocale": "Select locale",
 		"other": "Other"
 	},
 	"quests": {
@@ -89,5 +87,24 @@
 		"mapMarkers": "Map Markers",
 		"map": "Map",
 		"show": "Show"
+	},
+	"switchers": {
+		"selectGame": "Select game",
+		"selectLocale": "Select locale",
+		"search": "Search"
+	},
+	"preview": {
+		"lastUsed": "Last Used",
+		"recommended": "Recommended",
+		"otherGames": "Other games",
+		"check": "Check",
+		"descOne": "Questly is a passion project created for gamers who want a better way to track their progress. It was designed as an all-in-one platform for managing quests, achievements, collectibles, and interactive maps, making it easier to keep track of everything in one place. The goal of Questly is to provide a clean, intuitive, and user-friendly experience that lets players focus on enjoying their games instead of juggling spreadsheets, notes, or multiple websites. The platform is continuously improved with new features and refinements to make tracking progress as seamless as possible.",
+		"descTwo": "Unlike many similar tools, Questly is completely free and doesn't lock essential features behind subscriptions or paywalls. It offers a wide range of customization options, allowing every user to personalize the interface and tailor the experience to their own preferences. With its modern design, straightforward navigation, and automatic progress saving, Questly is accessible to both casual players and completionists alike. Built by a gamer for gamers, it combines simplicity, flexibility, and powerful tracking features into a single platform that helps players stay organized throughout their gaming journey."
+	},
+	"notFound": {
+		"error": "Error 404",
+		"title": "Page Not Found",
+		"description": "The page you're looking for doesn't exist or may have been moved. Return to the Questly homepage and continue your adventure.",
+		"goBack": "Go Back"
 	}
 }

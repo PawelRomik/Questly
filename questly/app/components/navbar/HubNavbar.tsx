@@ -1,18 +1,22 @@
 "use client";
-
-import { useGameStyles } from "@/app/hooks/useGameStyles";
-
 import GameSwitcher from "@/app/components/switchers/GameSwitcher";
-import { navbarVariants } from "@/app/components/navbar/variant/navbarVariants";
+import LocaleSwitcher from "@/app/components/switchers/LocaleSwitcher";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export default function HubNavbar() {
-	const styles = useGameStyles(navbarVariants);
+type Props = {
+	game?: string;
+};
 
+export default function HubNavbar({ game }: Props) {
+	const theme = getTheme("navbar", game);
 	return (
-		<nav className={styles.base(true)}>
-			<div className={styles.content.base()}>
-				<div className={styles.content.contentWrapper()}>
-					<GameSwitcher />
+		<nav className={theme.base(true)}>
+			<div className={theme.content.base()}>
+				<div className={theme.content.contentWrapper()}>
+					<div className='absolute left-5 h-full flex items-center justify-center  top-0 z-40'>
+						<LocaleSwitcher />
+					</div>
+					<GameSwitcher game={game} />
 				</div>
 			</div>
 		</nav>

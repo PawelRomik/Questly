@@ -67,8 +67,6 @@
 		"levelShort": "poz.",
 		"level": "Poziom",
 		"reset": "Resetuj",
-		"selectGame": "Wybierz grę",
-		"selectLocale": "Wybierz język",
 		"other": "Inne"
 	},
 	"quests": {
@@ -89,5 +87,24 @@
 		"mapMarkers": "Znaczniki mapy",
 		"map": "Mapa",
 		"show": "Zobacz"
+	},
+	"switchers": {
+		"selectGame": "Wybierz grę",
+		"selectLocale": "Wybierz język",
+		"search": "Wyszukaj"
+	},
+	"preview": {
+		"lastUsed": "Ostatnio używana",
+		"recommended": "Polecana",
+		"otherGames": "Inne gry",
+		"check": "Sprawdź",
+		"descOne": "Questly to projekt tworzony z pasji do gier, stworzony dla graczy, którzy chcą wygodniej śledzić swoje postępy. Powstał jako kompleksowa platforma do zarządzania zadaniami, osiągnięciami, przedmiotami kolekcjonerskimi oraz interaktywnymi mapami, dzięki czemu wszystkie najważniejsze informacje znajdują się w jednym miejscu. Celem Questly jest zapewnienie przejrzystego, intuicyjnego i przyjaznego doświadczenia, które pozwala skupić się na grze zamiast korzystać z arkuszy kalkulacyjnych, notatek czy wielu różnych stron internetowych. Platforma jest stale rozwijana i wzbogacana o nowe funkcje oraz usprawnienia, aby śledzenie postępów było jak najbardziej wygodne.",
+		"descTwo": "W przeciwieństwie do wielu podobnych narzędzi Questly jest całkowicie darmowe i nie ukrywa najważniejszych funkcji za subskrypcjami ani płatnymi planami. Oferuje szerokie możliwości personalizacji, dzięki którym każdy użytkownik może dostosować wygląd i działanie aplikacji do własnych preferencji. Nowoczesny interfejs, przejrzysta nawigacja oraz automatyczne zapisywanie postępów sprawiają, że platforma doskonale sprawdzi się zarówno dla okazjonalnych graczy, jak i osób dążących do ukończenia gry w 100%. Stworzone przez gracza dla graczy, Questly łączy prostotę, elastyczność i rozbudowane funkcje śledzenia postępów w jednym miejscu, pomagając zachować porządek podczas całej przygody z grami."
+	},
+	"notFound": {
+		"error": "Błąd 404",
+		"title": "Strona nie została znaleziona",
+		"description": "Strona, której szukasz, nie istnieje lub została przeniesiona. Wróć na stronę główną Questly i kontynuuj swoją przygodę.",
+		"goBack": "Wróć"
 	}
 }

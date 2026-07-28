@@ -1,24 +1,24 @@
 import FixedImage from "@/app/components/common/FixedImage";
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 import { StaticImageData } from "next/image";
 
 type Props = {
 	src: string;
 	icon: string | StaticImageData;
+	game?: string;
 };
 
-export function QuestImage({ src, icon }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestImage({ src, icon, game }: Props) {
 	const t = useTranslations();
 
+	const theme = getTheme("quest", game);
+
 	return (
-		<div className={styles.image.wrapper()}>
-			<div className={styles.image.container()}>
-				<FixedImage src={src} className={styles.image.base()} alt={t("common.location")} />
-				<FixedImage alt={t("quests.icon")} src={icon} className={styles.image.icon()} />
+		<div className={theme.image.wrapper()}>
+			<div className={theme.image.container()}>
+				<FixedImage src={src} className={theme.image.base()} alt={t("common.location")} />
+				<FixedImage alt={t("quests.icon")} src={icon} className={theme.image.icon()} />
 			</div>
 		</div>
 	);

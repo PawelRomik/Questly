@@ -1,19 +1,19 @@
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { useTranslations } from "next-intl";
 
 type Props = {
 	level: number;
+	game?: string;
 };
 
-export function RequirementLevel({ level }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export function RequirementLevel({ level, game }: Props) {
+	const theme = getTheme("questModal", game);
 	const t = useTranslations("common");
 	return (
-		<div className={styles.requirements.tag.base()}>
-			<span className={styles.requirements.tag.primary()}>{t("level")}</span>
+		<div className={theme.requirements.tag()}>
+			<span className={theme.requirements.primary()}>{t("level")}</span>
 
-			<span className={styles.requirements.tag.secondary()}>{level}</span>
+			<span className={theme.requirements.secondary()}>{level}</span>
 		</div>
 	);
 }

@@ -1,20 +1,19 @@
 import { CollectionAccent } from "@/app/components/collection/common/CollectionAccent";
-import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	title: string;
 	active: boolean;
 	onClick?: () => void;
 	disabled?: boolean;
+	game?: string;
 };
 
-export function CollectionGroupButton({ title, active, onClick, disabled }: Props) {
-	const styles = useGameStyles(collectionVariants);
-
+export function CollectionGroupButton({ title, active, onClick, disabled, game }: Props) {
+	const theme = getTheme("collection", game);
 	return (
-		<button onClick={onClick} disabled={disabled} className={styles.group.button(active)}>
-			<CollectionAccent completed={active} />
+		<button onClick={onClick} disabled={disabled} className={theme.group.button(active)}>
+			<CollectionAccent game={game} completed={active} />
 			<span>{title}</span>
 		</button>
 	);

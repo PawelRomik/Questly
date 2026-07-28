@@ -1,26 +1,25 @@
 "use client";
 
 import { useMemo } from "react";
-import { useParams } from "next/navigation";
 import { CollectionType } from "@/app/types/collection";
 import { CollectionAccent } from "../common/CollectionAccent";
 import { CollectionHeader } from "./CollectionHeader";
 import { CollectionItem } from "./CollectionItem";
 import { CollectionButton } from "./CollectionButton";
-import { collectionVariants } from "@/app/components/collection/variant/collectionVariants";
 import { useCompleted } from "@/app/context/CompletedContext";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { motion } from "framer-motion";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	collection: CollectionType;
+	game: string;
 };
 
-export default function Collection({ collection }: Props) {
+export default function Collection({ collection, game }: Props) {
 	const { items } = collection;
-	const { game } = useParams() as { game: string };
-	const styles = useGameStyles(collectionVariants);
+	const theme = getTheme("collection", game);
+
 	const { toggleCollectionItem, isCollectionItemCompleted } = useCompleted(game, "collections");
 
 	const completedMap = useMemo(() => {
@@ -68,14 +67,15 @@ export default function Collection({ collection }: Props) {
 			whileTap={{ scale: 0.97 }}
 			layout
 		>
-			<div className={styles.collection.base(isComplete)}>
-				<CollectionAccent completed={isComplete} />
+			<div className={theme.collection.base(isComplete)}>
+				<CollectionAccent game={game} completed={isComplete} />
 
-				<CollectionHeader dlcs={dlcs} collection={collection} hasMissable={hasMissable} completed={completedCount} total={total} />
+				<CollectionHeader game={game} dlcs={dlcs} collection={collection} hasMissable={hasMissable} completed={completedCount} total={total} />
 
-				<div className={styles.collection.grid()}>
+				<div className={theme.collection.grid()}>
 					{items.map((item) => (
 						<CollectionItem
+							game={game}
 							key={item.uuid}
 							name={item.name}
 							missable={item.missable}
@@ -86,7 +86,7 @@ export default function Collection({ collection }: Props) {
 					))}
 				</div>
 
-				<CollectionButton completed={isComplete} onCompleteAll={handleCompleteAll} onReset={handleReset} />
+				<CollectionButton game={game} completed={isComplete} onCompleteAll={handleCompleteAll} onReset={handleReset} />
 			</div>
 		</motion.div>
 	);

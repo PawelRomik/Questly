@@ -1,21 +1,21 @@
 import FixedImage from "@/app/components/common/FixedImage";
-import { questVariants } from "@/app/components/quest/variant/questVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { StaticImageData } from "next/image";
 
 type Props = {
 	value: string | number;
 	icon: string | StaticImageData;
 	alt: string;
+	game?: string;
 };
 
-export function QuestRewardItem({ value, icon, alt }: Props) {
-	const styles = useGameStyles(questVariants);
+export function QuestRewardItem({ value, icon, alt, game }: Props) {
+	const theme = getTheme("quest", game);
 	return (
-		<span className={styles.rewards.item()}>
+		<span className={theme.rewards.item()}>
 			{value}
 
-			<FixedImage src={icon} alt={alt} className={styles.rewards.icon()} />
+			<FixedImage src={icon} alt={alt} className={theme.rewards.icon()} />
 		</span>
 	);
 }

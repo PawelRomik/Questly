@@ -3,9 +3,7 @@
 import { FilterSearchInput } from "./FilterSearchInput";
 import { useFilters } from "@/app/context/FiltersContext";
 import { StatisticList } from "@/app/components/statistics/StatisticsList";
-import { filterVariants } from "@/app/components/filters/variant/filterVariants";
 import { Filters } from "@/app/components/filters/types";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import FixedImage from "@/app/components/common/FixedImage";
 import { FiltersOptions } from "@/app/components/filters/FiltersOptions";
@@ -13,10 +11,15 @@ import LocaleSwitcher from "@/app/components/switchers/LocaleSwitcher";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import MapMarkerLegend from "@/app/components/filters/MapMarkerLegend";
+import questlyLogo from "../../../public/assets/logo.png";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
-export function FiltersContainer() {
+type Props = {
+	game: string;
+};
+
+export function FiltersContainer({ game }: Props) {
 	const { filters, setFilters } = useFilters();
-	const styles = useGameStyles(filterVariants);
 
 	const isLocked = filters.groupByQuestGroup;
 
@@ -27,33 +30,33 @@ export function FiltersContainer() {
 		}));
 	};
 
+	const theme = getTheme("filter", game);
+
 	const { content } = useParams();
 
 	const t = useTranslations();
 	const { character, logo } = useGameAssets();
 
 	return (
-		<div className={styles.base()}>
-			<div className={styles.header.base()}>
-				<FixedImage src={logo} alt={t("common.logo")} className={styles.header.logo()} />
+		<div className={theme.base()}>
+			<FixedImage src={questlyLogo} alt='logo' className={theme.icon()} />
+			<div className={theme.header.base()}>
+				<FixedImage src={logo} alt={t("common.logo")} className={theme.header.logo()} />
 			</div>
 
-			<div className={styles.inputWrapper.base()}>
-				<FixedImage src={character ?? ""} alt={t("common.character")} className={styles.inputWrapper.character()} />
+			<div className={theme.inputWrapper.base()}>
+				<FixedImage src={character ?? ""} alt={t("common.character")} className={theme.inputWrapper.character()} />
 
-				{content == "map" ? <FiltersOptions isLocked={isLocked} update={update} /> : <FilterSearchInput value={filters.search} onChange={(v) => update("search", v)} />}
+				{content == "map" ? (
+					<FiltersOptions game={game} isLocked={isLocked} update={update} />
+				) : (
+					<FilterSearchInput game={game} value={filters.search} onChange={(v) => update("search", v)} />
+				)}
 			</div>
 
-			{content == "map" ? <MapMarkerLegend /> : <FiltersOptions isLocked={isLocked} update={update} />}
-			<StatisticList
-				stats={[
-					{ id: "quests", label: t("quests.quests") },
-					{ id: "achievements", label: t("achievements.achievements") },
-					{ id: "collections", label: t("collections.collectibles") },
-					{ id: "mapMarkers", label: t("map.mapMarkers") }
-				]}
-			/>
-			<LocaleSwitcher />
+			{content == "map" ? <MapMarkerLegend game={game} /> : <FiltersOptions game={game} isLocked={isLocked} update={update} />}
+			<StatisticList game={game} />
+			<LocaleSwitcher game={game} />
 		</div>
 	);
 }

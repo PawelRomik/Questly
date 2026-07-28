@@ -1,12 +1,15 @@
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
+import { getTheme } from "@/app/lib/utils/getTheme";
 import { Dialog } from "radix-ui";
 
-export function ModalCloseButton() {
-	const styles = useGameStyles(questModalVariants);
+type Props = {
+	game?: string;
+};
+
+export function ModalCloseButton({ game }: Props) {
+	const theme = getTheme("questModal", game);
 	return (
 		<Dialog.Close asChild>
-			<button className={styles.closeButton()}>✕</button>
+			<button className={theme.closeButton()}>✕</button>
 		</Dialog.Close>
 	);
 }

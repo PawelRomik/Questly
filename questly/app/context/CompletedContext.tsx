@@ -61,11 +61,16 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 		return parsed;
 	});
 
+	const setLastUsedGame = (game: string) => {
+		document.cookie = `lastUsedGame=${encodeURIComponent(game)}; path=/; max-age=31536000; SameSite=Lax`;
+	};
+
 	useEffect(() => {
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 	}, [state]);
 
 	const syncMapMarkersWithQuests = useCallback((game: string, markers: { uuid: string; questUuid: string | null }[]) => {
+		setLastUsedGame(game);
 		setState((prev) => {
 			const existing = prev[game] ?? {
 				quests: [],
@@ -89,6 +94,7 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 	}, []);
 
 	const toggle = useCallback((game: string, type: "quests" | "achievements" | "mapMarkers", id: string) => {
+		setLastUsedGame(game);
 		setState((prev) => {
 			const existing = prev[game] || {};
 
@@ -122,6 +128,7 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 	);
 
 	const reset = useCallback((game: string, type: "quests" | "achievements" | "collections" | "mapMarkers") => {
+		setLastUsedGame(game);
 		setState((prev) => {
 			const existing = prev[game];
 
@@ -140,6 +147,7 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 	}, []);
 
 	const toggleCollectionItem = useCallback((game: string, itemId: string) => {
+		setLastUsedGame(game);
 		setState((prev) => {
 			const existing = prev[game];
 

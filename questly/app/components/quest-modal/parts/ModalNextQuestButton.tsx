@@ -1,11 +1,10 @@
 import Link from "next/link";
-
-import { questModalVariants } from "@/app/components/quest-modal/variant/questModalVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import FixedImage from "@/app/components/common/FixedImage";
 import { useTranslations } from "next-intl";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
+	game?: string;
 	quest: {
 		title: string;
 		uuid: string;
@@ -15,15 +14,15 @@ type Props = {
 	};
 };
 
-export function ModalNextQuestButton({ quest }: Props) {
-	const styles = useGameStyles(questModalVariants);
+export function ModalNextQuestButton({ quest, game }: Props) {
+	const theme = getTheme("questModal", game);
 	const t = useTranslations("quests");
 	return (
-		<Link title={quest.title} href={`?activeQuest=${quest.uuid}`} className={styles.nextButton.wrapper()}>
-			<button className={styles.nextButton.base()}>
-				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon || ""} className={styles.nextButton.icon()} />
+		<Link title={quest.title} href={`?activeQuest=${quest.uuid}`} className={theme.nextButton.wrapper()}>
+			<button className={theme.nextButton.base()}>
+				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon || ""} className={theme.nextButton.icon()} />
 				{t("nextQuest")}
-				<span className={styles.nextButton.title()}>{quest.title}</span>
+				<span className={theme.nextButton.title()}>{quest.title}</span>
 			</button>
 		</Link>
 	);

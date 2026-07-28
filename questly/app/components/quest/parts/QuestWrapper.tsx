@@ -3,52 +3,51 @@
 import { QuestContent } from "@/app/components/quest/parts/QuestContent";
 import { QuestImage } from "@/app/components/quest/parts/QuestImage";
 import { QuestButton } from "@/app/components/quest/parts/QuestButton";
-import { useParams } from "next/navigation";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { QuestDivider } from "@/app/components/quest/parts/QuestDivider";
 import { QuestMeta } from "@/app/components/quest/parts/QuestMeta";
 import { QuestAccent } from "@/app/components/quest/parts/QuestAccent";
 import { QuestRewards } from "@/app/components/quest/parts/QuestRewards";
-import { questVariants } from "@/app/components/quest/variant/questVariants";
 import { useFilters } from "@/app/context/FiltersContext";
 import { Quest } from "@/app/types/quest";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import default_banner from "../../../../public/assets/banner.png";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	quest: Quest;
+	game: string;
 };
 
-export default function QuestWrapper({ quest }: Props) {
-	const { game } = useParams() as { game: string };
+export default function QuestWrapper({ quest, game }: Props) {
 	const { isCompleted, toggle } = useCompleted(game, "quests");
 
-	const styles = useGameStyles(questVariants);
 	const { filters } = useFilters();
 	const { searchTags } = filters;
 	const { uuid, level, quest_type, rewards, location } = quest;
 	const completed = isCompleted(uuid);
 
 	const { default_icon } = useGameAssets();
+	const theme = getTheme("quest", game);
 
 	return (
-		<div className={styles.wrapper.base(completed)}>
-			<QuestAccent completed={completed} color={quest_type.color} />
+		<div className={theme.wrapper.base(completed)}>
+			<QuestAccent game={game} completed={completed} color={quest_type.color} />
 
-			<QuestMeta level={level}>
-				<QuestImage icon={quest_type?.icon ?? default_icon} src={location?.banner ?? default_banner} />
+			<QuestMeta game={game} level={level}>
+				<QuestImage game={game} icon={quest_type?.icon ?? default_icon} src={location?.banner ?? default_banner} />
 			</QuestMeta>
 
-			<div className={styles.wrapper.content()}>
-				<QuestContent quest={quest} completed={completed} searchTags={searchTags} />
+			<div className={theme.wrapper.content()}>
+				<QuestContent game={game} quest={quest} completed={completed} searchTags={searchTags} />
 			</div>
 
-			<QuestRewards rewards={rewards} />
+			<QuestRewards game={game} rewards={rewards} />
 
-			<QuestDivider />
+			<QuestDivider game={game} />
 
 			<QuestButton
+				game={game}
 				completed={completed}
 				onClick={(e) => {
 					e.stopPropagation();

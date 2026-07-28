@@ -6,25 +6,24 @@ import { AchievementContent } from "@/app/components/achievement/content/Achieve
 import { AchievementImage } from "@/app/components/achievement/image/AchievementImage";
 import AchievementHidden from "@/app/components/achievement/content/AchievementHidden";
 import { AchievementType } from "@/app/types/achievement";
-import { achievementVariants } from "@/app/components/achievement/variant/achievementVariants";
-import { useGameStyles } from "@/app/hooks/useGameStyles";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { HiddenAchievementsOption } from "@/app/components/filters/types";
 import { useFilters } from "@/app/context/FiltersContext";
 import { motion } from "framer-motion";
+import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	achievement: AchievementType;
 	completed: boolean;
-
+	game?: string;
 	onToggle: () => void;
 };
 
-export default function Achievement({ achievement, completed, onToggle }: Props) {
+export default function Achievement({ achievement, completed, onToggle, game }: Props) {
+	const theme = getTheme("achievement", game);
 	const { filters } = useFilters();
 	const [revealed, setRevealed] = useState(completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL);
 	const { secret, icon } = achievement;
-	const styles = useGameStyles(achievementVariants);
 
 	const isSecretLocked = secret && !completed;
 
@@ -53,14 +52,14 @@ export default function Achievement({ achievement, completed, onToggle }: Props)
 			layout
 			onClick={handleReveal}
 		>
-			<div className={styles.achievement(completed)}>
-				{isHidden && <AchievementHidden />}
+			<div className={theme.achievement(completed)}>
+				{isHidden && <AchievementHidden game={game} />}
 
-				<AchievementImage title={achievement.title} completed={completed} src={icon ?? achievement_icon} />
+				<AchievementImage game={game} title={achievement.title} completed={completed} src={icon ?? achievement_icon} />
 
-				<AchievementContent revealed={revealed} achievement={achievement} completed={completed} />
+				<AchievementContent game={game} revealed={revealed} achievement={achievement} completed={completed} />
 
-				<AchievementButton completed={completed} onClick={handleToggle} />
+				<AchievementButton game={game} completed={completed} onClick={handleToggle} />
 			</div>
 		</motion.div>
 	);

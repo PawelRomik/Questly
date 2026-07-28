@@ -22,17 +22,23 @@ type StatCountsQuery = {
 	}[];
 };
 
-export function useStatisticCounts() {
-	const { game } = useParams<{ game: string }>();
+type UseStatisticCountsProps = {
+	game?: string;
+};
 
-	const { completed: completedQuests } = useCompleted(game, "quests");
-	const { completed: completedAchievements } = useCompleted(game, "achievements");
-	const { completed: completedCollections } = useCompleted(game, "collections");
-	const { completed: completedMapMarkers } = useCompleted(game, "mapMarkers");
+export function useStatisticCounts({ game }: UseStatisticCountsProps = {}) {
+	const { game: paramsGame } = useParams<{ game: string }>();
+
+	const selectedGame = game ?? paramsGame;
+
+	const { completed: completedQuests } = useCompleted(selectedGame, "quests");
+	const { completed: completedAchievements } = useCompleted(selectedGame, "achievements");
+	const { completed: completedCollections } = useCompleted(selectedGame, "collections");
+	const { completed: completedMapMarkers } = useCompleted(selectedGame, "mapMarkers");
 
 	const { data, loading, error } = useQuery<StatCountsQuery>(GET_STAT_COUNTS, {
 		variables: {
-			game
+			game: selectedGame
 		}
 	});
 

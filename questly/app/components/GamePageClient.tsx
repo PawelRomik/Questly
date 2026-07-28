@@ -12,8 +12,10 @@ import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
 import { GameMapContainer } from "@/app/components/map";
+import FixedImage from "@/app/components/common/FixedImage";
+import questlyIcon from "../../public/assets/game_icon.png";
 
-export default function GamePageClient() {
+export default function GamePageClient({ game }: { game: string }) {
 	const params = useParams<{ game: string; content: string }>();
 
 	const { content } = params;
@@ -33,7 +35,7 @@ export default function GamePageClient() {
 
 	return (
 		<div className='h-screen flex relative flex-col bg-[rgba(0,0,0,0.8)] overflow-hidden'>
-			<Navbar />
+			<Navbar game={game} />
 
 			<div
 				className='w-full h-full absolute -z-10 bg-repeat'
@@ -92,8 +94,9 @@ export default function GamePageClient() {
 							${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 						`}
 					>
-						<FiltersContainer />
+						<FiltersContainer game={game} />
 					</div>
+					{!sidebarOpen && <FixedImage src={questlyIcon} alt='logo' className='w-32  absolute bottom-0 h-auto' />}
 				</div>
 
 				<div
@@ -108,10 +111,10 @@ export default function GamePageClient() {
 						${sidebarOpen ? "w-2/3" : "w-[calc(100%-70px)]"}
 					`}
 				>
-					{content === "quests" && <QuestList />}
-					{content === "achievements" && <AchievementList />}
-					{content === "collectibles" && <CollectionList />}
-					{content === "map" && <GameMapContainer />}
+					{content === "quests" && <QuestList game={game} />}
+					{content === "achievements" && <AchievementList game={game} />}
+					{content === "collectibles" && <CollectionList game={game} />}
+					{content === "map" && <GameMapContainer game={game} />}
 				</div>
 			</div>
 		</div>
