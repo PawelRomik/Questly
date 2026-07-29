@@ -1,15 +1,11 @@
 import { DocumentNode, OperationVariables } from "@apollo/client";
-import { useQuery } from "@apollo/client/react";
+import { useSuspenseQuery } from "@apollo/client/react";
 
 export function useApollo<TData, TVariables extends OperationVariables>(query: DocumentNode, variables: TVariables) {
-	const { data, previousData, loading, error } = useQuery<TData, TVariables>(query, {
+	const { data } = useSuspenseQuery<TData, TVariables>(query, {
 		variables,
-		notifyOnNetworkStatusChange: true
+		fetchPolicy: "network-only"
 	});
 
-	return {
-		data: data ?? previousData,
-		loading,
-		error
-	};
+	return { data };
 }

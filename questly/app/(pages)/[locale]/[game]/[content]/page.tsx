@@ -15,8 +15,8 @@ type Props = {
 const validContent = ["achievements", "quests", "collectibles", "map"];
 
 async function getGame(locale: string, game: string) {
-	return (
-		await getLocalizedList<
+	try {
+		const games = await getLocalizedList<
 			{
 				slug: string;
 				title: string;
@@ -28,8 +28,13 @@ async function getGame(locale: string, game: string) {
 			vars: {},
 			getItems: (data) => data.games,
 			getId: (game) => game.slug
-		})
-	).find((g) => g.slug === game);
+		});
+
+		return games.find((g) => g.slug === game) ?? null;
+	} catch (error) {
+		console.error("Failed to fetch games:", error);
+		return null;
+	}
 }
 
 export async function generateMetadata({ params }: Props) {

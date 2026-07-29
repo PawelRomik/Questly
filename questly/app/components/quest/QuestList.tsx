@@ -28,6 +28,7 @@ export default function QuestList({ game }: Props) {
 	const theme = getTheme("questModal", game);
 
 	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
+
 	const quests = useLocalizedList<Quest, { game: string; locale: string }>({
 		query,
 		vars: {
