@@ -106,5 +106,11 @@
 		"title": "Page Not Found",
 		"description": "The page you're looking for doesn't exist or may have been moved. Return to the Questly homepage and continue your adventure.",
 		"goBack": "Go Back"
+	},
+	"error": {
+		"error": "Server Error",
+		"title": "Service Unavailable",
+		"description": "We couldn't connect to the server. It may be temporarily unavailable. Please try again in a few moments.",
+		"tryAgain": "Try Again"
 	}
 }

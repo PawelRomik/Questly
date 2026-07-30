@@ -106,5 +106,11 @@
 		"title": "Strona nie została znaleziona",
 		"description": "Strona, której szukasz, nie istnieje lub została przeniesiona. Wróć na stronę główną Questly i kontynuuj swoją przygodę.",
 		"goBack": "Wróć"
+	},
+	"error": {
+		"error": "Błąd serwera",
+		"title": "Usługa jest niedostępna",
+		"description": "Nie udało się połączyć z serwerem. Może być on chwilowo niedostępny. Spróbuj ponownie za kilka chwil.",
+		"tryAgain": "Spróbuj ponownie"
 	}
 }

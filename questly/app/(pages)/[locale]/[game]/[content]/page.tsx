@@ -33,7 +33,7 @@ async function getGame(locale: string, game: string) {
 		return games.find((g) => g.slug === game) ?? null;
 	} catch (error) {
 		console.error("Failed to fetch games:", error);
-		return null;
+		throw error;
 	}
 }
 
