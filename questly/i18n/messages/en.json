@@ -67,7 +67,8 @@
 		"levelShort": "lvl",
 		"level": "Level",
 		"reset": "Reset",
-		"other": "Other"
+		"other": "Other",
+		"loading": "Loading"
 	},
 	"quests": {
 		"quests": "Quests",

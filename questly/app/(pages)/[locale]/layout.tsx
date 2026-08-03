@@ -1,4 +1,4 @@
-import "../../globals.css";
+import "@/app/globals.css";
 import Providers from "@/app/providers";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";

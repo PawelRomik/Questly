@@ -67,7 +67,8 @@
 		"levelShort": "poz.",
 		"level": "Poziom",
 		"reset": "Resetuj",
-		"other": "Inne"
+		"other": "Inne",
+		"loading": "Ładowanie"
 	},
 	"quests": {
 		"quests": "Zadania",
