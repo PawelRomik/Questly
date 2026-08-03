@@ -1,6 +1,6 @@
 "use client";
 
-import { GET_QUESTS_NO_TAGS, GET_QUESTS_WITH_TAGS } from "@/app/lib/queries";
+import { GET_QUESTS } from "@/app/lib/queries";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useQuestIcons } from "@/app/hooks/useQuestIcons";
 import QuestTreeRenderer from "@/app/components/quest/QuestTreeRenderer";
@@ -27,7 +27,7 @@ export default function QuestList({ game }: Props) {
 	const locale = useLocale();
 	const theme = getTheme("questModal", game);
 
-	const query = filters.searchTags ? GET_QUESTS_WITH_TAGS : GET_QUESTS_NO_TAGS;
+	const query = GET_QUESTS;
 
 	const quests = useLocalizedList<Quest, { game: string; locale: string }>({
 		query,

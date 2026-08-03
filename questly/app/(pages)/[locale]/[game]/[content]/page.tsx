@@ -38,23 +38,28 @@ async function getGame(locale: string, game: string) {
 }
 
 export async function generateMetadata({ params }: Props) {
-	const { game, content, locale } = await params;
+	try {
+		const { game, content, locale } = await params;
 
-	const t = await getTranslations({
-		locale
-	});
+		const t = await getTranslations({ locale });
+		const selectedGame = await getGame(locale, game);
 
-	const selectedGame = await getGame(locale, game);
+		if (!selectedGame || !validContent.includes(content)) {
+			return {
+				title: `Questly | ${t("notFound.title")}`
+			};
+		}
 
-	if (!selectedGame || !validContent.includes(content)) {
 		return {
-			title: `Questly | ${t("notFound.title")}`
+			title: `Questly | ${selectedGame.title} ${t(`nav.${content}`)}`
+		};
+	} catch (error) {
+		console.error("generateMetadata failed:", error);
+
+		return {
+			title: "Questly"
 		};
 	}
-
-	return {
-		title: `Questly | ${selectedGame?.title ?? ""} ${t(`nav.${content}`)}`
-	};
 }
 
 export default async function GamePage({ params }: Props) {

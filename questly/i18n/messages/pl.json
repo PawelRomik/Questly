@@ -110,8 +110,10 @@
 	},
 	"error": {
 		"error": "Błąd serwera",
-		"title": "Usługa jest niedostępna",
-		"description": "Nie udało się połączyć z serwerem. Może być on chwilowo niedostępny. Spróbuj ponownie za kilka chwil.",
-		"tryAgain": "Spróbuj ponownie"
+		"serverDown": "Usługa jest niedostępna",
+		"serverDownDesc": "Nie udało się połączyć z serwerem. Może być on chwilowo niedostępny. Spróbuj ponownie za kilka chwil.",
+		"tryAgain": "Spróbuj ponownie",
+		"badData": "Wystąpił błąd",
+		"badDataDesc": "Nie udało się załadować danych. Spróbuj ponownie."
 	}
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import NavLogo from "@/app/components/navbar/NavLogo";
 import SwitcherDialog from "@/app/components/switchers/SwitcherDialog";
 import GameSwitcherSkeleton from "./GameSwitcherSkeleton";
 import GameSwitcherContent from "@/app/components/switchers/GameSwitcherContent";
+import ContentBoundary from "@/app/components/ContentBoundary";
 
 type Props = {
 	game?: string;
@@ -16,9 +16,9 @@ export default function GameSwitcher({ game }: Props) {
 
 	return (
 		<SwitcherDialog game={game} trigger={<NavLogo game={game} />} title={t("selectGame")}>
-			<Suspense fallback={<GameSwitcherSkeleton game={game} />}>
+			<ContentBoundary hideBackground={true} fallback={<GameSwitcherSkeleton game={game} />}>
 				<GameSwitcherContent game={game} />
-			</Suspense>
+			</ContentBoundary>
 		</SwitcherDialog>
 	);
 }

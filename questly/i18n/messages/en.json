@@ -110,8 +110,10 @@
 	},
 	"error": {
 		"error": "Server Error",
-		"title": "Service Unavailable",
-		"description": "We couldn't connect to the server. It may be temporarily unavailable. Please try again in a few moments.",
-		"tryAgain": "Try Again"
+		"serverDown": "Service Unavailable",
+		"serverDownDesc": "We couldn't connect to the server. It may be temporarily unavailable. Please try again in a few moments.",
+		"tryAgain": "Try Again",
+		"badData": "Something went wrong",
+		"badDataDesc": "We couldn't load the data. Please try again."
 	}
 }

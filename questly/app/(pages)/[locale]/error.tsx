@@ -19,9 +19,9 @@ export default function Error() {
 
 						<span className='mb-2 text-sm uppercase tracking-[0.4em] text-white/40'>{t("error")}</span>
 
-						<h1 className='text-4xl font-bold uppercase tracking-wider text-white'>{t("title")}</h1>
+						<h1 className='text-4xl font-bold uppercase tracking-wider text-white'>{t("serverDown")}</h1>
 
-						<p className='mt-5 max-w-md leading-7 text-white/60'>{t("description")}</p>
+						<p className='mt-5 max-w-md leading-7 text-white/60'>{t("serverDownDesc")}</p>
 
 						<button
 							onClick={() => window.location.reload()}
