@@ -1,11 +1,12 @@
 "use client";
 
 import MapClickHandler from "@/app/components/map/MapClickHandler";
-import MapInfo from "@/app/components/map/MapInfo";
+import MapInfo from "@/app/components/map/modal/MapInfo";
 import MapMarker from "@/app/components/map/MapMarker";
 import MapResizeObserver from "@/app/components/map/MapResizeObserver";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useClearParams } from "@/app/hooks/map/useClearParams";
 import { useGameMapData } from "@/app/hooks/map/useGameMapData";
 import { useLocationSync } from "@/app/hooks/map/useLocationSync";
 import { useMapCenter } from "@/app/hooks/map/useMapCenter";
@@ -61,6 +62,7 @@ type Props = {
 
 export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const locale = useLocale();
+	useClearParams();
 
 	const [selectedMarker, setSelectedMarker] = useState<MapMarkerType | null>(null);
 	const { filters, setFilters } = useFilters();

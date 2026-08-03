@@ -1,119 +1,27 @@
 import { gql } from "@apollo/client";
 
-export const GET_QUESTS_NO_TAGS = gql`
+export const GET_QUESTS = gql`
 	query GetQuests($game: String!, $locale: I18NLocaleCode) {
 		quests(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
 			title
 			quest_type {
 				name
-				locale
-				uuid
-				icon
-				color
-			}
-			missable
-			quest_act {
-				title
-				locale
-				uuid
-				order
-				icon
-			}
-			quest_groups {
-				title
-				locale
-				uuid
-				icon
-			}
-			uuid
-			level
-			description
-			short_desc
-			location {
-				name
-				uuid
-				locale
-				minimap
-				banner
-			}
-			character {
-				name
-				image
-			}
-			tags {
-				name
-			}
-			requirement {
-				level
-				type
-				quest {
-					title
-					uuid
-					quest_type {
-						icon
-					}
-				}
-				desc
-				character {
-					name
-				}
-				item {
-					name
-				}
-				item_amount
-			}
-			rewards {
-				experience
-				money
-				items {
-					image
-					name
-					rarity {
-						name
-						color
-					}
-					description
-					amount
-					price
-					item_type {
-						name
-						icon
-					}
-				}
-				other
-			}
-			dlc {
-				title
-				uuid
-				color
-				icon
-			}
-		}
-	}
-`;
 
-export const GET_QUESTS_WITH_TAGS = gql`
-	query GetQuests($game: String!, $locale: I18NLocaleCode) {
-		quests(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
-			title
-			quest_type {
 				uuid
-				locale
-				name
 				icon
 				color
 			}
 			missable
 			quest_act {
-				uuid
-				locale
 				title
+
+				uuid
 				order
 				icon
 			}
 			quest_groups {
 				title
-				locale
+
 				uuid
 				icon
 			}
@@ -123,9 +31,8 @@ export const GET_QUESTS_WITH_TAGS = gql`
 			short_desc
 			location {
 				name
-				locale
 				uuid
-				locale
+
 				minimap
 				banner
 			}

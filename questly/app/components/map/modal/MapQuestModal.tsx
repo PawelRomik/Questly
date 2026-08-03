@@ -11,7 +11,7 @@ import { ReactNode } from "react";
 import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
-	uuid: string;
+	initialUuid: string;
 	trigger: ReactNode;
 	game: string;
 };
@@ -20,17 +20,18 @@ type GetQuestModalVars = {
 	uuid: string;
 };
 
-export default function MapQuestModal({ uuid, trigger, game }: Props) {
+export default function MapQuestModal({ initialUuid, trigger, game }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
 
-	const isOpen = activeQuestId === uuid;
+	const currentUuid = activeQuestId ?? initialUuid;
+
 	const locale = useLocale();
 	const theme = getTheme("questModal", game);
 
 	const questData = useLocalizedList<Quest, GetQuestModalVars>({
 		query: GET_QUEST_BY_UUID,
 		vars: {
-			uuid: uuid
+			uuid: currentUuid
 		},
 		locale,
 		getItems: (data) => data?.quests ?? [],
@@ -42,8 +43,13 @@ export default function MapQuestModal({ uuid, trigger, game }: Props) {
 	if (!quest) return null;
 
 	return (
-		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
-			<div onClick={() => setActiveQuestId(uuid)} className={theme.trigger()}>
+		<Dialog.Root
+			open={!!activeQuestId}
+			onOpenChange={(open) => {
+				if (!open) setActiveQuestId(null);
+			}}
+		>
+			<div onClick={() => setActiveQuestId(initialUuid)} className={theme.trigger()}>
 				{trigger}
 			</div>
 

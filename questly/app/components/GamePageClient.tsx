@@ -7,14 +7,18 @@ import Navbar from "@/app/components/navbar/Navbar";
 import QuestList from "@/app/components/quest/QuestList";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
 import { GameMapContainer } from "@/app/components/map";
 import FixedImage from "@/app/components/common/FixedImage";
 import questlyIcon from "../../public/assets/game_icon.png";
+import QuestListSkeleton from "@/app/components/quest/QuestSectionSkeleton";
+import AchievementListSkeleton from "@/app/components/achievement/AchievementListSkeleton";
+import CollectionListSkeleton from "@/app/components/collection/CollectionListSkeleton";
+import FiltersSkeleton from "@/app/components/filters/FiltersSkeleton";
 
+import ContentBoundary from "@/app/components/ContentBoundary";
 export default function GamePageClient({ game }: { game: string }) {
 	const params = useParams<{ game: string; content: string }>();
 
@@ -94,7 +98,9 @@ export default function GamePageClient({ game }: { game: string }) {
 							${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 						`}
 					>
-						<FiltersContainer game={game} />
+						<ContentBoundary fallback={<FiltersSkeleton />}>
+							<FiltersContainer game={game} />
+						</ContentBoundary>
 					</div>
 					{!sidebarOpen && <FixedImage src={questlyIcon} alt='logo' className='w-32  absolute bottom-0 h-auto' />}
 				</div>
@@ -111,10 +117,29 @@ export default function GamePageClient({ game }: { game: string }) {
 						${sidebarOpen ? "w-2/3" : "w-[calc(100%-70px)]"}
 					`}
 				>
-					{content === "quests" && <QuestList game={game} />}
-					{content === "achievements" && <AchievementList game={game} />}
-					{content === "collectibles" && <CollectionList game={game} />}
-					{content === "map" && <GameMapContainer game={game} />}
+					{content === "quests" && (
+						<ContentBoundary fallback={<QuestListSkeleton />}>
+							<QuestList game={game} />
+						</ContentBoundary>
+					)}
+
+					{content === "achievements" && (
+						<ContentBoundary fallback={<AchievementListSkeleton />}>
+							<AchievementList game={game} />
+						</ContentBoundary>
+					)}
+
+					{content === "collectibles" && (
+						<ContentBoundary fallback={<CollectionListSkeleton />}>
+							<CollectionList game={game} />
+						</ContentBoundary>
+					)}
+
+					{content === "map" && (
+						<ContentBoundary fallback={null}>
+							<GameMapContainer game={game} />
+						</ContentBoundary>
+					)}
 				</div>
 			</div>
 		</div>

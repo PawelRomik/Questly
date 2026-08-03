@@ -1,15 +1,13 @@
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
-
+"use client";
 import HubNavbar from "@/app/components/navbar/HubNavbar";
 import FixedImage from "@/app/components/common/FixedImage";
 
 import background from "@/public/assets/background.png";
 import icon from "@/public/assets/game_icon.png";
+import { useTranslations } from "next-intl";
 
-export default async function NotFound() {
-	const t = await getTranslations("notFound");
-
+export default function Error() {
+	const t = useTranslations("error");
 	return (
 		<div className='flex h-screen flex-col overflow-hidden'>
 			<HubNavbar game='questly' />
@@ -21,16 +19,16 @@ export default async function NotFound() {
 
 						<span className='mb-2 text-sm uppercase tracking-[0.4em] text-white/40'>{t("error")}</span>
 
-						<h1 className='text-4xl font-bold uppercase tracking-wider text-white'>{t("title")}</h1>
+						<h1 className='text-4xl font-bold uppercase tracking-wider text-white'>{t("serverDown")}</h1>
 
-						<p className='mt-5 max-w-md leading-7 text-white/60'>{t("description")}</p>
+						<p className='mt-5 max-w-md leading-7 text-white/60'>{t("serverDownDesc")}</p>
 
-						<Link
-							href='/'
+						<button
+							onClick={() => window.location.reload()}
 							className='mt-10 cursor-pointer rounded-md border border-white/15 bg-white/5 px-8 py-3 font-semibold uppercase tracking-[0.25em] text-white transition-all duration-200 hover:border-gray-400 hover:bg-gray-400/20'
 						>
-							{t("goBack")}
-						</Link>
+							{t("tryAgain")}
+						</button>
 					</div>
 				</div>
 			</main>

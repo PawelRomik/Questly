@@ -15,8 +15,8 @@ type Props = {
 const validContent = ["achievements", "quests", "collectibles", "map"];
 
 async function getGame(locale: string, game: string) {
-	return (
-		await getLocalizedList<
+	try {
+		const games = await getLocalizedList<
 			{
 				slug: string;
 				title: string;
@@ -28,28 +28,38 @@ async function getGame(locale: string, game: string) {
 			vars: {},
 			getItems: (data) => data.games,
 			getId: (game) => game.slug
-		})
-	).find((g) => g.slug === game);
+		});
+
+		return games.find((g) => g.slug === game) ?? null;
+	} catch (error) {
+		console.error("Failed to fetch games:", error);
+		throw error;
+	}
 }
 
 export async function generateMetadata({ params }: Props) {
-	const { game, content, locale } = await params;
+	try {
+		const { game, content, locale } = await params;
 
-	const t = await getTranslations({
-		locale
-	});
+		const t = await getTranslations({ locale });
+		const selectedGame = await getGame(locale, game);
 
-	const selectedGame = await getGame(locale, game);
+		if (!selectedGame || !validContent.includes(content)) {
+			return {
+				title: `Questly | ${t("notFound.title")}`
+			};
+		}
 
-	if (!selectedGame || !validContent.includes(content)) {
 		return {
-			title: `Questly | ${t("notFound.title")}`
+			title: `Questly | ${selectedGame.title} ${t(`nav.${content}`)}`
+		};
+	} catch (error) {
+		console.error("generateMetadata failed:", error);
+
+		return {
+			title: "Questly"
 		};
 	}
-
-	return {
-		title: `Questly | ${selectedGame?.title ?? ""} ${t(`nav.${content}`)}`
-	};
 }
 
 export default async function GamePage({ params }: Props) {
