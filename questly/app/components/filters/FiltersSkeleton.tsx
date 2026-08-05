@@ -7,12 +7,10 @@ export default function FiltersSkeleton() {
 
 	return (
 		<div className={`${theme.base()} `}>
-			{/* Logo */}
 			<div className={`${theme.header.base()}  border-b-0`}>
 				<div className='h-24 w-48 mx-auto rounded ' />
 			</div>
 
-			{/* Search */}
 			<div
 				className={`${theme.inputWrapper.base()} bg-linear-to-r
 from-[#111111]
@@ -21,7 +19,6 @@ to-[#050505] border-0`}
 				<div className='h-11 w-full rounded' />
 			</div>
 
-			{/* Filters */}
 			<div
 				className={`${theme.settings()} bg-linear-to-r
 from-[#111111]
@@ -43,7 +40,6 @@ to-[#050505] border-0`}
 				</div>
 			</div>
 
-			{/* Statistics */}
 			<div className='space-y-2'>
 				{Array.from({ length: 5 }).map((_, i) => (
 					<div
@@ -55,7 +51,6 @@ to-[#050505]  rounded'
 				))}
 			</div>
 
-			{/* Locale switcher */}
 			<div
 				className='h-10 w-full bg-linear-to-r
 from-[#111111]

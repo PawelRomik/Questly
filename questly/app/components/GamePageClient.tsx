@@ -19,7 +19,13 @@ import CollectionListSkeleton from "@/app/components/collection/CollectionListSk
 import FiltersSkeleton from "@/app/components/filters/FiltersSkeleton";
 
 import ContentBoundary from "@/app/components/ContentBoundary";
-export default function GamePageClient({ game }: { game: string }) {
+import { Game } from "@/app/types/quest";
+
+type Props = {
+	game: Game;
+};
+
+export default function GamePageClient({ game }: Props) {
 	const params = useParams<{ game: string; content: string }>();
 
 	const { content } = params;
@@ -99,7 +105,7 @@ export default function GamePageClient({ game }: { game: string }) {
 						`}
 					>
 						<ContentBoundary fallback={<FiltersSkeleton />}>
-							<FiltersContainer game={game} />
+							<FiltersContainer game={game.slug} />
 						</ContentBoundary>
 					</div>
 					{!sidebarOpen && <FixedImage src={questlyIcon} alt='logo' className='w-32  absolute bottom-0 h-auto' />}
@@ -119,25 +125,25 @@ export default function GamePageClient({ game }: { game: string }) {
 				>
 					{content === "quests" && (
 						<ContentBoundary fallback={<QuestListSkeleton />}>
-							<QuestList game={game} />
+							<QuestList game={game.slug} />
 						</ContentBoundary>
 					)}
 
 					{content === "achievements" && (
 						<ContentBoundary fallback={<AchievementListSkeleton />}>
-							<AchievementList game={game} />
+							<AchievementList game={game.slug} />
 						</ContentBoundary>
 					)}
 
 					{content === "collectibles" && (
 						<ContentBoundary fallback={<CollectionListSkeleton />}>
-							<CollectionList game={game} />
+							<CollectionList game={game.slug} />
 						</ContentBoundary>
 					)}
 
 					{content === "map" && (
 						<ContentBoundary fallback={null}>
-							<GameMapContainer game={game} />
+							<GameMapContainer game={game.slug} />
 						</ContentBoundary>
 					)}
 				</div>

@@ -9,7 +9,7 @@ const rajdhani = Rajdhani({
 // --QML-----------BASE----------
 
 const questModal = (showMap: boolean) => `
-Fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
 z-40 w-250 min-h-150 overflow-hidden
 ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_100px_70px]"}
 
