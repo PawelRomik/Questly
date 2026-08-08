@@ -11,7 +11,7 @@ export default async function NotFound() {
 	const t = await getTranslations("notFound");
 
 	return (
-		<div className='flex h-screen flex-col overflow-hidden'>
+		<div className='flex zoomHeight flex-col overflow-hidden'>
 			<HubNavbar game='questly' />
 
 			<main className='flex flex-1 items-center justify-center px-6' style={{ backgroundImage: `url(${background.src})` }}>

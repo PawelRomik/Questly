@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 export default async function Loading() {
 	const t = await getTranslations("common");
 	return (
-		<div className='flex h-screen flex-col overflow-hidden bg-black'>
+		<div className='flex zoomHeight flex-col overflow-hidden bg-black'>
 			<main className='flex flex-1 items-center justify-center px-6' style={{ backgroundImage: `url(${background.src})` }}>
 				<div className='w-full max-w-xl rounded-xl border border-white/10 bg-black/80 p-10 shadow-[0_0_40px_rgba(0,0,0,0.6)]'>
 					<div className='flex flex-col items-center text-center gap-6'>

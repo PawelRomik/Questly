@@ -19,11 +19,11 @@ export default function MobileNavbar({ game }: Props) {
 	return (
 		<div className='sticky top-0 z-30'>
 			<nav className='relative h-16 bg-black/90 backdrop-blur border-b border-white/10 flex items-center justify-center px-4'>
-				<button onClick={() => setIsOpen((prev) => !prev)} className='absolute left-4 text-white'>
+				<FixedImage alt='logo' className='h-full w-auto py-2' src={questly} />
+
+				<button onClick={() => setIsOpen((prev) => !prev)} className='absolute right-4 text-white'>
 					{isOpen ? <X size={30} /> : <Menu size={30} />}
 				</button>
-
-				<FixedImage alt='logo' className='h-full w-auto py-2' src={questly} />
 			</nav>
 
 			<AnimatePresence>

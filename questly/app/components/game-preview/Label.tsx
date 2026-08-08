@@ -3,7 +3,7 @@ export default function Label({ text }: { text: string }) {
 		<h2
 			className='uppercase bg-linear-to-b
       from-[#151515]
-      to-[#090909] font-bold text-3xl text-white p-2 px-6 border-2 border-white '
+      to-[#090909] font-bold text-3xl text-white p-2 px-6 border-x-0 lg:border-x-2 border-2 border-white '
 		>
 			{text}
 		</h2>

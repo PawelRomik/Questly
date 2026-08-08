@@ -32,6 +32,9 @@ const collectionGroupButton = (active: boolean) => `
 relative px-4 py-2 text-sm uppercase tracking-wide cursor-pointer overflow-hidden
 disabled:opacity-30 disabled:cursor-default
 hover:scale-105 disabled:hover:scale-100
+flex-[31%]
+md:flex-[20%]
+lg:flex-initial
 
 border
 
@@ -125,7 +128,7 @@ shadow-[0_0_24px_rgba(255,32,78,0.1)]
 }
 `;
 
-const collectionGrid = `flex flex-wrap items-center justify-center gap-3 z-10 px-15`;
+const collectionGrid = `flex flex-wrap items-center justify-center gap-3 z-10 lg:px-15`;
 
 // --CLT--------------BUTTON------------------
 
@@ -191,7 +194,7 @@ const collectionHeaderWrapper = `flex w-full justify-between`;
 const collectionHeaderMissable = `h-4 w-auto`;
 
 const collectionHeaderTitle = `
-text-lg
+lg:text-lg pr-5 lg:pr-0
 font-bold
 
 text-[#ffe600]
@@ -251,7 +254,7 @@ const collectionMissableIcon = "h-8 w-auto absolute bottom-0 right-[35%] transla
 
 // --CLT------------LIST-------------------
 
-const collectionListWrapper = `w-full px-3 flex flex-col items-center`;
+const collectionListWrapper = `w-full lg:px-3 flex flex-col items-center`;
 
 const collectionListGroupsWrapper = `
 flex w-full p-2
@@ -268,7 +271,8 @@ shadow-[0_0_24px_rgba(0,0,0,0.6)]
 backdrop-blur-sm
 `;
 
-const collectionListGrid = `w-full flex items-start flex-wrap gap-8 gap-y-8 mt-4 justify-start`;
+const collectionListGrid = `w-full flex flex-wrap lg:gap-8
+gap-3 gap-y-8 mt-4 justify-center md:justify-start px-3 md:px-0`;
 
 // --CLT--------------EXPORT-------------
 

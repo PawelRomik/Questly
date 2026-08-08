@@ -10,10 +10,14 @@ const rajdhani = Rajdhani({
 // --SWC------------SWITCHER-------------------
 
 const switcherGrid = `
-grid
-grid-cols-2
-sm:grid-cols-3
-gap-6
+  grid
+  grid-cols-2
+  md:grid-cols-3
+  lg:grid-cols-3
+  gap-6
+overflow-y-auto
+max-h-[300px]
+md:max-h-[470px]
 `;
 
 const switcherLink = (active: boolean) => `

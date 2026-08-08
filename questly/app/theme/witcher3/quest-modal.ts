@@ -40,7 +40,7 @@ ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_10
 `;
 
 const questModalTrigger = `
-w-full
+lg:w-full
 `;
 
 const questModalOverlay = `

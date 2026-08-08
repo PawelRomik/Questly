@@ -4,6 +4,7 @@
 const mapContainer = `
 relative
 
+
 h-full
 w-full
 
@@ -28,14 +29,16 @@ absolute
 bottom-4
 left-1/2
 
-z-1000
+z-40
 
 flex
 items-center
+justify-center
 
 gap-3
 
-px-4
+px-8
+lg:px-4
 py-3
 
 -translate-x-1/2

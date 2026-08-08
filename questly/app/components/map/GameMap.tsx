@@ -19,6 +19,7 @@ import "leaflet/dist/leaflet.css";
 import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { useLeafletTileFix } from "@/app/hooks/map/useLeafletTileFix";
 
 export type MarkerGroup = {
 	title: string;
@@ -63,6 +64,7 @@ type Props = {
 export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const locale = useLocale();
 	useClearParams();
+	useLeafletTileFix();
 
 	const [selectedMarker, setSelectedMarker] = useState<MapMarkerType | null>(null);
 	const { filters, setFilters } = useFilters();
@@ -120,7 +122,7 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 				maxBoundsViscosity={1}
 				minZoom={2}
 				maxZoom={6}
-				zoom={bigZoom ? 3 : 2}
+				zoom={bigZoom ? 4 : 3}
 				className={theme.map.map()}
 			>
 				<MapResizeObserver />

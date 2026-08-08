@@ -29,7 +29,7 @@ text-[#f5f7ff]
 ${rajdhani.className}
 `;
 
-const questModalTrigger = `w-full`;
+const questModalTrigger = `lg:w-full`;
 
 const questModalOverlay = `
 fixed inset-0 z-30

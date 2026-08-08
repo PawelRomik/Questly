@@ -8,14 +8,15 @@ const rajdhani = Rajdhani({
 // --FLT--------------FILTERS------------------
 // --FLT-----------SEARCHBAR WRAPPER----------------
 
-const searchBarBase = `w-full mx-auto flex flex-col gap-5 px-3`;
+const searchBarBase = `w-full mx-auto flex flex-col lg:gap-5
+gap-3 px-3`;
 
 const searchBarHeader = `
 relative flex items-center gap-4 px-4 py-3
 `;
 
 const searchBarLogo = `
-h-30 object-contain
+lg:h-30 h-26 object-contain
 
 text-[#ffe600]
 
@@ -44,13 +45,15 @@ const searchBarCharacter = `
 absolute bottom-full w-30 object-contain
 
 text-[#ffe600]
-opacity-80
+opacity-0
+md:opacity-60
 
 drop-shadow-[0_0_15px_rgba(255,0,60,0.9)]
 [filter:drop-shadow(-1px_-1px_1px_rgba(255,0,60,0.45))_drop-shadow(1px_-1px_1px_rgba(255,0,60,0.45))_drop-shadow(0px_-3px_30px_rgba(255,0,60,0.45))]
 `;
 
-const filtersIcon = `w-32 h-auto absolute top-[15px] left-[30px]`;
+const filtersIcon = `w-32 h-auto absolute top-[15px] hidden
+lg:block left-[30px]`;
 
 // --FLT--------------CHECKBOX-------------------
 

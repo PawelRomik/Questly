@@ -40,7 +40,7 @@ backdrop-blur-xl
 ${showMap ? "flex" : "grid grid-cols-[220px_2fr_1fr] grid-rows-[auto_auto_1fr_100px_70px]"}`;
 
 const questModalTrigger = `
-w-full
+lg:w-full
 `;
 
 const questModalOverlay = `

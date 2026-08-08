@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @import "flag-icons/css/flag-icons.min.css";
 
+html {
+	zoom: 0.9;
+}
+
+.zoomHeight {
+	height: calc(100vh / 0.9);
+	min-height: calc(100vh / 0.9);
+}
+
+.leaflet-tile {
+	mix-blend-mode: normal !important;
+}
+
 @keyframes slideDown {
 	from {
 		height: 0;
