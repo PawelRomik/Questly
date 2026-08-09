@@ -15,7 +15,8 @@ mx-auto
 flex
 flex-col
 
-gap-5
+lg:gap-5
+gap-3
 
 px-3
 `;
@@ -35,7 +36,7 @@ bg-linear-to-r
 `;
 
 const searchBarLogo = `
-h-30
+lg:h-30 h-26
 
 object-contain
 `;
@@ -54,17 +55,21 @@ bg-black/40
 const searchBarCharacter = `
 absolute
 
+
 bottom-full
 
 w-30
 
 object-contain
 
-opacity-60
+opacity-0
+md:opacity-60
 `;
 
 const filtersIcon = `
 w-32
+hidden
+lg:block
 h-auto
 
 absolute

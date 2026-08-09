@@ -73,5 +73,5 @@ export default async function GamePage({ params }: Props) {
 
 	setRequestLocale(locale);
 
-	return <GamePageClient game={game} />;
+	return <GamePageClient game={selectedGame} />;
 }

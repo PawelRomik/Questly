@@ -4,15 +4,12 @@
 const itemTooltip = `
 w-64
 
-z-70
-
+z-90
 bg-zinc-950
 
 border-3
 border-[rgb(50,37,28)]
-
 shadow-2xl
-
 rounded
 
 text-gray-200

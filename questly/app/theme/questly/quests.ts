@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -7,20 +8,26 @@ const inter = Inter({
 });
 
 // --QST---------------QUEST------------------
+
 // --QST---------------ACCENT------------------
 
 const questAccentWrapper = `
 pointer-events-none
+
 absolute
+
 inset-y-0
 left-0
+
 w-12
 `;
 
 const questAccentBar = `
 absolute
+
 top-0
 left-0
+
 w-1
 h-full
 
@@ -29,8 +36,10 @@ opacity-70
 
 const questAccentGlow = `
 absolute
+
 top-0
 left-0
+
 w-4
 h-full
 
@@ -44,12 +53,21 @@ const questAccentColor = (completed: boolean, color: string) => (completed ? "#f
 // --QST---------------BUTTON------------------
 
 const questButton = (completed: boolean) => `
+col-start-3
+row-start-1
+row-span-3
+
+self-center
+justify-self-center
+
 w-8
 h-8
 
 flex
 items-center
 justify-center
+
+shrink-0
 
 border
 
@@ -70,6 +88,11 @@ from-[#2a2a2a]
 to-[#151515]
 
 hover:border-white/40
+
+lg:col-auto
+lg:row-auto
+lg:row-span-1
+lg:self-auto
 `
 		: `
 border-white/10
@@ -81,8 +104,14 @@ to-[#0b0b0b]
 hover:border-white/25
 hover:from-[#202020]
 hover:to-[#111111]
+
+lg:col-auto
+lg:row-auto
+lg:row-span-1
+lg:self-auto
 `
-}`;
+}
+`;
 
 const questButtonIcon = (completed: boolean) => `
 w-4
@@ -101,47 +130,85 @@ ${completed ? "opacity-100 scale-100" : "opacity-0 scale-75"}
 // --QST---------------CONTENT------------------
 
 const questContent = `
+col-start-2
+row-start-1
+row-span-3
+
+min-w-0
+
 flex
 flex-col
+
 items-start
 
-flex-1
+lg:col-auto
+lg:row-auto
+lg:row-span-1
+
+lg:flex-1
 `;
 
 const questDescription = `
-text-sm
+text-xs
+lg:text-sm
+
 text-left
 
 text-white/55
+
+text-wrap
+
+pr-3
+
+break-normal
+
+min-w-0
 `;
 
 // --QST---------------TITLE------------------
 
 const questTitleWrapper = `
 flex
+
 items-center
-justify-center
+justify-start
 
 gap-1
+
+min-w-0
+max-w-full
 `;
 
 const questTitle = `
-text-lg
+text-sm
+lg:text-lg
 
 text-white
+
+truncate
 `;
 
 const questDlc = `
-h-3
+h-2.5
+lg:h-3
+
 w-auto
+
+shrink-0
 `;
 
 // --QST---------------DIVIDER------------------
 
 const questDivider = `
+hidden
+lg:block
+
 w-px
 h-10
+
 mx-2
+
+shrink-0
 
 bg-white/10
 `;
@@ -154,31 +221,50 @@ relative
 flex
 items-center
 justify-center
+
+col-start-1
+row-start-1
+row-span-3
+
+lg:col-auto
+lg:row-auto
+lg:row-span-1
+
+shrink-0
 `;
 
 const questImageContainer = `
 relative
 
-p-2
+p-1.5
+lg:p-2
 
 rounded-lg
 `;
 
 const questImage = `
-h-14.5
-w-14.5
+h-10
+w-10
+
+lg:h-14.5
+lg:w-14.5
 
 object-cover
 `;
 
 const questImageIcon = `
 absolute
+
 bottom-0
-right-11
+
+right-7
+lg:right-11
 
 object-contain
 
-h-7.5
+h-5
+lg:h-7.5
+
 w-auto
 `;
 
@@ -186,10 +272,15 @@ w-auto
 
 const questMeta = `
 flex
-items-center
-justify-center
 
-gap-3
+items-center
+justify-start
+
+gap-2
+lg:gap-3
+
+mt-1
+lg:mt-0
 
 z-10
 `;
@@ -197,11 +288,13 @@ z-10
 const questMetaLevel = `
 flex
 flex-col
+
 items-center
 `;
 
 const questMetaLabel = `
-text-xs
+text-[10px]
+lg:text-xs
 
 uppercase
 
@@ -209,7 +302,9 @@ text-white/40
 `;
 
 const questMetaValue = `
-text-xl
+text-sm
+lg:text-xl
+
 font-bold
 
 text-white/85
@@ -218,18 +313,39 @@ text-white/85
 // --QST---------------TAGS------------------
 
 const questTags = `
+col-start-1
+col-span-3
+
+row-start-4
+
+w-full
+
 flex
 flex-wrap
 
+items-center
+
 gap-2
-mt-2
+
+pt-2
+
+lg:col-auto
+lg:row-auto
+lg:w-auto
+
+lg:mt-2
+lg:pt-0
 `;
 
 // --QST---------------REWARDS------------------
 
 const questRewards = `
-flex
+hidden
+
+lg:flex
+
 flex-col
+
 items-end
 
 gap-1
@@ -251,6 +367,7 @@ text-white/80
 
 const questRewardsList = `
 flex
+
 items-center
 justify-center
 
@@ -259,6 +376,7 @@ gap-3
 
 const questRewardItem = `
 flex
+
 items-center
 
 gap-1
@@ -283,14 +401,21 @@ const questWrapper = (completed: boolean) => `
 relative
 
 w-[95%]
+
 mx-auto
 
-flex
-items-center
+grid
 
-gap-4
+grid-cols-[auto_minmax(0,1fr)_auto]
+grid-rows-[auto_auto_auto_auto]
 
-p-4
+items-start
+
+gap-x-3
+gap-y-1
+
+p-3
+lg:p-4
 
 overflow-hidden
 
@@ -322,18 +447,27 @@ hover:opacity-80
 hover:border-white/25
 
 bg-[#101010]
+
+lg:flex
+lg:items-center
+lg:gap-4
 `
 		: `
 border-white/10
 
 hover:border-white/20
-
 hover:scale-[1.01]
+
+lg:flex
+lg:items-center
+lg:gap-4
 `
 }
 `;
 
 const questWrapperContent = `
+min-w-0
+
 flex-1
 
 z-10
@@ -348,33 +482,43 @@ export const questStyles = {
 		glow: () => questAccentGlow,
 		color: (completed: boolean, color: string) => questAccentColor(completed, color)
 	},
+
 	button: {
 		base: (completed: boolean) => questButton(completed),
 		icon: (completed: boolean) => questButtonIcon(completed)
 	},
+
 	content: {
 		base: () => questContent,
+
 		description: () => questDescription,
+
 		title: {
 			wrapper: () => questTitleWrapper,
 			base: () => questTitle
 		},
+
 		dlc: () => questDlc
 	},
+
 	divider: () => questDivider,
+
 	image: {
 		wrapper: () => questImageWrapper,
 		container: () => questImageContainer,
 		base: () => questImage,
 		icon: () => questImageIcon
 	},
+
 	meta: {
 		base: () => questMeta,
 		level: () => questMetaLevel,
 		label: () => questMetaLabel,
 		value: () => questMetaValue
 	},
+
 	tags: () => questTags,
+
 	rewards: {
 		base: () => questRewards,
 		title: () => questRewardsTitle,
@@ -382,6 +526,7 @@ export const questStyles = {
 		item: () => questRewardItem,
 		icon: () => questRewardIcon
 	},
+
 	wrapper: {
 		base: (completed: boolean) => questWrapper(completed),
 		content: () => questWrapperContent

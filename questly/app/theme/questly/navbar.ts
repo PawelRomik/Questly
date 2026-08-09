@@ -147,7 +147,9 @@ const navMenu = `
 flex-2
 
 flex
-items-center
+flex-col
+lg:flex-row
+lg:items-center
 justify-around
 
 h-full
@@ -156,8 +158,8 @@ text-white
 `;
 
 const navMenuItem = `
-w-12.5
-h-12.5
+w-8 h-8 lg:w-12.5
+lg:h-12.5
 
 z-30
 `;
@@ -165,7 +167,10 @@ z-30
 const navMenuLabel = `
 z-30
 
-text-white/80
+text-white
+text-lg
+lg:text-md
+lg:text-[#f5f7ff]
 
 transition-colors
 
@@ -181,7 +186,7 @@ h-full
 
 const itemColors = [
 	`
-bg-linear-to-b
+lg:bg-linear-to-b
 from-[#151515]
 to-[#090909]
 
@@ -191,7 +196,7 @@ hover:to-[#0d0d0d]
 border-white/10
 `,
 	`
-bg-linear-to-b
+lg:bg-linear-to-b
 from-[#101010]
 to-[#060606]
 
@@ -201,7 +206,7 @@ hover:to-[#0c0c0c]
 border-white/10
 `,
 	`
-bg-linear-to-b
+lg:bg-linear-to-b
 from-[#101010]
 to-[#060606]
 
@@ -211,7 +216,7 @@ hover:to-[#101010]
 border-white/10
 `,
 	`
-bg-linear-to-b
+lg:bg-linear-to-b
 from-[#151515]
 to-[#090909]
 
@@ -232,8 +237,9 @@ h-full
 
 flex
 flex-col
-items-center
-justify-center
+lg:items-center
+lg:justify-center
+
 
 px-5
 
@@ -257,15 +263,25 @@ after:content-['']
 after:absolute
 after:inset-0
 
-after:bg-linear-to-r
-after:from-transparent
-after:via-white/5
-after:to-transparent
+lg:after:bg-linear-to-r
+lg:after:from-transparent
+lg:after:via-white/5
+lg:after:to-transparent
 
 after:translate-x-[-120%]
 
 after:transition-transform
 after:duration-700
+max-md:w-full
+max-md:flex-row
+max-md:items-center
+max-md:gap-4
+max-md:px-5
+max-md:py-4
+max-md:border-b
+max-md:border-white/10
+max-md:hover:bg-white/5
+max-md:transition
 
 hover:after:translate-x-[120%]
 `;
@@ -328,6 +344,69 @@ after:duration-700
 hover:after:translate-x-[120%]
 `;
 
+// --NAV--------------MOBILE-----------------
+
+const mobileNavbar = `
+sticky
+top-0
+z-30
+`;
+
+const mobileNav = `
+relative
+
+h-16
+
+bg-black/90
+
+backdrop-blur-md
+
+border-b-3
+border-white
+
+flex
+items-center
+justify-center
+
+px-4
+`;
+
+const mobileLogo = `
+h-full
+w-auto
+
+py-2
+`;
+
+const mobileToggle = `
+absolute
+
+right-4
+
+text-white
+
+cursor-pointer
+`;
+
+const mobileMenu = `
+overflow-hidden
+
+bg-linear-to-b
+from-[#181818]
+via-[#111111]
+to-[#0b0b0b]
+
+border-b
+border-white/10
+`;
+
+const mobileSwitcher = `w-full
+flex items-center gap-4 px-5 py-4
+text-lg border-b border-white/10 hover:bg-white/5
+transition text-white`;
+
+const mobileSwitcherImage = `w-8`;
+
 // --NAV-------EXPORT---------------
 
 export const navbarStyles = {
@@ -355,5 +434,20 @@ export const navbarStyles = {
 	button: {
 		link: () => navButtonLink,
 		base: (id: number) => navButton(id)
+	},
+	mobile: {
+		base: () => mobileNavbar,
+
+		nav: () => mobileNav,
+
+		logo: () => mobileLogo,
+
+		toggle: () => mobileToggle,
+
+		menu: () => mobileMenu,
+		switcher: {
+			base: () => mobileSwitcher,
+			image: () => mobileSwitcherImage
+		}
 	}
 };

@@ -26,7 +26,7 @@ export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 		<div className={theme.base(mapStateVisible)}>
 			{!mapStateVisible ? (
 				<>
-					<ModalCharacter game={game} src={quest.character?.image || default_character} />
+					<ModalCharacter showMap={hideMap} game={game} src={quest.character?.image || default_character} />
 
 					{!hideMap && <ModalMap game={game} src={quest.location?.minimap || default_map} setMapStateVisible={setMapStateVisible} />}
 
@@ -36,9 +36,7 @@ export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 
 					<ModalRequirements game={game} requirements={quest.requirement} />
 
-					<ModalRewards game={game} hideMap={hideMap} rewards={quest.rewards} />
-
-					<ModalFooter game={game} uuid={quest.uuid} />
+					<ModalFooter quest={quest} hideMap={hideMap} game={game} uuid={quest.uuid} />
 
 					<ModalCloseButton game={game} />
 				</>

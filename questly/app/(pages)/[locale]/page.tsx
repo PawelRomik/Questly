@@ -50,7 +50,7 @@ export default async function Home({ params }: PageProps) {
 	const isLastUsed = !!foundGame;
 
 	return (
-		<div style={{ backgroundImage: `url(${background.src})` }} className='flex h-screen flex-col gap-5 overflow-y-scroll pb-5'>
+		<div style={{ backgroundImage: `url(${background.src})` }} className='flex zoomHeight flex-col gap-5 overflow-y-scroll pb-5'>
 			<HubNavbar game={game} />
 			<MainSection selectedGame={selectedGame} isLastUsed={isLastUsed} />
 			<Line />

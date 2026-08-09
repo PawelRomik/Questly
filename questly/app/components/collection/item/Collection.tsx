@@ -65,6 +65,7 @@ export default function Collection({ collection, game }: Props) {
 			}}
 			transition={{ type: "spring", stiffness: 300, damping: 25 }}
 			whileTap={{ scale: 0.97 }}
+			className={`md:flex-[49%] flex-[100%] ${items.length > 1 ? "lg:flex-[30%]" : "lg:flex-initial"}`}
 			layout
 		>
 			<div className={theme.collection.base(isComplete)}>

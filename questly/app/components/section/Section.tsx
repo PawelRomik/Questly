@@ -28,7 +28,7 @@ export default function Section({ title, count, level = 0, icon, children, compl
 	};
 
 	return (
-		<Collapsible.Root style={indentStyle} className={theme.section.root()} open={open} onOpenChange={setOpen}>
+		<Collapsible.Root style={indentStyle} className={`${theme.section.root()} max-md:pl-0!`} open={open} onOpenChange={setOpen}>
 			<SectionTrigger game={game} title={title} count={count} completed={completed} icon={icon} open={open} />
 
 			<SectionContent game={game} open={open}>

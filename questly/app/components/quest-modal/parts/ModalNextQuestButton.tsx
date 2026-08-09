@@ -23,8 +23,10 @@ export function ModalNextQuestButton({ quest, game }: Props) {
 		<Link title={quest.title} href={`?activeQuest=${quest.uuid}`} className={theme.nextButton.wrapper()}>
 			<button onClick={() => setActiveQuestId(quest.uuid)} className={theme.nextButton.base()}>
 				<FixedImage alt={t("icon")} src={quest?.quest_type?.icon || ""} className={theme.nextButton.icon()} />
-				{t("nextQuest")}
-				<span className={theme.nextButton.title()}>{quest.title}</span>
+				<span className='flex flex-col'>
+					{t("nextQuest")}
+					<span className={theme.nextButton.title()}>{quest.title}</span>
+				</span>
 			</button>
 		</Link>
 	);

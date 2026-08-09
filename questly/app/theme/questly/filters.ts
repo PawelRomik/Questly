@@ -8,7 +8,8 @@ mx-auto
 
 flex
 flex-col
-gap-5
+lg:gap-5
+gap-3
 
 px-3
 `;
@@ -32,7 +33,7 @@ border-white/10
 `;
 
 const searchBarLogo = `
-h-30
+lg:h-30 h-26
 
 object-contain
 `;
@@ -58,12 +59,16 @@ w-30
 
 object-contain
 
-opacity-40
+opacity-0
+md:opacity-40
 `;
 
 const filtersIcon = `
 w-32
 h-auto
+
+hidden
+lg:block
 
 absolute
 top-[15px]

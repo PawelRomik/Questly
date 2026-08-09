@@ -77,7 +77,9 @@ hover:scale-105
 `;
 
 const gamePreviewBannerTitle = `
-text-4xl
+lg:text-4xl
+
+text-xl
 
 font-bold
 

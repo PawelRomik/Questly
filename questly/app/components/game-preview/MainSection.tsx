@@ -12,7 +12,7 @@ type Props = {
 export default async function MainSection({ selectedGame, isLastUsed }: Props) {
 	const t = await getTranslations("preview");
 	return (
-		<div className='w-full h-full gap-5 px-5 flex-1 flex'>
+		<div className='w-full h-full gap-5 lg:px-5  flex-1 flex-col lg:flex-row flex'>
 			<div className='w-full h-full flex gap-3 flex-1 flex-col'>
 				<Label text={isLastUsed ? t("lastUsed") : t("recommended")} />
 

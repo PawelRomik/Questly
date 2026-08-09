@@ -59,6 +59,9 @@ ${ptSans.className}
 
 const collectionGroupButton = (active: boolean) => `
 relative
+flex-[31%]
+md:flex-[20%]
+lg:flex-initial
 
 px-4
 py-2
@@ -174,7 +177,7 @@ gap-3
 
 z-10
 
-px-15
+lg:px-15
 `;
 
 // --CLT--------------BUTTON------------------
@@ -275,7 +278,7 @@ w-auto
 `;
 
 const collectionHeaderTitle = `
-text-lg
+lg:text-lg pr-5 lg:pr-0
 
 font-bold
 
@@ -339,7 +342,7 @@ translate-x-[50%]
 const collectionListWrapper = `
 w-full
 
-px-3
+lg:px-3
 
 flex
 flex-col
@@ -366,16 +369,20 @@ const collectionListGrid = `
 w-full
 
 flex
-items-start
+
 
 flex-wrap
 
-gap-8
-gap-y-8
+lg:gap-8
+gap-3
+
 
 mt-4
 
-justify-start
+justify-center
+md:justify-start
+px-3
+md:px-0
 `;
 
 // --CLT--------------EXPORT-------------

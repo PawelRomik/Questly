@@ -10,15 +10,15 @@ export default async function PageDescription() {
 		<div
 			className='p-3 flex-2 text-white   bg-linear-to-b
   from-[#151515]
-  to-[#090909] flex flex-col items-center justify-center w-full border-2 border-white'
+  to-[#090909] flex flex-col items-center gap-5 justify-center w-full border-2 border-x-0 lg:border-x-2 border-white'
 		>
-			<FixedImage src={logo} className='h-50 mx-auto w-auto' alt='logo' />
+			<FixedImage src={logo} className='h-30 lg:h-50 mx-auto w-auto' alt='logo' />
 			<div className='flex-1 flex flex-col px-5 items-center pt-5 gap-10'>
-				<p className='text-xl text-center '>{t("descOne")}</p>
-				<p className='text-xl  text-center'>{t("descTwo")}</p>
+				<p className='text-sm lg:text-xl text-center '>{t("descOne")}</p>
+				<p className='text-sm lg:text-xl  text-center'>{t("descTwo")}</p>
 			</div>
 			<Link href='https://github.com/PawelRomik/Questly' target='_blank' rel='noopener noreferrer' aria-label='Questly GitHub Repository'>
-				<FaGithub className='w-12 h-12 mb-6 text-2xl hover:brightness-150 hover:scale-105 text-white transition duration-200 hover:opacity-80' />
+				<FaGithub className='w-12 h-12 lg:mb-6 text-2xl hover:brightness-150 hover:scale-105 text-white transition duration-200 hover:opacity-80' />
 			</Link>
 		</div>
 	);

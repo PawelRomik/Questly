@@ -10,13 +10,15 @@ flex-wrap
 `;
 
 const completedTag = `
-text-[10px]
+text-[8px]
+lg:text-[10px]
 
 uppercase
 
 tracking-wide
 
-px-2
+px-1
+lg:px-2
 py-1
 
 border
@@ -34,13 +36,15 @@ shadow-[inset_0_0_6px_rgba(0,255,100,0.1)]
 // --TAG-----------BASE-------------------
 
 const tagBase = (active: boolean) => `
-text-[10px]
+text-[8px]
+lg:text-[10px]
 
 uppercase
 
 tracking-wide
 
-px-2
+px-1
+lg:px-2
 py-1
 
 border
