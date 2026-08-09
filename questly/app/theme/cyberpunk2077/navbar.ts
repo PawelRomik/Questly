@@ -159,7 +159,9 @@ drop-shadow-[0_0_12px_#00e0ff]
 const navMenu = `
 flex-2
 flex
-items-center
+flex-col
+lg:flex-row
+lg:items-center
 justify-around
 
 h-full
@@ -168,8 +170,8 @@ text-white
 `;
 
 const navMenuItem = `
-w-12.5
-h-12.5
+w-8 h-8 lg:w-12.5
+lg:h-12.5
 
 z-30
 
@@ -180,8 +182,10 @@ tracking-widest
 
 const navMenuLabel = `
 z-30
-
-text-[#f5f7ff]
+text-white
+text-lg
+lg:text-md
+lg:text-[#f5f7ff]
 
 group-hover:text-[#00e0ff]
 
@@ -249,8 +253,19 @@ h-full
 
 flex
 flex-col
-items-center
-justify-center
+lg:items-center
+lg:justify-center
+
+max-md:w-full
+max-md:flex-row
+max-md:items-center
+max-md:gap-4
+max-md:px-5
+max-md:py-4
+max-md:border-b
+max-md:border-white/10
+max-md:hover:bg-white/5
+max-md:transition
 
 px-5
 
@@ -260,7 +275,7 @@ inset-shadow-2xl
 
 border
 
-bg-linear-to-b
+lg:bg-linear-to-b
 
 ${itemColors[id]}
 
@@ -362,6 +377,123 @@ hover:after:opacity-100
 after:transition-all
 `;
 
+// --NAV--------------MOBILE-----------------
+
+const mobileNavbar = `
+sticky
+top-0
+z-30
+`;
+
+const mobileNav = `
+relative
+
+h-16
+
+bg-linear-to-r
+from-[#0c1018]
+via-[#090b12]
+to-[#05070c]
+
+backdrop-blur-md
+
+border-b-3
+border-[#ff204e]/60
+
+shadow-[0_0_24px_rgba(0,0,0,0.8)]
+
+flex
+items-center
+justify-center
+
+px-4
+`;
+
+const mobileLogo = `
+h-full
+w-auto
+
+py-2
+
+object-contain
+
+z-30
+
+transition-all
+duration-200
+
+drop-shadow-[0_0_12px_#00e0ff]
+`;
+
+const mobileToggle = `
+absolute
+
+right-4
+
+z-30
+
+flex
+items-center
+justify-center
+
+p-2
+
+text-[#f5f7ff]
+
+cursor-pointer
+
+transition-all
+duration-200
+
+hover:text-[#00e0ff]
+
+hover:drop-shadow-[0_0_8px_#00e0ff]
+`;
+
+const mobileMenu = `
+relative
+
+overflow-hidden
+
+bg-linear-to-b
+from-[#0c1018]
+via-[#090b12]
+to-[#05070c]
+
+backdrop-blur-md
+
+border-b
+border-[#ff204e]/60
+
+shadow-[0_0_30px_rgba(0,0,0,0.9)]
+
+after:content-['']
+
+after:absolute
+after:bottom-0
+after:left-1/2
+
+after:-translate-x-1/2
+
+after:w-2/3
+after:h-full
+
+after:bg-linear-to-t
+after:from-[#00e0ff]/10
+after:to-transparent
+
+after:blur-2xl
+
+after:pointer-events-none
+`;
+
+const mobileSwitcher = `w-full
+flex items-center gap-4 px-5 py-4
+text-lg border-b border-white/10 hover:bg-white/5
+transition text-white`;
+
+const mobileSwitcherImage = `w-8`;
+
 // --NAV-------EXPORT---------------
 
 export const navbarStyles = {
@@ -389,5 +521,20 @@ export const navbarStyles = {
 	button: {
 		link: () => navButtonLink,
 		base: (id: number) => navButton(id)
+	},
+	mobile: {
+		base: () => mobileNavbar,
+
+		nav: () => mobileNav,
+
+		logo: () => mobileLogo,
+
+		toggle: () => mobileToggle,
+
+		menu: () => mobileMenu,
+		switcher: {
+			base: () => mobileSwitcher,
+			image: () => mobileSwitcherImage
+		}
 	}
 };

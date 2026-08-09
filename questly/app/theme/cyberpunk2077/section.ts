@@ -31,27 +31,17 @@ h-full
 transition-all
 duration-500
 
-${
-	completed
-		? `
-bg-linear-to-r
-
-from-[#00b7ff]
-via-[#00e0ff]
-to-[#00fff0]
-
-shadow-[0_0_12px_rgba(0,224,255,0.35)]
-`
-		: `
-bg-linear-to-r
-
-from-[#ff204e]
-via-[#ff3d6e]
-to-[#ffe600]
-
-shadow-[0_0_12px_rgba(255,32,78,0.25)]
-`
-}
+  ${
+		completed
+			? `
+        bg-[#00e0ff]
+        shadow-[0_0_12px_rgba(0,224,255,0.35)]
+      `
+			: `
+        bg-[#ff003c]
+        shadow-[0_0_12px_rgba(255,0,60,0.25)]
+      `
+	}
 `;
 
 // --SCN-----------BASE-----------------
@@ -188,7 +178,8 @@ drop-shadow-[0_0_8px_rgba(255,32,78,0.7)]
 `;
 
 const sectionHeaderTitle = `
-text-lg
+lg:text-lg
+text-sm
 
 text-[#f5f7ff]
 

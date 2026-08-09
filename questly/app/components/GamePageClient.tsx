@@ -6,7 +6,7 @@ import { FiltersContainer } from "@/app/components/filters/FiltersContainer";
 import Navbar from "@/app/components/navbar/Navbar";
 import QuestList from "@/app/components/quest/QuestList";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, PanelLeftClose, SlidersHorizontal } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useEffect, useRef } from "react";
 import { useFilters } from "@/app/context/FiltersContext";
@@ -105,7 +105,7 @@ export default function GamePageClient({ game }: Props) {
 				text-white
 			'
 				>
-					{sidebarOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+					{sidebarOpen ? <PanelLeftClose size={20} /> : <SlidersHorizontal size={20} />}
 				</button>
 				<div
 					className={`

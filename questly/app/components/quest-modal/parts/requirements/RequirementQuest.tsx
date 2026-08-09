@@ -21,10 +21,11 @@ export function RequirementQuest({ quest, game }: Props) {
 	const t = useTranslations("quests");
 	return (
 		<div className={theme.requirements.quest.base()}>
-			<FixedImage src={quest?.quest_type?.icon || default_icon} className={theme.requirements.quest.icon()} alt='quest' />
+			<span className='flex'>
+				<FixedImage src={quest?.quest_type?.icon || default_icon} className={theme.requirements.quest.icon()} alt='quest' />
 
-			<span className={theme.requirements.quest.label()}>{t("completedQuest")}</span>
-
+				<span className={theme.requirements.quest.label()}>{t("completedQuest")}</span>
+			</span>
 			<Link href={`?activeQuest=${quest.uuid}`} className={theme.requirements.quest.link()}>
 				{quest.title}
 			</Link>

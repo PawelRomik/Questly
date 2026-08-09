@@ -1,8 +1,12 @@
 @import "tailwindcss";
 @import "flag-icons/css/flag-icons.min.css";
 
-html {
+body {
 	zoom: 0.9;
+}
+
+[data-radix-popper-content-wrapper] {
+	zoom: calc(1 / 0.9);
 }
 
 .zoomHeight {

@@ -13,6 +13,7 @@ import { Quest } from "@/app/types/quest";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import default_banner from "../../../../public/assets/banner.png";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { QuestTags } from "@/app/components/quest/parts/QuestTags";
 
 type Props = {
 	quest: Quest;
@@ -40,6 +41,12 @@ export default function QuestWrapper({ quest, game }: Props) {
 
 			<div className={theme.wrapper.content()}>
 				<QuestContent game={game} quest={quest} completed={completed} searchTags={searchTags} />
+				<div className='lg:block hidden'>
+					<QuestTags game={game} quest={quest} searchTags={searchTags} completed={completed} />
+				</div>
+			</div>
+			<div className='lg:hidden col-start-1 col-span-3 row-start-4'>
+				<QuestTags game={game} quest={quest} searchTags={searchTags} completed={completed} />
 			</div>
 
 			<QuestRewards game={game} rewards={rewards} />

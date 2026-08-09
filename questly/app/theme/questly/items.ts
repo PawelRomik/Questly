@@ -5,7 +5,7 @@
 const itemTooltip = `
 w-64
 
-z-70
+z-90
 
 bg-[#0d0d0d]
 

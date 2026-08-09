@@ -3,7 +3,7 @@
 // --ITM-----------TOOLTIP BASE-----------------
 
 const itemTooltip = `
-w-64 z-70
+w-64 z-90
 
 bg-linear-to-b
 from-[#10131d]

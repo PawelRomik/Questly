@@ -178,7 +178,8 @@ object-contain
 `;
 
 const sectionHeaderTitle = `
-text-lg
+lg:text-lg
+text-sm
 
 uppercase
 

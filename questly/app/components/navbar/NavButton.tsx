@@ -15,26 +15,7 @@ export function NavButton({ children, href, id, game, mobile, onNavigate }: Prop
 
 	return (
 		<Link href={href} onClick={onNavigate} className={mobile ? "" : theme.button.link()}>
-			<button
-				className={
-					mobile
-						? `
-                        w-full
-                        flex
-                        items-center
-                        gap-4
-                        px-5
-                        py-4
-                        border-b
-                        border-white/10
-                        hover:bg-white/5
-                        transition
-                        `
-						: theme.button.base(id)
-				}
-			>
-				{children}
-			</button>
+			<button className={theme.button.base(id)}>{children}</button>
 		</Link>
 	);
 }
