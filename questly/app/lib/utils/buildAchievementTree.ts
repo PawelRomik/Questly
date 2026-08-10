@@ -46,6 +46,6 @@ export function buildAchievementTree(
 
 		items,
 
-		icon: items[0]?.achievement_group?.icon?.url
+		icon: items[0]?.achievement_group?.icon
 	}));
 }
