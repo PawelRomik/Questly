@@ -7,16 +7,15 @@ import { getTheme } from "@/app/lib/utils/getTheme";
 
 type Props = {
 	rewards: Rewards;
-	hideMap?: boolean;
 	game?: string;
 };
 
-export function ModalRewards({ rewards, hideMap = false, game }: Props) {
+export function ModalRewards({ rewards, game }: Props) {
 	const { currency_icon, experience_icon } = useGameAssets();
 	const theme = getTheme("questModal", game);
 
 	return (
-		<div className={theme.rewards.base(hideMap)}>
+		<div className={theme.rewards.base()}>
 			<h3 className={theme.rewards.title()}>Rewards</h3>
 
 			<div className={theme.rewards.content()}>
