@@ -30,23 +30,17 @@ type LocalizedMarkersOptions<T extends MarkerWithRelations, TVars> = {
 };
 
 export function useLocalizedMarkersList<T extends MarkerWithRelations, TVars>({ locale, defaultLocale = "en", query, vars, getItems }: LocalizedMarkersOptions<T, TVars>) {
-	const { data: localizedData, loading: localizedLoading } = useApollo(query, {
+	const { data: localizedData } = useApollo(query, {
 		...vars,
 		locale
 	});
 
-	const { data: fallbackData, loading: fallbackLoading } = useApollo(query, {
+	const { data: fallbackData } = useApollo(query, {
 		...vars,
 		locale: defaultLocale
 	});
 
-	const loading = (locale !== defaultLocale && localizedLoading) || fallbackLoading;
-
 	const markers = useMemo(() => {
-		if (loading) {
-			return [];
-		}
-
 		const localized = getItems(localizedData);
 		const fallback = getItems(fallbackData);
 
@@ -70,10 +64,9 @@ export function useLocalizedMarkersList<T extends MarkerWithRelations, TVars>({ 
 					}
 				: null
 		}));
-	}, [loading, localizedData, fallbackData, getItems]);
+	}, [localizedData, fallbackData, getItems]);
 
 	return {
-		markers,
-		loading
+		markers
 	};
 }
