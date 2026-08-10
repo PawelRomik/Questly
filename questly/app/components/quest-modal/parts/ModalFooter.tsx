@@ -8,11 +8,10 @@ import { Quest } from "@/app/types/quest";
 type Props = {
 	uuid: string;
 	game?: string;
-	hideMap?: boolean;
 	quest: Quest;
 };
 
-export function ModalFooter({ uuid, game, quest, hideMap }: Props) {
+export function ModalFooter({ uuid, game, quest }: Props) {
 	const { nextQuest } = useNextQuest(uuid);
 	const theme = getTheme("questModal", game);
 	const { rewards } = quest;
@@ -21,7 +20,7 @@ export function ModalFooter({ uuid, game, quest, hideMap }: Props) {
 		<div className={theme.footer()}>
 			{game && <ModalCompleteButton game={game} uuid={uuid} />}
 
-			{rewards && <ModalRewards game={game} hideMap={hideMap} rewards={quest.rewards} />}
+			{rewards && <ModalRewards game={game} rewards={quest.rewards} />}
 
 			{nextQuest ? <ModalNextQuestButton game={game} quest={nextQuest} /> : <div className='w-20'></div>}
 		</div>

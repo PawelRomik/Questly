@@ -1,7 +1,6 @@
 import { Quest } from "@/app/types/quest";
 import { ModalCharacter } from "@/app/components/quest-modal/parts/ModalCharacter";
 import { ModalMap } from "@/app/components/quest-modal/parts/map/ModalMap";
-import { ModalRewards } from "@/app/components/quest-modal/parts/rewards/ModalRewards";
 import { ModalHeader } from "@/app/components/quest-modal/parts/ModalHeader";
 import { ModalFooter } from "@/app/components/quest-modal/parts/ModalFooter";
 import { ModalCloseButton } from "@/app/components/quest-modal/ModalCloseButton";
@@ -36,7 +35,7 @@ export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 
 					<ModalRequirements game={game} requirements={quest.requirement} />
 
-					<ModalFooter quest={quest} hideMap={hideMap} game={game} uuid={quest.uuid} />
+					<ModalFooter quest={quest} game={game} uuid={quest.uuid} />
 
 					<ModalCloseButton game={game} />
 				</>

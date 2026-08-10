@@ -37,7 +37,7 @@ export function useGameMapData(game: string, locale: string, selectedLocationUui
 
 	const selectedLocation = useMemo(() => locationData?.locations.find(({ uuid }) => uuid === selectedLocationUuid), [locationData, selectedLocationUuid]);
 
-	const { markers, loading } = useLocalizedMarkersList<MapMarkerType, { location: string }>({
+	const { markers } = useLocalizedMarkersList<MapMarkerType, { location: string }>({
 		locale,
 		query: GET_MAP_MARKERS,
 		vars: {
@@ -63,7 +63,7 @@ export function useGameMapData(game: string, locale: string, selectedLocationUui
 		locationData,
 		selectedLocation,
 		markers,
-		loading,
+
 		bounds
 	};
 }

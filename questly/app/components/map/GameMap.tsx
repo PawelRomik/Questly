@@ -71,7 +71,7 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const theme = getTheme("map", game);
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
 
-	const { locationData, selectedLocation, markers: markersData, loading, bounds } = useGameMapData(game, locale, filters.mapLocation);
+	const { locationData, selectedLocation, markers: markersData, bounds } = useGameMapData(game, locale, filters.mapLocation);
 	useLocationSync({
 		locationData,
 		selectedLocationUuid: selectedLocation?.uuid,
@@ -96,7 +96,6 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 
 	useMarkerGroups({
 		markers,
-		loading,
 		setFilters
 	});
 
