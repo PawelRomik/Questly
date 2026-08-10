@@ -6,13 +6,13 @@ import { groupMarkers } from "@/app/lib/utils/map/groupMarkers";
 
 type Props = {
 	markers: MapMarkerType[];
-	loading: boolean;
+
 	setFilters: Dispatch<SetStateAction<Filters>>;
 };
 
-export function useMarkerGroups({ markers, loading, setFilters }: Props) {
+export function useMarkerGroups({ markers, setFilters }: Props) {
 	useEffect(() => {
-		if (loading || !markers.length) return;
+		if (!markers.length) return;
 
 		setFilters((prev) => {
 			if (prev.mapMarkers.length) {
@@ -24,5 +24,5 @@ export function useMarkerGroups({ markers, loading, setFilters }: Props) {
 				mapMarkers: groupMarkers(markers)
 			};
 		});
-	}, [markers, loading, setFilters]);
+	}, [markers, setFilters]);
 }
