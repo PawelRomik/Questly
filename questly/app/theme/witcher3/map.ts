@@ -25,33 +25,23 @@ bg-transparent!
 
 const mapInfoContainer = `
 absolute
-
-bottom-4
+bottom-[calc(1rem+env(safe-area-inset-bottom))]
 left-1/2
-
 z-40
-
 flex
 items-center
 justify-center
-
 gap-3
-
 px-8
 lg:px-4
 py-3
-
 -translate-x-1/2
-
 backdrop-blur
-
 border
 border-[rgb(40,37,28)]
-
 bg-linear-to-b
 from-[#1a1a1a]
 to-[#0f0f0f]
-
 shadow-[0_0_20px_rgba(0,0,0,0.7)]
 `;
 

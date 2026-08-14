@@ -26,7 +26,7 @@ bg-transparent!
 const mapInfoContainer = `
 absolute
 
-bottom-4
+bottom-[calc(1rem+env(safe-area-inset-bottom))]
 left-1/2
 
 z-40
