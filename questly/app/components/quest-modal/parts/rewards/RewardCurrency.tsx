@@ -10,7 +10,7 @@ type Props = {
 
 export function RewardCurrency({ icon, value, game }: Props) {
 	const theme = getTheme("questModal", game);
-
+	if (value < 1) return;
 	return (
 		<div className={theme.rewards.currency.base()}>
 			<FixedImage src={icon} className={theme.rewards.currency.icon()} alt='currency' />

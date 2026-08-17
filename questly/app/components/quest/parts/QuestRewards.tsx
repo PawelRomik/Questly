@@ -14,6 +14,13 @@ export function QuestRewards({ rewards, game }: Props) {
 	const { currency_icon, item_icon, experience_icon } = useGameAssets();
 	const theme = getTheme("quest", game);
 	const t = useTranslations("quests.rewards");
+
+	const hasRewards = rewards && (rewards.experience > 0 || rewards.money > 0 || (rewards.items?.length ?? 0) > 0);
+
+	if (!hasRewards) {
+		return null;
+	}
+
 	return (
 		<div className={theme.rewards.base()}>
 			<span className={theme.rewards.title()}>{t("reward")}</span>
