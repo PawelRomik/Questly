@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_QUESTS = gql`
-	query GetQuests($game: String!, $locale: I18NLocaleCode) {
-		quests(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
+	query GetQuests($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		quests(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			title
 			quest_type {
 				name
@@ -111,8 +111,8 @@ export const GET_NEXT_QUEST = gql`
 `;
 
 export const GET_ACHIEVEMENTS = gql`
-	query GetAchievements($game: String!, $locale: I18NLocaleCode) {
-		achievements(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
+	query GetAchievements($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		achievements(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			title
 			description
 			secret
@@ -139,8 +139,8 @@ export const GET_ACHIEVEMENTS = gql`
 `;
 
 export const GET_COLLECTION_GROUPS = gql`
-	query GetCollectionGroups($game: String!, $locale: I18NLocaleCode) {
-		collectionGroups(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
+	query GetCollectionGroups($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		collectionGroups(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			title
 			uuid
 		}
@@ -148,8 +148,8 @@ export const GET_COLLECTION_GROUPS = gql`
 `;
 
 export const GET_COLLECTIONS = gql`
-	query GetCollections($game: String!, $locale: I18NLocaleCode) {
-		collections(locale: $locale, filters: { game: { slug: { eq: $game } } }) {
+	query GetCollections($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		collections(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			uuid
 			items {
 				uuid
@@ -175,7 +175,7 @@ export const GET_COLLECTIONS = gql`
 `;
 
 export const GET_ICONS = gql`
-	query GetCollectionGroups($game: String!) {
+	query GetIcons($game: String!) {
 		icons(filters: { game: { slug: { eq: $game } } }) {
 			checkbox_image
 			game {
@@ -203,8 +203,8 @@ export const GET_ICONS = gql`
 `;
 
 export const GET_DLCS = gql`
-	query GetDLCS($locale: I18NLocaleCode, $game: String) {
-		dlcs(filters: { game: { slug: { eq: $game } } }, locale: $locale) {
+	query GetDLCS($locale: I18NLocaleCode, $game: String, $pagination: PaginationArg) {
+		dlcs(pagination: $pagination, filters: { game: { slug: { eq: $game } } }, locale: $locale) {
 			title
 			uuid
 		}
@@ -212,8 +212,8 @@ export const GET_DLCS = gql`
 `;
 
 export const GET_LOCATIONS = gql`
-	query ($game: String, $locale: I18NLocaleCode) {
-		locations(filters: { game: { slug: { eq: $game } } }, locale: $locale) {
+	query ($game: String, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		locations(pagination: $pagination, filters: { game: { slug: { eq: $game } } }, locale: $locale) {
 			name
 			uuid
 		}
@@ -242,8 +242,8 @@ export const GET_STAT_COUNTS = gql`
 `;
 
 export const GET_GAMES = gql`
-	query ($locale: I18NLocaleCode) {
-		games(locale: $locale) {
+	query ($locale: I18NLocaleCode, $pagination: PaginationArg) {
+		games(pagination: $pagination, locale: $locale) {
 			title
 			slug
 			logo
@@ -252,8 +252,8 @@ export const GET_GAMES = gql`
 `;
 
 export const GET_GAMES_SHOWCASE = gql`
-	query ($locale: I18NLocaleCode) {
-		games(locale: $locale) {
+	query ($locale: I18NLocaleCode, $pagination: PaginationArg) {
+		games(pagination: $pagination, locale: $locale) {
 			title
 			slug
 			logo
@@ -272,8 +272,8 @@ export const GET_MAP_VARS = gql`
 `;
 
 export const GET_MAP_MARKERS = gql`
-	query ($location: String, $locale: I18NLocaleCode) {
-		mapMarkers(locale: $locale, filters: { location: { uuid: { eq: $location } } }) {
+	query ($location: String, $locale: I18NLocaleCode, $pagination: PaginationArg) {
+		mapMarkers(pagination: $pagination, locale: $locale, filters: { location: { uuid: { eq: $location } } }) {
 			map_icon {
 				uuid
 				icon

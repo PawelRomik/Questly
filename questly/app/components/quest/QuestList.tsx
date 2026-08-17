@@ -31,10 +31,7 @@ export default function QuestList({ game }: Props) {
 
 	const quests = useLocalizedList<Quest, { game: string; locale: string }>({
 		query,
-		vars: {
-			game,
-			locale
-		},
+		vars: { game, locale },
 		locale,
 		getItems: (data) => data?.quests ?? [],
 		getId: (q) => q.uuid
