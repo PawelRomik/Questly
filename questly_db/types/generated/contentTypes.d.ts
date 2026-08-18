@@ -1252,6 +1252,12 @@ export interface ApiMapMarkerMapMarker extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    hidden: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     lat: Schema.Attribute.Float &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1566,12 +1572,18 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    map_marker: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::map-marker.map-marker'
+    >;
     missable: Schema.Attribute.Boolean &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
         };
       }>;
+    next_quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
+    prev_quests: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     publishedAt: Schema.Attribute.DateTime;
     quest_act: Schema.Attribute.Relation<
       'oneToOne',

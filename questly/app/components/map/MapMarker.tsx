@@ -5,6 +5,7 @@ import L from "leaflet";
 import { Marker } from "react-leaflet";
 import { useMemo } from "react";
 import { useParams } from "next/navigation";
+import { MapMarkerType } from "@/app/components/map/GameMap";
 
 type MapMarkerProps = {
 	uuid: string;
@@ -14,7 +15,7 @@ type MapMarkerProps = {
 	onClick?: (title: string) => void;
 	onToggle?: () => void;
 	title: string;
-	questMarker?: string;
+	questMarker?: MapMarkerType;
 };
 
 export default function MapMarker({ uuid, title, position, iconUrl, onToggle, iconSize = [32, 32], onClick, questMarker }: MapMarkerProps) {

@@ -122,6 +122,21 @@
           "localized": false
         }
       }
+    },
+    "next_quests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest.quest"
+    },
+    "prev_quests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quest.quest"
+    },
+    "map_marker": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::map-marker.map-marker"
     }
   }
 }

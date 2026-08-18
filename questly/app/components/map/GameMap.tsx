@@ -40,6 +40,7 @@ export type MapMarkerType = {
 		uuid: string;
 		icon: string;
 	};
+	hidden?: boolean;
 	quest: {
 		uuid: string;
 		title: string;
@@ -57,7 +58,7 @@ export type GetMapMarkersResponse = {
 
 type Props = {
 	bigZoom?: boolean;
-	questMarker?: string;
+	questMarker?: MapMarkerType;
 	game: string;
 };
 
@@ -81,10 +82,12 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 
 	const markers = useMemo(
 		() =>
-			markersData.map((m) => ({
-				...m,
-				completed: completedSet.has(m.uuid)
-			})),
+			markersData
+				.filter((m) => !m.hidden)
+				.map((m) => ({
+					...m,
+					completed: completedSet.has(m.uuid)
+				})),
 		[markersData, completedSet]
 	);
 
