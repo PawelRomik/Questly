@@ -163,8 +163,8 @@ grid-rows-[auto_auto]
 items-center
 gap-2
 
-px-3
-py-3
+py-2
+md:py-0
 
 border-t
 border-[#3a3a3a]
@@ -176,7 +176,7 @@ md:grid-rows-1
 lg:col-[1/4]
 lg:row-5
 lg:gap-4
-lg:px-4
+lg:pr-2
 lg:py-0
 `;
 
@@ -470,6 +470,9 @@ w-[1000px]
 const modalRequirements = `
 col-1
 row-4
+flex flex-col
+gap-5
+justify-start
 
 p-3
 lg:p-4
@@ -486,17 +489,19 @@ lg:border-y-3
 const modalRequirementsTitle = `
 text-xs
 uppercase
+underline
 tracking-wider
 mb-2
 text-[#a68b5b]
 `;
 
 const modalRequirementsList = `
-flex
-flex-wrap
-gap-2
-mt-3
-lg:mt-4
+	flex
+	flex-col
+	gap-2
+	justify-end
+
+
 `;
 
 const requirementQuest = `
@@ -519,16 +524,22 @@ truncate
 `;
 
 const requirementQuestLink = `
-py-1
+
 text-xs
+flex
 text-[#a68b5b]
 underline
 hover:text-blue-300
 `;
 
 const requirementTag = `
-flex
+text-sm
 items-center
+`;
+
+const requirementMarker = `
+bg-[#a68b5b]
+size-1 rounded-full shrink-0
 `;
 
 const requirementPrimary = `
@@ -555,7 +566,9 @@ row-1
 justify-self-start
 
 flex
-items-center
+mx-auto
+md:mx-5
+lg:mx-0
 justify-center
 min-w-0
 
@@ -589,8 +602,8 @@ flex
 items-center
 
 justify-start
-px-3
 flex-wrap
+
 gap-3
 lg:gap-6
 `;
@@ -692,7 +705,7 @@ export const questModalStyles = {
 		base: () => modalRequirements,
 		title: () => modalRequirementsTitle,
 		list: () => modalRequirementsList,
-
+		marker: () => requirementMarker,
 		quest: {
 			base: () => requirementQuest,
 			icon: () => requirementQuestIcon,

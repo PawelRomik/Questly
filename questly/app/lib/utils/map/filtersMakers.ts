@@ -4,13 +4,11 @@ import { MapMarkerType } from "@/app/components/map/GameMap";
 type Props = {
 	markers: (MapMarkerType & { completed: boolean })[];
 	filters: Filters;
-	questMarker?: string;
+	questMarker?: MapMarkerType;
 };
 
 export function filterMarkers({ markers, filters, questMarker }: Props) {
-	if (questMarker) {
-		return markers.filter((marker) => marker.quest?.uuid === questMarker);
-	}
+	if (questMarker) return [questMarker];
 
 	const hidden = new Set(filters.mapMarkers.filter((marker) => !marker.visible).map((marker) => marker.title));
 

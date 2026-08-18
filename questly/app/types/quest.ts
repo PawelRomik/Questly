@@ -1,3 +1,5 @@
+import { MapMarkerType } from "@/app/components/map/GameMap";
+
 export type Item = {
 	uuid: string;
 	name: string;
@@ -72,23 +74,7 @@ export type Map = {
 };
 
 export type Requirement = {
-	level: number;
-	type: string;
-	quest: {
-		title: string;
-		uuid: string;
-		quest_type: {
-			icon: string;
-		};
-	};
-	description: string;
-	character: {
-		name: string;
-	};
-	item: {
-		name: string;
-	};
-	item_amount: number;
+	desc: string;
 };
 
 export type QuestAct = {
@@ -112,12 +98,23 @@ export type DLC = {
 	icon: string;
 };
 
+export type QuestFamily = {
+	uuid: string;
+	title: string;
+	quest_type: {
+		icon: string;
+	};
+};
+
 export type Quest = {
 	uuid: string;
 	missable?: boolean;
 	game: Game;
 	quest_type: QuestType;
 	title: string;
+	map_marker: MapMarkerType;
+	next_quests: QuestFamily[];
+	prev_quests: QuestFamily[];
 	level: number;
 	description: string;
 	short_desc: string;

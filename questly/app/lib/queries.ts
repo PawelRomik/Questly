@@ -11,13 +11,37 @@ export const GET_QUESTS = gql`
 				icon
 				color
 			}
+			map_marker {
+				lat
+				lng
+				uuid
+				location {
+					uuid
+				}
+				map_icon {
+					icon
+				}
+			}
 			missable
 			quest_act {
 				title
-
 				uuid
 				order
 				icon
+			}
+			next_quests {
+				uuid
+				title
+				quest_type {
+					icon
+				}
+			}
+			prev_quests {
+				uuid
+				title
+				quest_type {
+					icon
+				}
 			}
 			quest_groups {
 				title
@@ -44,23 +68,7 @@ export const GET_QUESTS = gql`
 				name
 			}
 			requirement {
-				level
-				type
-				quest {
-					title
-					uuid
-					quest_type {
-						icon
-					}
-				}
 				desc
-				character {
-					name
-				}
-				item {
-					name
-				}
-				item_amount
 			}
 			rewards {
 				experience
@@ -81,24 +89,6 @@ export const GET_QUESTS = gql`
 					}
 				}
 				other
-			}
-			dlc {
-				title
-				uuid
-				color
-				icon
-			}
-		}
-	}
-`;
-
-export const GET_NEXT_QUEST = gql`
-	query GetNextQuest($currentUuid: String!, $locale: I18NLocaleCode) {
-		quests(locale: $locale, filters: { requirement: { quest: { uuid: { eq: $currentUuid } } } }) {
-			title
-			uuid
-			quest_type {
-				icon
 			}
 			dlc {
 				title
@@ -235,7 +225,8 @@ export const GET_STAT_COUNTS = gql`
 			}
 		}
 
-		mapMarkers(pagination: { limit: 1000 }, filters: { game: { slug: { eq: $game } } }) {
+		mapMarkers(pagination: { limit: 1000 }, filters: { or: [{ hidden: { eq: false } }, { hidden: { null: true } }], game: { slug: { eq: $game } } }) {
+			hidden
 			uuid
 		}
 	}
@@ -279,6 +270,7 @@ export const GET_MAP_MARKERS = gql`
 				icon
 				title
 			}
+			hidden
 			quest {
 				uuid
 				title
@@ -314,6 +306,31 @@ export const GET_QUEST_BY_UUID = gql`
 				order
 				icon
 			}
+			map_marker {
+				lat
+				lng
+				uuid
+				location {
+					uuid
+				}
+				map_icon {
+					icon
+				}
+			}
+			next_quests {
+				uuid
+				title
+				quest_type {
+					icon
+				}
+			}
+			prev_quests {
+				uuid
+				title
+				quest_type {
+					icon
+				}
+			}
 			quest_groups {
 				title
 				locale
@@ -341,23 +358,7 @@ export const GET_QUEST_BY_UUID = gql`
 				name
 			}
 			requirement {
-				level
-				type
-				quest {
-					title
-					uuid
-					quest_type {
-						icon
-					}
-				}
 				desc
-				character {
-					name
-				}
-				item {
-					name
-				}
-				item_amount
 			}
 			rewards {
 				experience

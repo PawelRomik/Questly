@@ -6,6 +6,7 @@ import { getLocationsData, getLocationsVars } from "@/app/types/quest";
 
 type MapMarkerType = {
 	id: number;
+	hidden?: boolean;
 	lat: number;
 	lng: number;
 	uuid: string;

@@ -35,18 +35,7 @@ export interface RequirementRequirement extends Struct.ComponentSchema {
     icon: 'manyToMany';
   };
   attributes: {
-    character: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::character.character'
-    >;
     desc: Schema.Attribute.String;
-    item: Schema.Attribute.Relation<'oneToOne', 'api::item.item'>;
-    item_amount: Schema.Attribute.Integer;
-    level: Schema.Attribute.Integer;
-    quest: Schema.Attribute.Relation<'oneToOne', 'api::quest.quest'>;
-    type: Schema.Attribute.Enumeration<
-      ['level', 'quest', 'item', 'relation', 'reputation', 'other']
-    >;
   };
 }
 
