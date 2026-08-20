@@ -2,6 +2,7 @@
 
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { Requirement } from "@/app/types/quest";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	requirements?: Requirement[];
@@ -10,6 +11,7 @@ type Props = {
 
 export default function ModalRequirements({ requirements = [], game }: Props) {
 	const theme = getTheme("questModal", game);
+	const t = useTranslations();
 
 	const hasRequirements = requirements.length > 0;
 
@@ -19,7 +21,7 @@ export default function ModalRequirements({ requirements = [], game }: Props) {
 
 	return (
 		<section>
-			<h3 className={theme.requirements.title()}>Requirements</h3>
+			<h3 className={theme.requirements.title()}>{t("quests.requirements")}</h3>
 
 			<ul className={theme.requirements.list()}>
 				{requirements.map((requirement, index) => (

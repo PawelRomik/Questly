@@ -3,6 +3,7 @@ import QuestLink from "@/app/components/quest-modal/parts/requirements/QuestLink
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { QuestFamily } from "@/app/types/quest";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	prev_quests?: QuestFamily[];
@@ -13,6 +14,7 @@ export default function ModalPrevQuests({ prev_quests = [], game }: Props) {
 	const theme = getTheme("questModal", game);
 	const { default_icon } = useGameAssets();
 
+	const t = useTranslations();
 	const hasPrevQuests = prev_quests.length > 0;
 
 	if (!hasPrevQuests) {
@@ -21,7 +23,7 @@ export default function ModalPrevQuests({ prev_quests = [], game }: Props) {
 
 	return (
 		<section>
-			<h3 className={theme.requirements.title()}>Previous Quests</h3>
+			<h3 className={theme.requirements.title()}>{t("quests.prevQuests")}</h3>
 
 			<ul className={theme.requirements.list()}>
 				{prev_quests.map((quest) => (

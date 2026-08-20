@@ -475,6 +475,8 @@ truncate
 const modalHeaderSubtitle = `
 text-xs
 
+flex gap-3
+
 lg:text-sm
 
 text-white/50
