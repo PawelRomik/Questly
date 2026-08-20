@@ -3,6 +3,7 @@ import QuestLink from "@/app/components/quest-modal/parts/requirements/QuestLink
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { QuestFamily } from "@/app/types/quest";
+import { useTranslations } from "next-intl";
 
 type Props = {
 	next_quests?: QuestFamily[];
@@ -12,6 +13,7 @@ type Props = {
 export default function ModalNextQuests({ next_quests = [], game }: Props) {
 	const theme = getTheme("questModal", game);
 	const { default_icon } = useGameAssets();
+	const t = useTranslations();
 
 	const hasNextQuests = next_quests.length > 0;
 
@@ -21,7 +23,7 @@ export default function ModalNextQuests({ next_quests = [], game }: Props) {
 
 	return (
 		<section>
-			<h3 className={theme.requirements.title()}>Next Quests</h3>
+			<h3 className={theme.requirements.title()}>{t("quests.nextQuests")}</h3>
 
 			<ul className={theme.requirements.list()}>
 				{next_quests.map((quest) => (

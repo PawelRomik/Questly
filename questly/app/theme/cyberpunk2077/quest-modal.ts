@@ -507,6 +507,8 @@ const modalHeaderSubtitle = `
 text-xs
 lg:text-sm
 
+flex gap-3
+
 text-[#00e0ff]
 
 drop-shadow-[0_0_8px_rgba(0,224,255,0.7)]

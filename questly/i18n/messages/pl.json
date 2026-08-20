@@ -73,7 +73,10 @@
 	"quests": {
 		"quests": "Zadania",
 		"allQuests": "Wszystkie zadania",
-		"nextQuest": "Następne zadanie:",
+		"nextQuests": "Następne zadania",
+		"prevQuests": "Poprzednie zadania",
+		"completed": "Ukończone",
+		"requirements": "WymaganiA",
 		"icon": "Ikona zadania",
 		"suggestedLevel": "Zalecany poziom: {level}",
 		"completedQuest": "Ukończone zadanie:",

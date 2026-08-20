@@ -41,7 +41,7 @@ export function useQuestGrouping(
 		if (!keys.length) {
 			return [
 				{
-					title: isMissable ? t("filters.searchResults") : t("quests.allQuests"),
+					title: isMissable ? t("tags.missable") : t("quests.allQuests"),
 					icon: isMissable ? icons.missableIcon : icons.defaultIcon,
 					items: quests
 				}

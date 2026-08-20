@@ -399,6 +399,7 @@ truncate
 const modalHeaderSubtitle = `
 text-xs
 lg:text-sm
+flex gap-3
 
 text-[rgb(255,203,14)]
 
