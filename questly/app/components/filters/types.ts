@@ -20,7 +20,8 @@ export enum CompletedOption {
 	DEFAULT = "default",
 	SHOW_FIRST = "showFirst",
 	SHOW_LAST = "showLast",
-	HIDE = "hide"
+	HIDE = "hide",
+	SHOW_ONLY = "showOnly"
 }
 
 export enum CompletedMarkersOption {

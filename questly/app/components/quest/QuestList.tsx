@@ -57,6 +57,10 @@ export default function QuestList({ game }: Props) {
 		}
 
 		switch (filters.completed) {
+			case CompletedOption.SHOW_ONLY:
+				list = list.filter((q) => completedSet.has(q.uuid));
+				break;
+
 			case CompletedOption.HIDE:
 				list = list.filter((q) => !completedSet.has(q.uuid));
 				break;

@@ -61,8 +61,14 @@ export default function AchievementList({ game }: Props) {
 			list = list.filter((a) => a.dlc?.uuid === filters.dlc);
 		}
 
-		if (filters.completed === CompletedOption.HIDE) {
-			list = list.filter((a) => !completedSet.has(a.uuid));
+		switch (filters.completed) {
+			case CompletedOption.SHOW_ONLY:
+				list = list.filter((a) => completedSet.has(a.uuid));
+				break;
+
+			case CompletedOption.HIDE:
+				list = list.filter((a) => !completedSet.has(a.uuid));
+				break;
 		}
 
 		return list;
