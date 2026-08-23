@@ -31,7 +31,8 @@ const COMPLETED_OPTIONS = (t: TFunction) => [
 	{ value: CompletedOption.DEFAULT, label: t("default") },
 	{ value: CompletedOption.SHOW_FIRST, label: t("showFirst") },
 	{ value: CompletedOption.SHOW_LAST, label: t("showLast") },
-	{ value: CompletedOption.HIDE, label: t("hide") }
+	{ value: CompletedOption.HIDE, label: t("hide") },
+	{ value: CompletedOption.SHOW_ONLY, label: t("showOnly") }
 ];
 
 const MISSABLE_OPTIONS = (t: TFunction) => [

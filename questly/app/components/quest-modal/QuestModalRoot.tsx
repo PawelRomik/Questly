@@ -2,37 +2,34 @@
 
 import { Dialog, VisuallyHidden } from "radix-ui";
 import { useActiveQuest } from "@/app/hooks/useActiveQuest";
-import { Quest } from "@/app/types/quest";
 import { QuestModalLayout } from "@/app/components/quest-modal/QuestModalLayout";
-import QuestWrapper from "@/app/components/quest/parts/QuestWrapper";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import ContentBoundary from "@/app/components/ContentBoundary";
+import { QuestModalSkeleton } from "@/app/components/quest-modal/QuestModalSkeleton";
 
 type Props = {
-	quest: Quest;
 	game: string;
 };
 
-export default function QuestModal({ quest, game }: Props) {
+export default function QuestModalRoot({ game }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
 	const theme = getTheme("questModal", game);
 
-	const isOpen = activeQuestId === quest.uuid;
+	const isOpen = !!activeQuestId;
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
-			<div onClick={() => setActiveQuestId(quest.uuid)} className={theme.trigger()}>
-				<QuestWrapper game={game} quest={quest} />
-			</div>
-
 			<Dialog.Portal>
 				<Dialog.Overlay className={theme.overlay()} />
 
 				<Dialog.Content>
 					<VisuallyHidden.Root>
-						<Dialog.Title>{quest.title}</Dialog.Title>
+						<Dialog.Title>Quest details</Dialog.Title>
 					</VisuallyHidden.Root>
 
-					<QuestModalLayout game={game} quest={quest} />
+					<ContentBoundary fallback={<QuestModalSkeleton />}>
+						<QuestModalLayout game={game} />
+					</ContentBoundary>
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>

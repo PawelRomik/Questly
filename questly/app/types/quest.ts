@@ -112,7 +112,7 @@ export type Quest = {
 	game: Game;
 	quest_type: QuestType;
 	title: string;
-	map_marker: MapMarkerType;
+	map_markers: MapMarkerType[];
 	next_quests: QuestFamily[];
 	prev_quests: QuestFamily[];
 	level: number;

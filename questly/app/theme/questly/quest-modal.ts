@@ -98,17 +98,31 @@ items-center
 justify-center
 
 cursor-pointer
-
-bg-black/40
+select-none
 
 border
 border-white/10
 
-hover:bg-white/10
-hover:border-white/20
+bg-[#101010]/90
+
+text-white/70
+text-lg
+font-light
+leading-none
 
 transition-all
 duration-200
+
+hover:bg-white/10
+hover:border-white/25
+hover:text-white
+
+active:scale-95
+active:bg-white/5
+
+focus:outline-none
+focus-visible:border-white/30
+focus-visible:text-white
 `;
 
 // --QML-----------CHARACTER----------
@@ -552,6 +566,109 @@ h-[600px]
 w-[1000px]
 `;
 
+// --QML-----------MAP-NAV----------
+const modalMapNavBase = `
+absolute
+
+left-0
+bottom-0
+z-40
+
+flex
+flex-col
+items-center
+
+min-w-42.5
+
+px-3
+py-2
+
+cursor-pointer
+select-none
+
+border
+border-white/10
+border-b-0
+border-l-0
+
+bg-[#0d0d0d]/95
+
+shadow-[0_2px_12px_rgba(0,0,0,0.65)]
+
+backdrop-blur-sm
+`;
+
+const modalMapNavTitle = `
+w-full
+
+border-b
+border-white/10
+
+pb-1.5
+mb-1.5
+
+text-center
+text-[13px]
+
+uppercase
+tracking-widest
+
+text-white/75
+`;
+
+const modalMapNavWrapper = `
+flex
+items-center
+gap-3
+`;
+
+const modalMapNavButton = `
+flex
+h-8
+w-8
+items-center
+justify-center
+
+cursor-pointer
+select-none
+
+border
+border-white/10
+
+bg-[#151515]
+
+text-lg
+font-light
+leading-none
+text-white/70
+
+transition-all
+duration-150
+
+hover:bg-white/10
+hover:border-white/25
+hover:text-white
+
+active:translate-y-px
+active:bg-white/5
+
+focus:outline-none
+focus-visible:border-white/30
+focus-visible:text-white
+`;
+
+const modalMapNavSplitter = `
+min-w-10.5
+
+text-center
+text-xs
+font-medium
+
+tracking-wider
+
+text-white/45
+`;
+
 // --QML-----------REQUIREMENTS----------
 
 const modalRequirements = `
@@ -829,7 +946,14 @@ export const questModalStyles = {
 		container: () => modalMapContainer,
 		content: () => modalMapContent,
 		image: () => modalMapImage,
-		modal: () => modalMapModalContainer
+		modal: () => modalMapModalContainer,
+		nav: {
+			base: () => modalMapNavBase,
+			title: () => modalMapNavTitle,
+			wrapper: () => modalMapNavWrapper,
+			button: () => modalMapNavButton,
+			splitter: () => modalMapNavSplitter
+		}
 	},
 
 	requirements: {

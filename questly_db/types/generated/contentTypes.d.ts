@@ -1572,8 +1572,8 @@ export interface ApiQuestQuest extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quest.quest'>;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
-    map_marker: Schema.Attribute.Relation<
-      'oneToOne',
+    map_markers: Schema.Attribute.Relation<
+      'oneToMany',
       'api::map-marker.map-marker'
     >;
     missable: Schema.Attribute.Boolean &

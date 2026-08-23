@@ -12,7 +12,7 @@ export function QuestTitle({ quest, game }: Props) {
 
 	return (
 		<div className={theme.content.title.wrapper()}>
-			<h2 className={theme.content.title.base()}>{highlightText(quest.title, quest._titleMatch)}</h2>
+			<h2 className={theme.content.title.base()}>{highlightText(quest.title ?? "Unnamed Quest", quest._titleMatch)}</h2>
 		</div>
 	);
 }

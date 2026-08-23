@@ -61,7 +61,7 @@ export default function MapQuestModal({ initialUuid, trigger, game }: Props) {
 						<Dialog.Title>{quest.title}</Dialog.Title>
 					</VisuallyHidden.Root>
 
-					<QuestModalLayout game={game} hideMap={true} quest={quest} />
+					<QuestModalLayout game={game} hideMap={true} />
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
