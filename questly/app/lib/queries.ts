@@ -11,8 +11,14 @@ export const GET_QUESTS = gql`
 				icon
 				color
 			}
-			map_marker {
+			map_markers {
 				lat
+				quest {
+					title
+					quest_type {
+						icon
+					}
+				}
 				lng
 				uuid
 				location {
@@ -20,6 +26,7 @@ export const GET_QUESTS = gql`
 				}
 				map_icon {
 					icon
+					title
 				}
 			}
 			missable
@@ -306,15 +313,22 @@ export const GET_QUEST_BY_UUID = gql`
 				order
 				icon
 			}
-			map_marker {
+			map_markers {
 				lat
 				lng
 				uuid
+				quest {
+					title
+					quest_type {
+						icon
+					}
+				}
 				location {
 					uuid
 				}
 				map_icon {
 					icon
+					title
 				}
 			}
 			next_quests {

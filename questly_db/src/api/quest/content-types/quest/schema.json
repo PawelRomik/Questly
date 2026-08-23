@@ -133,9 +133,9 @@
       "relation": "oneToMany",
       "target": "api::quest.quest"
     },
-    "map_marker": {
+    "map_markers": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::map-marker.map-marker"
     }
   }

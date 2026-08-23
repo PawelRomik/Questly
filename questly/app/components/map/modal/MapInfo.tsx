@@ -13,10 +13,11 @@ type MapInfoProps = {
 	title: string;
 	uuid?: string;
 	icon: string;
+	isQuestMarker: boolean;
 	game: string;
 };
 
-export default function MapInfo({ selectedQuest, title, uuid, icon, game }: MapInfoProps) {
+export default function MapInfo({ selectedQuest, title, uuid, icon, game, isQuestMarker }: MapInfoProps) {
 	const theme = getTheme("map", game);
 	const {} = useGameAssets();
 
@@ -25,7 +26,7 @@ export default function MapInfo({ selectedQuest, title, uuid, icon, game }: MapI
 			<FixedImage className={theme.info.icon()} src={icon ?? default_marker} alt='ikon' />
 			<span className={theme.info.title()}>{title ?? "Marker"}</span>
 
-			{selectedQuest && uuid && (
+			{selectedQuest && uuid && !isQuestMarker && (
 				<Suspense fallback={<></>}>
 					<MapQuestModal game={game} initialUuid={uuid} trigger={<MapInfoButton game={game} />} />
 				</Suspense>

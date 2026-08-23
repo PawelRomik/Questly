@@ -7,7 +7,7 @@ import { MapMarkerType } from "@/app/components/map/GameMap";
 type Props = {
 	markers: (MapMarkerType & { completed: boolean })[];
 	filters: Filters;
-	questMarker?: MapMarkerType;
+	questMarkers?: MapMarkerType[];
 };
 
 export function useVisibleMarkers(props: Props) {

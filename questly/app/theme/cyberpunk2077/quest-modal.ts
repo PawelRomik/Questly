@@ -97,20 +97,37 @@ items-center
 justify-center
 
 cursor-pointer
-
-bg-black/40
+select-none
 
 border
-border-[#ff204e]/35
+border-[#ff204e]/45
+
+bg-[#090b12]/90
 
 text-[#f5f7ff]
+text-lg
+font-medium
+leading-none
+
+shadow-[inset_0_0_8px_rgba(255,32,78,0.08),0_0_12px_rgba(255,32,78,0.12)]
+
+backdrop-blur-sm
+
+transition-all
+duration-200
 
 hover:bg-[#180912]
 hover:border-[#00e0ff]
 hover:text-[#00e0ff]
 
-transition-all
-duration-200
+hover:shadow-[inset_0_0_10px_rgba(0,224,255,0.12),0_0_14px_rgba(0,224,255,0.25)]
+
+active:scale-95
+active:brightness-75
+
+focus:outline-none
+focus-visible:border-[#00e0ff]
+focus-visible:text-[#00e0ff]
 `;
 
 // --QML-----------CHARACTER----------
@@ -587,6 +604,120 @@ h-[600px]
 w-[1000px]
 `;
 
+// --QML-----------MAP-NAV----------
+const modalMapNavBase = `
+absolute
+left-0
+bottom-0
+z-40
+
+flex
+flex-col
+items-center
+
+min-w-42.5
+
+px-3
+py-2
+
+cursor-pointer
+select-none
+
+border
+border-[#00e0ff]/35
+border-b-0
+
+bg-linear-to-b
+from-[#10131d]/95
+via-[#090b12]/95
+to-[#05070c]/95
+
+shadow-[0_0_18px_rgba(0,0,0,0.85),inset_0_0_14px_rgba(0,224,255,0.04)]
+
+backdrop-blur-md
+`;
+
+const modalMapNavTitle = `
+w-full
+
+border-b
+border-[#00e0ff]/30
+
+pb-1.5
+mb-1.5
+
+text-center
+text-[13px]
+
+uppercase
+tracking-widest
+
+text-[#00e0ff]
+
+drop-shadow-[0_0_7px_rgba(0,224,255,0.55)]
+`;
+
+const modalMapNavWrapper = `
+flex
+items-center
+gap-3
+`;
+
+const modalMapNavButton = `
+flex
+h-8
+w-8
+items-center
+justify-center
+
+cursor-pointer
+select-none
+
+border
+border-[#00e0ff]/40
+
+bg-linear-to-b
+from-[#111827]
+via-[#090b12]
+to-[#05070c]
+
+text-lg
+leading-none
+text-[#00e0ff]
+
+shadow-[inset_0_0_8px_rgba(0,224,255,0.06),0_0_8px_rgba(0,224,255,0.08)]
+
+transition-all
+duration-150
+
+hover:border-[#00e0ff]
+hover:bg-[#07141a]
+hover:text-[#f5f7ff]
+
+hover:shadow-[inset_0_0_10px_rgba(0,224,255,0.12),0_0_12px_rgba(0,224,255,0.25)]
+
+active:translate-y-px
+active:brightness-75
+
+focus:outline-none
+focus-visible:border-[#ffe600]
+focus-visible:text-[#ffe600]
+`;
+
+const modalMapNavSplitter = `
+min-w-10.5
+
+text-center
+text-xs
+font-medium
+
+tracking-widest
+
+text-[#ffe600]
+
+drop-shadow-[0_0_6px_rgba(255,230,0,0.45)]
+`;
+
 // --QML-----------REQUIREMENTS----------
 
 const modalRequirements = `
@@ -877,7 +1008,14 @@ export const questModalStyles = {
 		container: () => modalMapContainer,
 		content: () => modalMapContent,
 		image: () => modalMapImage,
-		modal: () => modalMapModalContainer
+		modal: () => modalMapModalContainer,
+		nav: {
+			base: () => modalMapNavBase,
+			title: () => modalMapNavTitle,
+			wrapper: () => modalMapNavWrapper,
+			button: () => modalMapNavButton,
+			splitter: () => modalMapNavSplitter
+		}
 	},
 
 	requirements: {

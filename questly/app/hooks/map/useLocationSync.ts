@@ -8,10 +8,15 @@ type Props = {
 	selectedLocationUuid?: string;
 	mapLocation: string;
 	setFilters: Dispatch<SetStateAction<Filters>>;
+	// Gdy false, hook nic nie robi. Używane przy renderowaniu mapy dla konkretnego
+	// questa (questMarkers), gdzie lokacja pochodzi z markerów, a nie z globalnych
+	// filtrów, więc nie chcemy nadpisywać filters.mapLocation.
+	enabled?: boolean;
 };
 
-export function useLocationSync({ locationData, selectedLocationUuid, mapLocation, setFilters }: Props) {
+export function useLocationSync({ locationData, selectedLocationUuid, mapLocation, setFilters, enabled = true }: Props) {
 	useEffect(() => {
+		if (!enabled) return;
 		if (!locationData?.locations.length) return;
 
 		const exists = locationData.locations.some(({ uuid }) => uuid === mapLocation);
@@ -23,12 +28,14 @@ export function useLocationSync({ locationData, selectedLocationUuid, mapLocatio
 				mapMarkers: []
 			}));
 		}
-	}, [locationData, mapLocation, setFilters]);
+	}, [locationData, mapLocation, setFilters, enabled]);
 
 	useEffect(() => {
+		if (!enabled) return;
+
 		setFilters((prev) => ({
 			...prev,
 			mapMarkers: []
 		}));
-	}, [selectedLocationUuid, setFilters]);
+	}, [selectedLocationUuid, setFilters, enabled]);
 }

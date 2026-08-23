@@ -20,7 +20,8 @@ type Props = {
 
 export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 	const [mapStateVisible, setMapStateVisible] = useState(false);
-	const mapVisible = hideMap === true || !quest.map_marker;
+	const mapVisible = hideMap === true || !(quest.map_markers.length >= 1);
+	console.log(quest.map_markers);
 	const theme = getTheme("questModal", game);
 	return (
 		<div className={theme.base(mapStateVisible)}>
@@ -41,7 +42,7 @@ export function QuestModalLayout({ quest, hideMap = false, game }: Props) {
 					<ModalCloseButton game={game} />
 				</>
 			) : (
-				<ModalMapContainer game={game} mapMarker={quest.map_marker} setMapStateVisible={setMapStateVisible} />
+				<ModalMapContainer game={game} mapMarkers={quest.map_markers} setMapStateVisible={setMapStateVisible} />
 			)}
 		</div>
 	);

@@ -15,19 +15,17 @@ type MapMarkerProps = {
 	onClick?: (title: string) => void;
 	onToggle?: () => void;
 	title: string;
-	questMarker?: MapMarkerType;
+	questMarkers?: MapMarkerType[];
 };
 
-export default function MapMarker({ uuid, title, position, iconUrl, onToggle, iconSize = [32, 32], onClick, questMarker }: MapMarkerProps) {
+export default function MapMarker({ uuid, title, position, iconUrl, onToggle, iconSize = [32, 32], onClick, questMarkers }: MapMarkerProps) {
 	const params = useParams();
 	const game = params.game as string;
 	const { isCompleted } = useCompleted(game, "mapMarkers");
 
 	const completed = isCompleted(uuid);
 
-	const interactive = !questMarker;
-
-	const opacity = questMarker ? 1 : completed ? 0.5 : 1;
+	const opacity = questMarkers ? 1 : completed ? 0.5 : 1;
 
 	const icon = useMemo(
 		() =>
@@ -44,22 +42,17 @@ export default function MapMarker({ uuid, title, position, iconUrl, onToggle, ic
 			position={position}
 			icon={icon}
 			opacity={opacity}
-			interactive={interactive}
-			eventHandlers={
-				interactive
-					? {
-							click: (e) => {
-								e.originalEvent.stopPropagation();
-								onClick?.(title);
-							},
-							contextmenu: (e) => {
-								e.originalEvent.preventDefault();
+			eventHandlers={{
+				click: (e) => {
+					e.originalEvent.stopPropagation();
+					onClick?.(title);
+				},
+				contextmenu: (e) => {
+					e.originalEvent.preventDefault();
 
-								onToggle?.();
-							}
-						}
-					: undefined
-			}
+					onToggle?.();
+				}
+			}}
 		/>
 	);
 }

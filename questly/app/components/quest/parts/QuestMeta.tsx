@@ -10,6 +10,7 @@ type Props = {
 export function QuestMeta({ level, children, game }: Props) {
 	const t = useTranslations("common");
 	const theme = getTheme("quest", game);
+
 	return (
 		<div className={theme.meta.base()}>
 			{children}
@@ -17,7 +18,7 @@ export function QuestMeta({ level, children, game }: Props) {
 			<div className={theme.meta.level()}>
 				<span className={theme.meta.label()}>{t("levelShort")}</span>
 
-				<p className={theme.meta.value()}>{level}</p>
+				<p className={theme.meta.value()}>{level ?? 0}</p>
 			</div>
 		</div>
 	);

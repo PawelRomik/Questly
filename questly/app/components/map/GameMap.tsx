@@ -16,10 +16,12 @@ import { getTheme } from "@/app/lib/utils/getTheme";
 import { getMapName } from "@/app/lib/utils/map/getMapName";
 import { getMarkerDisplay } from "@/app/lib/utils/map/getMarkerDisplay";
 import "leaflet/dist/leaflet.css";
+import { LatLngBounds, LatLngTuple } from "leaflet";
 import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { useLeafletTileFix } from "@/app/hooks/map/useLeafletTileFix";
+import QuestMarkersFocus from "@/app/components/map/QuestMarkersFocus";
 
 export type MarkerGroup = {
 	title: string;
@@ -41,6 +43,9 @@ export type MapMarkerType = {
 		icon: string;
 	};
 	hidden?: boolean;
+	location?: {
+		uuid: string;
+	};
 	quest: {
 		uuid: string;
 		title: string;
@@ -58,11 +63,13 @@ export type GetMapMarkersResponse = {
 
 type Props = {
 	bigZoom?: boolean;
-	questMarker?: MapMarkerType;
+	questMarkers?: MapMarkerType[];
 	game: string;
 };
 
-export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
+export const SINGLE_QUEST_MARKER_ZOOM = 4;
+
+export default function GameMap({ bigZoom = false, questMarkers, game }: Props) {
 	const locale = useLocale();
 	useClearParams();
 	useLeafletTileFix();
@@ -72,12 +79,17 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const theme = getTheme("map", game);
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
 
-	const { locationData, selectedLocation, markers: markersData, bounds } = useGameMapData(game, locale, filters.mapLocation);
+	const hasQuestMarkers = !!questMarkers && questMarkers.length > 0;
+	const questLocationUuid = hasQuestMarkers ? questMarkers[0]?.location?.uuid : undefined;
+	const locationUuid = questLocationUuid ?? filters.mapLocation;
+
+	const { locationData, selectedLocation, markers: markersData, bounds } = useGameMapData(game, locale, locationUuid);
 	useLocationSync({
 		locationData,
 		selectedLocationUuid: selectedLocation?.uuid,
 		mapLocation: filters.mapLocation,
-		setFilters
+		setFilters,
+		enabled: !hasQuestMarkers
 	});
 
 	const markers = useMemo(
@@ -94,7 +106,7 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 	const visibleMarkers = useVisibleMarkers({
 		markers,
 		filters,
-		questMarker
+		questMarkers
 	});
 
 	useMarkerGroups({
@@ -102,10 +114,24 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 		setFilters
 	});
 
-	const center = useMapCenter({
+	const defaultCenter = useMapCenter({
 		visibleMarkers,
 		bounds
 	});
+
+	const center = useMemo<LatLngTuple>(() => {
+		if (questMarkers && questMarkers.length > 0) {
+			if (questMarkers.length === 1) {
+				return [questMarkers[0].lat, questMarkers[0].lng];
+			}
+
+			const questBounds = new LatLngBounds(questMarkers.map((m) => [m.lat, m.lng] as LatLngTuple));
+			const c = questBounds.getCenter();
+			return [c.lat, c.lng];
+		}
+
+		return defaultCenter;
+	}, [questMarkers, defaultCenter]);
 
 	if (!selectedLocation || !bounds) {
 		return null;
@@ -124,26 +150,25 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 				maxBoundsViscosity={1}
 				minZoom={2}
 				maxZoom={6}
-				zoom={bigZoom ? 4 : 3}
+				zoom={questMarkers && questMarkers.length === 1 ? SINGLE_QUEST_MARKER_ZOOM : bigZoom ? 4 : 3}
 				className={theme.map.map()}
 			>
 				<MapResizeObserver />
+				<QuestMarkersFocus questMarkers={questMarkers} />
 				<TileLayer tms={true} url={`${process.env.NEXT_PUBLIC_STORAGE_URL}/${game}/maps/${mapName}/{z}/{x}/{y}.png`} tileSize={256} noWrap />
 
 				{visibleMarkers.map((m) => {
 					const { title, iconUrl } = getMarkerDisplay(m);
-
-					const isQuestMarker = !!questMarker;
 
 					return (
 						<MapMarker
 							uuid={m.uuid}
 							key={m.uuid}
 							title={title}
-							questMarker={questMarker}
+							questMarkers={questMarkers}
 							position={[m.lat, m.lng]}
 							iconUrl={iconUrl}
-							onClick={isQuestMarker ? undefined : () => setSelectedMarker(m)}
+							onClick={() => setSelectedMarker(m)}
 							onToggle={() => toggle(m.uuid)}
 						/>
 					);
@@ -158,6 +183,7 @@ export default function GameMap({ bigZoom = false, questMarker, game }: Props) {
 					selectedQuest={!!selectedMarker.quest}
 					title={selectedMarker.quest?.title ?? selectedMarker.map_icon?.title}
 					uuid={selectedMarker.quest?.uuid}
+					isQuestMarker={!!questMarkers}
 				/>
 			)}
 		</div>

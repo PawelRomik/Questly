@@ -33,7 +33,7 @@ export default function QuestWrapper({ quest, game }: Props) {
 
 	return (
 		<div className={theme.wrapper.base(completed)}>
-			<QuestAccent game={game} completed={completed} color={quest_type.color} />
+			<QuestAccent game={game} completed={completed} color={quest_type?.color ?? "#ffffff"} />
 
 			<QuestMeta game={game} level={level}>
 				<QuestImage game={game} icon={quest_type?.icon ?? default_icon} src={location?.banner ?? default_banner} />
