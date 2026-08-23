@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Quest } from "@/app/types/quest";
-import QuestModal from "@/app/components/quest-modal/QuestModal";
+import QuestTrigger from "@/app/components/quest/QuestTrigger";
 
 export default function QuestItem({ quest, game }: { quest: Quest; game: string }) {
 	return (
@@ -13,7 +13,7 @@ export default function QuestItem({ quest, game }: { quest: Quest; game: string 
 			whileTap={{ scale: 0.97 }}
 			layout
 		>
-			<QuestModal game={game} quest={quest} />
+			<QuestTrigger game={game} quest={quest} />
 		</motion.div>
 	);
 }

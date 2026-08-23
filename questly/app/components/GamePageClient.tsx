@@ -20,6 +20,7 @@ import FiltersSkeleton from "@/app/components/filters/FiltersSkeleton";
 
 import ContentBoundary from "@/app/components/ContentBoundary";
 import { Game } from "@/app/types/quest";
+import QuestModalRoot from "@/app/components/quest-modal/QuestModalRoot";
 
 type Props = {
 	game: Game;
@@ -208,6 +209,8 @@ export default function GamePageClient({ game }: Props) {
 					)}
 				</div>
 			</div>
+
+			<QuestModalRoot game={game.slug} />
 		</div>
 	);
 }

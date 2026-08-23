@@ -6,28 +6,9 @@ export const GET_QUESTS = gql`
 			title
 			quest_type {
 				name
-
 				uuid
 				icon
 				color
-			}
-			map_markers {
-				lat
-				quest {
-					title
-					quest_type {
-						icon
-					}
-				}
-				lng
-				uuid
-				location {
-					uuid
-				}
-				map_icon {
-					icon
-					title
-				}
 			}
 			missable
 			quest_act {
@@ -36,64 +17,27 @@ export const GET_QUESTS = gql`
 				order
 				icon
 			}
-			next_quests {
-				uuid
-				title
-				quest_type {
-					icon
-				}
-			}
-			prev_quests {
-				uuid
-				title
-				quest_type {
-					icon
-				}
-			}
 			quest_groups {
 				title
-
 				uuid
 				icon
 			}
 			uuid
 			level
-			description
 			short_desc
 			location {
 				name
 				uuid
-
-				minimap
 				banner
-			}
-			character {
-				name
-				image
 			}
 			tags {
 				name
-			}
-			requirement {
-				desc
 			}
 			rewards {
 				experience
 				money
 				items {
-					image
 					name
-					rarity {
-						name
-						color
-					}
-					description
-					amount
-					price
-					item_type {
-						name
-						icon
-					}
 				}
 				other
 			}
@@ -299,20 +243,11 @@ export const GET_QUEST_BY_UUID = gql`
 		quests(locale: $locale, filters: { uuid: { eq: $uuid } }) {
 			title
 			quest_type {
-				uuid
-				locale
 				name
 				icon
 				color
 			}
 			missable
-			quest_act {
-				uuid
-				locale
-				title
-				order
-				icon
-			}
 			map_markers {
 				lat
 				lng
@@ -345,31 +280,17 @@ export const GET_QUEST_BY_UUID = gql`
 					icon
 				}
 			}
-			quest_groups {
-				title
-				locale
-				uuid
-				icon
-			}
 			uuid
 			level
 			description
-			short_desc
-
 			location {
 				name
-				locale
-				uuid
-				locale
 				minimap
 				banner
 			}
 			character {
 				name
 				image
-			}
-			tags {
-				name
 			}
 			requirement {
 				desc
@@ -396,7 +317,6 @@ export const GET_QUEST_BY_UUID = gql`
 			}
 			dlc {
 				title
-				uuid
 				color
 				icon
 			}

@@ -144,7 +144,7 @@ const modalCharacterImage = `
 w-full
 h-full
 object-cover
-object-[25%_25%]
+object-[50%_25%]
 
 lg:object-cover
 `;
