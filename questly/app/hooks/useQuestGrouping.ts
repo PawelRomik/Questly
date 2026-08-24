@@ -1,8 +1,13 @@
 import { useMemo } from "react";
+
 import { Quest } from "@/app/types/quest";
+
 import { buildQuestTree, Getters, GroupKey } from "@/app/lib/utils/buildQuestTree";
-import { Filters, MissableOption } from "@/app/components/filters/types";
+
+import { CompletedOption, Filters, MissableOption } from "@/app/components/filters/types";
+
 import { StaticImageData } from "next/image";
+
 import { useTranslations } from "next-intl";
 
 export function useQuestGrouping(
@@ -10,11 +15,16 @@ export function useQuestGrouping(
 	filters: Filters,
 	getters: Getters,
 	locale: string,
-	icons: { defaultIcon: string | StaticImageData; searchIcon: string | StaticImageData; missableIcon: string | StaticImageData }
+	icons: {
+		defaultIcon: string | StaticImageData;
+		searchIcon: string | StaticImageData;
+		missableIcon: string | StaticImageData;
+	}
 ) {
 	const t = useTranslations();
+
 	return useMemo(() => {
-		if (filters.search) {
+		if (filters.search || filters.missables === MissableOption.SHOW_ONLY || filters.dlc !== "all" || filters.completed === CompletedOption.SHOW_ONLY) {
 			return [
 				{
 					title: t("filters.searchResults"),
@@ -36,13 +46,11 @@ export function useQuestGrouping(
 		if (filters.groupByLocation) keys.push("location");
 		if (filters.groupByType) keys.push("type");
 
-		const isMissable = filters.missables === MissableOption.SHOW_ONLY;
-
 		if (!keys.length) {
 			return [
 				{
-					title: isMissable ? t("tags.missable") : t("quests.allQuests"),
-					icon: isMissable ? icons.missableIcon : icons.defaultIcon,
+					title: t("quests.quests"),
+					icon: icons.defaultIcon,
 					items: quests
 				}
 			];

@@ -8,6 +8,7 @@ import { sortQuests } from "@/app/lib/utils/sortQuests";
 import { Quest } from "@/app/types/quest";
 import { StaticImageData } from "next/image";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useTranslations } from "next-intl";
 
 export type GroupNode = {
 	title: string;
@@ -27,11 +28,12 @@ export default function QuestTreeRenderer({ nodes, level = 0, sort, game }: Ques
 	const { isCompleted } = useCompleted(game, "quests");
 	const { filters } = useFilters();
 	const { completed, missables } = filters;
+	const t = useTranslations();
 
 	return nodes.map((node) => {
 		const allQuests = collectQuests(node);
 
-		const sorted = node.items ? sortQuests(node.items, sort, isCompleted, completed, missables) : [];
+		const sorted = node.items ? sortQuests(node.items, sort, isCompleted, completed, missables, t("quests.unnamed")) : [];
 
 		const completedCount = allQuests.filter((q) => isCompleted(q.uuid)).length;
 

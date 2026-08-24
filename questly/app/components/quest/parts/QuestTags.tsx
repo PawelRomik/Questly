@@ -20,7 +20,7 @@ export function QuestTags({ quest, searchTags, completed, game }: Props) {
 
 	return (
 		<div className={theme.tags()}>
-			{dlc && <Tag game={game} tag={dlc.title} type='dlc' match={quest._dlcMatch} color={dlc.color} searchTags={searchTags} />}
+			{dlc && <Tag game={game} tag={dlc.title} type='dlc' dlc={dlc.uuid} match={quest._dlcMatch} color={dlc.color} searchTags={searchTags} />}
 			{missable && <Tag game={game} tag={t("missable")} type='missable' match={quest._missableMatch} color={missable_color} searchTags={searchTags} />}
 			{tags.map((tag) => (
 				<Tag game={game} key={tag.name} match={tag.name === quest._tagMatchValue ? quest._tagMatchIndices : undefined} tag={tag.name} searchTags={searchTags} />
