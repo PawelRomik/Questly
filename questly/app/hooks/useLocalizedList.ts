@@ -1,5 +1,5 @@
 import { DocumentNode } from "@apollo/client";
-import { client } from "@/app/lib/apollo";
+import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
 import fetchAllPages from "@/app/lib/utils/fetchAllPages";
 
@@ -61,14 +61,14 @@ export function useLocalizedList<T, TVars>({ locale, defaultLocale = "en", query
 	}, [query, vars, locale, defaultLocale, pageSize]);
 
 	return useSuspenseResource(cacheKey, async () => {
-		const localized = await fetchAllPages({ client, query, vars, locale, getItems, pageSize });
+		const localized = await fetchAllPages({ client: getClient(), query, vars, locale, getItems, pageSize });
 
 		if (locale === defaultLocale) {
 			return localized;
 		}
 
 		const fallback = await fetchAllPages({
-			client,
+			client: getClient(),
 			query,
 			vars,
 			locale: defaultLocale,

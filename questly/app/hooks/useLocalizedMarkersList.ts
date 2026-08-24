@@ -1,5 +1,5 @@
 import { DocumentNode } from "@apollo/client";
-import { client } from "@/app/lib/apollo";
+import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
 
 type MarkerWithRelations = {
@@ -148,14 +148,14 @@ export function useLocalizedMarkersList<T extends MarkerWithRelations, TVars>({
 	}, [query, vars, locale, defaultLocale, pageSize]);
 
 	const markers = useSuspenseResource(cacheKey, async () => {
-		const localized = await fetchAllPages({ client, query, vars, locale, getItems, pageSize });
+		const localized = await fetchAllPages({ client: getClient(), query, vars, locale, getItems, pageSize });
 
 		if (locale === defaultLocale) {
 			return localized;
 		}
 
 		const fallback = await fetchAllPages({
-			client,
+			client: getClient(),
 			query,
 			vars,
 			locale: defaultLocale,

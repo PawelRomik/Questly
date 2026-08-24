@@ -23,6 +23,28 @@ type Props = {
 	game: string;
 };
 
+function getLastGroupStorageKey(game: string) {
+	return `lastCollectionGroup:${game}`;
+}
+
+function readLastGroup(game: string): string | null {
+	if (typeof window === "undefined") return null;
+
+	try {
+		return window.localStorage.getItem(getLastGroupStorageKey(game));
+	} catch {
+		return null;
+	}
+}
+
+function writeLastGroup(game: string, uuid: string) {
+	if (typeof window === "undefined") return;
+
+	try {
+		window.localStorage.setItem(getLastGroupStorageKey(game), uuid);
+	} catch {}
+}
+
 export default function CollectionList({ game }: Props) {
 	const theme = getTheme("collection", game);
 	const locale = useLocale();
@@ -52,15 +74,23 @@ export default function CollectionList({ game }: Props) {
 		if (isSearching) return;
 
 		if (!selectedCollection && collectionGroups.length) {
-			const first = collectionGroups[0].uuid;
+			const stored = readLastGroup(game);
+			const storedIsValid = !!stored && collectionGroups.some((g) => g.uuid === stored);
+			const initial = storedIsValid ? (stored as string) : collectionGroups[0].uuid;
 
 			const params = new URLSearchParams(searchParams.toString());
 
-			params.set("collection", first);
+			params.set("collection", initial);
 
 			router.replace(`?${params.toString()}`);
 		}
-	}, [selectedCollection, collectionGroups, router, searchParams, isSearching]);
+	}, [selectedCollection, collectionGroups, router, searchParams, isSearching, game]);
+
+	useEffect(() => {
+		if (selectedCollection && !isSearching) {
+			writeLastGroup(game, selectedCollection);
+		}
+	}, [selectedCollection, isSearching, game]);
 
 	const collections = useLocalizedList<CollectionType, { game: string; locale: string }>({
 		locale,

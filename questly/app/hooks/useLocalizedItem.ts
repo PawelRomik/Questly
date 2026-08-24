@@ -1,5 +1,5 @@
 import { DocumentNode } from "@apollo/client";
-import { client } from "@/app/lib/apollo";
+import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
 
 type LocalizedItemOptions<T, TVars> = {
@@ -62,7 +62,7 @@ async function fetchLocalizedItem<T, TVars>({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getItems: (data: any) => T[];
 }): Promise<T | undefined> {
-	const { data } = await client.query({
+	const { data } = await getClient().query({
 		query,
 		variables: { ...vars, locale },
 		fetchPolicy: "network-only"
@@ -71,6 +71,10 @@ async function fetchLocalizedItem<T, TVars>({
 	return getItems(data)[0];
 }
 
+// Jak useLocalizedList, ale dla pojedynczego elementu (np. quest po uuid):
+// najpierw próbuje w bieżącym locale, a jeśli nie ma tłumaczenia (backend
+// zwraca pustą listę), fallbackuje na defaultLocale - zamiast pokazywać
+// "nie znaleziono" dla questów, które po prostu nie zostały jeszcze przetłumaczone.
 export function useLocalizedItem<T, TVars>({ locale, defaultLocale = "en", query, vars, getItems }: LocalizedItemOptions<T, TVars>): T | undefined {
 	const cacheKey = useMemo(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
