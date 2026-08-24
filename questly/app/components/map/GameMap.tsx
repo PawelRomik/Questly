@@ -64,11 +64,8 @@ type Props = {
 	game: string;
 };
 
-const SINGLE_QUEST_MARKER_ZOOM = 4;
+export const SINGLE_QUEST_MARKER_ZOOM = 4;
 
-// Dopasowuje center + zoom mapy do questMarkers po jej zamontowaniu.
-// 1 marker -> ustawia widok na nim z konkretnym zoomem.
-// 2+ markery -> fitBounds, żeby wszystkie były widoczne.
 function QuestMarkersFocus({ questMarkers }: { questMarkers?: MapMarkerType[] }) {
 	const map = useMap();
 
@@ -100,9 +97,6 @@ export default function GameMap({ bigZoom = false, questMarkers, game }: Props) 
 	const { completedSet, toggle } = useCompleted(game, "mapMarkers");
 
 	const hasQuestMarkers = !!questMarkers && questMarkers.length > 0;
-	// Gdy renderujemy mapę dla questa (questMarkers), lokację bierzemy z markerów
-	// (wszystkie markery w danej grupie mają tę samą location.uuid - patrz
-	// ModalMapContainer), a nie z globalnego filtra mapLocation.
 	const questLocationUuid = hasQuestMarkers ? questMarkers[0]?.location?.uuid : undefined;
 	const locationUuid = questLocationUuid ?? filters.mapLocation;
 
@@ -137,8 +131,6 @@ export default function GameMap({ bigZoom = false, questMarkers, game }: Props) 
 		bounds
 	});
 
-	// Jeśli mamy questMarkers (markery z propu, nie z bazy), centrujemy mapę
-	// względem nich: 1 marker -> centrum na nim, 2+ markery -> środek między nimi.
 	const center = useMemo<LatLngTuple>(() => {
 		if (questMarkers && questMarkers.length > 0) {
 			if (questMarkers.length === 1) {
