@@ -78,6 +78,7 @@ group-hover:brightness-125
 const switcherFlagTrigger = (flag: string) => `
 fi
 fi-${flag}
+hover:cursor-pointer
 
 rounded-sm
 

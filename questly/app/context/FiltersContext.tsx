@@ -20,7 +20,7 @@ const DEFAULT_FILTERS: Filters = {
 	dlc: "all",
 	mapLocation: "none",
 	completedMarkers: CompletedMarkersOption.SHOW,
-	mapMarkers: [],
+	disabledMarkers: [],
 	groupByType: true,
 	hiddenAchievements: HiddenAchievementsOption.HIDE,
 	sort: SortOption.LEVEL_ASC,
@@ -48,7 +48,7 @@ const ACHIEVEMENT_FILTER_KEYS = ["searchTags", "groupByQuestGroup", "missables",
 
 const COLLECTION_FILTER_KEYS = ["searchItems", "missables", "completed", "dlc", "sort"] as const satisfies readonly (keyof Filters)[];
 
-const MAP_FILTER_KEYS = ["mapLocation", "completedMarkers"] as const satisfies readonly (keyof Filters)[];
+const MAP_FILTER_KEYS = ["mapLocation", "completedMarkers", "disabledMarkers"] as const satisfies readonly (keyof Filters)[];
 
 type ContentKey = "quests" | "achievements" | "collectibles" | "map";
 
@@ -117,10 +117,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 		readyRef.current = false;
 
 		const timeout = setTimeout(() => {
-			setFilters((prev) => {
+			setFilters(() => {
 				const next: Filters = {
-					...DEFAULT_FILTERS,
-					mapMarkers: prev.mapMarkers
+					...DEFAULT_FILTERS
 				};
 
 				if (gameKey && contentKey) {

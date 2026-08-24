@@ -23,8 +23,8 @@
         }
       }
     },
-    "description": {
-      "type": "text",
+    "short_desc": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -80,6 +80,14 @@
       "pluginOptions": {
         "i18n": {
           "localized": false
+        }
+      }
+    },
+    "description": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
         }
       }
     }

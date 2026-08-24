@@ -21,7 +21,7 @@ export function AchievementTags({ achievement, searchTags, completed, game }: Pr
 
 	return (
 		<div className={theme.tags()}>
-			{dlc && <Tag game={game} tag={dlc.title} type='dlc' match={achievement._dlcMatch} color={dlc.color} searchTags={searchTags} />}
+			{dlc && <Tag game={game} tag={dlc.title} dlc={dlc.uuid} type='dlc' match={achievement._dlcMatch} color={dlc.color} searchTags={searchTags} />}
 			{missable && <Tag game={game} tag={t("missable")} type='missable' match={achievement._missableMatch} color={missable_color} searchTags={searchTags} />}
 			{tags.map((tag) => (
 				<Tag game={game} key={tag.name} match={tag.name === achievement._tagMatchValue ? achievement._tagMatchIndices : undefined} tag={tag.name} searchTags={searchTags} />

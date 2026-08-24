@@ -10,7 +10,6 @@ import { useClearParams } from "@/app/hooks/map/useClearParams";
 import { useGameMapData } from "@/app/hooks/map/useGameMapData";
 import { useLocationSync } from "@/app/hooks/map/useLocationSync";
 import { useMapCenter } from "@/app/hooks/map/useMapCenter";
-import { useMarkerGroups } from "@/app/hooks/map/useMarkerGroups";
 import { useVisibleMarkers } from "@/app/hooks/map/useVisibleMarkers";
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { getMapName } from "@/app/lib/utils/map/getMapName";
@@ -18,16 +17,14 @@ import { getMarkerDisplay } from "@/app/lib/utils/map/getMarkerDisplay";
 import "leaflet/dist/leaflet.css";
 import { LatLngBounds, LatLngTuple } from "leaflet";
 import { useLocale } from "next-intl";
-import { useMemo, useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { useLeafletTileFix } from "@/app/hooks/map/useLeafletTileFix";
-import QuestMarkersFocus from "@/app/components/map/QuestMarkersFocus";
 
 export type MarkerGroup = {
 	title: string;
 	icon: string;
 	count: number;
-	visible: boolean;
 	isQuest: boolean;
 	uuids: string[];
 };
@@ -69,6 +66,26 @@ type Props = {
 
 export const SINGLE_QUEST_MARKER_ZOOM = 4;
 
+function QuestMarkersFocus({ questMarkers }: { questMarkers?: MapMarkerType[] }) {
+	const map = useMap();
+
+	useEffect(() => {
+		if (!questMarkers || questMarkers.length === 0) {
+			return;
+		}
+
+		if (questMarkers.length === 1) {
+			map.setView([questMarkers[0].lat, questMarkers[0].lng], SINGLE_QUEST_MARKER_ZOOM);
+			return;
+		}
+
+		const questBounds = new LatLngBounds(questMarkers.map((m) => [m.lat, m.lng] as LatLngTuple));
+		map.fitBounds(questBounds, { padding: [50, 50] });
+	}, [questMarkers, map]);
+
+	return null;
+}
+
 export default function GameMap({ bigZoom = false, questMarkers, game }: Props) {
 	const locale = useLocale();
 	useClearParams();
@@ -107,11 +124,6 @@ export default function GameMap({ bigZoom = false, questMarkers, game }: Props) 
 		markers,
 		filters,
 		questMarkers
-	});
-
-	useMarkerGroups({
-		markers,
-		setFilters
 	});
 
 	const defaultCenter = useMapCenter({

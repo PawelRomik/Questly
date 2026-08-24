@@ -29,7 +29,7 @@ export default function AchievementList({ game }: Props) {
 	const t = useTranslations();
 
 	const { filters } = useFilters();
-	const { search, groupByQuestGroup, sort, missables } = filters;
+	const { search, completed, dlc, groupByQuestGroup, sort, missables } = filters;
 
 	const { toggle, completedSet } = useCompleted(game, "achievements");
 	const locale = useLocale();
@@ -81,10 +81,10 @@ export default function AchievementList({ game }: Props) {
 	const { achievement_icon, search_icon } = useGameAssets();
 
 	const grouped = useMemo(() => {
-		if (search.trim()) {
+		if (search.trim() || missables === MissableOption.SHOW_ONLY || completed === CompletedOption.SHOW_ONLY || dlc !== "all") {
 			return [
 				{
-					title: t("searchResults"),
+					title: t("filters.searchResults"),
 					items: sortedAchievements,
 					icon: search_icon
 				}
@@ -95,7 +95,7 @@ export default function AchievementList({ game }: Props) {
 			allAchievements: t("achievements.achievements"),
 			other: t("common.other")
 		});
-	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon]);
+	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon, missables, completed, dlc]);
 
 	return (
 		<div className={theme.root()}>
@@ -104,7 +104,7 @@ export default function AchievementList({ game }: Props) {
 				const icon = search ? search_icon : group.icon || achievement_icon;
 
 				return (
-					<Section game={game} key={group.title} title={search ? t("filters.searchResults") : group.title} count={group.items.length} completed={completedCount} icon={icon}>
+					<Section game={game} key={group.title} title={group.title} count={group.items.length} completed={completedCount} icon={icon}>
 						{group.items.map((achievement) => (
 							<Achievement
 								game={game}

@@ -80,6 +80,7 @@
 		"icon": "Ikona zadania",
 		"suggestedLevel": "Zalecany poziom: {level}",
 		"completedQuest": "Ukończone zadanie:",
+		"unnamed": "Zadanie bez nazwy",
 		"rewards": {
 			"reward": "Nagroda",
 			"xp": "PD",

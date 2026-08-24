@@ -1,10 +1,13 @@
 import { CompletedOption, MissableOption, SortOption } from "@/app/components/filters/types";
 import { Quest } from "@/app/types/quest";
 
-function compareBySort(a: Quest, b: Quest, sort: string) {
+function compareBySort(a: Quest, b: Quest, sort: string, unnamedQuest: string) {
+	const titleA = a.title?.trim() || unnamedQuest;
+	const titleB = b.title?.trim() || unnamedQuest;
+
 	switch (sort) {
 		case SortOption.ZA:
-			return b.title.localeCompare(a.title);
+			return titleB.localeCompare(titleA);
 
 		case SortOption.LEVEL_ASC:
 			return (a.level ?? 0) - (b.level ?? 0);
@@ -14,7 +17,7 @@ function compareBySort(a: Quest, b: Quest, sort: string) {
 
 		case SortOption.AZ:
 		default:
-			return a.title.localeCompare(b.title);
+			return titleA.localeCompare(titleB);
 	}
 }
 
@@ -23,7 +26,8 @@ export function sortQuests(
 	sort: string,
 	isCompleted: (uuid: string) => boolean,
 	completed: CompletedOption = CompletedOption.DEFAULT,
-	missables: MissableOption = MissableOption.DEFAULT
+	missables: MissableOption = MissableOption.DEFAULT,
+	unnamedQuest: string
 ) {
 	const sorted = [...quests];
 
@@ -47,7 +51,7 @@ export function sortQuests(
 			return Number(b.missable) - Number(a.missable);
 		}
 
-		return compareBySort(a, b, sort);
+		return compareBySort(a, b, sort, unnamedQuest);
 	});
 
 	return sorted;
