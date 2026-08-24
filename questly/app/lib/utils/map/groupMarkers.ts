@@ -14,7 +14,6 @@ export function groupMarkers(markers: MapMarkerType[]): MarkerGroup[] {
 				title,
 				icon,
 				count: 1,
-				visible: true,
 				isQuest: !!marker.quest,
 				uuids: [marker.uuid]
 			});

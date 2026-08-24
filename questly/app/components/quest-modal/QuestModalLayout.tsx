@@ -9,10 +9,10 @@ import { ModalDescription } from "@/app/components/quest-modal/parts/ModalDescri
 import { ModalRequirementsContainer } from "@/app/components/quest-modal/parts/requirements/ModalRequirementsContainer";
 import default_character from "../../../public/assets/chh.png";
 import default_map from "../../../public/assets/map.png";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ModalMapContainer from "@/app/components/quest-modal/parts/map/ModalMapContainer";
 import { getTheme } from "@/app/lib/utils/getTheme";
-import { useApollo } from "@/app/hooks/useApollo";
+import { useLocalizedItem } from "@/app/hooks/useLocalizedItem";
 import { GET_QUEST_BY_UUID } from "@/app/lib/queries";
 import { useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
@@ -28,11 +28,6 @@ type GetQuestByUuidResponse = {
 	quests: Quest[];
 };
 
-type getQuestVars = {
-	locale: string;
-	uuid: string;
-};
-
 export function QuestModalLayout({ hideMap = false, game }: Props) {
 	const [mapStateVisible, setMapStateVisible] = useState(false);
 	const locale = useLocale();
@@ -40,12 +35,12 @@ export function QuestModalLayout({ hideMap = false, game }: Props) {
 	const uuid = searchParams.get("activeQuest") || "";
 	const { setActiveQuestId } = useActiveQuest();
 
-	const { data: questData } = useApollo<GetQuestByUuidResponse, getQuestVars>(GET_QUEST_BY_UUID, {
+	const quest = useLocalizedItem<Quest, { uuid: string }>({
 		locale,
-		uuid
+		query: GET_QUEST_BY_UUID,
+		vars: { uuid },
+		getItems: (data: GetQuestByUuidResponse) => data?.quests ?? []
 	});
-
-	const quest = useMemo(() => questData?.quests?.[0], [questData]);
 
 	useEffect(() => {
 		if (uuid && !quest) {

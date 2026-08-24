@@ -40,6 +40,7 @@ export type MapMarkerFilter = {
 export type Filters = {
 	completed: CompletedOption;
 	dlc: string;
+	disabledMarkers: string[];
 	search: string;
 	hiddenAchievements: HiddenAchievementsOption;
 	groupByType: boolean;
@@ -52,5 +53,4 @@ export type Filters = {
 	missables: MissableOption;
 	mapLocation: string;
 	completedMarkers: CompletedMarkersOption;
-	mapMarkers: MapMarkerFilter[];
 };

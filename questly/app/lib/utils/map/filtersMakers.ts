@@ -10,7 +10,7 @@ type Props = {
 export function filterMarkers({ markers, filters, questMarkers }: Props) {
 	if (questMarkers) return [...questMarkers];
 
-	const hidden = new Set(filters.mapMarkers.filter((marker) => !marker.visible).map((marker) => marker.title));
+	const hidden = new Set(filters.disabledMarkers);
 
 	return markers.filter((marker) => {
 		if (filters.completedMarkers === CompletedMarkersOption.HIDE && marker.completed) {
