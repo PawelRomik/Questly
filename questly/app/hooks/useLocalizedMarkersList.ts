@@ -1,6 +1,7 @@
 import { DocumentNode } from "@apollo/client";
 import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
+import { useSuspenseResource } from "@/app/hooks/useSuspenseResource";
 
 type MarkerWithRelations = {
 	uuid: string;
@@ -29,16 +30,6 @@ type LocalizedMarkersOptions<T extends MarkerWithRelations, TVars> = {
 	getItems: (data: any) => T[];
 	pageSize?: number;
 };
-
-type CacheEntry<T> = {
-	status: "pending" | "success" | "error";
-	promise: Promise<void>;
-	data?: T;
-	error?: unknown;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const resourceCache = new Map<string, CacheEntry<any>>();
 
 async function fetchAllPages<T, TVars>({
 	client,
@@ -79,35 +70,6 @@ async function fetchAllPages<T, TVars>({
 	}
 
 	return all;
-}
-
-function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>): T {
-	let entry = resourceCache.get(key) as CacheEntry<T> | undefined;
-
-	if (!entry) {
-		const promise = fetcher()
-			.then((data) => {
-				entry!.status = "success";
-				entry!.data = data;
-			})
-			.catch((error) => {
-				entry!.status = "error";
-				entry!.error = error;
-			});
-
-		entry = { status: "pending", promise };
-		resourceCache.set(key, entry);
-	}
-
-	if (entry.status === "pending") {
-		throw entry.promise;
-	}
-
-	if (entry.status === "error") {
-		throw entry.error;
-	}
-
-	return entry.data as T;
 }
 
 function mergeMarkers<T extends MarkerWithRelations>(localized: T[], fallback: T[]): T[] {

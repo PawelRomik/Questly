@@ -1,6 +1,7 @@
 import { DocumentNode } from "@apollo/client";
 import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
+import { useSuspenseResource } from "@/app/hooks/useSuspenseResource";
 
 type LocalizedItemOptions<T, TVars> = {
 	locale: string;
@@ -10,45 +11,6 @@ type LocalizedItemOptions<T, TVars> = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getItems: (data: any) => T[];
 };
-
-type CacheEntry<T> = {
-	status: "pending" | "success" | "error";
-	promise: Promise<void>;
-	data?: T;
-	error?: unknown;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const resourceCache = new Map<string, CacheEntry<any>>();
-
-function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>): T {
-	let entry = resourceCache.get(key) as CacheEntry<T> | undefined;
-
-	if (!entry) {
-		const promise = fetcher()
-			.then((data) => {
-				entry!.status = "success";
-				entry!.data = data;
-			})
-			.catch((error) => {
-				entry!.status = "error";
-				entry!.error = error;
-			});
-
-		entry = { status: "pending", promise };
-		resourceCache.set(key, entry);
-	}
-
-	if (entry.status === "pending") {
-		throw entry.promise;
-	}
-
-	if (entry.status === "error") {
-		throw entry.error;
-	}
-
-	return entry.data as T;
-}
 
 async function fetchLocalizedItem<T, TVars>({
 	query,
@@ -71,10 +33,6 @@ async function fetchLocalizedItem<T, TVars>({
 	return getItems(data)[0];
 }
 
-// Jak useLocalizedList, ale dla pojedynczego elementu (np. quest po uuid):
-// najpierw próbuje w bieżącym locale, a jeśli nie ma tłumaczenia (backend
-// zwraca pustą listę), fallbackuje na defaultLocale - zamiast pokazywać
-// "nie znaleziono" dla questów, które po prostu nie zostały jeszcze przetłumaczone.
 export function useLocalizedItem<T, TVars>({ locale, defaultLocale = "en", query, vars, getItems }: LocalizedItemOptions<T, TVars>): T | undefined {
 	const cacheKey = useMemo(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -278,12 +278,14 @@ absolute
 
 
 left-1/2
--bottom-5
+top-full
 
 -z-translate-x-1/2
 -translate-x-1/2
 
-z-50
+-z-50
+
+shadow-[0_0_18px_rgba(0,0,0,0.7)]
 
 flex
 items-center

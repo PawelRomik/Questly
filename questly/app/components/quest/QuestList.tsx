@@ -39,9 +39,11 @@ export default function QuestList({ game }: Props) {
 
 	const debouncedSearch = useDebounce(search, 250);
 
+	const effectiveSearch = search === "" ? "" : debouncedSearch;
+
 	const searchedQuests = useFuzzySearch({
 		items: quests,
-		search: debouncedSearch,
+		search: effectiveSearch,
 		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.title"] : [])],
 		getId: (q) => q.uuid,
 		extraMatches: filters.searchTags ? (q, term) => q.missable && "missable".includes(term) : undefined
@@ -57,10 +59,6 @@ export default function QuestList({ game }: Props) {
 		}
 
 		switch (filters.completed) {
-			case CompletedOption.SHOW_ONLY:
-				list = list.filter((q) => completedSet.has(q.uuid));
-				break;
-
 			case CompletedOption.HIDE:
 				list = list.filter((q) => !completedSet.has(q.uuid));
 				break;
