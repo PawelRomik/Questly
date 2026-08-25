@@ -112,7 +112,7 @@ export default function GamePageClient({ game }: Props) {
 					className={`
 			flex
 			flex-col
-			h-dvh
+			h-full
 			overflow-y-scroll
 			md:overflow-y-hidden
 			p-0 
@@ -159,9 +159,9 @@ export default function GamePageClient({ game }: Props) {
 
 					<div
 						className={`
-				md:w-full md:overflow-y-hidden h-dvh overflow-y-scroll
+				md:w-full md:overflow-y-hidden h-full overflow-y-scroll
 				transition-opacity duration-200
-				flex md:items-center md:justify-center items-start justify-center md:py-0 py-10
+				flex md:items-center md:justify-center items-start justify-center md:py-0 pb-3 pt-10
 				${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 			`}
 					>
