@@ -59,7 +59,9 @@ export default function CollectionList({ game }: Props) {
 	const search = filters.search?.trim() ?? "";
 	const debouncedSearch = useDebounce(search, 250);
 
-	const isSearching = debouncedSearch.length > 0;
+	const effectiveSearch = search === "" ? "" : debouncedSearch;
+
+	const isSearching = effectiveSearch.length > 0;
 	const { isCollectionItemCompleted } = useCompleted(game, "collections");
 
 	const collectionGroups = useLocalizedList({
@@ -107,7 +109,7 @@ export default function CollectionList({ game }: Props) {
 
 	const searchedCollections = useFuzzySearch({
 		items: collections,
-		search: debouncedSearch,
+		search: effectiveSearch,
 		keys: searchKeys,
 		getId: (c) => c.uuid
 	});

@@ -313,9 +313,10 @@ const navbarToggleButton = `
 absolute
 
 left-1/2
--bottom-5
+top-full
 
 -z-50
+
 
 -translate-x-1/2
 

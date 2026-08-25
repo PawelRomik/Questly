@@ -2,6 +2,7 @@ import { DocumentNode } from "@apollo/client";
 import { getClient } from "@/app/lib/apollo";
 import { useMemo } from "react";
 import fetchAllPages from "@/app/lib/utils/fetchAllPages";
+import { useSuspenseResource } from "@/app/hooks/useSuspenseResource";
 
 type LocalizedListOptions<T, TVars> = {
 	locale: string;
@@ -13,45 +14,6 @@ type LocalizedListOptions<T, TVars> = {
 	getId: (item: T) => string;
 	pageSize?: number;
 };
-
-type CacheEntry<T> = {
-	status: "pending" | "success" | "error";
-	promise: Promise<void>;
-	data?: T;
-	error?: unknown;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const resourceCache = new Map<string, CacheEntry<any>>();
-
-function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>): T {
-	let entry = resourceCache.get(key) as CacheEntry<T> | undefined;
-
-	if (!entry) {
-		const promise = fetcher()
-			.then((data) => {
-				entry!.status = "success";
-				entry!.data = data;
-			})
-			.catch((error) => {
-				entry!.status = "error";
-				entry!.error = error;
-			});
-
-		entry = { status: "pending", promise };
-		resourceCache.set(key, entry);
-	}
-
-	if (entry.status === "pending") {
-		throw entry.promise;
-	}
-
-	if (entry.status === "error") {
-		throw entry.error;
-	}
-
-	return entry.data as T;
-}
 
 export function useLocalizedList<T, TVars>({ locale, defaultLocale = "en", query, vars, getItems, getId, pageSize = 10 }: LocalizedListOptions<T, TVars>) {
 	const cacheKey = useMemo(() => {

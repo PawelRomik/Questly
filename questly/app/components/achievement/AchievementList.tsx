@@ -46,9 +46,11 @@ export default function AchievementList({ game }: Props) {
 	});
 	const debouncedSearch = useDebounce(search, 250);
 
+	const effectiveSearch = search === "" ? "" : debouncedSearch;
+
 	const searchedAchievements = useFuzzySearch({
 		items: achievements,
-		search: debouncedSearch,
+		search: effectiveSearch,
 		keys: ["title", ...(filters.searchTags ? ["tags.name", "dlc.title"] : [])],
 		getId: (a) => a.uuid,
 		extraMatches: filters.searchTags ? (a, term) => a.missable && "missable".includes(term) : undefined

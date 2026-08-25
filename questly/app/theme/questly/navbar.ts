@@ -290,7 +290,7 @@ const navbarToggleButton = `
 absolute
 
 left-1/2
--bottom-5
+top-full
 
 -z-50
 
@@ -302,6 +302,8 @@ justify-center
 
 px-3
 py-1
+
+shadow-[0_0_18px_rgba(0,0,0,0.7)]
 
 rounded-b-lg
 
@@ -336,12 +338,12 @@ after:from-transparent
 after:via-white/5
 after:to-transparent
 
-after:translate-x-[-120%]
+
 
 after:transition-transform
 after:duration-700
 
-hover:after:translate-x-[120%]
+
 `;
 
 // --NAV--------------MOBILE-----------------
