@@ -46,10 +46,6 @@ export default function AchievementList({ game }: Props) {
 	});
 	const debouncedSearch = useDebounce(search, 250);
 
-	// Debounce ma sens tylko przy pisaniu. Gdy `search` jest już puste (np. po
-	// kliknięciu w tag, które ustawia search+searchTags atomowo w jednym
-	// setFilters), nie ma powodu czekać 250ms - inaczej lista na chwilę pustoszeje,
-	// zanim debounce się dogoni.
 	const effectiveSearch = search === "" ? "" : debouncedSearch;
 
 	const searchedAchievements = useFuzzySearch({
