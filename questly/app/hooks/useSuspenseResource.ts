@@ -1,5 +1,3 @@
-import { redis } from "@/app/lib/redis";
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CacheEntry<T = any> = {
 	status: "pending" | "success" | "error";
@@ -12,9 +10,26 @@ type CacheEntry<T = any> = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const resourceCache = new Map<string, CacheEntry<any>>();
 
-const DEFAULT_TTL_MS = 5 * 60 * 1000; // 5 minut
+const DEFAULT_TTL_MS = 60 * 60 * 1000;
+
+const NAMESPACE = "data:";
+
+function namespacedKey(key: string) {
+	return `${NAMESPACE}${key}`;
+}
+
+async function getServerRedis() {
+	if (typeof window !== "undefined") {
+		return null;
+	}
+
+	const { redis } = await import("@/app/lib/redis");
+	return redis;
+}
 
 async function readThroughRedis<T>(key: string, ttlMs: number, fetcher: () => Promise<T>): Promise<T> {
+	const redis = await getServerRedis();
+
 	if (redis) {
 		try {
 			const cached = await redis.get<T>(key);
@@ -37,12 +52,14 @@ async function readThroughRedis<T>(key: string, ttlMs: number, fetcher: () => Pr
 }
 
 export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, ttlMs: number = DEFAULT_TTL_MS): T {
-	let entry = resourceCache.get(key) as CacheEntry<T> | undefined;
+	const cacheKey = namespacedKey(key);
+
+	let entry = resourceCache.get(cacheKey) as CacheEntry<T> | undefined;
 
 	const isExpired = !!entry && entry.status !== "pending" && Date.now() > entry.expiresAt;
 
 	if (!entry || isExpired) {
-		const promise = readThroughRedis(key, ttlMs, fetcher)
+		const promise = readThroughRedis(cacheKey, ttlMs, fetcher)
 			.then((data) => {
 				entry!.status = "success";
 				entry!.data = data;
@@ -51,12 +68,11 @@ export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, t
 			.catch((error) => {
 				entry!.status = "error";
 				entry!.error = error;
-
 				entry!.expiresAt = Date.now() + Math.min(ttlMs, 10_000);
 			});
 
 		entry = { status: "pending", promise, expiresAt: Infinity };
-		resourceCache.set(key, entry);
+		resourceCache.set(cacheKey, entry);
 	}
 
 	if (entry.status === "pending") {
@@ -69,27 +85,34 @@ export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, t
 
 	return entry.data as T;
 }
-
 export async function invalidateResource(key: string) {
-	resourceCache.delete(key);
+	const cacheKey = namespacedKey(key);
+
+	resourceCache.delete(cacheKey);
+
+	const redis = await getServerRedis();
 
 	if (redis) {
 		try {
-			await redis.del(key);
+			await redis.del(cacheKey);
 		} catch {}
 	}
 }
 
 export async function invalidateResourcesByPrefix(prefix: string) {
+	const namespacedPrefix = namespacedKey(prefix);
+
 	for (const key of resourceCache.keys()) {
-		if (key.startsWith(prefix)) {
+		if (key.startsWith(namespacedPrefix)) {
 			resourceCache.delete(key);
 		}
 	}
 
+	const redis = await getServerRedis();
+
 	if (redis) {
 		try {
-			const keys = await redis.keys(`${prefix}*`);
+			const keys = await redis.keys(`${namespacedPrefix}*`);
 			if (keys.length) {
 				await redis.del(...keys);
 			}
