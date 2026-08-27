@@ -10,7 +10,7 @@ type CacheEntry<T = any> = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const resourceCache = new Map<string, CacheEntry<any>>();
 
-const DEFAULT_TTL_MS = 60 * 60 * 1000;
+const DEFAULT_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 const NAMESPACE = "data:";
 

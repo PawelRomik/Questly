@@ -530,11 +530,14 @@ transition
 ${ptSans.className}
 `;
 
+const localStorageButton = `cursor-pointer px-3 py-1.5 border border-[rgb(40,37,28)] bg-linear-to-b from-[#2a2214] via-[#20180f] to-[#15110b] text-[#d9c38b] text-xs uppercase tracking-wide transition hover:border-[#e6c36a] hover:shadow-[0_0_8px_rgba(255,215,0,0.3)] hover:brightness-110 active:brightness-90`;
+
 //--FLT---------------EXPORT---------------
 
 export const filterStyles = {
 	settings: () => searchSettings,
 	checkboxWrapper: () => checkboxSettingsWrapper,
+	localStorageButton: () => localStorageButton,
 	selectWrapper: () => selectSettingsWrapper,
 	icon: () => filtersIcon,
 	base: () => searchBarBase,

@@ -345,11 +345,44 @@ hover:brightness-120
 transition
 `;
 
+const localStorageButton = `
+cursor-pointer
+
+px-3 py-1.5
+
+border border-[#ff003c]/60
+
+bg-linear-to-b
+from-[#190707]
+to-[#090b12]
+
+text-[#00d9ff]
+
+text-xs
+uppercase
+tracking-wide
+
+${rajdhani.className}
+
+shadow-[0_0_10px_rgba(255,0,60,0.15)]
+shadow-[inset_0_0_8px_rgba(255,0,60,0.08)]
+
+transition-all duration-200
+
+hover:text-[#ffe600]
+hover:border-[#ff003c]
+hover:brightness-120
+hover:shadow-[0_0_14px_rgba(255,0,60,0.3)]
+
+active:brightness-90
+`;
+
 //--FLT---------------EXPORT---------------
 
 export const filterStyles = {
 	settings: () => searchSettings,
 	checkboxWrapper: () => checkboxSettingsWrapper,
+	localStorageButton: () => localStorageButton,
 	selectWrapper: () => selectSettingsWrapper,
 	icon: () => filtersIcon,
 	base: () => searchBarBase,

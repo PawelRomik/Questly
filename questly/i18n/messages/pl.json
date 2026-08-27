@@ -93,6 +93,14 @@
 		"map": "Mapa",
 		"show": "Zobacz"
 	},
+	"progressBackup": {
+		"exportButton": "Eksportuj postęp",
+		"importButton": "Importuj postęp",
+		"noProgressToExport": "Brak zapisanego postępu do wyeksportowania.",
+		"invalidFile": "Nieprawidłowy plik - nie udało się odczytać danych.",
+		"invalidShape": "Nieprawidłowy plik - to nie wygląda na plik z postępem.",
+		"confirmOverwrite": "To nadpisze Twój obecny postęp (ukończone questy, achievementy, kolekcje, markery) zapisany w tej przeglądarce. Kontynuować?"
+	},
 	"switchers": {
 		"selectGame": "Wybierz grę",
 		"selectLocale": "Wybierz język",
