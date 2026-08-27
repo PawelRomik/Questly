@@ -93,6 +93,14 @@
 		"map": "Map",
 		"show": "Show"
 	},
+	"progressBackup": {
+		"exportButton": "Export progress",
+		"importButton": "Import progress",
+		"noProgressToExport": "No saved progress to export.",
+		"invalidFile": "Invalid file - couldn't read the data.",
+		"invalidShape": "Invalid file - this doesn't look like a progress file.",
+		"confirmOverwrite": "This will overwrite your current progress (completed quests, achievements, collections, markers) saved in this browser. Continue?"
+	},
 	"switchers": {
 		"selectGame": "Select game",
 		"selectLocale": "Select locale",

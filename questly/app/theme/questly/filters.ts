@@ -522,11 +522,44 @@ hover:brightness-120
 transition
 `;
 
+const localStorageButton = `
+cursor-pointer
+
+px-3
+py-1.5
+
+border
+border-white/10
+
+bg-linear-to-b
+from-[#181818]
+to-[#0b0b0b]
+
+text-white/60
+
+text-xs
+uppercase
+tracking-wide
+
+shadow-[inset_0_0_8px_rgba(255,255,255,0.03)]
+
+transition-all
+duration-200
+
+hover:border-white/25
+hover:text-white
+hover:bg-[#161616]
+hover:brightness-120
+
+active:brightness-90
+`;
+
 // --FLT---------------EXPORT---------------
 
 export const filterStyles = {
 	settings: () => searchSettings,
 	checkboxWrapper: () => checkboxSettingsWrapper,
+	localStorageButton: () => localStorageButton,
 	selectWrapper: () => selectSettingsWrapper,
 	icon: () => filtersIcon,
 	base: () => searchBarBase,

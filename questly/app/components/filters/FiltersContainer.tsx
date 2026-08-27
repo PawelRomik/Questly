@@ -13,6 +13,7 @@ import { useParams } from "next/navigation";
 import MapMarkerLegend from "@/app/components/filters/MapMarkerLegend";
 import questlyLogo from "../../../public/assets/logo.png";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import FilterProgressButtons from "@/app/components/filters/FilterProgressButtons";
 
 type Props = {
 	game: string;
@@ -56,7 +57,10 @@ export function FiltersContainer({ game }: Props) {
 
 			{content == "map" ? <MapMarkerLegend game={game} /> : <FiltersOptions game={game} isLocked={isLocked} update={update} />}
 			<StatisticList game={game} />
-			<LocaleSwitcher game={game} />
+			<div className='flex gap-2 items-center'>
+				<LocaleSwitcher game={game} />
+				<FilterProgressButtons game={game} />
+			</div>
 		</div>
 	);
 }
