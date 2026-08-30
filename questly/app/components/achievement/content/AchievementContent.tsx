@@ -13,14 +13,14 @@ type Props = {
 };
 
 export function AchievementContent({ achievement, completed, revealed, game }: Props) {
-	const { description, secret } = achievement;
+	const { short_desc, secret } = achievement;
 	const { filters } = useFilters();
 	const theme = getTheme("achievement", game);
 
 	return (
 		<div className={theme.container()}>
 			<AchievementTitle game={game} achievement={achievement} completed={completed} />
-			<AchievementDescription game={game} description={description} revealed={revealed} secret={secret} />
+			<AchievementDescription game={game} description={short_desc} revealed={revealed} secret={secret} />
 			{(!secret || revealed) && <AchievementTags game={game} searchTags={filters.searchTags} completed={completed} achievement={achievement} />}
 		</div>
 	);

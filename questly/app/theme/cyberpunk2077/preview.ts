@@ -12,13 +12,15 @@ const rajdhani = Rajdhani({
 const gamePreviewBase = `
 w-full
 h-[700px]
+lg:h-[900px]
 
 flex
 flex-col
 
 overflow-hidden
 
-border-3
+border-2
+lg:border-3
 border-[#00e0ff]/25
 
 bg-linear-to-b
@@ -40,7 +42,7 @@ duration-300
 
 const gamePreviewBannerBase = `
 relative
-
+h-full
 flex-4
 
 flex
@@ -48,6 +50,7 @@ items-center
 justify-center
 
 bg-cover
+bg-no-repeat
 bg-center
 
 overflow-hidden
@@ -63,6 +66,7 @@ inset-0
 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.75)),radial-gradient(circle_at_top,rgba(0,224,255,0.18),transparent_70%)]
 
 backdrop-blur-[1px]
+
 `;
 
 const gamePreviewBannerContainer = `
@@ -75,11 +79,13 @@ flex-col
 items-center
 justify-center
 
-gap-5
+gap-3
+lg:gap-5
 `;
 
 const gamePreviewBannerLogo = `
-h-[120px]
+h-24
+lg:h-[120px]
 w-auto
 
 drop-shadow-[0_0_25px_rgba(0,224,255,0.45)]
@@ -93,14 +99,15 @@ hover:scale-105
 const gamePreviewBannerTitle = `
 lg:text-4xl
 
-text-xl
+text-2xl
 
 uppercase
 text-center
 
 font-bold
 
-tracking-[0.25em]
+tracking-[0.12em]
+lg:tracking-[0.25em]
 
 text-[#f5f7ff]
 
@@ -125,11 +132,18 @@ to-[#05070c]
 `;
 
 const gamePreviewDescriptionText = `
-px-8
+px-4
+lg:px-8
+py-3
+lg:py-4
+
+text-sm
+lg:text-base
 
 text-center
 
-leading-8
+leading-6
+lg:leading-8
 
 text-[#7f8ea3]
 `;
@@ -157,8 +171,9 @@ flex-1
 w-full
 
 block
+max-h-[60px]
+lg:max-h-[80px]
 
-h-full
 `;
 
 const gamePreviewButton = `
@@ -173,7 +188,11 @@ cursor-pointer
 
 uppercase
 
-tracking-[0.3em]
+text-sm
+lg:text-base
+
+tracking-[0.15em]
+lg:tracking-[0.3em]
 
 font-semibold
 
@@ -193,7 +212,8 @@ shadow-[inset_0_0_18px_rgba(0,0,0,0.8)]
 
 hover:text-[#ffe600]
 hover:border-[#ffe600]
-hover:tracking-[0.35em]
+hover:tracking-[0.2em]
+lg:hover:tracking-[0.35em]
 hover:shadow-[0_0_25px_rgba(0,224,255,0.2)]
 
 active:scale-[0.99]

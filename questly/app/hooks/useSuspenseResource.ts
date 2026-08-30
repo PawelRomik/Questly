@@ -9,8 +9,9 @@ type CacheEntry<T = any> = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const resourceCache = new Map<string, CacheEntry<any>>();
+const L1_TTL_MS = 10 * 60 * 1000; // 10 minut
 
-const DEFAULT_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+const DEFAULT_L2_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 dni
 
 const NAMESPACE = "data:";
 
@@ -51,29 +52,33 @@ async function readThroughRedis<T>(key: string, ttlMs: number, fetcher: () => Pr
 	return data;
 }
 
-export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, ttlMs: number = DEFAULT_TTL_MS): T {
-	const cacheKey = namespacedKey(key);
-
+function ensureEntry<T>(cacheKey: string, fetcher: () => Promise<T>, l2TtlMs: number): CacheEntry<T> {
 	let entry = resourceCache.get(cacheKey) as CacheEntry<T> | undefined;
 
 	const isExpired = !!entry && entry.status !== "pending" && Date.now() > entry.expiresAt;
 
 	if (!entry || isExpired) {
-		const promise = readThroughRedis(cacheKey, ttlMs, fetcher)
+		const promise = readThroughRedis(cacheKey, l2TtlMs, fetcher)
 			.then((data) => {
 				entry!.status = "success";
 				entry!.data = data;
-				entry!.expiresAt = Date.now() + ttlMs;
+				entry!.expiresAt = Date.now() + L1_TTL_MS;
 			})
 			.catch((error) => {
 				entry!.status = "error";
 				entry!.error = error;
-				entry!.expiresAt = Date.now() + Math.min(ttlMs, 10_000);
+				entry!.expiresAt = Date.now() + Math.min(L1_TTL_MS, 10_000);
 			});
 
 		entry = { status: "pending", promise, expiresAt: Infinity };
 		resourceCache.set(cacheKey, entry);
 	}
+
+	return entry;
+}
+
+export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, l2TtlMs: number = DEFAULT_L2_TTL_MS): T {
+	const entry = ensureEntry<T>(namespacedKey(key), fetcher, l2TtlMs);
 
 	if (entry.status === "pending") {
 		throw entry.promise;
@@ -85,6 +90,19 @@ export function useSuspenseResource<T>(key: string, fetcher: () => Promise<T>, t
 
 	return entry.data as T;
 }
+
+export async function getCachedResource<T>(key: string, fetcher: () => Promise<T>, l2TtlMs: number = DEFAULT_L2_TTL_MS): Promise<T> {
+	const entry = ensureEntry<T>(namespacedKey(key), fetcher, l2TtlMs);
+
+	await entry.promise;
+
+	if (entry.status === "error") {
+		throw entry.error;
+	}
+
+	return entry.data as T;
+}
+
 export async function invalidateResource(key: string) {
 	const cacheKey = namespacedKey(key);
 

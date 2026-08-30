@@ -80,14 +80,23 @@ export function CompletedProvider({ children }: { children: ReactNode }) {
 			};
 
 			const completedQuests = new Set(existing.quests);
+			const nextMapMarkers = new Set(existing.mapMarkers);
 
-			const toAdd = markers.filter((marker) => marker.questUuid && completedQuests.has(marker.questUuid)).map((marker) => marker.uuid);
+			for (const marker of markers) {
+				if (!marker.questUuid) continue;
+
+				if (completedQuests.has(marker.questUuid)) {
+					nextMapMarkers.add(marker.uuid);
+				} else {
+					nextMapMarkers.delete(marker.uuid);
+				}
+			}
 
 			return {
 				...prev,
 				[game]: {
 					...existing,
-					mapMarkers: [...new Set([...existing.mapMarkers, ...toAdd])]
+					mapMarkers: [...nextMapMarkers]
 				}
 			};
 		});

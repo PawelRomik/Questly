@@ -16,6 +16,8 @@ import { useDebounce } from "@/app/lib/utils/useDebounce";
 import { useMemo } from "react";
 import { useCompleted } from "@/app/context/CompletedContext";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { SectionExpandProvider } from "@/app/context/SectionExpandContext";
+import { ExpandCollapseAllButtons } from "@/app/components/section/ExpandCollapseAllButtons";
 
 type Props = {
 	game: string;
@@ -92,8 +94,11 @@ export default function QuestList({ game }: Props) {
 	);
 
 	return (
-		<div className={theme.list()}>
-			<QuestTreeRenderer game={game} nodes={tree} sort={sort} />
-		</div>
+		<SectionExpandProvider>
+			<div className={theme.list()}>
+				<ExpandCollapseAllButtons />
+				<QuestTreeRenderer game={game} nodes={tree} sort={sort} />
+			</div>
+		</SectionExpandProvider>
 	);
 }

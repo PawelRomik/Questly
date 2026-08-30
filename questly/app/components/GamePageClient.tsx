@@ -19,8 +19,9 @@ import CollectionListSkeleton from "@/app/components/collection/CollectionListSk
 import FiltersSkeleton from "@/app/components/filters/FiltersSkeleton";
 
 import ContentBoundary from "@/app/components/ContentBoundary";
-import { Game } from "@/app/types/quest";
 import QuestModalRoot from "@/app/components/quest-modal/QuestModalRoot";
+import AchievementModalRoot from "@/app/components/achievement/modal/AchievementModalRoot";
+import { Game } from "@/app/types/quest";
 
 type Props = {
 	game: Game;
@@ -112,7 +113,7 @@ export default function GamePageClient({ game }: Props) {
 					className={`
 			flex
 			flex-col
-			h-full
+			h-dvh
 			overflow-y-scroll
 			md:overflow-y-hidden
 			p-0 
@@ -159,9 +160,9 @@ export default function GamePageClient({ game }: Props) {
 
 					<div
 						className={`
-				md:w-full md:overflow-y-hidden h-full overflow-y-scroll
+				md:w-full md:overflow-y-hidden h-dvh overflow-y-scroll
 				transition-opacity duration-200
-				flex md:items-center md:justify-center items-start justify-center md:py-0 pb-3 pt-10
+				flex md:items-center md:justify-center items-start justify-center md:py-0 py-10
 				${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
 			`}
 					>
@@ -211,6 +212,7 @@ export default function GamePageClient({ game }: Props) {
 			</div>
 
 			<QuestModalRoot game={game.slug} />
+			<AchievementModalRoot game={game.slug} />
 		</div>
 	);
 }

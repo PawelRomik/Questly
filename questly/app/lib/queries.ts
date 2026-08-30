@@ -55,7 +55,8 @@ export const GET_ACHIEVEMENTS = gql`
 	query GetAchievements($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
 		achievements(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			title
-			description
+
+			short_desc
 			secret
 			uuid
 			icon
@@ -72,6 +73,25 @@ export const GET_ACHIEVEMENTS = gql`
 			dlc {
 				title
 				uuid
+				color
+				icon
+			}
+		}
+	}
+`;
+
+export const GET_ACHIEVEMENT_BY_UUID = gql`
+	query ($locale: I18NLocaleCode, $uuid: String) {
+		achievements(locale: $locale, filters: { uuid: { eq: $uuid } }) {
+			uuid
+			title
+			short_desc
+			description
+			icon
+			missable
+			secret
+			dlc {
+				title
 				color
 				icon
 			}

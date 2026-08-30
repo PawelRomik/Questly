@@ -1,11 +1,12 @@
-import { DLC, TagType } from "@/app/types/quest";
+import { DLC, Game, TagType } from "@/app/types/quest";
 
 export type AchievementType = {
 	title: string;
+	short_desc: string;
 	description: string;
 	icon: string;
 	missable?: boolean;
-	game: string;
+	game: Game;
 	uuid: string;
 	secret: boolean;
 	dlc?: DLC;

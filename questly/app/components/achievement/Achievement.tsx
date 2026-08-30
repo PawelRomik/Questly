@@ -9,6 +9,7 @@ import { AchievementType } from "@/app/types/achievement";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { HiddenAchievementsOption } from "@/app/components/filters/types";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useActiveAchievement } from "@/app/hooks/useActiveAchievement";
 import { motion } from "framer-motion";
 import { getTheme } from "@/app/lib/utils/getTheme";
 
@@ -24,15 +25,23 @@ export default function Achievement({ achievement, completed, onToggle, game }: 
 	const { filters } = useFilters();
 	const [revealed, setRevealed] = useState(completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL);
 	const { secret, icon } = achievement;
+	const { setActiveAchievementId } = useActiveAchievement();
 
 	const isSecretLocked = secret && !completed;
 
 	const isHidden = isSecretLocked && !revealed;
 
-	const handleReveal = () => {
-		if (isSecretLocked) {
+	// Pierwszy klik na ukryte/sekretne osiągnięcie tylko je odkrywa (jak
+	// dotychczas) - dopiero kolejny klik (gdy już jest odkryte) otwiera modal.
+	// Przycisk "complete" ma własny stopPropagation, więc nigdy nie otworzy
+	// modala przy okazji zaznaczania ukończenia.
+	const handleClick = () => {
+		if (isHidden) {
 			setRevealed(true);
+			return;
 		}
+
+		setActiveAchievementId(achievement.uuid);
 	};
 
 	const handleToggle = (e: React.MouseEvent) => {
@@ -50,7 +59,7 @@ export default function Achievement({ achievement, completed, onToggle, game }: 
 			transition={{ type: "spring", stiffness: 300, damping: 25 }}
 			whileTap={{ scale: 0.97 }}
 			layout
-			onClick={handleReveal}
+			onClick={handleClick}
 		>
 			<div className={theme.achievement(completed)}>
 				{isHidden && <AchievementHidden game={game} />}

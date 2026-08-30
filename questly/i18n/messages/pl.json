@@ -68,7 +68,9 @@
 		"level": "Poziom",
 		"reset": "Resetuj",
 		"other": "Inne",
-		"loading": "Ładowanie"
+		"loading": "Ładowanie",
+		"expandAll": "Rozwiń wszystkie",
+		"collapseAll": "Zwiń wszystkie"
 	},
 	"quests": {
 		"quests": "Zadania",

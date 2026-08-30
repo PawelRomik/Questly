@@ -18,7 +18,6 @@ z-80
 w-[calc(100vw-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
-lg:w-250
 lg:max-w-none
 lg:max-h-none
 overflow-y-auto
@@ -41,7 +40,8 @@ grid
 grid-cols-1
 grid-rows-[auto_auto_auto_auto_auto_auto]
 
-lg:w-250
+lg:w-350
+lg:h-220
 lg:max-w-none
 lg:max-h-none
 lg:overflow-hidden
@@ -154,6 +154,9 @@ const modalDescription = `
 col-1
 row-3
 min-h-[20rem]
+overflow-y-scroll
+[scrollbar-width:thin]
+[scrollbar-color:#6b5a2b_#0d0d0b]
 
 flex
 flex-col

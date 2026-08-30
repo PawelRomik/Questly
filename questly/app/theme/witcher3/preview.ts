@@ -5,13 +5,15 @@
 const gamePreviewBase = `
 w-full
 h-[700px]
+lg:h-[900px]
 
 flex
 flex-col
 
 overflow-hidden
 
-border-3
+border-2
+lg:border-3
 border-[rgb(40,37,28)]
 
 bg-linear-to-b
@@ -30,6 +32,8 @@ const gamePreviewBannerBase = `
 relative
 
 flex-4
+h-full
+bg-no-repeat
 
 flex
 items-center
@@ -61,11 +65,13 @@ flex-col
 items-center
 justify-center
 
-gap-5
+gap-3
+lg:gap-5
 `;
 
 const gamePreviewBannerLogo = `
-h-[120px]
+h-24
+lg:h-[120px]
 w-auto
 
 drop-shadow-[0_0_12px_rgba(0,0,0,0.7)]
@@ -79,15 +85,17 @@ hover:scale-105
 const gamePreviewBannerTitle = `
 lg:text-4xl
 
-text-xl
+
+text-2xl
 
 font-bold
 
 uppercase
 text-center
 
-tracking-widest
 
+tracking-[0.12em]
+lg:tracking-[0.25em]
 text-[#e6d3a3]
 
 drop-shadow-[0_0_8px_rgba(166,139,91,0.35)]
@@ -111,11 +119,18 @@ to-[#101010]
 `;
 
 const gamePreviewDescriptionText = `
-px-8
+px-4
+lg:px-8
+py-3
+lg:py-4
+
+text-sm
+lg:text-base
 
 text-center
 
-leading-7
+leading-6
+lg:leading-8
 
 text-[#a68b5b]
 `;
@@ -144,7 +159,9 @@ w-full
 
 block
 
-h-full
+max-h-[60px]
+lg:max-h-[80px]
+
 `;
 
 const gamePreviewButton = `
@@ -159,7 +176,11 @@ cursor-pointer
 
 uppercase
 
-tracking-[0.3em]
+text-sm
+lg:text-base
+
+tracking-[0.15em]
+lg:tracking-[0.3em]
 
 font-semibold
 
@@ -181,6 +202,8 @@ hover:text-[#f3dfb3]
 hover:border-[#6f6445]
 hover:from-[#30271b]
 hover:to-[#141414]
+hover:tracking-[0.2em]
+lg:hover:tracking-[0.35em]
 
 active:scale-[0.995]
 `;

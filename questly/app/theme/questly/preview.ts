@@ -5,13 +5,15 @@
 const gamePreviewBase = `
 w-full
 h-[700px]
+lg:h-[900px]
 
 flex
 flex-col
 
 overflow-hidden
 
-border-3
+border-2
+lg:border-3
 border-white/10
 
 bg-linear-to-b
@@ -28,7 +30,7 @@ duration-200
 
 const gamePreviewBannerBase = `
 relative
-
+h-full
 flex-4
 
 flex
@@ -37,6 +39,7 @@ justify-center
 
 bg-cover
 bg-center
+bg-no-repeat
 
 overflow-hidden
 
@@ -61,11 +64,13 @@ flex-col
 items-center
 justify-center
 
-gap-5
+gap-3
+lg:gap-5
 `;
 
 const gamePreviewBannerLogo = `
-h-[120px]
+h-24
+lg:h-[120px]
 w-auto
 
 opacity-95
@@ -79,14 +84,17 @@ hover:scale-105
 const gamePreviewBannerTitle = `
 lg:text-4xl
 
-text-xl
+
+text-2xl
 
 font-bold
 
 uppercase
 text-center
 
-tracking-widest
+
+tracking-[0.12em]
+lg:tracking-[0.25em]
 
 text-white
 
@@ -111,11 +119,18 @@ to-[#0a0a0a]
 `;
 
 const gamePreviewDescriptionText = `
-px-8
+px-4
+lg:px-8
+py-3
+lg:py-4
+
+text-sm
+lg:text-base
 
 text-center
 
-leading-7
+leading-6
+lg:leading-8
 
 text-white/55
 `;
@@ -143,8 +158,9 @@ flex-1
 w-full
 
 block
+max-h-[60px]
+lg:max-h-[80px]
 
-h-full
 `;
 
 const gamePreviewButton = `
@@ -159,7 +175,11 @@ cursor-pointer
 
 uppercase
 
-tracking-[0.3em]
+text-sm
+lg:text-base
+
+tracking-[0.15em]
+lg:tracking-[0.3em]
 
 font-semibold
 
@@ -180,6 +200,8 @@ hover:border-white/20
 hover:bg-linear-to-b
 hover:from-[#222222]
 hover:to-[#121212]
+hover:tracking-[0.2em]
+lg:hover:tracking-[0.35em]
 
 active:scale-[0.995]
 `;

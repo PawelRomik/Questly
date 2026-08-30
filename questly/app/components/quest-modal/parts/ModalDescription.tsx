@@ -1,9 +1,8 @@
-import ReactMarkdown from "react-markdown";
-
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { useTranslations } from "next-intl";
 import FixedImage from "@/app/components/common/FixedImage";
+import { RichDescription } from "@/app/components/common/RichDescription";
 
 type Props = {
 	desc: string;
@@ -22,7 +21,8 @@ export function ModalDescription({ desc, game }: Props) {
 				<p style={{ color: missable_color }}>{t("tags.missable")}</p>
 			</div>
 
-			<ReactMarkdown>{desc}</ReactMarkdown>
+			<RichDescription desc={desc} />
+			<RichDescription desc={desc} />
 		</div>
 	);
 }
