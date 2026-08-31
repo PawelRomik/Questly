@@ -3,7 +3,8 @@
 		"achievements": "Osiągnięcia",
 		"hidden": "Ukryte osiągnięcie",
 		"hiddenClick": "Ukryte - kliknij, aby odkryć",
-		"icon": "Ikona {title}"
+		"icon": "Ikona {title}",
+		"unnamed": "Osiągnięcie bez nazwy"
 	},
 	"collections": {
 		"collectibles": "Kolekcje",

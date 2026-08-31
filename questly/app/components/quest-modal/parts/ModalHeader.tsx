@@ -18,7 +18,7 @@ export function ModalHeader({ quest, game }: Props) {
 
 			<div>
 				<div className={theme.header.title.wrapper()}>
-					<h2 className={theme.header.title.base()}>{quest.title ?? "Unnamed Quest"}</h2>
+					<h2 className={theme.header.title.base()}>{quest.title ?? t("quests.unnamed")}</h2>
 					{quest.dlc && <FixedImage src={quest.dlc?.icon} alt={t("tags.dlc")} className={theme.header.title.image()} />}
 				</div>
 

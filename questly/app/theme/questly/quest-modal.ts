@@ -17,9 +17,10 @@ top-1/2
 -translate-x-1/2
 -translate-y-1/2
 
-z-80
+z-400
 
 w-[calc(100vw-1rem)]
+h-[calc(100dvh-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
 
@@ -73,7 +74,7 @@ const questModalOverlay = `
 fixed
 inset-0
 
-z-30
+z-300
 
 bg-black/75
 
@@ -566,7 +567,7 @@ object-cover
 const modalMapModalContainer = `
 relative
 
-h-[600px]
+h-full
 w-[1000px]
 `;
 

@@ -446,7 +446,9 @@ opacity-60
 hover:opacity-80
 hover:border-white/25
 
-bg-[#101010]
+bg-linear-to-b
+from-[#404040]
+to-[#202020]
 
 lg:flex
 lg:items-center

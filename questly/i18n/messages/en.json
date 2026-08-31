@@ -3,7 +3,8 @@
 		"achievements": "Achievements",
 		"hidden": "Hidden Achievement",
 		"hiddenClick": "Hidden - Click to reveal",
-		"icon": "{title} icon"
+		"icon": "{title} icon",
+		"unnamed": "Unnamed Achievement"
 	},
 	"collections": {
 		"collectibles": "Collections",

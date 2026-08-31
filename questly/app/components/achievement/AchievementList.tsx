@@ -22,6 +22,7 @@ import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 import { getTheme } from "@/app/lib/utils/getTheme";
 import { SectionExpandProvider } from "@/app/context/SectionExpandContext";
 import { ExpandCollapseAllButtons } from "@/app/components/section/ExpandCollapseAllButtons";
+import { RevealedAchievementsProvider } from "@/app/context/RevealedAchievementContext";
 
 type Props = {
 	game: string;
@@ -48,9 +49,6 @@ export default function AchievementList({ game }: Props) {
 	});
 	const debouncedSearch = useDebounce(search, 250);
 
-	// Debounce ma sens tylko przy pisaniu. Gdy `search` jest już puste (np. po
-	// kliknięciu w tag, które ustawia search+searchTags atomowo w jednym
-	// setFilters), nie ma powodu czekać 250ms.
 	const effectiveSearch = search === "" ? "" : debouncedSearch;
 
 	const searchedAchievements = useFuzzySearch({
@@ -105,29 +103,31 @@ export default function AchievementList({ game }: Props) {
 	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon, missables, completed, dlc]);
 
 	return (
-		<SectionExpandProvider>
-			<div className={theme.root()}>
-				<ExpandCollapseAllButtons />
+		<RevealedAchievementsProvider>
+			<SectionExpandProvider>
+				<div className={theme.root()}>
+					<ExpandCollapseAllButtons game={game} />
 
-				{grouped.map((group) => {
-					const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
-					const icon = search ? search_icon : group.icon || achievement_icon;
+					{grouped.map((group) => {
+						const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
+						const icon = search ? search_icon : group.icon || achievement_icon;
 
-					return (
-						<Section game={game} key={group.title} title={group.title} count={group.items.length} completed={completedCount} icon={icon}>
-							{group.items.map((achievement) => (
-								<Achievement
-									game={game}
-									key={`${achievement.uuid}-${filters.hiddenAchievements}`}
-									achievement={achievement}
-									completed={completedSet.has(achievement.uuid)}
-									onToggle={() => toggle(achievement.uuid)}
-								/>
-							))}
-						</Section>
-					);
-				})}
-			</div>
-		</SectionExpandProvider>
+						return (
+							<Section game={game} key={group.title} title={group.title} count={group.items.length} completed={completedCount} icon={icon}>
+								{group.items.map((achievement) => (
+									<Achievement
+										game={game}
+										key={`${achievement.uuid}-${filters.hiddenAchievements}`}
+										achievement={achievement}
+										completed={completedSet.has(achievement.uuid)}
+										onToggle={() => toggle(achievement.uuid)}
+									/>
+								))}
+							</Section>
+						);
+					})}
+				</div>
+			</SectionExpandProvider>
+		</RevealedAchievementsProvider>
 	);
 }

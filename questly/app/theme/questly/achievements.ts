@@ -53,8 +53,30 @@ shadow-[0_0_20px_rgba(0,0,0,0.45)]
 hover:-translate-y-0.5
 hover:scale-[1.01]
 
-${completed ? "border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.06)] opacity-70" : "border-white/10 hover:border-white/20"}
+${
+	completed
+		? `
+border-white/15
 
+opacity-60
+
+hover:opacity-80
+hover:border-white/25
+
+bg-linear-to-b
+from-[#404040]
+to-[#202020]
+
+
+`
+		: `
+border-white/10
+
+hover:border-white/20
+hover:scale-[1.01]
+
+`
+}
 lg:flex
 lg:items-center
 lg:gap-4
@@ -73,6 +95,7 @@ z-80
 w-[calc(100vw-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
+h-[calc(100dvh-1rem)]
 lg:max-w-none
 lg:max-h-none
 overflow-y-auto
@@ -148,16 +171,25 @@ text-white
 
 truncate`;
 
+const achievementModalDlc = `
+h-3
+lg:h-4
+
+w-auto
+
+shrink-0`;
+
 const achievementModalDescription = `col-1
 row-3
 overflow-y-scroll
 [scrollbar-width:thin]
 [scrollbar-color:#555_#0d0d0d]
 min-h-[20rem]
-
+	flex-1
 flex
 flex-col
 gap-3
+break-all
 
 p-3
 lg:p-3
@@ -511,6 +543,7 @@ export const achievementStyles = {
 		base: () => achievementModal,
 		header: {
 			base: () => achievementHeaderBase,
+			dlc: () => achievementModalDlc,
 			icon: () => achievementModalIcon,
 			title: () => achievementModalTitle
 		},

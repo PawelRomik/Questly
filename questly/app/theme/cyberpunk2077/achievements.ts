@@ -36,40 +36,54 @@ overflow-hidden
 transition-all
 duration-200
 border
+shadow-[0_0_25px_rgba(0,0,0,0.8)]
 ${
 	completed
 		? `
-    bg-linear-to-b
-    from-[#10131d]
-    via-[#090b12]
-    to-[#05070c]
-  `
+      bg-linear-to-b
+      from-[#0c1018]
+      via-[#090b12]
+      to-[#05070c]
+    `
 		: `
-    bg-linear-to-b
-    from-[#1d1015]
-    via-[#12090d]
-    to-[#0b0508]
-  `
+      bg-linear-to-b
+      from-[#1d1015]
+      via-[#12090d]
+      to-[#0b0508]
+    `
 }
 ${rajdhani.className}
+${
+	completed
+		? `
+      border-[#00e0ff]/50
+      opacity-75
+      hover:border-[#00e0ff]
+      shadow-[0_0_30px_rgba(0,224,255,0.18)]
+      before:absolute
+      before:inset-0
+      before:bg-[linear-gradient(120deg,transparent,rgba(0,224,255,0.04),transparent)]
+      lg:flex
+      lg:items-center
+      lg:gap-4
+    `
+		: `
+      border-[#ff204e]/40
+      hover:border-[#00e0ff]
+      hover:scale-[1.015]
+      shadow-[0_0_30px_rgba(255,32,78,0.12)]
+      lg:flex
+      lg:items-center
+      lg:gap-4
+    `
+}
+
 backdrop-blur-md
 shadow-[0_0_24px_rgba(0,0,0,0.75)]
 hover:translate-x-1
 hover:-translate-y-0.5
 hover:scale-[1.01]
-${
-	completed
-		? `
-      border-[#00e0ff]/50
-      shadow-[0_0_28px_rgba(0,224,255,0.18)]
-      hover:border-[#00e0ff]
-    `
-		: `
-      border-[#ff204e]/35
-      hover:border-[#00e0ff]
-      shadow-[0_0_20px_rgba(255,32,78,0.12)]
-    `
-}
+
 lg:flex
 lg:items-center
 lg:gap-4
@@ -88,6 +102,7 @@ z-80
 w-[calc(100vw-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
+h-[calc(100dvh-1rem)]
 lg:max-w-none
 lg:max-h-none
 overflow-y-auto
@@ -174,6 +189,14 @@ tracking-widest
 
 truncate`;
 
+const achievementModalDlc = `
+h-3
+lg:h-4
+
+w-auto
+
+shrink-0`;
+
 const achievementModalDescription = `col-1
 row-3
 min-h-[20rem]
@@ -184,6 +207,8 @@ overflow-y-scroll
 flex
 flex-col
 gap-3
+flex-1
+break-all
 
 p-3
 lg:p-3
@@ -605,7 +630,7 @@ drop-shadow-[0_0_8px_rgba(0,224,255,0.8)]
 		: `
 text-[#ff204e]
 
-opacity-80
+opacity-0
 scale-90
 `
 }`;
@@ -647,6 +672,7 @@ export const achievementStyles = {
 		base: () => achievementModal,
 		header: {
 			base: () => achievementHeaderBase,
+			dlc: () => achievementModalDlc,
 			icon: () => achievementModalIcon,
 			title: () => achievementModalTitle
 		},

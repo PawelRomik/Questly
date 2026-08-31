@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { AchievementButton } from "@/app/components/achievement/content/AchievementButton";
 import { AchievementContent } from "@/app/components/achievement/content/AchievementContent";
 import { AchievementImage } from "@/app/components/achievement/image/AchievementImage";
@@ -10,8 +9,10 @@ import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { HiddenAchievementsOption } from "@/app/components/filters/types";
 import { useFilters } from "@/app/context/FiltersContext";
 import { useActiveAchievement } from "@/app/hooks/useActiveAchievement";
+
 import { motion } from "framer-motion";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { useRevealedAchievements } from "@/app/context/RevealedAchievementContext";
 
 type Props = {
 	achievement: AchievementType;
@@ -23,21 +24,19 @@ type Props = {
 export default function Achievement({ achievement, completed, onToggle, game }: Props) {
 	const theme = getTheme("achievement", game);
 	const { filters } = useFilters();
-	const [revealed, setRevealed] = useState(completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL);
+	const { isRevealed, reveal } = useRevealedAchievements();
 	const { secret, icon } = achievement;
 	const { setActiveAchievementId } = useActiveAchievement();
+
+	const revealed = completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL || isRevealed(achievement.uuid);
 
 	const isSecretLocked = secret && !completed;
 
 	const isHidden = isSecretLocked && !revealed;
 
-	// Pierwszy klik na ukryte/sekretne osiągnięcie tylko je odkrywa (jak
-	// dotychczas) - dopiero kolejny klik (gdy już jest odkryte) otwiera modal.
-	// Przycisk "complete" ma własny stopPropagation, więc nigdy nie otworzy
-	// modala przy okazji zaznaczania ukończenia.
 	const handleClick = () => {
 		if (isHidden) {
-			setRevealed(true);
+			reveal(achievement.uuid);
 			return;
 		}
 

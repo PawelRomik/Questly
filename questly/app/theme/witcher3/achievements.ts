@@ -62,10 +62,28 @@ ${
 	completed
 		? `
 border-[#1f6b2b]
-shadow-[0_0_25px_rgba(0,255,100,0.15)]
+
+bg-linear-to-b
+from-[#0f2a14]
+to-[#07150a]
+
+opacity-65
+
+scale-95
+
+hover:scale-100
+
+inset-shadow-[0_0_25px_rgba(0,255,100,0.15)]
+
+hover:border-[#2fa34a]
 `
 		: `
 border-[rgb(40,37,28)]
+
+hover:scale-[1.01]
+
+
+
 `
 }
 `;
@@ -83,6 +101,7 @@ z-80
 w-[calc(100vw-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
+h-[calc(100dvh-1rem)]
 lg:max-w-none
 lg:max-h-none
 overflow-y-auto
@@ -151,6 +170,14 @@ text-white
 
 truncate`;
 
+const achievementModalDlc = `
+h-3
+lg:h-4
+
+w-auto
+
+shrink-0`;
+
 const achievementModalDescription = `
 min-h-[20rem]
 [scrollbar-width:thin]
@@ -160,6 +187,7 @@ flex-col
 overflow-y-scroll
 flex-1
 gap-3
+break-all
 
 p-3
 lg:p-4
@@ -549,6 +577,7 @@ export const achievementStyles = {
 		base: () => achievementModal,
 		header: {
 			base: () => achievementHeaderBase,
+			dlc: () => achievementModalDlc,
 			icon: () => achievementModalIcon,
 			title: () => achievementModalTitle
 		},

@@ -21,8 +21,7 @@ export function ModalDescription({ desc, game }: Props) {
 				<p style={{ color: missable_color }}>{t("tags.missable")}</p>
 			</div>
 
-			<RichDescription desc={desc} />
-			<RichDescription desc={desc} />
+			<RichDescription desc={desc ?? ""} />
 		</div>
 	);
 }

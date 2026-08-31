@@ -96,7 +96,7 @@ export default function QuestList({ game }: Props) {
 	return (
 		<SectionExpandProvider>
 			<div className={theme.list()}>
-				<ExpandCollapseAllButtons />
+				<ExpandCollapseAllButtons game={game} />
 				<QuestTreeRenderer game={game} nodes={tree} sort={sort} />
 			</div>
 		</SectionExpandProvider>

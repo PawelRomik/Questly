@@ -26,8 +26,6 @@ export default function Section({ title, count, level = 0, icon, children, compl
 	const sectionExpand = useSectionExpand();
 	const command = sectionExpand?.command ?? null;
 
-	// Reaguje tylko na ZMIANĘ komendy (version), nie na każdy render - dzięki
-	// temu to jednorazowe nadpisanie stanu, a nie stała kontrola z zewnątrz.
 	useEffect(() => {
 		if (command) {
 			setOpen(command.open);
