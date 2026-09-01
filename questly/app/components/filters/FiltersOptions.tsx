@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import FilterSelect from "./FilterSelect";
 import { Filters } from "./types";
 import getFilterConfig, { Page } from "@/app/lib/utils/getFilterConfig";
@@ -36,9 +36,7 @@ export function FiltersOptions({ isLocked, update, game }: Props) {
 		game: gameParam
 	});
 
-	const searchParams = useSearchParams();
-
-	const mapLocation = searchParams.get("mapLocation");
+	const { mapLocation } = filters;
 
 	const selectedLocation = locationData?.locations.find(({ uuid }) => uuid === mapLocation);
 

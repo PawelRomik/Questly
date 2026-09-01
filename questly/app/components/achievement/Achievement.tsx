@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { AchievementButton } from "@/app/components/achievement/content/AchievementButton";
 import { AchievementContent } from "@/app/components/achievement/content/AchievementContent";
 import { AchievementImage } from "@/app/components/achievement/image/AchievementImage";
@@ -9,8 +8,11 @@ import { AchievementType } from "@/app/types/achievement";
 import { useGameAssets } from "@/app/context/GameAssetsProvider";
 import { HiddenAchievementsOption } from "@/app/components/filters/types";
 import { useFilters } from "@/app/context/FiltersContext";
+import { useActiveAchievement } from "@/app/hooks/useActiveAchievement";
+
 import { motion } from "framer-motion";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { useRevealedAchievements } from "@/app/context/RevealedAchievementContext";
 
 type Props = {
 	achievement: AchievementType;
@@ -22,17 +24,23 @@ type Props = {
 export default function Achievement({ achievement, completed, onToggle, game }: Props) {
 	const theme = getTheme("achievement", game);
 	const { filters } = useFilters();
-	const [revealed, setRevealed] = useState(completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL);
+	const { isRevealed, reveal } = useRevealedAchievements();
 	const { secret, icon } = achievement;
+	const { setActiveAchievementId } = useActiveAchievement();
+
+	const revealed = completed || filters.hiddenAchievements === HiddenAchievementsOption.REVEAL || isRevealed(achievement.uuid);
 
 	const isSecretLocked = secret && !completed;
 
 	const isHidden = isSecretLocked && !revealed;
 
-	const handleReveal = () => {
-		if (isSecretLocked) {
-			setRevealed(true);
+	const handleClick = () => {
+		if (isHidden) {
+			reveal(achievement.uuid);
+			return;
 		}
+
+		setActiveAchievementId(achievement.uuid);
 	};
 
 	const handleToggle = (e: React.MouseEvent) => {
@@ -50,7 +58,7 @@ export default function Achievement({ achievement, completed, onToggle, game }: 
 			transition={{ type: "spring", stiffness: 300, damping: 25 }}
 			whileTap={{ scale: 0.97 }}
 			layout
-			onClick={handleReveal}
+			onClick={handleClick}
 		>
 			<div className={theme.achievement(completed)}>
 				{isHidden && <AchievementHidden game={game} />}

@@ -20,6 +20,9 @@ import { useDebounce } from "@/app/lib/utils/useDebounce";
 import { CompletedOption, MissableOption } from "@/app/components/filters/types";
 import { sortAchievements } from "@/app/lib/utils/sortAchievements";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { SectionExpandProvider } from "@/app/context/SectionExpandContext";
+import { ExpandCollapseAllButtons } from "@/app/components/section/ExpandCollapseAllButtons";
+import { RevealedAchievementsProvider } from "@/app/context/RevealedAchievementContext";
 
 type Props = {
 	game: string;
@@ -100,25 +103,31 @@ export default function AchievementList({ game }: Props) {
 	}, [search, sortedAchievements, t, groupByQuestGroup, locale, search_icon, missables, completed, dlc]);
 
 	return (
-		<div className={theme.root()}>
-			{grouped.map((group) => {
-				const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
-				const icon = search ? search_icon : group.icon || achievement_icon;
+		<RevealedAchievementsProvider>
+			<SectionExpandProvider>
+				<div className={theme.root()}>
+					<ExpandCollapseAllButtons game={game} />
 
-				return (
-					<Section game={game} key={group.title} title={group.title} count={group.items.length} completed={completedCount} icon={icon}>
-						{group.items.map((achievement) => (
-							<Achievement
-								game={game}
-								key={`${achievement.uuid}-${filters.hiddenAchievements}`}
-								achievement={achievement}
-								completed={completedSet.has(achievement.uuid)}
-								onToggle={() => toggle(achievement.uuid)}
-							/>
-						))}
-					</Section>
-				);
-			})}
-		</div>
+					{grouped.map((group) => {
+						const completedCount = group.items.filter((a) => completedSet.has(a.uuid)).length;
+						const icon = search ? search_icon : group.icon || achievement_icon;
+
+						return (
+							<Section game={game} key={group.title} title={group.title} count={group.items.length} completed={completedCount} icon={icon}>
+								{group.items.map((achievement) => (
+									<Achievement
+										game={game}
+										key={`${achievement.uuid}-${filters.hiddenAchievements}`}
+										achievement={achievement}
+										completed={completedSet.has(achievement.uuid)}
+										onToggle={() => toggle(achievement.uuid)}
+									/>
+								))}
+							</Section>
+						);
+					})}
+				</div>
+			</SectionExpandProvider>
+		</RevealedAchievementsProvider>
 	);
 }

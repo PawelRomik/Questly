@@ -36,43 +36,336 @@ overflow-hidden
 transition-all
 duration-200
 border
+shadow-[0_0_25px_rgba(0,0,0,0.8)]
 ${
 	completed
 		? `
-    bg-linear-to-b
-    from-[#10131d]
-    via-[#090b12]
-    to-[#05070c]
-  `
+      bg-linear-to-b
+      from-[#0c1018]
+      via-[#090b12]
+      to-[#05070c]
+    `
 		: `
-    bg-linear-to-b
-    from-[#1d1015]
-    via-[#12090d]
-    to-[#0b0508]
-  `
+      bg-linear-to-b
+      from-[#1d1015]
+      via-[#12090d]
+      to-[#0b0508]
+    `
 }
 ${rajdhani.className}
+${
+	completed
+		? `
+      border-[#00e0ff]/50
+      opacity-75
+      hover:border-[#00e0ff]
+      shadow-[0_0_30px_rgba(0,224,255,0.18)]
+      before:absolute
+      before:inset-0
+      before:bg-[linear-gradient(120deg,transparent,rgba(0,224,255,0.04),transparent)]
+      lg:flex
+      lg:items-center
+      lg:gap-4
+    `
+		: `
+      border-[#ff204e]/40
+      hover:border-[#00e0ff]
+      hover:scale-[1.015]
+      shadow-[0_0_30px_rgba(255,32,78,0.12)]
+      lg:flex
+      lg:items-center
+      lg:gap-4
+    `
+}
+
 backdrop-blur-md
 shadow-[0_0_24px_rgba(0,0,0,0.75)]
 hover:translate-x-1
 hover:-translate-y-0.5
 hover:scale-[1.01]
-${
-	completed
-		? `
-      border-[#00e0ff]/50
-      shadow-[0_0_28px_rgba(0,224,255,0.18)]
-      hover:border-[#00e0ff]
-    `
-		: `
-      border-[#ff204e]/35
-      hover:border-[#00e0ff]
-      shadow-[0_0_20px_rgba(255,32,78,0.12)]
-    `
-}
+
 lg:flex
 lg:items-center
 lg:gap-4
+`;
+
+//--ACH----------MODAL------------------
+
+const achievementModal = `
+fixed
+left-1/2
+top-1/2
+-translate-x-1/2
+-translate-y-1/2
+z-80
+
+w-[calc(100vw-1rem)]
+max-w-[calc(100vw-1rem)]
+max-h-[calc(100dvh-1rem)]
+h-[calc(100dvh-1rem)]
+lg:max-w-none
+lg:max-h-none
+overflow-y-auto
+lg:min-h-150
+
+border
+border-[#ff204e]/45
+
+bg-[#090b12]/90
+
+text-[#f5f7ff]
+text-lg
+font-medium
+leading-none
+
+shadow-[inset_0_0_8px_rgba(255,32,78,0.08),0_0_12px_rgba(255,32,78,0.12)]
+
+flex
+flex-col
+
+lg:w-350
+lg:h-220
+lg:max-w-none
+lg:max-h-none
+lg:overflow-hidden
+
+
+`;
+
+const achievementHeaderBase = `col-1
+row-2
+
+flex
+items-center
+
+gap-2
+
+px-3
+py-3
+pr-12
+
+text-lg
+lg:text-xl
+
+uppercase
+
+border-b
+border-[#00e0ff]/30
+
+bg-linear-to-r
+from-[#05070c]
+via-[#111827]
+to-[#05070c]
+
+shadow-[0_0_18px_rgba(0,224,255,0.08)]
+
+lg:col-[2/4]
+lg:row-1
+
+lg:gap-3
+lg:px-4
+lg:py-3
+
+lg:border-3
+
+${rajdhani.className}
+`;
+
+const achievementModalIcon = `w-10
+lg:w-13.75
+
+shrink-0
+
+object-contain
+object-bottom-right`;
+
+const achievementModalTitle = `tracking-wide
+
+text-[#f5f7ff]
+
+uppercase
+
+tracking-widest
+
+truncate`;
+
+const achievementModalDlc = `
+h-3
+lg:h-4
+
+w-auto
+
+shrink-0`;
+
+const achievementModalDescription = `col-1
+row-3
+min-h-[20rem]
+overflow-y-scroll
+[scrollbar-width:thin]
+[scrollbar-color:#ff204e_#05070c]
+
+flex
+flex-col
+gap-3
+flex-1
+break-all
+
+p-3
+lg:p-3
+
+text-sm
+leading-relaxed
+
+border-b
+border-[#ff204e]/20
+
+text-white
+
+lg:col-2
+lg:row-start-3
+lg:row-end-5
+
+lg:border-r
+lg:border-y
+
+${rajdhani.className}
+
+lg:col-2
+lg:row-start-3
+lg:row-end-5
+lg:border-r-3
+lg:border-y-3`;
+
+const achievementModalFooter = `col-1
+row-6
+
+grid
+grid-cols-[1fr_auto]
+grid-rows-[auto_auto]
+items-center
+gap-2
+
+py-2
+md:py-0
+
+border-t
+border-[#00e0ff]/15
+
+bg-black/30
+
+md:grid-cols-[1fr_auto_auto]
+md:grid-rows-1
+
+lg:col-[1/4]
+lg:row-5
+
+lg:gap-4
+lg:pr-2
+lg:py-0`;
+
+const achievementModalCompleteWrapper = `w-5
+h-5
+p-0.5
+shrink-0
+
+flex
+items-center
+justify-center
+
+border
+border-current`;
+
+const achievementModalButton = (completed: boolean) => `
+justify-self-center
+
+row-2
+col-[1/3]
+
+h-15
+w-full
+
+md:row-1
+md:col-start-3
+
+md:w-full
+md:justify-self-end
+
+px-3
+lg:px-5
+
+py-2
+
+flex
+items-center
+justify-center
+gap-2
+
+text-xs
+lg:text-sm
+
+tracking-wide
+
+border
+
+cursor-pointer
+
+transition-all
+duration-200
+
+uppercase
+
+tracking-widest
+
+shadow-[inset_0_0_12px_rgba(0,0,0,0.4)]
+
+${
+	completed
+		? `
+border-[#00e0ff]
+
+bg-linear-to-b
+from-[#07141a]
+to-[#04070c]
+
+text-[#00e0ff]
+
+hover:border-[#ffe600]
+
+shadow-[0_0_18px_rgba(0,224,255,0.18)]
+`
+		: `
+border-[#ff204e]
+
+bg-linear-to-b
+from-[#220812]
+to-[#07070c]
+
+text-[#f5f7ff]
+
+hover:border-[#00e0ff]
+
+shadow-[0_0_18px_rgba(255,32,78,0.14)]
+`
+}
+`;
+
+const achievementModalCompleteIcon = (completed: boolean) => `
+fill-current
+
+${
+	completed
+		? `
+opacity-100
+text-[#00e0ff]
+
+drop-shadow-[0_0_8px_rgba(0,224,255,0.8)]
+`
+		: `
+opacity-0
+`
+}
+
+transition
 `;
 
 // --ACH---------TITLE--------------------
@@ -337,7 +630,7 @@ drop-shadow-[0_0_8px_rgba(0,224,255,0.8)]
 		: `
 text-[#ff204e]
 
-opacity-80
+opacity-0
 scale-90
 `
 }`;
@@ -375,6 +668,22 @@ tracking-widest
 
 export const achievementStyles = {
 	root: () => achievementListContainer,
+	modal: {
+		base: () => achievementModal,
+		header: {
+			base: () => achievementHeaderBase,
+			dlc: () => achievementModalDlc,
+			icon: () => achievementModalIcon,
+			title: () => achievementModalTitle
+		},
+		description: () => achievementModalDescription,
+		footer: () => achievementModalFooter,
+		completed: {
+			button: (completed: boolean) => achievementModalButton(completed),
+			wrapper: () => achievementModalCompleteWrapper,
+			icon: (completed: boolean) => achievementModalCompleteIcon(completed)
+		}
+	},
 
 	achievement: (completed: boolean) => achievementContainer(completed),
 

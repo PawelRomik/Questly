@@ -3,7 +3,8 @@
 		"achievements": "Osiągnięcia",
 		"hidden": "Ukryte osiągnięcie",
 		"hiddenClick": "Ukryte - kliknij, aby odkryć",
-		"icon": "Ikona {title}"
+		"icon": "Ikona {title}",
+		"unnamed": "Osiągnięcie bez nazwy"
 	},
 	"collections": {
 		"collectibles": "Kolekcje",
@@ -68,7 +69,9 @@
 		"level": "Poziom",
 		"reset": "Resetuj",
 		"other": "Inne",
-		"loading": "Ładowanie"
+		"loading": "Ładowanie",
+		"expandAll": "Rozwiń wszystkie",
+		"collapseAll": "Zwiń wszystkie"
 	},
 	"quests": {
 		"quests": "Zadania",

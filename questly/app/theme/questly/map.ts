@@ -23,11 +23,12 @@ bg-transparent!
 
 // --MAP--------------INFO-------------------
 
-const mapInfoContainer = `
+const mapInfoContainer = (type: "col" | "row") => `
 absolute
 
 bottom-[calc(1rem+env(safe-area-inset-bottom))]
 left-1/2
+${type === "col" && "flex-col"}
 
 z-40
 
@@ -69,7 +70,7 @@ tracking-wide
 
 const mapInfoButton = `
 cursor-pointer
-
+mx-auto w-full
 px-3
 py-1.5
 
@@ -101,6 +102,11 @@ w-6
 h-6
 `;
 
+const mapInfoImage = `w-60 h-auto
+`;
+
+const mapInfoDesc = `text-white max-h-30 overflow-y-auto lg:max-h-30 text-sm`;
+
 // --MAP-------------EXPORT------------
 
 export const mapStyles = {
@@ -109,9 +115,11 @@ export const mapStyles = {
 		map: () => mapBase
 	},
 	info: {
-		container: () => mapInfoContainer,
+		container: (type: "row" | "col") => mapInfoContainer(type),
 		title: () => mapInfoTitle,
 		button: () => mapInfoButton,
-		icon: () => mapInfoIcon
+		icon: () => mapInfoIcon,
+		image: () => mapInfoImage,
+		desc: () => mapInfoDesc
 	}
 };

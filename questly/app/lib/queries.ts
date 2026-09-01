@@ -55,7 +55,8 @@ export const GET_ACHIEVEMENTS = gql`
 	query GetAchievements($game: String!, $locale: I18NLocaleCode, $pagination: PaginationArg) {
 		achievements(locale: $locale, pagination: $pagination, filters: { game: { slug: { eq: $game } } }) {
 			title
-			description
+
+			short_desc
 			secret
 			uuid
 			icon
@@ -72,6 +73,25 @@ export const GET_ACHIEVEMENTS = gql`
 			dlc {
 				title
 				uuid
+				color
+				icon
+			}
+		}
+	}
+`;
+
+export const GET_ACHIEVEMENT_BY_UUID = gql`
+	query ($locale: I18NLocaleCode, $uuid: String) {
+		achievements(locale: $locale, filters: { uuid: { eq: $uuid } }) {
+			uuid
+			title
+			short_desc
+			description
+			icon
+			missable
+			secret
+			dlc {
+				title
 				color
 				icon
 			}
@@ -238,6 +258,30 @@ export const GET_MAP_MARKERS = gql`
 	}
 `;
 
+export const GET_MAP_MARKER_BY_UUID = gql`
+	query ($uuid: String, $locale: I18NLocaleCode) {
+		mapMarkers(locale: $locale, filters: { uuid: { eq: $uuid } }) {
+			map_icon {
+				uuid
+				icon
+				title
+			}
+			quest {
+				uuid
+				title
+				quest_type {
+					uuid
+					icon
+					name
+				}
+			}
+			uuid
+			image
+			description
+		}
+	}
+`;
+
 export const GET_QUEST_BY_UUID = gql`
 	query ($locale: I18NLocaleCode, $uuid: String) {
 		quests(locale: $locale, filters: { uuid: { eq: $uuid } }) {
@@ -254,6 +298,7 @@ export const GET_QUEST_BY_UUID = gql`
 				uuid
 				quest {
 					title
+					uuid
 					quest_type {
 						icon
 					}

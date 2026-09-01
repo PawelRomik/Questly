@@ -12,8 +12,8 @@ type Props = {
 export default async function MainSection({ selectedGame, isLastUsed }: Props) {
 	const t = await getTranslations("preview");
 	return (
-		<div className='w-full h-full gap-5 lg:px-5  flex-1 flex-col lg:flex-row flex'>
-			<div className='w-full h-full flex gap-3 flex-1 flex-col'>
+		<div className='w-full h-auto gap-5 lg:px-5  flex-1 flex-col lg:flex-row flex'>
+			<div className='w-full h-full flex md:gap-3 flex-1 flex-col'>
 				<Label text={isLastUsed ? t("lastUsed") : t("recommended")} />
 
 				<GamePreview game={selectedGame} />

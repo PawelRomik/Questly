@@ -15,15 +15,13 @@ top-1/2
 -translate-x-1/2
 -translate-y-1/2
 
-z-40
+z-400
 
 w-[calc(100vw-1rem)]
+h-[calc(100dvh-1rem)]
 max-w-[calc(100vw-1rem)]
 max-h-[calc(100dvh-1rem)]
 
-lg:w-250
-lg:max-w-none
-lg:max-h-none
 
 overflow-y-auto
 
@@ -37,7 +35,8 @@ grid
 grid-cols-1
 grid-rows-[auto_auto_auto_auto_auto_auto]
 
-lg:w-250
+lg:w-350
+lg:h-220
 lg:max-w-none
 lg:max-h-none
 lg:overflow-hidden
@@ -73,7 +72,7 @@ lg:w-full
 const questModalOverlay = `
 fixed
 inset-0
-z-30
+z-300
 
 bg-black/85
 
@@ -179,6 +178,9 @@ object-[25%_25%]
 const modalDescription = `
 col-1
 row-3
+overflow-y-scroll
+[scrollbar-width:thin]
+[scrollbar-color:#ff204e_#05070c]
 
 min-h-[20rem]
 
@@ -195,7 +197,7 @@ leading-relaxed
 border-b
 border-[#ff204e]/20
 
-text-[#7f8ea3]
+text-white
 
 lg:col-2
 lg:row-start-3
@@ -600,8 +602,8 @@ object-cover
 const modalMapModalContainer = `
 relative
 
-h-[600px]
-w-[1000px]
+h-full
+w-full
 `;
 
 // --QML-----------MAP-NAV----------

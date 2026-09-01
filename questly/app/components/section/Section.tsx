@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Collapsible } from "radix-ui";
 import { SectionTrigger } from "@/app/components/section/parts/SectionTrigger";
 import { SectionContent } from "@/app/components/section/parts/SectionContent";
 import { StaticImageData } from "next/image";
 import { getTheme } from "@/app/lib/utils/getTheme";
+import { useSectionExpand } from "@/app/context/SectionExpandContext";
 
 type Props = {
 	title: string;
@@ -22,6 +23,15 @@ type Props = {
 export default function Section({ title, count, level = 0, icon, children, completed, game }: Props) {
 	const [open, setOpen] = useState(true);
 	const theme = getTheme("section", game);
+	const sectionExpand = useSectionExpand();
+	const command = sectionExpand?.command ?? null;
+
+	useEffect(() => {
+		if (command) {
+			setOpen(command.open);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [command?.version]);
 
 	const indentStyle = {
 		paddingLeft: `${level * 24}px`
