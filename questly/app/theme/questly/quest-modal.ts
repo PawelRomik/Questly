@@ -568,7 +568,7 @@ const modalMapModalContainer = `
 relative
 
 h-full
-w-[1000px]
+w-full
 `;
 
 // --QML-----------MAP-NAV----------

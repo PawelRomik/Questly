@@ -195,6 +195,7 @@ export default function GameMap({ bigZoom = false, questMarkers, game }: Props) 
 					selectedQuest={!!selectedMarker.quest}
 					title={selectedMarker.quest?.title ?? selectedMarker.map_icon?.title}
 					uuid={selectedMarker.quest?.uuid}
+					markerUuid={selectedMarker.uuid}
 					isQuestMarker={!!questMarkers}
 				/>
 			)}

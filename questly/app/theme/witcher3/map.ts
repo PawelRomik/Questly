@@ -23,10 +23,11 @@ bg-transparent!
 
 // --MAP--------------INFO-------------------
 
-const mapInfoContainer = `
+const mapInfoContainer = (type: "row" | "col") => `
 absolute
 bottom-[calc(1rem+env(safe-area-inset-bottom))]
 left-1/2
+${type === "col" && "flex-col"}
 z-40
 flex
 items-center
@@ -45,6 +46,11 @@ to-[#0f0f0f]
 shadow-[0_0_20px_rgba(0,0,0,0.7)]
 `;
 
+const mapInfoImage = `w-60 h-auto
+`;
+
+const mapInfoDesc = `text-white max-h-30 overflow-y-auto lg:max-h-30 text-sm`;
+
 const mapInfoTitle = `
 whitespace-nowrap
 
@@ -57,7 +63,7 @@ drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]
 
 const mapInfoButton = `
 cursor-pointer
-
+mx-auto w-full
 px-3
 py-1.5
 
@@ -94,9 +100,11 @@ export const mapStyles = {
 		map: () => mapBase
 	},
 	info: {
-		container: () => mapInfoContainer,
+		container: (type: "row" | "col") => mapInfoContainer(type),
 		title: () => mapInfoTitle,
 		button: () => mapInfoButton,
-		icon: () => mapInfoIcon
+		icon: () => mapInfoIcon,
+		image: () => mapInfoImage,
+		desc: () => mapInfoDesc
 	}
 };

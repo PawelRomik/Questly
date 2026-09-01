@@ -18,10 +18,12 @@ w-full
 
 // --MAP--------------INFO-------------------
 
-const mapInfoContainer = `
+const mapInfoContainer = (type: "col" | "row") => `
 absolute
+
 bottom-[calc(1rem+env(safe-area-inset-bottom))]
 left-1/2
+${type === "col" && "flex-col"}
 z-40
 
 flex
@@ -63,36 +65,47 @@ tracking-widest
 
 const mapInfoButton = `
 cursor-pointer
-
+mx-auto w-full
 px-3
 py-1.5
 
 transition-all
 duration-200
 
+border-[#ff003c]
 border
-border-[#00e0ff]/40
 
-bg-linear-to-r
-from-[#0b1a24]
-via-[#0d2430]
-to-[#123447]
+text-white
 
-text-[#00e0ff]
+bg-linear-to-b
+from-[#190707]
+to-[#090b12]
 
-shadow-[0_0_12px_rgba(0,224,255,0.25)]
-
-hover:border-[#00fff0]
-hover:brightness-110
-hover:shadow-[0_0_18px_rgba(0,224,255,0.35)]
+shadow-[0_0_14px_rgba(255,0,60,0.25)]
+shadow-[inset_0_0_10px_rgba(255,0,60,0.12)]
 
 active:brightness-90
+
+transition-all
+duration-200
+
+hover:border-[#00e0ff]
+
+hover:from-[#111827]
+hover:to-[#05070c]
+
+hover:text-[#00e0ff]
 `;
 
 const mapInfoIcon = `
 w-6
 h-6
 `;
+
+const mapInfoImage = `w-60 h-auto
+`;
+
+const mapInfoDesc = `text-white max-h-30 overflow-y-auto lg:max-h-30 text-sm`;
 
 //--MAP-------------EXPORT------------
 
@@ -102,9 +115,11 @@ export const mapStyles = {
 		map: () => mapBase
 	},
 	info: {
-		container: () => mapInfoContainer,
+		container: (type: "row" | "col") => mapInfoContainer(type),
 		title: () => mapInfoTitle,
 		button: () => mapInfoButton,
-		icon: () => mapInfoIcon
+		icon: () => mapInfoIcon,
+		image: () => mapInfoImage,
+		desc: () => mapInfoDesc
 	}
 };

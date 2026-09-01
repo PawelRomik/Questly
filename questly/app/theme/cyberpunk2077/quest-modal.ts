@@ -15,7 +15,7 @@ top-1/2
 -translate-x-1/2
 -translate-y-1/2
 
-z-40
+z-400
 
 w-[calc(100vw-1rem)]
 h-[calc(100dvh-1rem)]
@@ -603,7 +603,7 @@ const modalMapModalContainer = `
 relative
 
 h-full
-w-[1000px]
+w-full
 `;
 
 // --QML-----------MAP-NAV----------

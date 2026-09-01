@@ -258,6 +258,30 @@ export const GET_MAP_MARKERS = gql`
 	}
 `;
 
+export const GET_MAP_MARKER_BY_UUID = gql`
+	query ($uuid: String, $locale: I18NLocaleCode) {
+		mapMarkers(locale: $locale, filters: { uuid: { eq: $uuid } }) {
+			map_icon {
+				uuid
+				icon
+				title
+			}
+			quest {
+				uuid
+				title
+				quest_type {
+					uuid
+					icon
+					name
+				}
+			}
+			uuid
+			image
+			description
+		}
+	}
+`;
+
 export const GET_QUEST_BY_UUID = gql`
 	query ($locale: I18NLocaleCode, $uuid: String) {
 		quests(locale: $locale, filters: { uuid: { eq: $uuid } }) {
@@ -274,6 +298,7 @@ export const GET_QUEST_BY_UUID = gql`
 				uuid
 				quest {
 					title
+					uuid
 					quest_type {
 						icon
 					}

@@ -39,7 +39,6 @@ export function FiltersOptions({ isLocked, update, game }: Props) {
 	const { mapLocation } = filters;
 
 	const selectedLocation = locationData?.locations.find(({ uuid }) => uuid === mapLocation);
-	console.log(locationData, mapLocation);
 
 	if (!["quests", "achievements", "collectibles", "map"].includes(content as string)) return null;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog, VisuallyHidden } from "radix-ui";
+import { useParams } from "next/navigation";
 import { useActiveQuest } from "@/app/hooks/useActiveQuest";
 import { QuestModalLayout } from "@/app/components/quest-modal/QuestModalLayout";
 import { getTheme } from "@/app/lib/utils/getTheme";
@@ -14,8 +15,11 @@ type Props = {
 export default function QuestModalRoot({ game }: Props) {
 	const { activeQuestId, setActiveQuestId } = useActiveQuest();
 	const theme = getTheme("questModal", game);
+	const { content } = useParams<{ content?: string }>();
 
 	const isOpen = !!activeQuestId;
+
+	const hideMap = content === "map";
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={(open) => !open && setActiveQuestId(null)}>
@@ -28,7 +32,7 @@ export default function QuestModalRoot({ game }: Props) {
 					</VisuallyHidden.Root>
 
 					<ContentBoundary fallback={<QuestModalSkeleton />}>
-						<QuestModalLayout game={game} />
+						<QuestModalLayout game={game} hideMap={hideMap} />
 					</ContentBoundary>
 				</Dialog.Content>
 			</Dialog.Portal>
